@@ -1,0 +1,42 @@
+			$(document).foundation();
+			// Filtering of articles and highlight of currently selected filter
+			$(document).ready(function(){
+				var urlhash=location.hash.replace("#","");
+				if(!urlhash){$('div.article').show();}
+				else if(urlhash == 'all') {$('div.article').show();}
+				else {
+					$('div.article').hide();
+					$('div.article.'+urlhash).show();
+					$('dl.sub-nav dd').removeClass('active');
+					$('dl.sub-nav dd a.'+urlhash).parent('dd').addClass('active');
+					}
+				$('.sub-nav a').click(function(){ 
+					var classname=$(this).attr('class');
+					$('div.article').hide();
+					$('div.article.'+classname).show();
+					if(!classname){$('div.article').show();}
+					$('dl.sub-nav dd').removeClass('active');
+					$(this).parent('dd').addClass('active');
+					});
+				});
+				/* You may give each page an identifying name, server, and channel on the next lines. */
+				s.pageName="CHANGE ME"
+				s.server=""
+				s.channel="CHANGE ME"
+				s.hier1="Amfam: CHANGE ME"
+				s.pageType=""
+				s.prop1="" /* Site Search Keywords */
+				s.prop2="" /* #Search Results */
+				s.prop3="" /* Dayparting (Day) */
+				s.prop4="" /* Dayparting (Hour) */
+				s.prop7="" /* Previous Page */
+				s.prop8="" /* Application */
+				s.prop9="english" /* Language */
+				s.prop10="" /* Roll Up Pages */
+				/* E-commerce Variables */
+				s.campaign="" /* Tracking Code */
+				s.eVar27="" /* Previous Page */
+				s.eVar14="" /* DART View Through */
+				s.eVar15="" /* DART Time Since Last Ad Visit */
+				/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+				var s_code=s.t();if(s_code)document.write(s_code)//-->

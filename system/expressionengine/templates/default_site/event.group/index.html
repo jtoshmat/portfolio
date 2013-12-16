@@ -1,0 +1,157 @@
+	<!DOCTYPE html>
+	<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+	<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+	<?php $user = ee()->session->userdata; ?>
+	{embed="event/.header-event"}
+		<body class="events">
+			{embed="global_embeds/.header2"}
+			{embed="global_embeds/.menu-top"}  
+			<div class="row" id="content" role="main">
+				<div class="large-12 large-centered columns">
+					{exp:channel:entries channel="Event" limit="1"}
+						<div class="panel full-event">
+							<div class="ba_events">
+								<a href="{url_title_path='event/'}">
+									<div class="ap-img-wrap big">
+										<div class="event-date">
+											{date_of_event format="%M"} <span>{date_of_event format="%d"}</span>
+										</div>
+										<span>
+											{if image_for_event !=''}
+												<img class='event_image' src="{image_for_event}" alt="{alt_text_for_image_for_event}" />
+											{if:else}
+												<img class='event_image' src="http://ae53674c1338ef56a4c3-1da99be3715259cf218bbe827675f47b.r75.cf2.rackcdn.com/event-{type_of_event}-banner.jpg" alt="{type_of_event}" />
+											{/if}
+										</span>
+									</div>
+								</a>
+								<h1 id="event_title">{title}</h1>
+								<div class="event-meta large-3 columns">
+									{if logged_in}
+										{if webex_title_for_event != ''}
+											<h4>Webex</h4>
+											<h5>{webex_title_for_event}</h5>
+											{if description_of_webex_for_event != ''}
+												<p>{description_of_webex_for_event}</p>
+											{/if}
+											{if webex_link_for_event != ''}
+												<p><a href="{webex_link_for_event}" target="_blank"><img src="http://ae53674c1338ef56a4c3-1da99be3715259cf218bbe827675f47b.r75.cf2.rackcdn.com/hero_webex.jpg" target="_blank" alt="webex media" /></a></p>
+											{/if}
+											{if webex_phone_number_for_event != 0}
+												<p>{webex_phone_number_for_event}</p> 
+											{/if}
+										{/if}
+										{if '{exp:detect_mobile:ismobile}'}
+											{if kalturra_url_full != ''}
+												{embed="global_embeds/player_mobile" video="{kalturra_url_full}"}
+											{/if}
+										{if:else}   
+											{if kalturra_url_full != ''}
+												{embed="global_embeds/player" video="{kalturra_url_full}"}
+											{/if}
+										{/if}
+										{if gplus_hangout_link_for_event != ''}
+											<h4>Google+ Event</h4>
+											<p><a href="{gplus_hangout_link_for_event}">Event Link</a></p>				
+										{/if}
+										{if webcast_url_for_event != ''}
+											<h4>Webcast Event</h4>
+											<p><a href="{webcast_url_for_event}">Event Link</a></p>
+										{/if}
+										{if location_for_event != ''}
+											<h4>Location</h4>
+											<p>{location_for_event}</p>
+											{if notes_for_event_location != ''}
+												<h4>Location Notes</h4>
+												<p>{notes_for_event_location}</p>
+											{/if}
+										{/if}
+									{/if}
+									{if logged_out}
+										{if '{exp:detect_mobile:ismobile}'}
+											{if kalturra_url_teaser != ''}
+												{embed="global_embeds/player_mobile" video="{kalturra_url_teaser}"}
+											{if:else}
+												<a href="{path=login}?tid=bn157" data-reveal-id="login-modal"><img src="http://ae53674c1338ef56a4c3-1da99be3715259cf218bbe827675f47b.r75.cf2.rackcdn.com/hero_anon.jpg" alt="attached media" /></a>
+											{/if}
+										{if:else}   
+											{if kalturra_url_teaser != ''}
+												{embed="global_embeds/player" video="{kalturra_url_teaser}"}
+											{if:else}
+												<a href="{path=login}?tid=bn157" data-reveal-id="login-modal"><img src="http://ae53674c1338ef56a4c3-1da99be3715259cf218bbe827675f47b.r75.cf2.rackcdn.com/hero_anon.jpg" alt="attached media" /></a>
+											{/if}
+										{/if}
+										{if webex_media_url !=''}
+											<div class="panel  webex large-3 columns">
+												<img src="http://ae53674c1338ef56a4c3-1da99be3715259cf218bbe827675f47b.r75.cf2.rackcdn.com/hero_anon.jpg" alt="attached media" />
+												{if webex_title != ''}
+													<h2>{webex_title}</h2>
+												{/if}
+												{if webex_description != ''}
+													<p>{webex_description}</p>
+												{/if}
+											</div>
+										{/if}
+										{if gplus_hangout_link_for_event != ''}
+											<p><a href="{path=login}?tid=bn157" data-reveal-id="login-modal">Login to view the Google+ event link.</a></p>				
+										{/if}
+										{if webcast_url_for_event != ''}
+											<p><a href="{path=login}?tid=bn157" data-reveal-id="login-modal">Login to view the webcast event link.</a></p>
+										{/if}
+										{if location_for_event != ''}
+											<p><a href="{path=login}?tid=bn157" data-reveal-id="login-modal">Login to view the event's location.</a></p>
+										{/if}
+									{/if}
+								</div>
+								<h2>{date_of_event format="%D, %F %d, %Y"} &nbsp; <span class="event-time-title">{start_time_of_event format="%g:%i %A"} - {end_time_of_event format="%g:%i %A"}</span></h2>
+								{if description_of_event != ''}
+									<p>{description_of_event}</p>
+								{/if}
+								{if {current_time format="%z"} < {date_of_event format="%z"}}
+									{if logged_out} 
+										<a id="btn-login" class="button authentication" href="/login?tid=bn157" data-reveal-id="login-modal">Login to RSVP</a>
+									{if:else}
+										<?php
+											$mid = $this->EE->session->userdata('member_id');
+											$eventid = "{entry_id}";
+											$where = "WHERE event_id=$eventid and event_member_id=$mid";
+											$results = ee()->db->query("SELECT * FROM exp_events_members_list $where");
+											if ($results->num_rows() == 0) {
+										?>
+										<div class="rsvp_confirm_popup" style="display:none" id="rsvpconfirm_{entry_id}"></div> 
+										<div id="rsvp_{entry_id}" class="button small rsvp_button">
+											RSVP
+											<span class="memberid" id="{logged_in_member_id}" style="display:none">{logged_in_member_id}</span>
+											<span class="memberemail" id="{logged_in_email}" style="display:none">{logged_in_email}</span>
+											<span class="membername" id="{logged_in_screen_name}" style="display:none">{logged_in_screen_name}</span>
+										</div>
+										<?php
+												}
+											else {
+												echo "<div class='rsvped_already'>Reserved already</div>";
+												}
+										?>
+									{/if}
+								{/if}
+								<!-- AddThis Button BEGIN -->
+								<h4>Share this event:</h4>
+								<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+									<a class="addthis_button_facebook"></a>
+									<a class="addthis_button_twitter"></a>
+									<a class="addthis_button_linkedin"></a>
+									<a class="addthis_button_google_plusone_share"></a>
+									<a class="addthis_button_pinterest_share"></a>
+								</div>
+								<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+								<!-- AddThis Button END -->
+							</div>
+						</div>
+					{/exp:channel:entries}
+				</div>
+			</div>
+			{embed="omniture/event"}
+			{embed="global_embeds/.footer"}
+			{modal-windows}
+			{foundation-footer-includes}
+		</body>
+	</html>

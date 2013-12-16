@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!--[if lt IE 7]><html class="lt-ie9 lt-ie8 lt-ie7" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><![endif]-->
+<!--[if IE 7]><html class="lt-ie9 lt-ie8" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><![endif]-->
+<!--[if IE 8]><html class="lt-ie9" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]-->
+<?php $user = ee()->session->userdata; ?>
+{embed="global_embeds/.header"}
+	<body class="home">
+		{embed="global_embeds/.header2"}
+                {embed="global_embeds/.menu-top"}
+		<div class="row" id="content" role="main">
+			<div class="large-12 large-centered columns">
+				{embed="global_embeds/.myventure"}
+                                {embed="global_embeds/.register-callout"}
+                                {embed="global_embeds/.theme-callout"}
+                                {embed="global_embeds/.articles-grid"}
+                                {embed="global_embeds/.events-row"}
+			</div>
+		</div>
+		{embed="omniture/index"}
+                {embed="global_embeds/.footer"}
+		{modal-windows}
+                {foundation-footer-includes}
+	</body>
+</html>
