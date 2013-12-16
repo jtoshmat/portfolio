@@ -1,0 +1,61 @@
+﻿Saving car query
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch QRF
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	new file:   .buildpath
+#	new file:   .project
+#	new file:   .settings/.jsdtscope
+#	new file:   .settings/org.eclipse.php.core.prefs
+#	new file:   .settings/org.eclipse.php.debug.core.Debug_Process_Preferences.prefs
+#	new file:   .settings/org.eclipse.wst.jsdt.ui.superType.container
+#	new file:   .settings/org.eclipse.wst.jsdt.ui.superType.name
+#	new file:   app/Controller/AutosController.php
+#	modified:   app/Controller/ProspectResponsesController.php
+#	new file:   app/Model/Auto.php
+#	new file:   app/View/Autos/get_autos.ctp
+#	new file:   app/View/Autos/get_make.ctp
+#	new file:   app/View/Autos/get_model.ctp
+#	new file:   app/View/Autos/get_trim.ctp
+#	new file:   app/View/Pages/auto - Copy.ctp
+#	modified:   app/View/Pages/auto.ctp
+#	modified:   app/View/Pages/dev.ctp
+#	modified:   app/View/Pages/formfields.ctp
+#	new file:   app/webroot/img/addcar.gif
+#	modified:   app/webroot/js/main.js
+#	new file:   app/webroot/js/main_july30.js
+#	new file:   backup.cmd
+#	modified:   index.php
+#	modified:   lib/Cake/Test/Case/I18n/I18nTest.php
+#	modified:   lib/Cake/Test/Case/Model/ModelValidationTest.php
+#	modified:   lib/Cake/Test/Case/Model/models.php
+#	modified:   lib/files/QRF Promotional Information.xls
+#	new file:   lib/files/QRF.pdf
+#	new file:   lib/files/import_carquery_csv_file.PNG
+#
+# Changes not staged for commit:
+#   (use "git add/rm <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#   (commit or discard the untracked or modified content in submodules)
+#
+#	deleted:    app/Config/email.php.default
+#	deleted:    app/Model/Shortcut to Model.lnk
+#	deleted:    app/View/Jon/jon.ctp
+#	deleted:    app/View/Pages/agent.ctp
+#	deleted:    app/View/Pages/blank.ctp
+#	deleted:    app/View/Pages/confirmation.ctp
+#	deleted:    app/View/Pages/database.php
+#	deleted:    app/View/Pages/get-product-name.ctp
+#	deleted:    app/View/Pages/medical dental.ctp
+#	deleted:    app/View/Pages/options.ctp
+#	deleted:    app/View/Pages/powersports.ctp
+#	deleted:    app/View/Pages/review.ctp
+#	deleted:    app/View/Pages/test.ctp
+#	deleted:    app/tmp/cache/models/empty
+#	deleted:    app/tmp/cache/persistent/empty
+#	modified:   lib/files/SliderTest (modified content, untracked content)
+#	deleted:    lib/files/~$F tracking requirements 3-26-13.doc
+#
+

@@ -1,0 +1,22 @@
+{
+  "name": "PCICleaner",
+  "version": "0.0.1",
+  "title": "jQuery Credit Card & Socisla security number removing plugin",
+  "author": {
+    "name": "Greg Tarnoff",
+    "email": "gtarnoff@amfam.com"
+  },
+  "licenses": [
+    {
+      "type": "All Rights Reserver 2013 American Family",
+      "url": "http://www.amfam.com"
+    }
+  ],
+  "dependencies": {
+    "jquery": ">=1.0"
+  },
+  "description": "jQuery plugin for removing credit card and social security numbers from inputs and textareas",
+  "keywords": [],
+  "homepage": "",
+  "docs": ""
+}

@@ -1,0 +1,16 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#help {background: url("../img/help-es.png") no-repeat scroll 0 0 transparent;}
+.paging-buttons .next { width:95px;}
+.paging-buttons .next:hover {width:95px;}
+.promotional-offerings .promo-item { height:553px;}
+#add_vehicle {width:130px;}
+.forms .powervehicles label {width: 400px;}
+.forms .product-row-items .farm_liability label, .forms .product-row-items .personal_liability label, .forms .product-row-items .commercial_liability label {height:88px;}
+.forms .product-row-items .personal_liability label {width:94%; padding: 0 7px;}
+.forms .product-row-items .farm_liability label {width:86%; padding: 0px 15px;}
+.forms .product-row-items .medicare_supplement label {width:80%; padding: 0px 23px;}
+.forms .product-row-items li.farm_liability, .forms .product-row-items li.commercial_liability, .forms .product-row-items li.personal_liability {background-position:center 85px;}
+.forms .product-row-items li.farm_liability p, .forms .product-row-items li.commercial_liability p, .forms .product-row-items li.personal_liability p { margin: 68px auto 0;}
+.forms li:last textarea {margin-top:15px;}

@@ -1,0 +1,336 @@
+/* CSS Document */
+@media all and (max-width: 800px){
+
+	/* Aparna */
+	ul.progress-bar {
+		display: none;
+	}
+	fieldset {
+		top: 0;
+	}
+	.content, header, footer {
+		margin: 0;
+	}
+	.page_title h2 {
+		margin: 0.3em 0;
+	}
+	.page_title {
+		height: auto;
+	}
+	.warning {
+		width: auto;
+		left: 0;
+		position:relative;
+		margin: 0 2em;
+	}
+	#header {
+		width: auto;
+		height:82px;
+	}
+	#footer {background: none repeat scroll 0 0 #F8F8F8; padding-top:10px;}
+	#footer p.call a {
+		color: #FFF;
+		text-decoration: none;
+		display:block;
+		font-size: 1.5em;
+	}
+	#footer p.call span {
+		display: none;
+	}
+	#footer p.call {
+		width: 88%;
+		max-width: 30em;
+		height: auto;
+		display: block;
+		background-color: #0e9804;
+		background-image: -moz-linear-gradient(100% 100% 90deg, #0e9804, #87e600);
+		background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#87e600), to(#0e9804));
+		margin: 0 auto;
+		padding: 1em 0;
+		position: relative;
+		text-align:center;
+		color: #000;
+		-moz-border-radius: 1.25em;
+		border-radius: 1.25em;
+		text-decoration: none;
+		cursor:pointer;
+		line-height: 1.8em;
+		font-size:1.3em;
+	}
+	.paging { display: none; }
+	#reference_number {
+		width: 40%;
+		color: #000000;
+		margin-top: -4em;
+		margin-right: 0.5em;
+	}
+
+	.mapdiv, .resultsdiv, #legend {
+		display: none;
+	}
+	#locator .selected{
+		display: block;
+	}
+	#locator { width: 95%; margin-top:0; }
+	.maindiv { width: 100%; }
+	.sidebardiv { width: 100%; height:auto; padding-bottom:0; }
+	.searchdiv { width: 90%; border-radius: 16px 17px 2px 2px; height:auto; }
+	#results { height: auto; overflow:auto;}
+	.sidebarAgentName p { padding:0 !important; }
+	.sideBarPhoneIcon { clear: left; padding: 0 5px 0 25px;}
+	.sidebarAgentName { width: 200px; height: auto;}
+	.sideBarPhoneDiv { height: auto; width:auto; }
+	.sidebarAddress { padding: 0 0 0 1.5em; clear:left; }
+	#scrollbar1 .viewport { height: auto; overflow: scroll;}
+	#scrollbar1 .overview { position: relative; }
+	#scrollbar1 .scrollbar { display: none; }
+	.agentTopDiv { height: 100px; }
+	.sidebarMarker { padding-left: 3px;}
+	#legend { margin-left: 5%; }
+	.mapdiv { width:98%; border-radius: 0 0 16px 16px; clear: left;}
+	#findyouragent .form-container { padding-top: 7px; border-radius: 2em; }
+	.mapView, .listView { display: none; cursor: pointer; clear: left;}
+	.mapView h4, .listView h4 { padding:15px 10px 4px; text-align: center;}
+	#scrollbar1 .overview { top: 0 !important; border-radius: 0 0 16px 16px; }
+	.sidebarAgentDiv:last-child { border-radius: 0 0 16px 16px; }
+	.warning h3 { font-size:1.5em; }
+
+
+	/* Keerthi */
+
+	.form-container{
+		margin:0 auto;
+		width:94%;
+		clear:left;
+		position:relative;
+	}
+	.screenWrapper p {
+		padding:0 1.5em;
+	}
+	.screen {width:95%; float:none;display:block;clear;left; padding-bottom: 7em; }
+
+	.forms ul {
+		width:95%;
+		padding-left:1.2em;
+	}
+	.forms .input-row-items li.auto {
+		background: url("../img/auto_icon.jpg")  no-repeat scroll 0.5em 1em;
+		-webkit-background-size:4em;
+		-moz-background-size: 4em;
+		-o-background-size: 4em;
+		background-size: 4em;
+	}
+	.forms .input-row-items li.homeowners {
+		background: url("../img/homeowners_icon.jpg") no-repeat scroll 0.5em 1em;
+		-webkit-background-size:4.5em;
+		-moz-background-size: 4.5em;
+		-o-background-size: 4.5em;
+		background-size: 4.5em;
+	}
+	.forms .input-row-items li.business {
+		background: url("../img/business_icon.jpg") no-repeat scroll 0.6em -0.3em;
+		-webkit-background-size:4em;
+		-moz-background-size: 4em;
+		-o-background-size: 4em;
+		background-size: 4em;
+	}
+	.forms .input-row-items li.life {
+		background: url("../img/life_icon.jpg") no-repeat scroll 0.5em 0.5em;
+		-webkit-background-size:4em;
+		-moz-background-size:4em;
+		-o-background-size: 4em;
+		background-size: 4em;
+	}
+	.forms .input-row-items li.medical {
+		background: url("../img/medical_icon.jpg") no-repeat scroll 0.5em 0.5em;
+		-webkit-background-size:4em;
+		-moz-background-size:4em;
+		-o-background-size: 4em;
+		background-size: 4em;
+	}
+	.forms .input-row-items li.power {
+		background: url("../img/motorcycle_icon.jpg") no-repeat scroll 0.5em 1em;
+		-webkit-background-size:4.5em;
+		-moz-background-size:4.5em;
+		-o-background-size: 4.5em;
+		background-size: 4.5em;
+	}
+	.forms .input-row-items li.travel {
+		background: url("../img/travel_icon.jpg") no-repeat scroll 0.5em 0.3em;
+		-webkit-background-size:4.5em;
+		-moz-background-size: 4.5em;
+		-o-background-size: 4.5em;
+		background-size: 4.5em;
+	}
+	.forms .input-row-items li.renters {
+		background: url("../img/renters_icon.jpg") no-repeat scroll 0.5em 0.2em;
+		-webkit-background-size:5em;
+		-moz-background-size: 5em;
+		-o-background-size: 5em;
+		background-size: 5em;
+	}
+	.forms .input-row-items li.farm {
+		background: url("../img/farm_icon.jpg") no-repeat scroll 0.5em 1em;
+		-webkit-background-size:4em;
+		-moz-background-size: 4em;
+		-o-background-size: 4em;
+		background-size: 4em;
+	}
+	.forms .input-row-items li.umbrella {
+		background: url("../img/umbrella_icon.jpg") no-repeat scroll 0.5em 1em;
+		-webkit-background-size:4em;
+		-moz-background-size: 4em;
+		-o-background-size: 4em;
+		background-size: 4em;
+	}
+	.uncheck-product{
+		 margin: -3.5em 1em 0 0;
+		 display: block;
+    	 float: right;
+	}
+	.check-product {
+		  margin: -3.5em 1em 0 0;
+		 display: block;
+    	 float: right;
+	}
+	.forms .input-row-items label {
+		width:70%;
+		padding:2em 0 0.5em 5.8em;
+		text-align:left;
+		height: 20px;
+	}
+	.forms .input-row-items li{
+		height:auto;
+		width:70%;
+		padding:0;
+	}
+	.forms li{
+		margin-right:1.4em;
+		padding:5% 0;
+		height:auto;
+	}
+	.forms #tell-us-about-yourself label{width:30%;}
+	.forms #tell-us-about-yourself input{width:60%;}
+	.forms #tell-us-about-yourself #ProspectZipcode {width:60%;}
+	label[for=ProspectZipcode],label[for=ProspectPhoneNumber]{clear:left; margin-top: 2em;}
+
+	.forms #tell-us-about-yourself select {
+		margin: 0 0 0 33%;
+		width: 29%;
+	}
+	.forms #tell-us-about-yourself #ProspectZipcode{
+		margin-top: 2em;
+		float: right;
+	}
+	.forms input:focus{
+		padding-right:10px;
+	}
+
+	#help, .links { display:none;}
+	.copyright{ margin:1em auto; width:80%;}
+	.logo{ width:48%; margin: 0.5em 0 0.5em 0.3em; }
+
+	.forms #tell-us-about-yourself .callme label { width:90px;}
+	.forms #tell-us-about-yourself .callme label.radio { width:30%; margin:0; height:auto; padding-bottom:0; float: right; }
+	.forms #tell-us-about-yourself .callme #ProspectPhoneNumber:focus { padding-right:0px;}
+	.forms #tell-us-about-yourself .callme #ProspectPhoneNumber { padding-right:0; width:55%; margin-top: 2em; margin-right: 0;}
+	.forms #tell-us-about-yourself label.zipcode {margin: 2em 0 0 0;}
+	.forms #tell-us-about-yourself #ProspectBestimetocall { width:52%;}
+	.forms textarea{ padding-right:8px; width:90%;}
+	.forms label { width:auto; height:auto; display:inline-block; }
+	.forms select, .forms #business select,.forms #homeowners select, .forms #renters select { width:5em;}
+	.forms .radio label.radio { height:30px; width:auto; padding: 9px 5px;}
+	input[type="radio"] { background-color:#C0C0C0;vertical-align:text-top; -webkit-border-radius:1.5em; background-size:1em;}
+	input[type="radio"]:checked { background-color:#606060; vertical-align:text-top; -webkit-border-radius:1.5em; background-size:1em;}
+	.forms .product-row-items .uncheck-product, .forms .product-row-items .check-product { float:none; position: absolute; top:0; right:0; margin: 1em 0.5em 0 0; left:auto;}
+	.forms ul.product-row-items { text-align:center;}
+	.forms .product-row-items li { margin: 0.5em auto; width: 94%; height: auto; padding: 0 1em 0 0; clear:left; display:block; }
+	.forms .product-row-items li:last-child { margin: 0.5em auto; }
+	.forms .powervehicles label { width:35%; display: inline-block; }
+	.forms .powervehicles label.description { padding: 1em 0; width:90%;}
+	.forms .powervehicles .vehicle_input,.forms .power_comments textarea { width:90%;}
+	.forms .powervehicles .select_vehicle { margin:0 2.6em 0 0; float:right; }
+	.forms .powervehicles .del_vehicle {  margin:0.2em 0 0 0; float: right; position:absolute; right:0; }
+	#add_vehicle { margin-right:2.5em;}
+	.forms .product-row-items li.term_life, .forms .product-row-items li.whole_life, .forms .product-row-items li.universal_life,
+	.forms .product-row-items li.health, .forms .product-row-items li.dental, .forms .product-row-items li.medicare_supplement,
+	.forms .product-row-items li.trip_cancellation, .forms .product-row-items li.global_medical, .forms .product-row-items li.mexico_auto,
+	.forms .product-row-items li.personal_liability, .forms .product-row-items li.commercial_liability, .forms .product-row-items li.farm_liability {
+		background-position: 0.5em 1.5em;
+		background-size: 4em auto;
+	}
+	.forms .product-row-items label { padding: 0.6em 1.3em 0.5em 5em; text-align: left; }
+	.forms .product-row-items .term_life label, .forms .product-row-items .health label,
+	.forms .product-row-items .dental label, .forms .product-row-items .farm_liability label { padding: 0.6em 0 0.5em 5em; }
+	.forms .product-row-items p { padding: 0 0 10px 5.7em ; text-align: left; width: 73%; margin: -10px 0 0; }
+	.forms .product-row-items .medicare_supplement label { width:70%; padding: 0.6em 0 0.5em 5em;}
+	.forms .product-row-items .trip_cancellation label, .forms .product-row-items .global_medical label, .forms .product-row-items .mexico_auto label { width: 65%;}
+	
+	.forms .product-row-items .farm_liability label, .forms .product-row-items .personal_liability label, .forms .product-row-items .commercial_liability label {height:auto;}
+	.forms .product-row-items .personal_liability label {padding: 0.6em 1.3em 0.5em 5em;}	
+	.forms .product-row-items li.farm_liability p, .forms .product-row-items li.commercial_liability p, .forms .product-row-items li.personal_liability p { margin: -10px 0 0;}
+
+	/* Meet your Agent*/
+	.agent-listing { margin:10px 1em; width:92%;}
+	.agent-listing ul.agent-location { border:none; margin:1.5em 0.4em;}
+	.agent-listing ul.agent-map { clear:left; width:250px; padding:0.1em; margin:2px auto; float:none;}
+	.agent-listing ul.agent-map li { margin:0;}
+	.different_agent{ width:80%;}
+	.agent-location li { margin:0; padding:2% 0;}
+	.thankYou-container{ padding:0; margin:0 auto;}
+	.promotional-offerings .promo-item { width:95%; height:auto; padding-bottom:30px;}
+	.promotional-offerings .promo-item:first-child,.promotional-offerings .promo-item:nth-child(2){ display:none;}
+	.social { display:none;}
+	.agent-office-location{ margin:20px 0 0;}
+	.promotional-offerings .button.agent_website{ margin:36px auto 0 1px; position: relative;}
+	.promotional-offerings #agentinformation h3 { font-size:1.4em; padding:0;}
+	.forms #auto ul .auto11 label{ width:auto !important; clear:left; display:block;}
+	.promotional-offerings #agentinformation { width:auto;}
+	.promo-image { float:none; width:75%; margin:15px auto; line-height:0; position: relative;}
+	.promotional-offerings .promo-image img { float:right; width:100%;}
+	.promotional-offerings .promo-details { display:inline-block; float:left; width:auto;padding-left:2em; margin-top: 10px;}
+	.promotional-offerings .promo-details h3 { font-size:1.8em;}
+	.logo a { height:60px;}
+	#teenssavedriver { margin: 2em 0 0 0;}
+	#thanksyou_social_h3{ display:none;}
+	.thankYou-container p { line-height:1.5em; margin:1.5em auto;}
+	 #add_vehicle:hover{ margin-right:2.5em;}
+	.forms #life label { width:auto; }
+	 .forms #auto .radio label.radio { width:auto;}
+	 .forms #homeowners input { width: 21%; }
+	 .forms #q48 label { width: 40%; }
+	 .confidential_info { width: auto; } /*Aparna's change */
+}
+
+/* Mobile - Landscape and Tablet - Portrait */
+@media all and (min-width: 480px) and (max-width: 800px){
+	.forms .input-row-items label {
+		padding-left:6.5em;
+	}
+	.agent-listing ul.agent-map { width:auto; max-width: 93%; margin: 1em; display:inline-block; }
+	.sideBarPhoneIcon { clear: none; }
+	.agentTopDiv { height:69px;}
+	.sidebarAddress p { padding: 0 !important;}
+	.searchdiv { width: 94%;}
+	.promo-image { float:right; width:35%; margin:15px 15px 15px 0; line-height:0;}
+	.promotional-offerings .promo-image img { float:right; width:100%;}
+	.promotional-offerings .promo-details { display:inline-block; float:left; width:50%;}
+	.forms label, .forms #auto label { width: 70%; }
+	.forms #life label, .forms #travel label, .forms #umbrella label, .forms #travel .radio label.radio { width:auto; }
+	.forms .radio label, .forms #auto .radio label, .forms #travel .radio label { width: 65%; }
+	.forms select, .forms #business select, .forms #homeowners select, .forms #renters select { width:8em;}
+	.forms #tell-us-about-yourself select { margin: 0 0 0 36%; }
+}
+
+/* Mobile - Portrait */
+@media all and (max-width: 360px) and (orientation:portrait){
+	.forms .input-row-items li { width: 90%; }
+	.forms label.zipcode {margin: 0;}
+	.sidebarAddress { padding: 0 0 0 0.5em; }
+	.forms .powervehicles .select_vehicle { width: 9em; }
+	.forms label, .forms #auto label { width: 68%; }
+	.forms #life label, .forms #travel label, .forms #umbrella label { width:auto; }
+	.forms .radio label, .forms #auto .radio label, .forms #travel .radio label { width: 51%; }
+	.forms #farm .radio label, .forms #homeowners .radio label, .forms #travel .radio label.radio { width: auto; }
+	.paging-buttons .next, .paging-buttons .next:hover { width:80px;}
+}
