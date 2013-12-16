@@ -1,0 +1,11 @@
+body {
+	min-height: 100%;
+	overflow: auto;
+	padding-bottom: 8em;
+	position: relative;
+	}
+
+footer li a {
+	color: #428bca !important;
+	text-decoration: none;
+	}
