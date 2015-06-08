@@ -5,7 +5,7 @@ LinkedIn Profile - https://www.linkedin.com/in/toshmatovus
 Zend Certified profile - http://www.zend.com/en/yellow-pages/ZEND019221
 
 <br />
-My sample works
+My sample works, click on - View all of README.md 
 <br />
 *******
 <br />
