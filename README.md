@@ -1,7 +1,10 @@
 My Portfolio <br />
 =========
 LinkedIn Profile - https://www.linkedin.com/in/toshmatovus
-<br /><br />
+<br />
+Zend Certified profile - http://www.zend.com/en/yellow-pages/ZEND019221
+
+<br />
 My sample works
 <br />
 *******
