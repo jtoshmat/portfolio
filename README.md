@@ -21,6 +21,8 @@ Project: The HangIt™ Platform enables app publishers and marketers to electron
 anywhere and have their target customers notified on their smartphones when they get there. HangIt was founded on the principle that mobile location on smartphones changes everything.<br />
 Technical details: LAMP, PHP 5x, MSSQL, Store Procedures, Zend Framework 2, Javascript, CSS3, Jquery, Curl, API and more<br />
 URL: http://hangit.com/<br />
+http://portal.hangit.com/login <br />
+
 Project: Hangit Portal for Merchants and Admin<br />
 Visibility: Public/Internal<br />
 Role: Team Lead and Developer<br />
