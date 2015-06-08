@@ -27,7 +27,7 @@ Role: Team Lead and Developer<br />
 <br />
 *******
 
-Company: <strong>Healthplan Services ServiceLink Onxchage Portal</strong><br />
+Company: <strong>Healthplan Services ServiceLink OnExchage Portal</strong><br />
 Project: ServiceLink℠ combines our staff of professionals and technology enabled business process expertise to effectively manage all aspects of member administration that drive operational efficiencies and to effectively manage costs of on-going operations<br />
 Technical details: LAMP, IBM Z/OS PHP 5x, MySQL, DB2, Zend Framework 2, Javascript, CSS3, Jquery, Curl, API and more<br />
 URL: http://www.healthplan.com/gotoexchange/servicelink/<br />
