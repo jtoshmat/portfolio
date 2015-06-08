@@ -17,7 +17,8 @@ Role: Lead Developer<br />
 *******
 
 Company: <strong>Hangit</strong><br />
-Project: Quote Request Form<br />
+Project: The HangIt™ Platform enables app publishers and marketers to electronically “hang” messages and marketing
+anywhere and have their target customers notified on their smartphones when they get there. HangIt was founded on the principle that mobile location on smartphones changes everything.<br />
 Technical details: LAMP, PHP 5x, MSSQL, Store Procedures, Zend Framework 2, Javascript, CSS3, Jquery, Curl, API and more<br />
 URL: http://hangit.com/<br />
 Project: Hangit Portal for Merchants and Admin
