@@ -1,8 +1,7 @@
 portfolio <br />
 =========
-LinkedIn Profile<br/>
-https://www.linkedin.com/in/toshmatovus
-<br />
+LinkedIn Profile - https://www.linkedin.com/in/toshmatovus
+<br /><br />
 My sample works
 <br />
 *******
