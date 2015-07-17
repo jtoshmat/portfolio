@@ -10,7 +10,7 @@ class UsersController extends BaseController {
     }
 
     public function getRegister() {
-        $this->layout->content = View::make('users.register');
+        $this->layout->content = View::make('register');
     }
 
     public function postCreate() {
@@ -24,9 +24,9 @@ class UsersController extends BaseController {
             $user->password = Hash::make(Input::get('password'));
             $user->save();
 
-            return Redirect::to('users/login')->with('message', 'Thanks for registering!');
+            return Redirect::to('login')->with('message', 'Thanks for registering!');
         } else {
-            return Redirect::to('users/register')->with('message', 'The following errors occurred')->withErrors($validator)->withInput();
+            return Redirect::to('register')->with('message', 'The following errors occurred')->withErrors($validator)->withInput();
         }
     }
 
@@ -39,7 +39,7 @@ class UsersController extends BaseController {
             return Redirect::to('users/dashboard')->with('message', 'You are now logged in!');
         } else {
             return Redirect::to('users/login')
-                ->with('message', 'Your username/password combination was incorrect')
+                ->with('message', 'Your username/password combination was incorrect 2')
                 ->withInput();
         }
     }

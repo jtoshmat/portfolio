@@ -44,7 +44,7 @@ Route::post('login', function () {
         
         // authentication failure! lets go back to the login page
         return Redirect::route('login')
-            ->with('flash_error', 'Failed.')
+            ->with('flash_error', 'Username or password is wrong')
             ->withInput();
 });
 
@@ -57,5 +57,9 @@ Route::get('logout', array('as' => 'logout', function () {
 
 Route::get('profile', array('as' => 'profile', function () {
     return View::make('profile');
+}));
+
+Route::post('register', array('as' => 'create', function () {
+    return View::make('register');
 }));
 
