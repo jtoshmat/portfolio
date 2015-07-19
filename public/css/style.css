@@ -1,8 +1,37 @@
 body {
-    padding-top: 40px;
+    
+    background-image: url("/img/bg.png");
+        
+    color:#fff;
+    
+
 }
+
+ #example_wrapper{
+ 	color:#000;
+ }
  
-.form-signup, .form-signin {
-    width: 400px;
-    margin: 0 auto;
-}
+ thead{
+ 	color:#fff;
+ }
+  tfoot{
+ 	color:#fff;
+ }
+
+ .dataTable{
+ 	color:#000;
+ }
+
+ input{
+ 	color:#00bb00;
+ }
+ label{
+ 	color:#00bb00;
+ }
+
+ table{
+ 	background: #008720;
+ }
+ a{
+ 	color:#f00;
+ }

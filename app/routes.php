@@ -10,56 +10,72 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-Route::controller('users', 'UsersController'); 
 
-Route::get('/', function()
-{
-	return View::make('hello');
+
+Route::any("/", [
+  "as"   => "user/login",
+  "uses" => "UserController@login"
+]);
+
+Route::any("users/login", [
+  "as"   => "user/login",
+  "uses" => "UserController@login"
+]);
+
+Route::any("users", [
+  "as"   => "user/users",
+  "uses" => "UserController@users"
+]);
+
+Route::group(["before" => "auth"], function() {
+
+  Route::any("/profile", [
+    "as"   => "user/profile",
+    "uses" => "UserController@profile"
+  ]);
+
+Route::any("/bar", [
+    "as"   => "bars/bar",
+    "uses" => "UserController@viewBar"
+  ],function($id){
+    return $id;
+  });
+
+Route::any("/editbar", [
+    "as"   => "bars/editbar",
+    "uses" => "UserController@editBar"
+  ],function($id){
+    return $id;
+  });
+
+Route::any("/deletebar", [
+    "as"   => "bars/deletebar",
+    "uses" => "UserController@deleteBar"
+  ],function($id){
+    return $id;
+  });
+
+Route::post("/updatebar", [
+    "as"   => "bars/updatebar",
+    "uses" => "UserController@updateBar"
+  ],function($id){
+    return $id;
+  });
+ 
+
+  Route::any("/logout", [
+    "as"   => "user/logout",
+    "uses" => "UserController@logout"
+  ]);
+
 });
 
-Route::controller('users', 'UsersController');
+Route::any("/request", [
+  "as"   => "user/request",
+  "uses" => "UserController@request"
+]);
 
-Route::get('register', array('as' => 'register', function () {
-    return View::make('register');
-}));
-
-Route::get('/', array('as' => 'home', function () {
-    return View::make('home');
-}));
-
-Route::get('login', array('as' => 'login', function () {
-    return View::make('login');
-}))->before('guest');
-
-Route::post('login', function () {
-        $user = array(
-            'username' => Input::get('username'),
-            'password' => Input::get('password')
-        );
-        
-        if (Auth::attempt($user)) {
-            return Redirect::route('profile')
-                ->with('flash_notice', 'You are successfully logged in.');
-        }
-        
-        // authentication failure! lets go back to the login page
-        return Redirect::route('login')
-            ->with('flash_error', 'Username or password is wrong')
-            ->withInput();
-});
-
-Route::get('logout', array('as' => 'logout', function () {
-    Auth::logout();
-
-    return Redirect::route('home')
-        ->with('flash_notice', 'You are successfully logged out.');
-}))->before('auth');
-
-Route::get('profile', array('as' => 'profile', function () {
-    return View::make('profile');
-}));
-
-Route::post('register', array('as' => 'create', function () {
-    return View::make('register');
-}));
-
+Route::any("/reset/{token}", [
+  "as"   => "user/reset",
+  "uses" => "UserController@reset"
+]);

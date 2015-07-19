@@ -1,42 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang=”en”>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
-    <title>Packers Authentication</title>
-     {{ HTML::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css') }}
-    {{ HTML::style('css/style.css')}}
+    <meta charset="UTF-8" />
+    <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css" />
+    <script src='/js/jquery-git2.min.js'></script>
+    <script src='/js/jquery.dataTables.min.js'></script>
+    <script src='/js/main.js'></script>
+    <title>Packers Everywhere</title>
   </head>
- 
   <body>
- 
-   <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <ul class="nav2"> 
-                    <li>{{ HTML::link('register', 'Register') }}</li>  
-                    <li>{{ HTML::link('login', 'Login') }}</li>  
-                    <li>{{ HTML::link('profile', 'Profile') }}</li>  
-                    <li>{{ HTML::link('logout', 'Logout') }}</li>  
-                    <br /> <br />
-                </ul> 
-            </div>
-        </div>
-    </div>
-             
- 
-    <div class="container">
-        @if(Session::has('message'))
-            <p class="alert">{{ Session::get('message') }}</p>
-        @endif
- 
-        @yield('content')
-    </div>
+    @include("header")
 
+     @if(session::has('mymessage'))
+     @if(!empty(session::get('mymessage')))
+         <div class="alert alert-success">{{session::get('mymessage')}}</div>
+      @endif
+      @endif
 
+    <div class="content">
+      <div class="container">
+        @yield("content")
+      </div>
+    </div>
+    @include("footer")
   </body>
 </html>
-
-        
- 
