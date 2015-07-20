@@ -78,11 +78,29 @@ public function __construct(){
 
   }
 
-    public function events()
+  public function bevents()
   {
      $id = Request::query('id');
-     $events = User::all();
-     return View::make('bars/events')->with('events', $events);
+     $bevents = Bevent::where('barid', '=', $id)->get();
+     return View::make('bars/bevents')->with('bevents', $bevents);
+
+  }
+
+  public function bevent()
+  {
+     $id = Request::query('id');
+     $bevent = Bevent::where('id', '=', $id)->firstOrFail();
+     return View::make('bars/bevent')->with('bevent', $bevent);
+
+  }
+
+  public function deleteBevent()
+  {
+     $id = Request::query('id');
+     $Bevent = Bevent::find($id);
+     $Bevent->delete();
+      \Session::flash('mymessage','The event has been deleted');
+     return 'The event has been deleted';
 
   }
 
@@ -101,6 +119,28 @@ public function __construct(){
  
      $bars = Bar::where('id', '=', $id)->firstOrFail();
      return View::make('bars/editbar')->with('bars', $bars);
+
+  }
+
+  public function editBevent()
+  {
+     $id = Request::query('id');
+ 
+     $bevent = Bevent::where('id', '=', $id)->firstOrFail();
+     return View::make('bars/editBevent')->with('bevent', $bevent);
+
+  }
+
+  public function updateBevent()
+  {
+
+    $id = Request::get('id');
+    $Bevent = Bevent::find($id);
+    $Bevent->title = Input::get('title');
+    $Bevent->save();
+    \Session::flash('mymessage','The bar has been updated');
+    return View::make('bars/editbevent')->with('bevent', $Bevent);
+     
 
   }
 

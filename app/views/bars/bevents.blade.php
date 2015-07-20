@@ -1,4 +1,6 @@
 
+
+
 @extends("layout")
 
 @section("content")
@@ -15,7 +17,6 @@
   		<td>ID</td>
   		<td>Bar ID</td>
   		<td>Title</td>
-  		<td>Dscription</td>
   		<td>Created</td>
   		<td>Modified</td>
   		<td>Action</td>
@@ -26,25 +27,25 @@
   		<td>ID</td>
   		<td>Bar ID</td>
   		<td>Title</td>
-  		<td>Dscription</td>
   		<td>Created</td>
   		<td>Modified</td>
   		<td>Action</td>
   	</tr>
   </tfoot>
   <tbody>
-        @foreach($events as $event)
+        {{count($bevents)}}
+
+        @foreach($bevents as $bev)
          <tr>
-            <td>Coming soon</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-           <td>...</td>
+            <td>{{$bev->id}}</td>
+            <td>{{$bev->barid}}</td>
+            <td>{{$bev->title}}</td>
+            <td>{{$bev->created_at}}</td>
+            <td>{{$bev->updated_at}}</td>
             <td>
-            	<a class='btn btn-primary' href="{{ route('bars/events', array('id' => '1')) }}">View</a>
-            	<a class='btn btn-warning' href="{{ route('bars/events', array('id' => '1')) }}">Edit</a>
-            	<a class='btn btn-danger delete_event' id='id_2' href=#>Delete</a>
+            	<a class='btn btn-primary' href="{{ route('bars/bevent', array('id' => $bev->id)) }}">View</a>
+            	<a class='btn btn-warning' href="{{ route('bars/editbevent', array('id' => $bev->id)) }}">Edit</a>
+            	<a class='btn btn-danger delete_bevent' id='id_{{$bev->id}}' href=#>Delete</a>
             </td>
          </tr>
     @endforeach

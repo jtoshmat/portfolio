@@ -5,7 +5,7 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class Event extends Eloquent implements UserInterface, RemindableInterface {
+class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 
 
 
@@ -17,7 +17,7 @@ class Event extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var string
 	 */
-	protected $table = 'events';
+	protected $table = 'bevents';
 
 	
 

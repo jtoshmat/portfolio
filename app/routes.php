@@ -27,10 +27,24 @@ Route::any("users", [
   "uses" => "UserController@users"
 ]);
 
-Route::any("events", [
-  "as"   => "bars/events",
-  "uses" => "UserController@events"
+Route::any("bevents", [
+  "as"   => "bars/bevents",
+  "uses" => "UserController@bevents"
 ]);
+
+Route::any("/bevent", [
+    "as"   => "bars/bevent",
+    "uses" => "UserController@bevent"
+  ],function($id){
+    return $id;
+  });
+
+Route::any("/editbevent", [
+    "as"   => "bars/editbevent",
+    "uses" => "UserController@editBevent"
+  ],function($id){
+    return $id;
+  });
 
 Route::group(["before" => "auth"], function() {
 
@@ -49,6 +63,20 @@ Route::any("/bar", [
 Route::any("/editbar", [
     "as"   => "bars/editbar",
     "uses" => "UserController@editBar"
+  ],function($id){
+    return $id;
+  });
+
+Route::post("/updatebevent", [
+    "as"   => "bars/updatebevent",
+    "uses" => "UserController@updateBevent"
+  ],function($id){
+    return $id;
+  });
+
+Route::any("/deletebevent", [
+    "as"   => "bars/deletebevent",
+    "uses" => "UserController@deleteBevent"
   ],function($id){
     return $id;
   });
