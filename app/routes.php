@@ -27,6 +27,11 @@ Route::any("users", [
   "uses" => "UserController@users"
 ]);
 
+Route::any("events", [
+  "as"   => "bars/events",
+  "uses" => "UserController@events"
+]);
+
 Route::group(["before" => "auth"], function() {
 
   Route::any("/profile", [

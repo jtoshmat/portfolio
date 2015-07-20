@@ -22,7 +22,7 @@ $(document).ready(function(){
         type: "get",
         data: {/* the id goes here */},
         success: function(data, textStatus, jqXHR) {
-             window.location = "/profile";
+             window.location = "/profile?action=deleted";
         }
     });
     	}

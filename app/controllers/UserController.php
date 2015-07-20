@@ -58,6 +58,14 @@ public function __construct(){
 
   public function profile()
   {
+     
+    $action = Request::query('action');
+
+    if ($action){
+      \Session::flash('mymessage','The record has been '.$action);
+    }
+ 
+      
      $bars = Bar::all();
      return View::make('bars/bars')->with('bars', $bars);
 
@@ -67,6 +75,14 @@ public function __construct(){
   {
      $users = User::all();
      return View::make('user/users')->with('users', $users);
+
+  }
+
+    public function events()
+  {
+     $id = Request::query('id');
+     $events = User::all();
+     return View::make('bars/events')->with('events', $events);
 
   }
 
@@ -93,6 +109,7 @@ public function __construct(){
      $id = Request::query('id');
      $Bar = Bar::find($id);
      $Bar->delete();
+      \Session::flash('mymessage','The bar has been deleted');
      return 'The bar has been deleted';
 
   }

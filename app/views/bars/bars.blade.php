@@ -40,6 +40,7 @@
             	<a class='btn btn-primary' href="{{ route('bars/bar', array('id' => $bar->id)) }}">View</a>
             	<a class='btn btn-warning' href="{{ route('bars/editbar', array('id' => $bar->id)) }}">Edit</a>
             	<a class='btn btn-danger delete_bar' id='id_{{$bar->id}}' href=#>Delete</a>
+              <a class='btn btn-default' href="{{ route('bars/events', array('id' => $bar->id)) }}">Events</a>
             </td>
          </tr>
     @endforeach
