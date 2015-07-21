@@ -16,7 +16,7 @@
   
   <tr>
  	<td>ID: </td>
- 	<td>{{$bevent->id}}</td>
+ 	<td>{{$bevent->bid}}</td>
   </tr>
 
   <tr>

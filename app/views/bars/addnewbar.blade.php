@@ -45,7 +45,7 @@
 
   <tr>
     <TR> <TH COLSPAN=2 style='text-align:center'> 
-  
+     
       {{Form::reset('Reset')}}
       {{ Form::submit('Update', ['name' => 'submit']) }}
         </TH> </TR>

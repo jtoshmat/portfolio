@@ -24,9 +24,11 @@
           Users
         </a>
       @else
-        <a href="{{ URL::route("user/login") }}">
-          login
-        </a>
+
+        <a href="{{ URL::route("user/login") }}">Memebrs Login</a> |
+        <a href="{{ URL::route("register") }}">New Registration</a>
+
+
       @endif
     </td>
   </tr>
