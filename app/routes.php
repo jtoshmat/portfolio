@@ -11,6 +11,10 @@
 |
 */
 
+Route::any("error", [
+  "as"   => "errors/error",
+  "uses" => "UserController@error"
+]);
 
 Route::any("/", [
   "as"   => "user/login",

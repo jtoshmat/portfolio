@@ -1,7 +1,8 @@
 body {
-    
+    /*
     background-image: url("/img/bg.png");
-        
+    */
+    background: #555;    
     color:#fff;
     
 
@@ -34,4 +35,9 @@ body {
  }
  a{
  	color:#f00;
+ }
+
+ .btn-disabled{
+ 	background: #D7DFE0;
+ 	color:#A3A7A8;
  }

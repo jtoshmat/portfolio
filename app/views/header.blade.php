@@ -9,6 +9,8 @@
   <h1>Packers Everywhere</h1>
   <p>We help you find Packers near you.</p>
  
+    <hr />
+ 
       @if (Auth::check())
         <a href="{{ URL::route("user/logout") }}">
           logout

@@ -4,8 +4,23 @@ class UserController
   extends Controller
 {
 
+ 
 public function __construct(){
-  \Session::flash('mymessage','');
+ \Session::flash('mymessage','');
+ 
+
+}
+
+
+protected function isNotAuthorized(){
+    if (\Session::get('privileges')==0){
+        return 'user/403';
+     }
+
+}
+
+protected function isAdmin(){
+    return \Session::get('pusertype');
 }
 
 
@@ -18,7 +33,17 @@ public function __construct(){
         $credentials = $this->getLoginCredentials();
 
         if (Auth::attempt($credentials)) {
-          \Session::flash('mymessage','You are logged in');
+          /*
+          To represent rwx triplet use 4+2+1=7 | can do everything
+          To represent rw- triplet use 4+2+0=6 | read and write
+          To represent r-- triplet use 4+0+0=4 | read only
+          To represent --- triplet use 0 |  nothing
+          */
+          $uid = Auth::user()->id;
+           $role = Role::where('uid', '=', $uid)->firstOrFail();
+           \Session::put('privileges', $role->privileges);
+           \Session::put('pusertype', $role->pusertype);
+           \Session::flash('mymessage','You are logged in');
           return Redirect::route("user/profile");
         }
 
@@ -60,26 +85,66 @@ public function __construct(){
   {
      
     $action = Request::query('action');
-
     if ($action){
-      \Session::flash('mymessage','The record has been '.$action);
+      \Session::flash('mymessage','The record has been '.$action)->get();
     }
- 
+
+      if ($this->isNotAuthorized()){
+      return View::make($this->isNotAuthorized());
+    }
+
+    switch ($this->isAdmin()){
+      case 1: //Super Admin
+        $bars = DB::select(DB::raw('select * from bars as b left join bevents as ev on b.id=ev.barid group by b.id'));
+      break;
       
-     $bars = Bar::all();
-     return View::make('bars/bars')->with('bars', $bars);
+      case 2: //Bar Admin
+        $bars = DB::select(DB::raw('select * from bars as b left join bevents as ev on b.id=ev.barid where b.userid = 1 group by b.id'));
+      break; 
+       
+      default: //Anybody else
+        $bars = NULL;
+      break; 
+    }
+
+
+     if ($bars){
+      return View::make('bars/bars')->with('bars', $bars);
+     }
+     return View::make('user/403');
 
   }
 
   public function users()
   {
-     $users = User::all();
+
+   if ($this->isNotAuthorized()){
+      return View::make($this->isNotAuthorized());
+    }
+
+    switch ($this->isAdmin()){
+      case 1: //Super Admin
+        $users = User::all();
+      break;
+      
+      case 2: //Bar Admin
+        $users = User::where('parentid', '=', Auth::user()->id)->get();
+      break; 
+       
+      default: //Anybody else
+        $users = User::where('id', '=', Auth::user()->id)->get();
+      break; 
+    }
+
      return View::make('user/users')->with('users', $users);
 
   }
 
   public function bevents()
   {
+    if ($this->isNotAuthorized()){
+      return View::make($this->isNotAuthorized());
+    }
      $id = Request::query('id');
      $bevents = Bevent::where('barid', '=', $id)->get();
      return View::make('bars/bevents')->with('bevents', $bevents);
@@ -88,6 +153,9 @@ public function __construct(){
 
   public function bevent()
   {
+    if ($this->isNotAuthorized()){
+      return View::make($this->isNotAuthorized());
+    }     
      $id = Request::query('id');
      $bevent = Bevent::where('id', '=', $id)->firstOrFail();
      return View::make('bars/bevent')->with('bevent', $bevent);
@@ -96,6 +164,9 @@ public function __construct(){
 
   public function deleteBevent()
   {
+    if ($this->isNotAuthorized()){
+      return View::make($this->isNotAuthorized());
+    }     
      $id = Request::query('id');
      $Bevent = Bevent::find($id);
      $Bevent->delete();
@@ -106,17 +177,41 @@ public function __construct(){
 
   public function viewBar()
   {
-     $id = Request::query('id');
+    if ($this->isNotAuthorized()){
+      return View::make($this->isNotAuthorized());
+    }   
+    $id = Request::query('id');  
+     
+    switch ($this->isAdmin()){
+      case 1: //Super Admin
+        $bars = Bar::where('id', '=', $id)->firstOrFail();
+      break;
+      
+      case 2: //Bar Admin
+        $bars = Bar::where('id', '=', $id)->where('userid', '=', Auth::user()->id)->firstOrFail();
+      break; 
+       
+      default: //Anybody else
+        $bars = NULL;
+      break; 
+    }
  
-     $bars = Bar::where('id', '=', $id)->firstOrFail();
-     return View::make('bars/bar')->with('bars', $bars);
+ 
+ 
+ 
+     if ($bars){
+      return View::make('bars/bar')->with('bars', $bars);
+     }
+     return View::make('user/403');
 
   }
 
   public function editBar()
   {
+    if ($this->isNotAuthorized()){
+      return View::make($this->isNotAuthorized());
+    }     
      $id = Request::query('id');
- 
      $bars = Bar::where('id', '=', $id)->firstOrFail();
      return View::make('bars/editbar')->with('bars', $bars);
 
@@ -124,8 +219,10 @@ public function __construct(){
 
   public function editBevent()
   {
+    if ($this->isNotAuthorized()){
+      return View::make($this->isNotAuthorized());
+    }       
      $id = Request::query('id');
- 
      $bevent = Bevent::where('id', '=', $id)->firstOrFail();
      return View::make('bars/editBevent')->with('bevent', $bevent);
 
@@ -133,7 +230,9 @@ public function __construct(){
 
   public function updateBevent()
   {
-
+    if ($this->isNotAuthorized()){
+      return View::make($this->isNotAuthorized());
+    }  
     $id = Request::get('id');
     $Bevent = Bevent::find($id);
     $Bevent->title = Input::get('title');
@@ -146,6 +245,9 @@ public function __construct(){
 
   public function deleteBar()
   {
+    if ($this->isNotAuthorized()){
+      return 'Unauthorized Access';
+    }       
      $id = Request::query('id');
      $Bar = Bar::find($id);
      $Bar->delete();
@@ -156,7 +258,9 @@ public function __construct(){
 
   public function updateBar()
   {
-
+    if ($this->isNotAuthorized()){
+      return View::make($this->isNotAuthorized());
+    }  
     $id = Request::get('id');
     $Bar = Bar::find($id);
     $Bar->promo = Input::get('promo');
@@ -235,4 +339,11 @@ public function __construct(){
 
     return Redirect::route("user/login");
   }
+
+  public function error()
+  {
+    return View::make('errors/error');
+
+  }
+
 }

@@ -33,7 +33,7 @@
   	</tr>
   </tfoot>
   <tbody>
-        {{count($bevents)}}
+         
 
         @foreach($bevents as $bev)
          <tr>

@@ -49,6 +49,8 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
+	return Response::make("You are not authorized to view this page", 403);
+	return Redirect::to('error')->with('message', $exception->getMessage());
 });
 
 /*
