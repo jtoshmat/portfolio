@@ -38,78 +38,125 @@ Route::any("users", [
 
 Route::any("bevents", [
   "as"   => "bars/bevents",
-  "uses" => "UserController@bevents"
+  "uses" => "BarController@bevents"
 ]);
 
 Route::any("/bevent", [
     "as"   => "bars/bevent",
-    "uses" => "UserController@bevent"
+    "uses" => "BarController@bevent"
   ],function($id){
     return $id;
   });
 
 Route::any("/editbevent", [
     "as"   => "bars/editbevent",
-    "uses" => "UserController@editBevent"
+    "uses" => "BarController@editBevent"
   ],function($id){
     return $id;
   });
 
 Route::group(["before" => "auth"], function() {
 
-            Route::any("/profile", [
-              "as"   => "user/profile",
-              "uses" => "UserController@profile"
+            Route::any("bars", [
+              "as"   => "bars",
+              "uses" => "BarController@bars"
             ]);
 
           Route::any("/bar", [
               "as"   => "bars/bar",
-              "uses" => "UserController@viewBar"
+              "uses" => "BarController@bar"
             ],function($id){
               return $id;
             });
 
-          Route::any("addnewbar", [
-              "as"   => "bars/addnewbar",
-              "uses" => "UserController@addNewBar"
+          Route::any("addbar", [
+              "as"   => "bars/addbar",
+              "uses" => "BarController@addBar"
+            ],function($id){
+              return $id;
+            });
+
+          Route::any("upload", [
+              "as"   => "bars/upload",
+              "uses" => "BarController@uploadImage"
             ],function($id){
               return $id;
             });
 
           Route::any("/editbar", [
               "as"   => "bars/editbar",
-              "uses" => "UserController@editBar"
+              "uses" => "BarController@editBar"
             ],function($id){
               return $id;
             });
 
           Route::post("/updatebevent", [
               "as"   => "bars/updatebevent",
-              "uses" => "UserController@updateBevent"
+              "uses" => "BarController@updateBevent"
             ],function($id){
               return $id;
             });
 
-          Route::any("/deletebevent", [
+          Route::any("deletebevent", [
               "as"   => "bars/deletebevent",
-              "uses" => "UserController@deleteBevent"
+              "uses" => "BarController@deleteBevent"
             ],function($id){
               return $id;
             });
 
           Route::any("/deletebar", [
               "as"   => "bars/deletebar",
-              "uses" => "UserController@deleteBar"
+              "uses" => "BarController@deleteBar"
             ],function($id){
               return $id;
             });
 
           Route::post("/updatebar", [
               "as"   => "bars/updatebar",
-              "uses" => "UserController@updateBar"
+              "uses" => "BarController@updateBar"
             ],function($id){
               return $id;
             });
+
+//            Route::get("user", [
+//                "as"   => "user",
+//                "uses" => "UserController@getUser"
+//            ],function($id){
+//                return $id;
+//            });
+
+
+
+
+
+/*            Route::get('user/{id}', array('as' => 'user', function($id)
+            {
+                // return our view and Nerd information
+                return View::make('users/user') // pulls app/views/nerd-edit.blade.php
+                ->with('nerd', User::find($id));
+            }));*/
+
+           Route::any('user/{id}', [
+	           "as"   => "user",
+	           "uses" => "UserController@getUser"
+           ],function($id){
+	           return $id;
+           });
+
+           Route::any('user/delete/{id}', [
+	           "as"   => "user/delete",
+	           "uses" => "UserController@deleteUser"
+           ],function($id){
+	           return $id;
+           });
+
+			Route::any('user/viewuser/{id}', [
+				"as"   => "user/viewuser",
+				"uses" => "UserController@viewUser"
+			],function($id){
+				return $id;
+			});
+
 
             Route::any("/logout", [
               "as"   => "user/logout",

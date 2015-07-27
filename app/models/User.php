@@ -11,10 +11,15 @@ class User
   protected $hidden = ["password"];
 
   public static $rules = array(
-    'username'=>'required|alpha|min:2',
+    'username'=>'required|unique:user|alpha|min:2',
     'password'=>'required|alpha_num|between:6,12|confirmed',
     'password_confirmation'=>'required|alpha_num|between:6,12'
     );
+
+  public static $rules2 = array(
+      'email'=>'required|email|min:4',
+
+  );
 
   public function getAuthIdentifier()
   {

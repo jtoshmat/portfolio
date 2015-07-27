@@ -2,7 +2,8 @@
 
 @section("content")
  
- <a href="{{ URL::route("user/profile") }}">Bars</a> | <a  href="{{ route('bars/editbar', array('id' => $bars->id)) }}">Edit</a>  >> {{$bars->promo}}
+ <a href="{{ URL::route("bars") }}">Bars</a> | <a  href="{{ route('bars/editbar', array('id' => $bars->id))
+ }}">Edit</a>  >> {{$bars->promo}}
  <br />
 <br />
 
@@ -36,7 +37,7 @@
 
   <tr>
  	<td>Zip Code: </td>
- 	<td>{{$bars->zipCode}}</td>
+ 	<td>{{$bars->zipcode}}</td>
   </tr>
 
   <tr>

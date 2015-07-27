@@ -13,11 +13,7 @@
   <body>
     @include("header")
 
-     @if(session::has('mymessage'))
-     @if(!empty(session::get('mymessage')))
-         <div class="alert alert-success">{{session::get('mymessage')}}</div>
-      @endif
-      @endif
+
 
     <div class="content">
       <div class="container">

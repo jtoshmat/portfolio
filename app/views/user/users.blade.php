@@ -1,11 +1,19 @@
 @extends("layout")
 
 @section("content")
+
  
- 
- <a href="{{ URL::route("user/profile") }}">Home</a> |   >> Users
+ <a href="{{ URL::route("bars") }}">Home</a> |  <a href="{{ URL::route("register") }}">Register</a>  >> Users
  <br />
 <br />
+
+@if($message)
+ <ul>
+
+		 <li>{{ $message}}</li>
+
+ </ul>
+@endif
 
 <div  class="table-responsive">
   <table id="example" class="table table-hover display nowrap dataTable dtr-inline">
@@ -14,7 +22,6 @@
   		<td>ID</td>
   		<td>Username</td>
   		<td>Email</td>
-  		<td>Password</td>
   		<td>Created</td>
   		<td>Modified</td>
   		<td>Action</td>
@@ -25,7 +32,6 @@
   		<td>ID</td>
   		<td>Username</td>
   		<td>Email</td>
-  		<td>Password</td>
   		<td>Created</td>
   		<td>Modified</td>
   		<td>Action</td>
@@ -37,13 +43,12 @@
             <td>{{$user->id}}</td>
             <td>{{$user->username}}</td>
             <td>{{$user->email}}</td>
-            <td>{{$user->password}}</td>
             <td>{{$user->created_at}}</td>
-           <td>{{$user->modified_at}}</td>
+           <td>{{$user->updated_at}}</td>
             <td>
-            	<a class='btn btn-primary' href="{{ route('bars/bar', array('email' => '1')) }}">View</a>
-            	<a class='btn btn-warning' href="{{ route('bars/editbar', array('email' => 'use')) }}">Edit</a>
-            	<a class='btn btn-danger delete_bar' id='id_2' href=#>Delete</a>
+            	<a class='btn btn-primary' href="{{ route('user/viewuser', array('id' => $user->id)) }}">View</a>
+            	<a class='btn btn-warning' href="{{ route('user', array('id' => $user->id)) }}">Edit</a>
+            	<a class='btn btn-danger delete_user' id='id_{{$user->id}}' href=#>Delete</a>
             </td>
          </tr>
     @endforeach

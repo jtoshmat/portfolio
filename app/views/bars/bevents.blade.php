@@ -6,7 +6,7 @@
 @section("content")
  
  
- <a href="{{ URL::route("user/profile") }}">Home</a> |   >> Events
+ <a href="{{ URL::route("bars") }}">Home</a> |   >> Events
  <br />
 <br />
 

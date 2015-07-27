@@ -4,25 +4,22 @@ class UserController
   extends Controller
 {
 
- 
-public function __construct(){
+  public function __construct(){
  \Session::flash('mymessage','');
- 
+ $this->beforeFilter('csrf', array('on'=>'post'));
 
 }
 
-
-protected function isNotAuthorized(){
-    if (\Session::get('privileges')==0){
-        return 'user/403';
-     }
+  protected function isNotAuthorized(){
+//    if (\Session::get('privileges')==0){
+//        return 'user/403';
+//     }
 
 }
 
-protected function isAdmin(){
+  protected function isAdmin(){
     return \Session::get('pusertype');
 }
-
 
   public function login()
   {
@@ -44,7 +41,7 @@ protected function isAdmin(){
            \Session::put('privileges', $role->privileges);
            \Session::put('pusertype', $role->pusertype);
            \Session::flash('mymessage','You are logged in');
-          return Redirect::route("user/profile");
+          return Redirect::route("bars");
         }
 
         return Redirect::back()->withErrors([
@@ -81,43 +78,6 @@ protected function isAdmin(){
     ];
   }
 
-  public function profile()
-  {
-     
-    $action = Request::query('action');
-    if ($action){
-      \Session::flash('mymessage','The record has been '.$action)->get();
-    }
-
-      if ($this->isNotAuthorized()){
-      return View::make($this->isNotAuthorized());
-    }
-
-    $id = Auth::user()->id;
- 
-
-    switch ($this->isAdmin()){
-      case 1: //Super Admin
-        $bars = DB::select(DB::raw('select * from bars as b left join bevents as ev on b.id=ev.barid group by b.id'));
-      break;
-      
-      case 2: //Bar Admin
-        $bars = DB::select(DB::raw('select * from bars as b left join bevents as ev on b.id=ev.barid where b.userid = '.$id.' group by b.id'));
-      break; 
-       
-      default: //Anybody else
-        $bars = NULL;
-      break; 
-    }
-
-
-     if ($bars){
-      return View::make('bars/bars')->with('bars', $bars);
-     }
-     return View::make('bars/addnewbar');
-
-  }
-
   public function users()
   {
 
@@ -131,208 +91,23 @@ protected function isAdmin(){
       break;
       
       case 2: //Bar Admin
-        $users = User::where('parentid', '=', Auth::user()->id)->get();
+        //$users = User::where('parentid', '=', Auth::user()->id)->or_where('id', '=', Auth::user()->id)->get()
+        $users = DB::select(DB::raw('select * from user where parentid='.Auth::user()->id.' or id='.Auth::user()->id));
       break; 
        
       default: //Anybody else
         $users = User::where('id', '=', Auth::user()->id)->get();
       break; 
     }
-
-     return View::make('user/users')->with('users', $users);
-
-  }
-
-
-
-  public function deleteBevent()
-  {
-    if ($this->isNotAuthorized()){
-      return View::make($this->isNotAuthorized());
-    }     
-     $id = Request::query('id');
-     $Bevent = Bevent::find($id);
-     $Bevent->delete();
-      \Session::flash('mymessage','The event has been deleted');
-     return 'The event has been deleted';
+	  $message = Request::query('action');
+     return View::make('user/users')->with('users', $users)->with('message',$message);
 
   }
 
-  public function viewBar()
-  {
-    if ($this->isNotAuthorized()){
-      return View::make($this->isNotAuthorized());
-    }   
-    $id = Request::query('id');  
-     
-    switch ($this->isAdmin()){
-      case 1: //Super Admin
-        $bars = Bar::where('id', '=', $id)->firstOrFail();
-      break;
-      
-      case 2: //Bar Admin
-        $bars = Bar::where('id', '=', $id)->where('userid', '=', Auth::user()->id)->firstOrFail();
-      break; 
-       
-      default: //Anybody else
-        $bars = NULL;
-      break; 
-    }
-}
-  public function addNewBar()
-  {
-  
-   
-      return View::make('bars/addnewbar');
- 
-
-  }
-
-  public function editBar()
-  {
-    if ($this->isNotAuthorized()){
-      return View::make($this->isNotAuthorized());
-    }     
-     $id = Request::query('id');
-
-     switch ($this->isAdmin()){
-      case 1: //Super Admin
-        $bars = Bar::where('id', '=', $id)->firstOrFail();
-      break;
-      
-      case 2: //Bar Admin
-        $bars = Bar::where('id', '=', $id)->where('userid', '=', Auth::user()->id)->firstOrFail();
-      break; 
-       
-      default: //Anybody else
-        $bars = NULL;
-      break; 
-    }
-
- 
-
-    if ($bars){
-      return View::make('bars/editbar')->with('bars', $bars);
-     }
-     return View::make('user/403');
-     
-
-  }
-
-  public function bevents()
-  {
-    if ($this->isNotAuthorized()){
-      return View::make($this->isNotAuthorized());
-    }
-     $id = Request::query('id');
-
-     switch ($this->isAdmin()){
-      case 1: //Super Admin
-        $bevents = Bevent::where('barid', '=', $id)->get();
-      break;
-      
-      case 2: //Bar Admin
-        $bevents = Bevent::where('barid', '=', $id)->where('userid','=', Auth::user()->id)->get();
-      break; 
-       
-      default: //Anybody else
-        $bars = NULL;
-      break; 
-    }
-
-    if ($bevents){
-      return View::make('bars/bevents')->with('bevents', $bevents);
-     }
-     return View::make('user/403');
-
- 
-
-  }
-
-  public function bevent()
-  {
-  if ($this->isNotAuthorized()){
-      return View::make($this->isNotAuthorized());
-    }
-     $id = Request::query('id');
-
-     switch ($this->isAdmin()){
-      case 1: //Super Admin
-        $bevents = Bevent::where('barid', '=', $id)->get();
-      break;
-      
-      case 2: //Bar Admin
-        $bevents = Bevent::where('barid', '=', $id)->where('userid','=', Auth::user()->id)->get();
-      break; 
-       
-      default: //Anybody else
-        $bars = NULL;
-      break; 
-    }
-
-    if ($bevents){
-      return View::make('bars/bevents')->with('bevents', $bevents);
-     }
-     return View::make('user/403');
- 
-
-  }
-
-  public function editBevent()
-  {
-    if ($this->isNotAuthorized()){
-      return View::make($this->isNotAuthorized());
-    }       
-     $id = Request::query('id');
-     $bevent = Bevent::where('id', '=', $id)->firstOrFail();
-     return View::make('bars/editBevent')->with('bevent', $bevent);
-
-  }
-
-  public function updateBevent()
-  {
-    if ($this->isNotAuthorized()){
-      return View::make($this->isNotAuthorized());
-    }  
-    $id = Request::get('id');
-    $Bevent = Bevent::find($id);
-    $Bevent->title = Input::get('title');
-    $Bevent->save();
-    \Session::flash('mymessage','The bar has been updated');
-    return View::make('bars/editbevent')->with('bevent', $Bevent);
-     
-
-  }
-
-  public function deleteBar()
-  {
-    if ($this->isNotAuthorized()){
-      return 'Unauthorized Access';
-    }       
-     $id = Request::query('id');
-     $Bar = Bar::find($id);
-     $Bar->delete();
-      \Session::flash('mymessage','The bar has been deleted');
-     return 'The bar has been deleted';
-
-  }
-
-  public function updateBar()
-  {
-    if ($this->isNotAuthorized()){
-      return View::make($this->isNotAuthorized());
-    }  
-    $id = Request::get('id');
-    $Bar = Bar::find($id);
-    $Bar->promo = Input::get('promo');
-    $Bar->address = Input::get('address');
-    $Bar->city = Input::get('city');
-    $Bar->zipCode = Input::get('zipcode');
-    $Bar->save();
-    \Session::flash('mymessage','The bar has been updated');
-    return View::make('bars/editbar')->with('bars', $Bar);
-     
-
+  public function viewUser(){
+	  $id = (int) Request::segment(3);
+	  $user = User::find($id);
+	  return View::make('user/viewuser')->with('user', $user);
   }
 
   public function request()
@@ -375,7 +150,7 @@ protected function isAdmin(){
       $response = $this->resetPassword($credentials);
 
       if ($response === Password::PASSWORD_RESET) {
-        return Redirect::route("user/profile");
+        return Redirect::route("bars");
       }
 
       return Redirect::back()
@@ -388,26 +163,41 @@ protected function isAdmin(){
 
   public function register()
   {
+      if ($this->isNotAuthorized()){
+          return View::make($this->isNotAuthorized());
+      }
+
       $method = Request::method();
       if (Request::isMethod('post'))
       {
-        $username = Input::get('username');
-        $password = Input::get('password');
-        $password2 = Input::get('password2');
-        $matched = strcasecmp($password,$password2);
-
-        if($matched!==0){
-          echo "Not matched";
-        }
-
         $validator = Validator::make(Input::all(), User::$rules);
- 
+         $roles = Input::get('roles');
+
         if ($validator->passes()) {
+            $privileges = 4;
             $user = new User;
             $user->username = Input::get('username');
             $user->password = Hash::make(Input::get('password'));
+            if ($this->isAdmin()===2){
+                $user->parentid = Auth::user()->id;
+                if ($roles==1){
+                    $roles = 2;
+                }
+            }
+            if ($this->isAdmin()!==2 && $this->isAdmin()!==1){
+                    $roles = 0;
+            }
+
             $user->save();
-         
+            $LastInsertId = $user->id;
+            $insertData = array('uid' => $LastInsertId,'pusertype' => $roles, 'privileges'=>$privileges);
+
+            if ($this->isAdmin()===2){
+                 $insertData = array('uid' => $LastInsertId,'pusertype' => $roles, 'privileges'=>$privileges);
+            }
+
+            DB::table('roles')->insert($insertData);
+
             return Redirect::to('users/login')->with('message', 'Thanks for registering!');
         } else {
             return Redirect::to('register')->with('message', 'The following errors occurred')->withErrors($validator)->withInput();
@@ -415,8 +205,179 @@ protected function isAdmin(){
 
 
       }
-      return View::make("user/register");
+      $roles = array();
+      $privileges = array();
+      if ($this->isAdmin()===1){
+          $roles[1]='Super Admin';
+          $privileges[7] = 'All Privieleges';
+      }
+
+      $roles[2]='Bar Admin';
+      $roles[3]='Guest';
+      $roles[0]='None';
+
+      $privileges[6] = 'Read and Write';
+      $privileges[4] = 'Read Only';
+
+      if ($this->isAdmin()===0){
+          $roles=NULL;
+      }
+
+      return View::make("user/register")->with('roles',$roles)->with('privileges', $privileges);
   }
+
+  public function getUser(){
+      if ($this->isNotAuthorized()){
+          return View::make($this->isNotAuthorized());
+      }
+      //$id = (int) Request::query('id');
+      $id = (int) Request::segment(2);
+
+
+
+
+
+      //$users = DB::select(DB::raw('select * from user where parentid='.Auth::user()->id.' or id='.Auth::user()->id));
+      //$users = DB::select(DB::raw('select * from user left join roles on user.id=roles.uid where id='.$id))->get();
+      $users = User::find($id);
+
+
+      $roles = array();
+      $privileges = array();
+      if ($this->isAdmin()===1){
+          $roles[1]='Super Admin';
+          $privileges[7] = 'All Privieleges';
+      }
+
+      $roles[2]='Bar Admin';
+      $roles[3]='Guest';
+      $roles[0]='None';
+
+      $privileges[6] = 'Read and Write';
+      $privileges[4] = 'Read Only';
+
+      if ($this->isAdmin()===0){
+          $roles=NULL;
+      }
+      //$users = User::find($id);
+      $users = User::where('id', '=', $id)->firstOrFail();
+      //return View::make("user/user")->with('roles',$roles)->with('privileges', $privileges)->with('users', $users);
+
+	  $method = Request::method();
+	  if (Request::isMethod('post'))
+	  {
+
+		  $validator = Validator::make(Input::all(), User::$rules2);
+		  $roles = Input::get('roles');
+		  $id = Input::get('id');
+
+		  if ($validator->passes()) {
+			  $id = Input::get('id');
+
+			  $fillable = array(
+				  'email' => Input::get('email'),
+				  'password' => Hash::make(Input::get('password')),
+			  );
+			  $user = User::where('id', '=', $id)->update($fillable);
+
+			  $fillable = array(
+				  'pusertype' => Input::get('roles'),
+			  );
+			  $role = Role::where('uid', '=', $id)->update($fillable);
+
+			  return Redirect::to('user/'.$id)->withErrors('Updated');
+
+		  } else {
+			  return Redirect::to('user/'.$id)->with('message', 'The following errors occurred')->withErrors
+			  ($validator)
+				  ->withInput();
+		  }
+		}
+
+      return View::make("user/user")->with('users', $users)->with('roles',$roles)->with('privileges',$privileges);
+  }
+
+  public function deleteUser(){
+	  if ($this->isNotAuthorized()){
+		  return 'Unauthorized Access';
+	  }
+	  $id = (int) Request::segment(3);
+
+	  if ($id === Auth::user()->id){
+		  return "You can not delete your own account";
+	  }
+
+	  $Role = Role::where('uid','=',$id);
+	  $Role->delete();
+
+	  $User = User::find($id);
+	  $User->delete();
+
+
+	  \Session::flash('mymessage','The User has been deleted');
+	  return 'The user id: '.$id.' has been deleted';
+  }
+
+  public function userUpdate()
+	{
+		if ($this->isNotAuthorized()){
+			return View::make($this->isNotAuthorized());
+		}
+
+		$method = Request::method();
+		if (Request::isMethod('post'))
+		{
+
+			$validator = Validator::make(Input::all(), User::$rules2);
+			$roles = Input::get('roles');
+			$id = Input::get('id');
+
+			if ($validator->passes()) {
+				$privileges = 4;
+				$user = new User;
+				$id = Input::get('id');
+
+				if ($this->isAdmin()===2){
+					$user->parentid = Auth::user()->id;
+					if ($roles==1){
+						$roles = 2;
+					}
+				}
+				if ($this->isAdmin()!==2 && $this->isAdmin()!==1){
+					$roles = 0;
+				}
+
+				$fillable = array(
+					'email' => Input::get('email'),
+					'password' => Hash::make(Input::get('password')),
+				);
+
+				$user = User::where('id', '=', $id)->update($fillable);
+
+				$LastInsertId = $user->id;
+				$insertData = array('uid' => $LastInsertId,'pusertype' => $roles, 'privileges'=>$privileges);
+
+				if ($this->isAdmin()===2){
+					$insertData = array('uid' => $LastInsertId,'pusertype' => $roles, 'privileges'=>$privileges);
+				}
+
+				$fillable = array(
+					'pusertype' => Input::get('roles'),
+				);
+
+				$role = Role::where('uid', '=', $id)->update($fillable);
+
+				return route('user', array('id' => $id))->with('message', 'Thanks for updating!');
+			} else {
+				return Redirect::to('user/'.$id)->with('message', 'The following errors occurred')->withErrors
+				($validator)
+					->withInput();
+			}
+
+			return route('user', array('id' => $id))->with('message', 'Thanks for updating!');
+		}
+		return Redirect::to('/profile');
+	}
 
   protected function resetPassword($credentials)
   {

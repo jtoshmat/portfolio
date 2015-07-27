@@ -15,8 +15,8 @@
         <a href="{{ URL::route("user/logout") }}">
           logout
         </a> |
-        <a href="{{ URL::route("user/profile") }}">
-          profile
+        <a href="{{ URL::route("bars") }}">
+          bars
         </a>
 
          |

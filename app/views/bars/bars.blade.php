@@ -7,9 +7,10 @@
 @extends("layout")
 
 @section("content")
- 
 
-<div  class="table-responsive">
+	<a href="{{ URL::route("bars/addbar") }}">Add Bar</a><br />
+
+	<div  class="table-responsive">
   <table id="example" class="table table-hover display nowrap dataTable dtr-inline">
   	<thead>
   	<tr>
@@ -35,12 +36,19 @@
   </tfoot>
   <tbody>
         @foreach($bars as $bar)
-         <tr>
+			<?php
+				$activebar = '';
+				if (!$bar->active){
+					$activebar = "class = 'activebar'";
+
+				}
+			?>
+         <tr {{$activebar}}>
             <td>{{$bar->id}}</td>
-            <td>{{$bar->promo}}</td>
+            <td>{{$bar->barname}}</td>
             <td>{{$bar->address}}</td>
             <td>{{$bar->city}}</td>
-            <td>{{$bar->zipCode}} : {{$bar->barid}}</td>
+            <td>{{$bar->zipcode}} : {{$bar->barid}}</td>
             <td>{{$bar->bid}}</td>
             <td>
             	<a class='btn btn-primary' href="{{ route('bars/bar', array('id' => $bar->id)) }}">View</a>
