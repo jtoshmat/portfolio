@@ -1,3 +1,15 @@
+## Front-End Build Process
+Before running this site locally, you will need to install the necessary build dependencies. Do this by running
+    npm install
+    
+Then running
+    gulp
+    
+This will process and copy all the necessary files to the web serving /public directory. For production purposes, you can run
+    gulp --type production
+    
+to build the site with minifed resources.
+
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
