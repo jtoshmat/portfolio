@@ -14,10 +14,8 @@
       @endif
       @endif
 
-    <div class="content">
-      <div class="container">
-        @yield("content")
-      </div>
+    <div id="main-content" class="content">
+      @yield("content")
     </div>
     @include("footer")
     <script src='/js/vendor/jquery-1.11.3.min.js'></script>
