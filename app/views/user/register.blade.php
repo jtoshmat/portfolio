@@ -20,9 +20,9 @@
             {{ Form::password("password_confirmation", ["class" => "form-control"]) }}
           </div>
           <ul>
-              @foreach($errors->all() as $error)
-                  <li>{{ $error }}</li>
-              @endforeach
+          @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
           </ul>
           {{ Form::submit("Register", ["class" => "btn btn-primary"]) }}
         {{ Form::close() }}
