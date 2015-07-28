@@ -31,18 +31,34 @@ class BarController extends \BaseController {
 
 		$id = Auth::user()->id;
 
+		echo $id.$this->isAdmin();
+
 
 		switch ($this->isAdmin()){
 			case 1: //Super Admin
-				$bars = DB::select(DB::raw('select * from bars as b left join bevents as ev on b.id=ev.barid group by b.id'));
+				$bars = DB::select(DB::raw('
+					 select *, (
+					 select count(*) from bars brs left join bevents bev on brs.id=bev.barid where bev.barid=b.id
+					 group by b.id
+					 ) as
+					 totalEvents
+					 from bars as b left join bevents as ev on b.id=ev
+					 .barid
+					 left join uploads on b.id = uploads.bid
+					 group by b.id
+					 '));
 				break;
 
 			case 2: //Bar Admin
-				$bars = DB::select(DB::raw('select * from bars as b left join bevents as ev on b.id=ev.barid where b.uid = '.$id.' group by b.id'));
+				$bars = DB::select(DB::raw('select * from bars as b left join bevents as ev on b.id=ev.barid
+					 left join uploads on b.id = uploads.bid
+					 where b.uid = '.$id.' group by b.id'));
 				break;
 
 			case 3: //Bar Admin
-				$bars = DB::select(DB::raw('select * from bars as b left join bevents as ev on b.id=ev.barid where b.uid = '.$id.' group by b.id'));
+				$bars = DB::select(DB::raw('select * from bars as b left join bevents as ev on b.id=ev.barid
+					 left join uploads on b.id = uploads.bid
+					 where b.uid = '.$id.' group by b.id'));
 				break;
 
 			default: //Anybody else
@@ -56,6 +72,22 @@ class BarController extends \BaseController {
 		}
 		return View::make('bars/addbar');
 
+	}
+
+	public function approveBar()
+	{
+
+		$action = (int) Request::query('action');
+		if ($this->isNotAuthorized()){
+			return View::make($this->isNotAuthorized());
+		}
+		$val = (int) Request::get('val');
+		$id = Auth::user()->id;
+		$bid = (int) Request::segment(4);
+		$bar =Bar::find($bid);
+		$bar->approved = $val;
+		$bar->save();
+		return $bid;
 	}
 
 	public function bar()
@@ -96,32 +128,32 @@ class BarController extends \BaseController {
 		}
 		$id = (int) Request::query('id');
 
-		$method = Request::method();
-		if (Request::isMethod('post'))
-		{
-			$validator = Validator::make(Input::all(), Bar::$updatebarrules);
-			if ($validator->passes()) {
-				$insertData = array(
-					'uid' => Auth::user()->id,
-					'barname' => Input::get('barname'),
-					'address' => Input::get('address'),
-					'city' => Input::get('city'),
-					'state' => Input::get('state'),
-					'zipcode' => Input::get('zipcode'),
-			);
+			$method = Request::method();
+			if (Request::isMethod('post'))
+			{
+				$validator = Validator::make(Input::all(), Bar::$updatebarrules);
+				if ($validator->passes()) {
+					$id = Request::get('id');
+					$Bar = Bar::find($id);
+					$Bar->barname = Input::get('barname');
+					$Bar->address = Input::get('address');
+					$Bar->city = Input::get('city');
+					$Bar->zipcode = Input::get('zipcode');
+					$Bar->approved = Input::get('approved');
+					$Bar->active = Input::get('active');
+					$Bar->save();
+					\Session::flash('mymessage','The bar has been updated');
+					return Redirect::to('bars')->with('message', 'Thanks for updaing your bar');
 
-				DB::table('bars')->insert($insertData);
-				return Redirect::to('bars')->with('message', 'Thanks for updaing your bar');
+				}else{
+					$id = Input::get('id');
+					return Redirect::to('editbar?id='.$id)->with('message', 'The following errors occurred')->withErrors
+					($validator)
+						->withInput();
+				}
+				return Redirect::to('bars')->with('message', 'Thanks for up!');
 
-			}else{
-				$id = Input::get('id');
-				return Redirect::to('editbar?id='.$id)->with('message', 'The following errors occurred')->withErrors
-				($validator)
-					->withInput();
 			}
-			return Redirect::to('bars')->with('message', 'Thanks for up!');
-
-		}
 
 		switch ($this->isAdmin()){
 			case 1: //Super Admin
@@ -133,7 +165,8 @@ class BarController extends \BaseController {
 				break;
 
 			case 2: //Bar Admin
-				$bars = Bar::where('id', '=', $id)->where('uid', '=', Auth::user()->id)->firstOrFail();
+				$bars = DB::select(DB::raw('select * from bars as b left join uploads as upl on b.id=upl.bid where b
+				.id='.$id.''));
 				break;
 
 			case 3: //Bar Admin
@@ -141,7 +174,7 @@ class BarController extends \BaseController {
 				break;
 
 			default: //Anybody else
-				$bars = NULL;
+				$bars = Bar::where('id', '=', $id)->where('uid', '=', Auth::user()->id)->firstOrFail();
 				break;
 		}
 
@@ -164,7 +197,7 @@ class BarController extends \BaseController {
 		Bar::find($id)->delete();
 		Upload::where('bid','=', $id)->delete();
 		Bevent::where('barid','=', $id)->delete();
-	
+
 		\Session::flash('mymessage','The bar has been deleted');
 		return 'The bar has been deleted';
 
@@ -180,7 +213,8 @@ class BarController extends \BaseController {
 		$Bar->promo = Input::get('promo');
 		$Bar->address = Input::get('address');
 		$Bar->city = Input::get('city');
-		$Bar->zipCode = Input::get('zipcode');
+		$Bar->zipcode = Input::get('zipcode');
+		$Bar->approved = Input::get('approved');
 		$Bar->save();
 		\Session::flash('mymessage','The bar has been updated');
 		return View::make('bars/editbar')->with('bars', $Bar);

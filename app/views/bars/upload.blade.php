@@ -30,8 +30,5 @@
 
 
 <script type="text/javascript">
-	function refreshAndClose() {
-		window.opener.location.reload(true);
-		window.close();
-	}
+	window.opener.location.href = window.opener.location.href;
 </script>

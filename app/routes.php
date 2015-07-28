@@ -118,6 +118,14 @@ Route::group(["before" => "auth"], function() {
               return $id;
             });
 
+
+          Route::any("admin/bars/appprove/{id}", [
+              "as"   => "admin/bars/appprove",
+              "uses" => "BarController@approveBar"
+            ],function($id){
+              return $id;
+            });
+
 //            Route::get("user", [
 //                "as"   => "user",
 //                "uses" => "UserController@getUser"

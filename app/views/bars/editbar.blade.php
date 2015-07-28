@@ -30,8 +30,9 @@ foreach ($bars as $bar){
 	  <td>Logo: {{$bar->filename}}</td>
 	  <td>
 		  <?php
-		  $bar->filename = empty($bar->filename)?'/img/yourcompanylogo.png':'/img/uploads/'.$bar->filename;
 
+		  $root = $_SERVER["DOCUMENT_ROOT"];
+		  $bar->filename = empty($bar->filename)?'/img/yourcompanylogo.png':'/img/uploads/'.$bar->filename;
 			  ?>
 		  <img class="barlogo" src="{{$bar->filename}}">
 	  <br />
@@ -68,6 +69,27 @@ foreach ($bars as $bar){
   <tr>
  	<td>Zip Code: </td>
   <td>{{Form::text('zipcode', $bar->zipcode)}}</td>
+  </tr>
+
+
+  <tr>
+ 	<td>Approved: </td>
+  <td>
+	  {{
+	   Form::select('approved', array(1 => 'Approved', 0 => 'Disapproved'), $bar->approved);
+	  }}
+
+  </td>
+  </tr>
+
+  <tr>
+ 	<td>Active: </td>
+  <td>
+	  {{
+	   Form::select('active', array(1 => 'Active', 0 => 'Incactive'), $bar->active);
+	  }}
+
+  </td>
   </tr>
 
 

@@ -107,6 +107,37 @@ $(document).ready(function(){
 	});
 
 
+	$('.approve_bar').click(function(){
+		var id = $(this).attr('id');
+		id = id.substr(3);
+		var val = 0;
+
+		var cls = $(this).hasClass('approved');
+	    val = (cls)?0:1;
+		var msg = (cls)?'disapprove':'approve';
+		var conf = confirm("Are you sure you want to do it?");
+		var imgsrc = (cls)?"/img/approved.png":"/img/notapproved.png";
+
+		if (conf){
+			$.ajax({
+				url: '/admin/bars/appprove/'+id,
+				type: "post",
+				data: {'val':val},
+				success: function(data, textStatus, jqXHR) {
+					if ($("#ad_"+id).attr('src')=='/img/notapproved.png'){
+						$("#ad_"+id).attr('src', '/img/approved.png');
+					}else{
+						$("#ad_"+id).attr('src', '/img/notapproved.png');
+					}
+					//window.location = "/bars?action=approved";
+				}
+			});
+		}
+
+
+
+	});
+
 
 
 });
