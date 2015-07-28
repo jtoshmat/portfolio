@@ -1,13 +1,8 @@
 <!DOCTYPE html>
-<html lang=”en”>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/jquery.dataTables.min.css" />
-    <script src='/js/jquery-git2.min.js'></script>
-    <script src='/js/jquery.dataTables.min.js'></script>
-    <script src='/js/main.js'></script>
+    <link rel="stylesheet" href="/css/main.css" />
     <title>Packers Everywhere</title>
   </head>
   <body>
@@ -15,11 +10,13 @@
 
 
 
-    <div class="content">
-      <div class="container">
-        @yield("content")
-      </div>
+    <div id="main-content" class="content">
+      @yield("content")
     </div>
     @include("footer")
+    <script src='/js/vendor/jquery-1.11.3.min.js'></script>
+    <script src='/js/vendor/jquery.dataTables.min.js'></script>
+    <script src='/js/vendor/bootstrap.min.js'></script>
+    <script src='/js/main.js'></script>
   </body>
 </html>
