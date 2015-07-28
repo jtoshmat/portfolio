@@ -49,7 +49,7 @@
             <td>{{$bar->address}}</td>
             <td>{{$bar->city}}</td>
             <td>{{$bar->zipcode}}</td>
-            <td>{{$bar->bid}}</td>
+            <td>{{$bar->updated_at}}</td>
             <td>
             	<a class='btn btn-primary' href="{{ route('bars/bar', array('id' => $bar->id)) }}">View</a>
             	<a class='btn btn-warning' href="{{ route('bars/editbar', array('id' => $bar->id)) }}">Edit</a>

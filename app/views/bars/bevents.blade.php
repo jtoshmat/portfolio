@@ -8,6 +8,8 @@
  
  <a href="{{ URL::route("bars") }}">Home</a> |   >> Events
  <br />
+
+ <a href="{{ URL::route("bars/addbevent") }}">Add new Event</a>
 <br />
 
 <div  class="table-responsive">

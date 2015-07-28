@@ -326,6 +326,16 @@ class BarController extends \BaseController {
 
 	}
 
+	public function addBevent()
+	{
+		if ($this->isNotAuthorized()){
+			return View::make($this->isNotAuthorized());
+		}
+		$id = (int) Request::query('id');
+		return View::make('bars/addBevent')->with('uid', Auth::user()->get())->with('barid', $id);
+
+	}
+
 	public function updateBevent()
 	{
 		if ($this->isNotAuthorized()){

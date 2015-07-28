@@ -27,7 +27,7 @@ foreach ($bars as $bar){
   </tr>
 
   <tr>
-	  <td>Logo: {{$bar->filename}}</td>
+	  <td>Logo:</td>
 	  <td>
 		  <?php
 

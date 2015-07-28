@@ -55,6 +55,14 @@ Route::any("/editbevent", [
     return $id;
   });
 
+
+	Route::any("addbevent", [
+		"as"   => "bars/addbevent",
+		"uses" => "BarController@addBevent"
+	],function($id){
+		return $id;
+	});
+
 Route::group(["before" => "auth"], function() {
 
             Route::any("bars", [
