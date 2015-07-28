@@ -1,17 +1,21 @@
+@import 'bourbon/bourbon';
+@import 'bootstrap';
+@import 'jquery.dataTables.min';
+
 body {
     /*
     background-image: url("/img/bg.png");
     */
-    background: #555;    
+    background: #555;
     color:#fff;
-    
+
 
 }
 
  #example_wrapper{
  	color:#000;
  }
- 
+
  thead{
  	color:#fff;
  }
