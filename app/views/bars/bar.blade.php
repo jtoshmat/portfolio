@@ -8,6 +8,7 @@
 <br />
 
 <div  class="table-responsive">
+	<a class='btn btn-warning' href="{{ route('games/addgame', array('id' => $bars->id)) }}">Add Game</a>
   <table class="table table-hover display nowrap dataTable dtr-inline">
   
   <tbody>
@@ -47,6 +48,7 @@
 
   </tbody>
   </table>
+
 </div>
 
 @stop

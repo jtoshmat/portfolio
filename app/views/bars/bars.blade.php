@@ -55,16 +55,17 @@
             	<a class='btn btn-warning' href="{{ route('bars/editbar', array('id' => $bar->id)) }}">Edit</a>
             	<a class='btn btn-danger delete_bar' id='id_{{$bar->id}}' href=#>Delete</a>
 
+              @if ($bar->totalGames)
 
-
-              @if ($bar->totalEvents)
-
-              <a class='btn btn-default' href="{{ route('bars/bevents', array('id' => $bar->id)) }}">Events
-	              ({{$bar->totalEvents}})</a>
+              <a class='btn btn-default' href="{{ route('games/games', array('id' => $bar->id)) }}">Games
+	              ({{$bar->totalGames}})</a>
 
               @else
-              <a class='btn btn-disabled' disabled href="#">Events (0)</a>
+              <a class='btn btn-disabled' disabled href="#">Games (0)</a>
               @endif
+
+
+	            <a class='btn btn-warning' href="{{ route('games/addgame', array('id' => $bar->id)) }}">Add Game</a>
 	            <?php
 	            $ba = $bar->approved;
 	            $bar->approved = ($bar->approved===1)?'/img/approved.png':'/img/notapproved.png';

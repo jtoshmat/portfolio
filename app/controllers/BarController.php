@@ -31,21 +31,17 @@ class BarController extends \BaseController {
 
 		$id = Auth::user()->id;
 
-		echo $id.$this->isAdmin();
 
 
 		switch ($this->isAdmin()){
 			case 1: //Super Admin
 				$bars = DB::select(DB::raw('
-					 select *, (
-					 select count(*) from bars brs left join bevents bev on brs.id=bev.barid where bev.barid=b.id
-					 group by b.id
-					 ) as
-					 totalEvents
-					 from bars as b left join bevents as ev on b.id=ev
-					 .barid
-					 left join uploads on b.id = uploads.bid
-					 group by b.id
+				SELECT *, (SELECT count(*) FROM bars LEFT JOIN games ON bars.id=games.bid WHERE games.bid=b.id) as totalGames
+				FROM bars AS b
+				LEFT JOIN games AS g
+				ON b.id = g.bid
+				LEFT JOIN uploads ON b.id = uploads.bid
+				GROUP BY b.id
 					 '));
 				break;
 
@@ -265,11 +261,11 @@ class BarController extends \BaseController {
 
 		switch ($this->isAdmin()){
 			case 1: //Super Admin
-				$bevents = Bevent::where('barid', '=', $id)->get();
+				$bevents = Bevent::where('gid', '=', $id)->get();
 				break;
 
 			case 2: //Bar Admin
-				$bevents = Bevent::where('barid', '=', $id)->where('userid','=', Auth::user()->id)->get();
+				$bevents = Bevent::where('gid', '=', $id)->where('userid','=', Auth::user()->id)->get();
 				break;
 
 			default: //Anybody else
@@ -278,7 +274,7 @@ class BarController extends \BaseController {
 		}
 
 		if ($bevents){
-			return View::make('bars/bevents')->with('bevents', $bevents);
+			return View::make('bars/bevents')->with('bevents', $bevents)->with('gid', $id);
 		}
 		return View::make('user/403');
 
@@ -331,8 +327,28 @@ class BarController extends \BaseController {
 		if ($this->isNotAuthorized()){
 			return View::make($this->isNotAuthorized());
 		}
-		$id = (int) Request::query('id');
-		return View::make('bars/addBevent')->with('uid', Auth::user()->get())->with('barid', $id);
+		$gid = (int) Request::segment(2);
+		$bid = Game::where('gid','=',$gid)->get(array('bid'));
+		$bid = json_decode($bid, true);
+		$bid = (int) $bid[0]['bid'];
+
+		$method = Request::method();
+		if (Request::isMethod('post')) {
+			$validator = Validator::make(Input::all(), Bevent::$addbevent);
+			if ($validator->passes()) {
+				$insertData = array(
+					'gid' => $gid,
+					'barid' => $bid,
+					'title' => Input::get('title'),
+				);
+				DB::table('bevents')->insert($insertData);
+				return Redirect::to('bevents?id='.$gid);
+			}else{
+				return Redirect::to('addbevent/'.$gid)->with('message', 'The following errors occurred')->withErrors
+				($validator)->withInput();
+			}
+		}
+		return View::make('bars/addbevent')->with('gid', $gid);
 
 	}
 

@@ -1,8 +1,6 @@
 $(document).ready(function(){
-	 
 
     $('#example').DataTable();
-
 
     $('.delete_bar').click(function(){
     	var id = $(this).attr('id');
@@ -30,8 +28,6 @@ $(document).ready(function(){
 
     });
 
-//Delete Bar events
-
     $('.delete_bevent').click(function(){
         var id = $(this).attr('id');
         id = id.substr(3);
@@ -58,8 +54,6 @@ $(document).ready(function(){
 
     });
 
-    //Delete a user
-
     $('.delete_user').click(function(){
         var id = $(this).attr('id');
         id = id.substr(3);
@@ -84,7 +78,6 @@ $(document).ready(function(){
         }
     });
 
-
 	$('.upload_user_image').click(function(){
 		var bid = $(this).attr('id');
 		bid = bid.substr(3);
@@ -105,7 +98,6 @@ $(document).ready(function(){
 		return false;
 
 	});
-
 
 	$('.approve_bar').click(function(){
 		var id = $(this).attr('id');
@@ -138,6 +130,24 @@ $(document).ready(function(){
 
 	});
 
+	$('.delete_game').click(function(){
+		var id = $(this).attr('id');
+		id = id.substr(3);
+		var conf = confirm("Are you sure you want to do it?");
+		if (conf){
+			$.ajax({
+				url: '/deletegame/'+id,
+				type: "post",
+				data: {},
+				success: function(data, textStatus, jqXHR) {
+					$('#id_'+id).closest('tr').remove();
+					alert('The game '+id+" has been deleted");
+				}
+			});
+		}
 
+
+
+	});
 
 });

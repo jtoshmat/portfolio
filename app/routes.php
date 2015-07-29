@@ -63,6 +63,51 @@ Route::any("/editbevent", [
 		return $id;
 	});
 
+
+
+	Route::get("allgames", [
+		"as"   => "games/allgames",
+		"uses" => "GameController@allgames"
+	],function($id){
+		return $id;
+	});
+
+
+	Route::get("games/{bid}", [
+		"as"   => "games/games",
+		"uses" => "GameController@games"
+	],function($bid){
+		return $bid;
+	});
+
+	Route::get("game/{bid}", [
+		"as"   => "games/game",
+		"uses" => "GameController@game"
+	],function($bid){
+		return $bid;
+	});
+
+	Route::any("editgame/{gid}", [
+		"as"   => "games/editgame",
+		"uses" => "GameController@editGame"
+	],function($gid){
+		return $gid;
+	});
+
+	Route::post("deletegame/{gid}", [
+		"as"   => "games/deletegame",
+		"uses" => "GameController@deleteGame"
+	],function($gid){
+		return $gid;
+	});
+
+	Route::any("addgame/{bid}", [
+		"as"   => "games/addgame",
+		"uses" => "GameController@addGame"
+	],function($bid){
+		return $bid;
+	});
+
 Route::group(["before" => "auth"], function() {
 
             Route::any("bars", [
@@ -110,6 +155,13 @@ Route::group(["before" => "auth"], function() {
               "uses" => "BarController@deleteBevent"
             ],function($id){
               return $id;
+            });
+
+          Route::any("addbevent/{gid}", [
+              "as"   => "bars/addbevent",
+              "uses" => "BarController@addBevent"
+            ],function($gid){
+              return $gid;
             });
 
           Route::any("/deletebar", [

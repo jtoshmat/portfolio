@@ -2,9 +2,14 @@
 
 @section("content")
 
+	<ul>
+		@foreach($errors->all() as $error)
+			<li>{{ $error }}</li>
+		@endforeach
+	</ul>
 
 <div  class="table-responsive">
-  {{ Form::open(array('url' => 'addbevent')) }}
+  {{ Form::open(array('url' => 'addbevent/'.$gid)) }}
   <table class="table table-hover display nowrap dataTable dtr-inline">
   <tbody>
 
@@ -21,8 +26,7 @@
 
   <tr>
     <TR> <TH COLSPAN=2 style='text-align:center'>
-		  {{Form::hidden('uid', $uid)}}
-		  {{Form::hidden('barid', $barid)}}
+
 		  {{Form::reset('Reset')}}
 		  {{ Form::submit('Add', ['name' => 'submit']) }}
         </TH> </TR>

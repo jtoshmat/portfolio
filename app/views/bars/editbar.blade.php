@@ -18,6 +18,9 @@ foreach ($bars as $bar){
 </ul>
 
 <div  class="table-responsive">
+
+	<a class='btn btn-warning' href="{{ route('games/addgame', array('id' => $bar->id)) }}">Add Game</a>
+
   {{ Form::open(array('url' => 'editbar')) }}
   <table class="table table-hover display nowrap dataTable dtr-inline">
   <tbody>
