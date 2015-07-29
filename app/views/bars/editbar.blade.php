@@ -21,7 +21,7 @@ foreach ($bars as $bar){
 
 	<a class='btn btn-warning' href="{{ route('games/addgame', array('id' => $bar->id)) }}">Add Game</a>
 
-  {{ Form::open(array('url' => 'editbar')) }}
+  {{ Form::open(array('url' => 'editbar/'.$bar->id)) }}
   <table class="table table-hover display nowrap dataTable dtr-inline">
   <tbody>
 
@@ -39,7 +39,7 @@ foreach ($bars as $bar){
 			  ?>
 		  <img class="barlogo" src="{{$bar->filename}}">
 	  <br />
-		  <img class="upload_user_image" id="id_{{$bar->id}}" src="img/upload.png">
+		  <img class="upload_user_image" id="id_{{$bar->id}}" src="/img/upload.png">
 
 	  </td>
   </tr>

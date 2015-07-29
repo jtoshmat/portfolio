@@ -1,10 +1,10 @@
 @extends("layout")
 
 @section("content")
-
+<h2>Page status: Work in progress</h2>
 
 <div  class="table-responsive">
-  {{ Form::open(array('url' => 'updatebevent')) }}
+  {{ Form::open(array('url' => 'editbevent/'.$bevent->bid)) }}
   <table class="table table-hover display nowrap dataTable dtr-inline">
   <tbody>
 

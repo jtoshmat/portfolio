@@ -42,6 +42,7 @@
 					$activebar = "class = 'activebar'";
 
 				}
+			$bar->totalGames = isset($bar->totalGames)?$bar->totalGames:0;
 			?>
          <tr {{$activebar}}>
             <td>{{$bar->id}}</td>

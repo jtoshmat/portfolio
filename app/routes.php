@@ -36,23 +36,25 @@ Route::any("users", [
   "uses" => "UserController@users"
 ]);
 
-Route::any("bevents", [
-  "as"   => "bars/bevents",
-  "uses" => "BarController@bevents"
-]);
+	Route::any("bevents/{id}", [
+		"as"   => "bars/bevents",
+		"uses" => "BarController@bevents"
+	],function($bid){
+		return $bid;
+	});
 
-Route::any("/bevent", [
+Route::any("bevent/{bid}", [
     "as"   => "bars/bevent",
     "uses" => "BarController@bevent"
-  ],function($id){
-    return $id;
+  ],function($bid){
+    return $bid;
   });
 
-Route::any("/editbevent", [
+Route::any("editbevent/{bid}", [
     "as"   => "bars/editbevent",
     "uses" => "BarController@editBevent"
-  ],function($id){
-    return $id;
+  ],function($bid){
+    return $bid;
   });
 
 
@@ -115,7 +117,7 @@ Route::group(["before" => "auth"], function() {
               "uses" => "BarController@bars"
             ]);
 
-          Route::any("/bar", [
+          Route::any("bar/{id}", [
               "as"   => "bars/bar",
               "uses" => "BarController@bar"
             ],function($id){
@@ -136,7 +138,7 @@ Route::group(["before" => "auth"], function() {
               return $id;
             });
 
-          Route::any("/editbar", [
+          Route::any("editbar/{id}", [
               "as"   => "bars/editbar",
               "uses" => "BarController@editBar"
             ],function($id){
