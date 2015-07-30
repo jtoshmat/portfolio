@@ -31,28 +31,32 @@ class BarController extends \BaseController {
 
 		$id = Auth::user()->id;
 
-		echo $id.$this->isAdmin();
 
 
 		switch ($this->isAdmin()){
 			case 1: //Super Admin
 				$bars = DB::select(DB::raw('
-					 select *, (
-					 select count(*) from bars brs left join bevents bev on brs.id=bev.barid where bev.barid=b.id
-					 group by b.id
-					 ) as
-					 totalEvents
-					 from bars as b left join bevents as ev on b.id=ev
-					 .barid
-					 left join uploads on b.id = uploads.bid
-					 group by b.id
+				SELECT *, (SELECT count(*) FROM bars LEFT JOIN games ON bars.id=games.bid WHERE games.bid=b.id) as totalGames
+				FROM bars AS b
+				LEFT JOIN games AS g
+				ON b.id = g.bid
+				LEFT JOIN uploads ON b.id = uploads.bid
+				GROUP BY b.id
 					 '));
 				break;
 
 			case 2: //Bar Admin
-				$bars = DB::select(DB::raw('select * from bars as b left join bevents as ev on b.id=ev.barid
-					 left join uploads on b.id = uploads.bid
-					 where b.uid = '.$id.' group by b.id'));
+
+
+				$bars = DB::select(DB::raw('
+				SELECT *, (SELECT count(*) FROM bars LEFT JOIN games ON bars.id=games.bid WHERE games.bid=b.id) as totalGames
+				FROM bars AS b
+				LEFT JOIN games AS g
+				ON b.id = g.bid
+				LEFT JOIN uploads ON b.id = uploads.bid
+				WHERE b.uid = '.$id.'
+				GROUP BY b.id
+					 '));
 				break;
 
 			case 3: //Bar Admin
@@ -95,7 +99,7 @@ class BarController extends \BaseController {
 		if ($this->isNotAuthorized()){
 			return View::make($this->isNotAuthorized());
 		}
-		$id = (int) Request::query('id');
+		$id = (int) Request::segment(2);
 
 		switch ($this->isAdmin()){
 			case 1: //Super Admin
@@ -126,7 +130,7 @@ class BarController extends \BaseController {
 		if ($this->isNotAuthorized()){
 			return View::make($this->isNotAuthorized());
 		}
-		$id = (int) Request::query('id');
+		$id = (int) Request::segment(2);
 
 			$method = Request::method();
 			if (Request::isMethod('post'))
@@ -147,7 +151,7 @@ class BarController extends \BaseController {
 
 				}else{
 					$id = Input::get('id');
-					return Redirect::to('editbar?id='.$id)->with('message', 'The following errors occurred')->withErrors
+					return Redirect::to('editbar/'.$id)->with('message', 'The following errors occurred')->withErrors
 					($validator)
 						->withInput();
 				}
@@ -261,15 +265,17 @@ class BarController extends \BaseController {
 		if ($this->isNotAuthorized()){
 			return View::make($this->isNotAuthorized());
 		}
-		$id = (int) Request::query('id');
+		$id = (int) Request::segment(2);
 
 		switch ($this->isAdmin()){
 			case 1: //Super Admin
-				$bevents = Bevent::where('barid', '=', $id)->get();
+				$bevents = Bevent::where('gid', '=', $id)->get();
 				break;
 
 			case 2: //Bar Admin
-				$bevents = Bevent::where('barid', '=', $id)->where('userid','=', Auth::user()->id)->get();
+				//$bevents = Bevent::where('gid', '=', $id)->where('userid','=', Auth::user()->id)->get();
+				//$bevents = Bevent::where('gid', '=', $id)->where('userid','=', Auth::user()->id)->get();
+				$bevents = Bevent::where('gid', '=', $id)->get();
 				break;
 
 			default: //Anybody else
@@ -278,7 +284,7 @@ class BarController extends \BaseController {
 		}
 
 		if ($bevents){
-			return View::make('bars/bevents')->with('bevents', $bevents);
+			return View::make('bars/bevents')->with('bevents', $bevents)->with('gid', $id);
 		}
 		return View::make('user/403');
 
@@ -299,7 +305,8 @@ class BarController extends \BaseController {
 				break;
 
 			case 2: //Bar Admin
-				$bevents = Bevent::where('barid', '=', $id)->where('userid','=', Auth::user()->id)->get();
+				//$bevents = Bevent::where('barid', '=', $id)->where('userid','=', Auth::user()->id)->get();
+				$bevents = Bevent::where('barid', '=', $id)->get();
 				break;
 
 			default: //Anybody else
@@ -317,10 +324,11 @@ class BarController extends \BaseController {
 
 	public function editBevent()
 	{
+		//@TODO Needs work JT
 		if ($this->isNotAuthorized()){
 			return View::make($this->isNotAuthorized());
 		}
-		$id = (int) Request::query('id');
+		$id = (int) Request::segment(2);
 		$bevent = Bevent::where('bid', '=', $id)->firstOrFail();
 		return View::make('bars/editBevent')->with('bevent', $bevent);
 
@@ -331,23 +339,28 @@ class BarController extends \BaseController {
 		if ($this->isNotAuthorized()){
 			return View::make($this->isNotAuthorized());
 		}
-		$id = (int) Request::query('id');
-		return View::make('bars/addBevent')->with('uid', Auth::user()->get())->with('barid', $id);
+		$gid = (int) Request::segment(2);
+		$bid = Game::where('gid','=',$gid)->get(array('bid'));
+		$bid = json_decode($bid, true);
+		$bid = (int) $bid[0]['bid'];
 
-	}
-
-	public function updateBevent()
-	{
-		if ($this->isNotAuthorized()){
-			return View::make($this->isNotAuthorized());
+		$method = Request::method();
+		if (Request::isMethod('post')) {
+			$validator = Validator::make(Input::all(), Bevent::$addbevent);
+			if ($validator->passes()) {
+				$insertData = array(
+					'gid' => $gid,
+					'barid' => $bid,
+					'title' => Input::get('title'),
+				);
+				DB::table('bevents')->insert($insertData);
+				return Redirect::to('bevents/'.$gid);
+			}else{
+				return Redirect::to('addbevent/'.$gid)->with('message', 'The following errors occurred')->withErrors
+				($validator)->withInput();
+			}
 		}
-		$id = Request::get('id');
-		$Bevent = Bevent::find($id);
-		$Bevent->title = Input::get('title');
-		$Bevent->save();
-		\Session::flash('mymessage','The bar has been updated');
-		return View::make('bars/editbevent')->with('bevent', $Bevent);
-
+		return View::make('bars/addbevent')->with('gid', $gid);
 
 	}
 
