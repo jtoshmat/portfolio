@@ -5,12 +5,19 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class Bevent extends Eloquent implements UserInterface, RemindableInterface {
+class Game extends Eloquent implements UserInterface, RemindableInterface {
 
 
-	public static $addbevent = array(
+
+	public static $updategamerules = array(
 		'title'=>'required',
+
+//		'address'=>'required|alpha|min:2',
+//		'city'=>'required|alpha|min:2',
+//		'zipcode'=>'required|alpha|min:2',
 	);
+
+
 
 	use UserTrait, RemindableTrait;
 
@@ -19,7 +26,7 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var string
 	 */
-	protected $table = 'bevents';
+	protected $table = 'games';
 
 	
 

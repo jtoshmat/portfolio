@@ -4,10 +4,15 @@
 @extends("layout")
 
 @section("content")
- 
- 
- <a href="{{ URL::route("bars") }}">Home</a> |   >> Events
- <br />
+
+<?php
+$bid = 0;
+foreach($bevents as $bev){
+	$bid = $bev->barid;
+	break;
+}
+?>
+	<h2><a href="{{ URL::route("bars") }}">Bars</a> | <a href="{{ URL::to("games/81") }}">Games</a>  | Events</h2>
 
  <a href="{{ URL::route("bars/addbevent") }}">Add new Event</a>
 <br />
@@ -47,6 +52,7 @@
             <td>
             	<a class='btn btn-primary' href="{{ route('bars/bevent', array('id' => $bev->bid)) }}">View</a>
             	<a class='btn btn-warning' href="{{ route('bars/editbevent', array('id' => $bev->bid)) }}">Edit</a>
+	            <a class='btn btn-warning' href="{{ route('bars/addbevent', array('id' => $gid))}}">Add Event</a>
             	<a class='btn btn-danger delete_bevent' id='id_{{$bev->bid}}' href=#>Delete</a>
             </td>
          </tr>
