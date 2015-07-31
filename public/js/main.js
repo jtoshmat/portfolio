@@ -83,7 +83,7 @@ $(document).ready(function(){
 		bid = bid.substr(3);
 		bid = parseInt(bid);
 
-		var wnd = window.open("/upload?bid="+bid, "_blank", "toolbar=no, status=no, scrollbars=yes, resizable=no," +
+		var wnd = window.open("/upload/"+bid, "_blank", "toolbar=no, status=no, scrollbars=yes, resizable=no," +
 			" top=200," +
 			" left=400," +
 			" width=400," +

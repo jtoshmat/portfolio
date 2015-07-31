@@ -15,8 +15,10 @@ class CreateBeventsTable extends Migration {
 		Schema::create('bevents', function(Blueprint $table)
 		{
 			
-			$table->increments('id');
+			$table->increments('bid');
 			$table->integer('barid');
+			$table->integer('gid');
+			$table->integer('userid');
 			$table->string("title");
 			$table->timestamps();
 		});

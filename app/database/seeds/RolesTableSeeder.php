@@ -10,7 +10,8 @@ public function run()
     
     Role::create(array(
         'uid' => 1,
-        'privileges' => 'read;write;update;delete;'
+	    'pusertype' => 1,
+        'privileges' => 7
     ));    
     
 

@@ -131,7 +131,7 @@ Route::group(["before" => "auth"], function() {
               return $id;
             });
 
-          Route::any("upload", [
+          Route::any("upload/{id}", [
               "as"   => "bars/upload",
               "uses" => "BarController@uploadImage"
             ],function($id){

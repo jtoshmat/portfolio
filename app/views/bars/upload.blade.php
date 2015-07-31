@@ -9,7 +9,7 @@
 
 
 
-{{ Form::open(array('url' => 'upload?action=1', 'files' => true)) }}
+{{ Form::open(array('url' => 'upload/1', 'files' => true)) }}
 <p>Upload your logo</p>
 
 <p>
