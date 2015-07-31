@@ -2,82 +2,58 @@
 @extends("layout")
 
 @section("content")
+<div class="container">
+  <div class="table-controls">
+  	<a href="{{ URL::route("bars/addbar") }}" class="btn">Add Bar</a>
+  </div>
 
-	<a href="{{ URL::route("bars/addbar") }}">Add Bar</a><br />
-
-	<div  class="table-responsive">
-  <table id="example" class="table table-hover display nowrap dataTable dtr-inline">
-  	<thead>
-  	<tr>
-  		<td>ID</td>
-  		<td>Bar Name</td>
-  		<td>Address</td>
-  		<td>City</td>
-  		<td>Zip Code</td>
-  		<td>Created</td>
-  		<td>Action</td>
-  	</tr>
-  </thead>
-  <tfoot>
-  	<tr>
-  		<td>ID</td>
-  		<td>Bar Name</td>
-  		<td>Address</td>
-  		<td>City</td>
-  		<td>Zip Code</td>
-  		<td>Created</td>
-  		<td>Action</td>
-  	</tr>
-  </tfoot>
-  <tbody>
-        @foreach($bars as $bar)
-			<?php
-				$activebar = '';
-				if (!$bar->active){
-					$activebar = "class = 'activebar'";
-
-				}
-			$bar->totalGames = isset($bar->totalGames)?$bar->totalGames:0;
-			?>
-         <tr {{$activebar}}>
-            <td>{{$bar->id}}</td>
-            <td>{{$bar->barname}}</td>
-            <td>{{$bar->address}}</td>
-            <td>{{$bar->city}}</td>
-            <td>{{$bar->zipcode}}</td>
-            <td>{{$bar->updated_at}}</td>
-            <td>
-            	<a class='btn btn-primary' href="{{ route('bars/bar', array('id' => $bar->id)) }}">View</a>
-            	<a class='btn btn-warning' href="{{ route('bars/editbar', array('id' => $bar->id)) }}">Edit</a>
-            	<a class='btn btn-danger delete_bar' id='id_{{$bar->id}}' href=#>Delete</a>
-
-              @if ($bar->totalGames)
-
-              <a class='btn btn-default' href="{{ route('games/games', array('id' => $bar->id)) }}">Games
-	              ({{$bar->totalGames}})</a>
-
-              @else
-              <a class='btn btn-disabled' disabled href="#">Games (0)</a>
-              @endif
-
-
-	            <a class='btn btn-warning' href="{{ route('games/addgame', array('id' => $bar->id)) }}">Add Game</a>
-	            <?php
-	            $ba = $bar->approved;
-	            $bar->approved = ($bar->approved===1)?'/img/approved.png':'/img/notapproved.png';
-	            $bar->filename = empty($bar->filename)?'/img/yourcompanylogo.png':'/img/uploads/'.$bar->filename;
-		        $class = ($ba===1)?'approved':'';
-	            ?>
-	            <img class="barlogo_small approve_bar {{$class}}" id='ad_{{$bar->id}}' src="{{$bar->approved}}">
-	            <img class="barlogo_small" src="{{$bar->filename}}">
-
-
-
-            </td>
-         </tr>
-    @endforeach
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table id="bars-listing-table" class="table table-striped table-hover table-bordered'" cellspacing="0" width="100%">
+    	<thead>
+      	<tr>
+      		<th class="text-center">
+        		<a href="#" id="delete-selected-bars"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="right" title="Delete Selected Bars" aria-hidden="true"></span><span class="sr-only">Delete Selected Bars</span></a>
+        		<input type="checkbox" class="table-toggle">
+      		</th>
+      		<th>Bar Name</th>
+      		<th>City</th>
+      		<th>State</th>
+      		<th>Telephone</th>
+      		<th>Website</th>
+      		<th><span class="sr-only">Actions</span></th>
+      	</tr>
+      </thead>
+      <tbody>
+      @foreach($bars as $bar)
+  			<?php
+  				$activebar = '';
+  				if (!$bar->active) {
+  					$activebar = 'bar-active';
+  				} else {
+    				$activebar = 'bar-inactive';
+  				}
+  			$bar->totalGames = isset($bar->totalGames)?$bar->totalGames:0;
+  			?>
+        <tr{{$activebar}}>
+          <td class="text-center"><input type="checkbox" class="checkbox-delete" data-barid="{{ $bar->id }}"></td>
+          <td><a href="{{ route('bars/bar', array('id' => $bar->id)) }}" data-toggle="tooltip" data-placement="bottom" title="View Bar">{{ $bar->barname }}</a></td>
+          <td>{{ $bar->city }}</td>
+          <td>{{ $bar->state }}</td>
+          <td>{{-- $bar->phone --}}</td>
+          <td>url here</td>
+          <td>
+            @if ($bar->approved===1)
+            <a href="{{ route('games/games', array('id' => $bar->id)) }}"><span class="glyphicon glyphicon-calendar" data-toggle="tooltip" data-placement="bottom" title="Events" aria-hidden="true"></span><span class="sr-only">Edit Events</span></a>
+            @else
+            <a href="#"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="bottom" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve This Bar</span></a>
+            <a href="#"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="bottom" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject This Bar</span></a>
+            @endif
+            <a href="{{ route('bars/editbar', array('id' => $bar->id)) }}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Bar Information</span></a>
+          </td>
+        </tr>
+      @endforeach
+      </tbody>
+    </table>
+  </div>
 </div>
-
 @stop
