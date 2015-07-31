@@ -1,7 +1,6 @@
 @section("footer")
-  <div class="footer">
-    <div class="container">
- 
-    </div>
+<footer class="main-footer">
+  <div class="container">
   </div>
+</footer>
 @show

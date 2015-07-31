@@ -89,15 +89,15 @@ class UserController
       case 1: //Super Admin
         $users = User::all();
       break;
-      
+
       case 2: //Bar Admin
         //$users = User::where('parentid', '=', Auth::user()->id)->or_where('id', '=', Auth::user()->id)->get()
         $users = DB::select(DB::raw('select * from user where parentid='.Auth::user()->id.' or id='.Auth::user()->id));
-      break; 
-       
+      break;
+
       default: //Anybody else
         $users = User::where('id', '=', Auth::user()->id)->get();
-      break; 
+      break;
     }
 	  $message = Request::query('action');
      return View::make('user/users')->with('users', $users)->with('message',$message);
@@ -388,8 +388,8 @@ class UserController
 
   public function logout()
   {
-    \Session::forget('pusertype'); 
-    \Session::forget('privileges'); 
+    \Session::forget('pusertype');
+    \Session::forget('privileges');
     \Session::put('pusertype',0);
     \Session::put('privileges',0);
 
