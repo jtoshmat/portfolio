@@ -1,9 +1,4 @@
 
-<?php
-
-//var_dump($bars);
-//exit;
-?>
 @extends("layout")
 
 @section("content")

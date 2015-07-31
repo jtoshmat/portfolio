@@ -174,7 +174,7 @@ class UserController
          $roles = Input::get('roles');
 
         if ($validator->passes()) {
-            $privileges = 4;
+            $privileges = 6;
             $user = new User;
             $user->username = Input::get('username');
             $user->password = Hash::make(Input::get('password'));
@@ -185,7 +185,7 @@ class UserController
                 }
             }
             if ($this->isAdmin()!==2 && $this->isAdmin()!==1){
-                    $roles = 0;
+                    $roles = 2;
             }
 
             $user->save();
@@ -213,8 +213,7 @@ class UserController
       }
 
       $roles[2]='Bar Admin';
-      $roles[3]='Guest';
-      $roles[0]='None';
+
 
       $privileges[6] = 'Read and Write';
       $privileges[4] = 'Read Only';

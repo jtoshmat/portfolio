@@ -10,10 +10,17 @@ public function run()
 
 		Role::create(array(
         'uid' => 1,
+<<<<<<< HEAD
 		    'pusertype' => 1,
         'privileges' => 1
     ));
 
+=======
+	    'pusertype' => 1,
+        'privileges' => 7
+    ));    
+    
+>>>>>>> master
 
 
 }
