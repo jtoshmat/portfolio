@@ -4,7 +4,7 @@
 @section("content")
 <div class="container">
   <div class="table-controls">
-  	<a href="{{ URL::route("bars/addbar") }}" class="btn">Add Bar</a>
+  	<a href="{{ URL::route("bars/addbar") }}" class="btn btn-primary">Add Bar</a>
   </div>
 
   <div class="table-responsive">
