@@ -20,18 +20,24 @@
             {{ Form::password("password_confirmation", ["class" => "form-control", "required"]) }}
           </div>
 			    @if (Auth::check())
-			        @if ($roles)
-			            Roles: {{ Form::select('roles', $roles, '3')}}
-			        @endif
-			        <br />
-			        Grant:
+		        @if ($roles)
+		        <div class="form-group">
+			        {{ Form::label("roles", "Roles") }}
+			        {{ Form::select("roles", $roles, "3", ["class" => "form-control"]) }}
+		        </div>
+		        @endif
+		        <div class="form-group">
+			        <label>Grant Priveleges</label>
 			        @foreach ($privileges as $value => $label)
-			            {{$label}} : {{Form::radio('privileges', $value);}}
-
-
+							<div class="radio">
+			        	<label>
+			        		{{ Form::radio('privileges', $value) }} {{ $label }}
+			        	</label>
+							</div>
 			        @endforeach
-
+		        </div>
 			    @endif
+
           @if (count($errors) > 0)
           <div class="alert alert-danger" role="alert">
           @foreach($errors->all() as $error)
@@ -43,6 +49,7 @@
           @endforeach
           </div>
           @endif
+
           {{ Form::submit("Register", ["class" => "btn btn-primary"]) }}
         {{ Form::close() }}
         </div>

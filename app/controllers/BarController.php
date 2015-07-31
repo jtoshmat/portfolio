@@ -297,7 +297,7 @@ class BarController extends \BaseController {
 		if ($this->isNotAuthorized()){
 			return View::make($this->isNotAuthorized());
 		}
-		$id = (int) Request::query('id');
+		$id = (int) Request::segment('id');
 
 		switch ($this->isAdmin()){
 			case 1: //Super Admin
@@ -383,7 +383,7 @@ class BarController extends \BaseController {
 
 			$uid = Auth::user()->id;
 			$action = Request::query('action');
-			$bid = (int) Request::query('bid');
+			$bid = (int) Request::segment(2);
 			$newFileName = null;
 
 			if (Input::hasFile('avatar'))
@@ -401,7 +401,7 @@ class BarController extends \BaseController {
 				<script type='text/javascript' src='/js/main.js'></script>
 				";
 
-				echo "<div style='text-align: center'><img src='img/uploads/".$newFileName."'> </div>";
+				echo "<div style='text-align: center'><img width='250px' height='220px' src='/img/uploads/".$newFileName."'> </div>";
 
 				$validator = Validator::make(Input::all(), Upload::$uploadrules);
 				if ($validator->passes()) {

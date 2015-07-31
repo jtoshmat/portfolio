@@ -89,15 +89,15 @@ class UserController
       case 1: //Super Admin
         $users = User::all();
       break;
-      
+
       case 2: //Bar Admin
         //$users = User::where('parentid', '=', Auth::user()->id)->or_where('id', '=', Auth::user()->id)->get()
         $users = DB::select(DB::raw('select * from user where parentid='.Auth::user()->id.' or id='.Auth::user()->id));
-      break; 
-       
+      break;
+
       default: //Anybody else
         $users = User::where('id', '=', Auth::user()->id)->get();
-      break; 
+      break;
     }
 	  $message = Request::query('action');
      return View::make('user/users')->with('users', $users)->with('message',$message);
@@ -174,7 +174,7 @@ class UserController
          $roles = Input::get('roles');
 
         if ($validator->passes()) {
-            $privileges = 4;
+            $privileges = 6;
             $user = new User;
             $user->username = Input::get('username');
             $user->password = Hash::make(Input::get('password'));
@@ -185,7 +185,7 @@ class UserController
                 }
             }
             if ($this->isAdmin()!==2 && $this->isAdmin()!==1){
-                    $roles = 0;
+                    $roles = 2;
             }
 
             $user->save();
@@ -213,8 +213,7 @@ class UserController
       }
 
       $roles[2]='Bar Admin';
-      $roles[3]='Guest';
-      $roles[0]='None';
+
 
       $privileges[6] = 'Read and Write';
       $privileges[4] = 'Read Only';
@@ -389,8 +388,8 @@ class UserController
 
   public function logout()
   {
-    \Session::forget('pusertype'); 
-    \Session::forget('privileges'); 
+    \Session::forget('pusertype');
+    \Session::forget('privileges');
     \Session::put('pusertype',0);
     \Session::put('privileges',0);
 

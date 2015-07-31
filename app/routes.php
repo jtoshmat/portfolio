@@ -122,7 +122,7 @@ Route::group(["before" => "auth"], function() {
               "uses" => "BarController@bar"
             ],function($id){
               return $id;
-            });
+            })->where('id', '[0-9]+');
 
           Route::any("addbar", [
               "as"   => "bars/addbar",
@@ -131,40 +131,40 @@ Route::group(["before" => "auth"], function() {
               return $id;
             });
 
-          Route::any("upload", [
+          Route::any("upload/{id}", [
               "as"   => "bars/upload",
               "uses" => "BarController@uploadImage"
             ],function($id){
               return $id;
-            });
+            })->where('id', '[0-9]+');
 
           Route::any("editbar/{id}", [
               "as"   => "bars/editbar",
               "uses" => "BarController@editBar"
             ],function($id){
               return $id;
-            });
+            })->where('id', '[0-9]+');
 
           Route::post("/updatebevent", [
               "as"   => "bars/updatebevent",
               "uses" => "BarController@updateBevent"
             ],function($id){
               return $id;
-            });
+            })->where('id', '[0-9]+');
 
           Route::any("deletebevent", [
               "as"   => "bars/deletebevent",
               "uses" => "BarController@deleteBevent"
             ],function($id){
               return $id;
-            });
+            })->where('id', '[0-9]+');
 
           Route::any("addbevent/{gid}", [
               "as"   => "bars/addbevent",
               "uses" => "BarController@addBevent"
             ],function($gid){
               return $gid;
-            });
+            })->where('gid', '[0-9]+');
 
           Route::any("/deletebar", [
               "as"   => "bars/deletebar",
