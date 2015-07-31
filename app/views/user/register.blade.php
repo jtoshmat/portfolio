@@ -27,7 +27,7 @@
 		        </div>
 		        @endif
 		        <div class="form-group">
-			        <h3>Grant Priveleges</h3>
+			        <label>Grant Priveleges</label>
 			        @foreach ($privileges as $value => $label)
 							<div class="radio">
 			        	<label>
