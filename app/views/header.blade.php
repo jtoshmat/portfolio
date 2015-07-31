@@ -13,25 +13,12 @@
     <nav id="main-navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
       @if (Auth::check())
-<<<<<<< HEAD
-        <a href="{{ URL::route("user/logout") }}">
-          logout
-        </a> |
-        <a href="{{ URL::route("bars") }}">
-          bars
-        </a>
-=======
-        <li>
-          <a href="{{ URL::route("user/profile") }}">Profile</a>
-        </li>
-        <li>
-          <a href="{{ URL::route("user/logout") }}">Log Out</a>
-        </li>
-        <li>
-          <a href="{{ URL::route("user/users") }}">Users</a>
-        </li>
->>>>>>> fe-task-runners
-
+      	<li>
+	        <a href="{{ URL::route("user/logout") }}">logout</a>
+      	</li>
+      	<li>
+	        <a href="{{ URL::route("bars") }}">bars</a>
+      	</li>
       @else
         <li>
           <a href="{{ URL::route("user/login") }}">Member Login</a>
