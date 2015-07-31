@@ -14,7 +14,7 @@
       <ul class="nav navbar-nav navbar-right">
       @if (Auth::check())
       	<li>
-	        <a href="{{ URL::route("bars") }}">Bars</a>
+	        <a href="http://www.packerseverywhere.com/app" target="_blank">View App</a>
       	</li>
       	<li>
 	        <a href="{{ URL::route("user/logout") }}">Log Out</a>
@@ -31,5 +31,12 @@
     </nav>
   </div>
 </header>
-
+@if (Auth::check())
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="{{ URL::route("bars") }}">Bar Index</a></li>
+    <li role="presentation"><a href="#">Season Schedule</a></li>
+  </ul>
+</div>
+@endif
 @show
