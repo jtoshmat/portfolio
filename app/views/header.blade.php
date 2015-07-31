@@ -14,10 +14,10 @@
       <ul class="nav navbar-nav navbar-right">
       @if (Auth::check())
       	<li>
-	        <a href="{{ URL::route("user/logout") }}">logout</a>
+	        <a href="{{ URL::route("bars") }}">Bars</a>
       	</li>
       	<li>
-	        <a href="{{ URL::route("bars") }}">bars</a>
+	        <a href="{{ URL::route("user/logout") }}">Log Out</a>
       	</li>
       @else
         <li>
