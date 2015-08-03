@@ -8,7 +8,11 @@ class CreateUserTable
 {
   public function up()
   {
-    Schema::create("user", function (Blueprint $table) {
+	  if (Schema::hasTable('user')){
+		  return false;
+	  };
+
+	  Schema::create("user", function (Blueprint $table) {
       $table->increments("id");
       $table->string("username");
       $table->string("password");

@@ -12,23 +12,27 @@ class CreateBarsTable extends Migration {
 	 */
 	public function up()
 {
-Schema::create('bars', function(Blueprint $table)
-{
-$table->increments('id');
-$table->integer('uid');
-$table->integer('active');
-$table->integer('approved');
+	if (Schema::hasTable('bars')){
+		return false;
+	};
 
-$table->string('barname');
-$table->string('address');
-$table->string('address2');
-$table->string('city');
-$table->string('state');
-$table->string('zipcode');
-$table->string('promo');
-$table->timestamps();
-});
-}
+	Schema::create('bars', function(Blueprint $table)
+		{
+				$table->increments('id');
+				$table->integer('uid');
+				$table->integer('active');
+				$table->integer('approved');
+
+				$table->string('barname');
+				$table->string('address');
+				$table->string('address2');
+				$table->string('city');
+				$table->string('state');
+				$table->string('zipcode');
+				$table->string('promo');
+				$table->timestamps();
+				});
+		}
 
 	/**
 	 * Reverse the migrations.

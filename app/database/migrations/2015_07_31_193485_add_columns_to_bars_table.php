@@ -12,9 +12,14 @@ class AddColumnsToBarsTable extends Migration {
 	 */
 	public function up()
 	{
+		if (!Schema::hasTable('roles')){
+			return false;
+		};
+		
 		Schema::table('bars', function(Blueprint $table)
 		{
 			$table->string('phone', 20)->after('zipcode');
+			$table->dropColumn('phone');
 		});
 	}
 

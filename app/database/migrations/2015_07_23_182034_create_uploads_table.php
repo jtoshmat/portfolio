@@ -12,6 +12,10 @@ class CreateUploadsTable extends Migration {
 	 */
 	public function up()
 	{
+		if (Schema::hasTable('uploads')){
+			return false;
+		};
+
 		Schema::create('uploads', function(Blueprint $table)
 		{
 

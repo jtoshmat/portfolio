@@ -12,6 +12,10 @@ class CreateBeventsTable extends Migration {
 	 */
 	public function up()
 	{
+		if (Schema::hasTable('bevents')){
+			return false;
+		};
+
 		Schema::create('bevents', function(Blueprint $table)
 		{
 			

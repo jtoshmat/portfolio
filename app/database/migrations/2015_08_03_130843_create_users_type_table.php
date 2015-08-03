@@ -12,6 +12,10 @@ class CreateUsersTypeTable extends Migration {
 	 */
 	public function up()
 	{
+		if (Schema::hasTable('user_types')){
+			return false;
+		};
+
 		Schema::create('user_types', function(Blueprint $table)
 		{
 			$table->increments('utid');

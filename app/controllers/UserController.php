@@ -42,7 +42,7 @@ class UserController
 	        $rid = Role::where('uid','=',$uid)->get(array('rid'));
 	        $rid = json_decode($rid, true);
 	        $rid = (int) $rid[0]['rid'];
-	  
+
 
            \Session::put('privileges', $role->privileges);
            \Session::put('pusertype', $role->pusertype);
