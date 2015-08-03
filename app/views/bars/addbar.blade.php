@@ -94,8 +94,8 @@
             </div>
             <div class="col-sm-6">
               <div class="form-group">
-                {{ Form::label("url", "Website") }}
-                {{ Form::text("url", Input::old("url"), ["class" => "form-control", "placeholder" => "optional"]) }}
+                {{ Form::label("website", "Website") }}
+                {{ Form::text("website", Input::old("url"), ["class" => "form-control", "placeholder" => "optional"]) }}
               </div>
             </div>
           </div>

@@ -37,7 +37,13 @@ class UserController
           To represent --- triplet use 0 |  nothing
           */
           $uid = Auth::user()->id;
-           $role = Role::where('uid', '=', $uid)->firstOrFail();
+            $role = Role::where('uid', '=', $uid)->firstOrFail();
+
+	        $rid = Role::where('uid','=',$uid)->get(array('rid'));
+	        $rid = json_decode($rid, true);
+	        $rid = (int) $rid[0]['rid'];
+	        return $rid;
+
            \Session::put('privileges', $role->privileges);
            \Session::put('pusertype', $role->pusertype);
            \Session::flash('mymessage','You are logged in');
@@ -249,8 +255,7 @@ class UserController
       }
 
       $roles[2]='Bar Admin';
-      $roles[3]='Guest';
-      $roles[0]='None';
+
 
       $privileges[6] = 'Read and Write';
       $privileges[4] = 'Read Only';
@@ -404,4 +409,16 @@ class UserController
 
   }
 
+  public function uploadcsv(){
+	  /*
+	   * This feature is in a lower priority
+	   * It will be implemented later or in the next upgrade.
+	   */
+	  if (Input::hasFile('csvfile'))
+	  {
+		  return View::make("admin/uploadcsv")->withErrors('This feature is coming soon.');
+
+	  }
+	  return View::make("admin/uploadcsv");
+  }
 }

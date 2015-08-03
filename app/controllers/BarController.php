@@ -143,6 +143,7 @@ class BarController extends \BaseController {
 					$Bar->address = Input::get('address');
 					$Bar->city = Input::get('city');
 					$Bar->zipcode = Input::get('zipcode');
+					$Bar->website = Input::get('website');
 					$Bar->approved = Input::get('approved');
 					$Bar->active = Input::get('active');
 					$Bar->save();

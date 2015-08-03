@@ -27,6 +27,10 @@
           <a href="{{ URL::route("register") }}">New Registration</a>
         </li>
       @endif
+
+	      <li>
+		      <a href="{{ URL::route("admin/uploadcsv") }}">Upload CSV</a>
+	      </li>
       </ul>
     </nav>
   </div>

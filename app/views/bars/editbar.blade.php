@@ -74,6 +74,11 @@ foreach ($bars as $bar){
   <td>{{Form::text('zipcode', $bar->zipcode)}}</td>
   </tr>
 
+  <tr>
+ 	<td>Website: </td>
+  <td>{{Form::text('website', $bar->website)}}</td>
+  </tr>
+
 
   <tr>
  	<td>Approved: </td>

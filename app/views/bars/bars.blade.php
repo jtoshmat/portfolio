@@ -40,7 +40,7 @@
           <td>{{ $bar->city }}</td>
           <td>{{ $bar->state }}</td>
           <td>{{-- $bar->phone --}}</td>
-          <td>url here</td>
+          <td>{{ $bar->website }}</td>
           <td>
             @if ($bar->approved===1)
             <a href="{{ route('games/games', array('id' => $bar->id)) }}"><span class="glyphicon glyphicon-calendar" data-toggle="tooltip" data-placement="bottom" title="Events" aria-hidden="true"></span><span class="sr-only">Edit Events</span></a>

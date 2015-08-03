@@ -232,6 +232,13 @@ Route::group(["before" => "auth"], function() {
               "as"   => "user/logout",
               "uses" => "UserController@logout"
               ]);
+
+            Route::any("uploadcsv", [
+              "as"   => "admin/uploadcsv",
+              "uses" => "UserController@uploadcsv"
+              ]);
+
+
             });
 
           Route::any("/request", [
