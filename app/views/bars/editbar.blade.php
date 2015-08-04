@@ -125,6 +125,8 @@ foreach ($bars as $bar){
         @endforeach
         </div>
         @endif
+        {{ Form::hidden("approved", $bar->approved) }}
+        {{ Form::hidden("active", $bar->active) }}
         {{ Form::hidden("id", $bar->id) }}
         <div class="row">
           <div class="col-xs-6">
