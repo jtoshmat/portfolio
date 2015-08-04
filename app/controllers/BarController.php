@@ -36,7 +36,8 @@ class BarController extends \BaseController {
 		switch ($this->isAdmin()){
 			case 1: //Super Admin
 				$bars = DB::select(DB::raw('
-				SELECT *, (SELECT count(*) FROM bars LEFT JOIN games ON bars.id=games.bid WHERE games.bid=b.id) as totalGames
+				SELECT *, (SELECT count(*) FROM bars LEFT JOIN games ON bars.id=games.bid WHERE games.bid=b.id) as
+				totalGames,b.id as id, b.uid as uid
 				FROM bars AS b
 				LEFT JOIN games AS g
 				ON b.id = g.bid
@@ -49,7 +50,8 @@ class BarController extends \BaseController {
 
 
 				$bars = DB::select(DB::raw('
-				SELECT *, (SELECT count(*) FROM bars LEFT JOIN games ON bars.id=games.bid WHERE games.bid=b.id) as totalGames
+				SELECT *, (SELECT count(*) FROM bars LEFT JOIN games ON bars.id=games.bid WHERE games.bid=b.id) as
+				totalGames,b.id as id, b.uid as uid
 				FROM bars AS b
 				LEFT JOIN games AS g
 				ON b.id = g.bid
