@@ -13,6 +13,8 @@
     <nav id="main-navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
       @if (Auth::check())
+        <li role="presentation" class="visible-xs-block"><a href="{{ URL::route("bars") }}">Bar Index</a></li>
+        <li role="presentation" class="visible-xs-block"><a href="#">Season Schedule</a></li>
       	<li>
 	        <a href="http://www.packerseverywhere.com/app" target="_blank">View App</a>
       	</li>
@@ -35,11 +37,13 @@
   </div>
 </header>
 @if (Auth::check())
-<div class="container">
-  <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a href="{{ URL::route("bars") }}">Bar Index</a></li>
-    <li role="presentation"><a href="#">Season Schedule</a></li>
-  </ul>
+<div class="navbar navbar-default sub-nav hidden-xs" aria-hidden="true">
+  <div class="container">
+    <ul class="nav navbar-nav">
+      <li role="presentation"><a href="{{ URL::route("bars") }}">Bar Index</a></li>
+      <li role="presentation"><a href="#">Season Schedule</a></li>
+    </ul>
+  </div>
 </div>
 @endif
 @show

@@ -2,8 +2,16 @@
 @import 'bootstrap';
 @import 'dataTables.bootstrap';
 
+.main-header {
+  margin-bottom: 0;
+}
+
 .main-content {
-  margin-top: 20px;
+  margin: 20px 0;
+}
+
+.page-header {
+  margin-top: 0;
 }
 
 .table-controls {
