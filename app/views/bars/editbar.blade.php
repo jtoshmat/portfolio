@@ -22,6 +22,9 @@ foreach ($bars as $bar){
           {{ Form::text("address", $bar->address, ["class" => "form-control", "required"]) }}
         </div>
         <div class="form-group">
+          {{ Form::text("address2", Input::old("address2"), ["class" => "form-control", "placeholder" => "optional"]) }}
+        </div>
+        <div class="form-group">
           {{ Form::label("city", "City") }}
           {{ Form::text("city", $bar->city, ["class" => "form-control", "required"]) }}
         </div>

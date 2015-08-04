@@ -35,7 +35,7 @@
 			?>
       <tr class="{{$activebar}}">
         <td class="text-center"><input type="checkbox" class="checkbox-delete" data-barid="{{ $bar->id }}"></td>
-        <td><a href="{{ route('bars/editbar', array('id' => $bar->id)) }}" data-toggle="tooltip" data-placement="bottom" title="View Bar">{{ $bar->barname }}</a></td>
+        <td><a href="{{ route('bars/editbar', array('id' => $bar->id)) }}" data-toggle="tooltip" data-placement="bottom" title="Edit">{{ $bar->barname }}</a></td>
         <td>{{ $bar->city }}</td>
         <td>{{ $bar->state }}</td>
         <td>{{ $bar->phone }}</td>

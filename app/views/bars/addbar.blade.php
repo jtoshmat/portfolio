@@ -16,6 +16,9 @@
           {{ Form::text("address", Input::old("address"), ["class" => "form-control", "required"]) }}
         </div>
         <div class="form-group">
+          {{ Form::text("address2", Input::old("address2"), ["class" => "form-control", "placeholder" => "optional"]) }}
+        </div>
+        <div class="form-group">
           {{ Form::label("city", "City") }}
           {{ Form::text("city", Input::old("city"), ["class" => "form-control", "required"]) }}
         </div>
@@ -122,7 +125,7 @@
         @endif
 
         <div class="text-right">
-          {{ Form::submit("Add Bar", ["class" => "btn btn-primary btn-lg"]) }}
+          {{ Form::submit("Add Bar", ["class" => "btn btn-primary"]) }}
         </div>
       {{ Form::close() }}
     </div>
