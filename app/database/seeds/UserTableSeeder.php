@@ -5,32 +5,14 @@ class UserTableSeeder
 {
   public function run()
   {
-    $users = [
+	  DB::table('user')->truncate();
+
+	  $users = [
       [
-        "username" => "jontoshmatov@yahoo.com",
+        "username" => "admin@bluestatedigital.com",
         "password" => Hash::make("business"),
-        "email"    => "jontoshmatov@yahoo.com"
+        "email"    => "admin@bluestatedigital.com"
       ],
-      [
-        "username" => "test@test.com",
-        "password" => Hash::make("business"),
-        "email"    => "test@test.com"
-      ],
-      [
-        "username" => "admin@admin.com",
-        "password" => Hash::make("business"),
-        "email"    => "admin@admin.com"
-      ],            
-      [
-        "username" => "bar@bar.com",
-        "password" => Hash::make("business"),
-        "email"    => "bar@bar.com"
-      ],
-      [
-        "username" => "demo@demo.com",
-        "password" => Hash::make("business"),
-        "email"    => "demo@demo.com"
-      ],      
     ];
 
     foreach ($users as $user) {

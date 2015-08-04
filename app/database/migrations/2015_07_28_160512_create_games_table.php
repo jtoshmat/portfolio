@@ -12,9 +12,7 @@ class CreateGamesTable extends Migration {
 	 */
 	public function up()
 	{
-		if (Schema::hasTable('games')){
-			return false;
-		};
+		Schema::dropIfExists("games");
 
 		Schema::create('games', function(Blueprint $table)
 		{

@@ -12,9 +12,7 @@ class CreateBarsTable extends Migration {
 	 */
 	public function up()
 {
-	if (Schema::hasTable('bars')){
-		return false;
-	};
+	Schema::dropIfExists("bars");
 
 	Schema::create('bars', function(Blueprint $table)
 		{

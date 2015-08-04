@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnsToBarsTable extends Migration {
+class AlterBarsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,11 @@ class AddColumnsToBarsTable extends Migration {
 	 */
 	public function up()
 	{
-		if (!Schema::hasTable('roles')){
-			return false;
-		};
-		
 		Schema::table('bars', function(Blueprint $table)
 		{
-			$table->string('phone', 20)->after('zipcode');
-			$table->dropColumn('phone');
+			$table->integer('uid')->after('id');
+			$table->string('website',255)->after('zipcode');
+			$table->string('phone',20)->after('zipcode');
 		});
 	}
 
@@ -30,10 +27,7 @@ class AddColumnsToBarsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('bars', function(Blueprint $table)
-		{
-			$table->dropColumn('phone');
-		});
+		Schema::drop('bars');
 	}
 
 }

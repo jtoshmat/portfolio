@@ -39,7 +39,7 @@
           <td><a href="{{ route('bars/bar', array('id' => $bar->id)) }}" data-toggle="tooltip" data-placement="bottom" title="View Bar">{{ $bar->barname }}</a></td>
           <td>{{ $bar->city }}</td>
           <td>{{ $bar->state }}</td>
-          <td>{{-- $bar->phone --}}</td>
+          <td>{{ $bar->phone }}</td>
           <td>{{ $bar->website }}</td>
           <td>
             @if ($bar->approved===1)

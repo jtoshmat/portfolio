@@ -8,9 +8,7 @@ class CreateUserTable
 {
   public function up()
   {
-	  if (Schema::hasTable('user')){
-		  return false;
-	  };
+	  Schema::dropIfExists("user");
 
 	  Schema::create("user", function (Blueprint $table) {
       $table->increments("id");

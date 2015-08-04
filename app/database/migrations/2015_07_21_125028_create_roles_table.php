@@ -12,9 +12,7 @@ class CreateRolesTable extends Migration {
 	 */
 	public function up()
 	{
-		if (Schema::hasTable('roles')){
-			return false;
-		};
+		Schema::dropIfExists("roles");
 
 		Schema::create('roles', function(Blueprint $table)
 		{
