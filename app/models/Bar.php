@@ -46,11 +46,32 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	);
 
 	public static $updatebarrules = array(
-		'barname'=>'required',
-		'website'=>'active_url',
-		'address'=>'required|min:2',
-		'city'=>'required|alpha|min:2',
-		'zipcode'=>'required|numeric|min:5',
+		'barname'=>array(
+			'required',
+			'min:2',
+			'regex:/(^[A-Za-z0-9 ]+$)+/'
+		),
+		'address'=>array(
+			'required',
+			'min:2',
+			'regex:/(^[A-Za-z0-9 ]+$)+/'
+		),
+		'city'=>array(
+			'required',
+			'min:2',
+			'regex:/(^[A-Za-z0-9 ]+$)+/'
+		),
+		'state'=>array(
+			'required',
+			'min:2',
+			'regex:/(^[A-Z]{2}+$)+/'
+		),
+		'zipcode'=>array(
+			'required',
+			'min:5',
+			'regex:/(^[0-9 ]{5,5}$)+/'
+		),
+		'website'=>'active_url|min:7',
 	);
 
 	use UserTrait, RemindableTrait;
