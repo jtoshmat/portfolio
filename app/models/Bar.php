@@ -42,15 +42,15 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'min:5',
 			'regex:/(^[0-9 ]{5,5}$)+/'
 		),
-		'website'=>'required|active_url|min:7',
+		'website'=>'active_url|min:7',
 	);
 
 	public static $updatebarrules = array(
 		'barname'=>'required',
-		'website'=>'required|active_url|min:7',
-//		'address'=>'required|min:2',
-//		'city'=>'required|alpha|min:2',
-//		'zipcode'=>'required|numeric|min:5',
+		'website'=>'active_url',
+		'address'=>'required|min:2',
+		'city'=>'required|alpha|min:2',
+		'zipcode'=>'required|numeric|min:5',
 	);
 
 	use UserTrait, RemindableTrait;
@@ -62,6 +62,6 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'bars';
 
-	
+
 
 }
