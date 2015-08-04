@@ -100,7 +100,7 @@
           </div>
         </div>
         <div class="form-group">
-          {!-- TODO: Upload button doesn't work. --}
+          {{-- TODO: Upload button doesn't work. --}}
           <button class="btn btn-default" type="button">Upload Logo</button>
         </div>
         <div class="form-group">
