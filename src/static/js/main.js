@@ -4,6 +4,21 @@ $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
 
 
+  // Sends a delete request with a passed ID. Returns a Promise.
+  function deleteBar(id) {
+    return $.ajax({
+      type: 'GET',
+      url: '/deletebar',
+      data: {
+        id: id
+      }
+    });
+  }
+
+
+  /**
+   * Bars view handlers.
+   */
   // Initialize Bars table.
   $('#bars-listing-table').dataTable({
     columnDefs: [
@@ -19,18 +34,6 @@ $(document).ready(function(){
     var isChecked = $(this).prop('checked');
     $('.checkbox-delete').prop('checked', isChecked);
   });
-
-
-  // Sends a delete request with a passed ID. Returns a Promise.
-  function deleteBar(id) {
-    return $.ajax({
-      type: 'GET',
-      url: '/deletebar',
-      data: {
-        id: id
-      }
-    });
-  }
 
 
   // Add handler for deletion button.
@@ -59,6 +62,31 @@ $(document).ready(function(){
   });
 
 
+  /**
+   * Edit Bar views handler.
+   */
+  $('#approve-bar').on('click', function(e) {
+    e.preventDefault();
+    $('.edit-action').removeClass('bar-inactive').addClass('bar-active');
+    $('input[name="approved"], input[name="active"]').val(1);
+    $(e.currentTarget).closest('form').submit();
+  })
+  $('#reject-bar').on('click', function(e) {
+    e.preventDefault();
+    $('.edit-action').removeClass('bar-active').addClass('bar-inactive');
+    $('input[name="approved"], input[name="active"]').val(0);
+    $(e.currentTarget).closest('form').submit();
+  })
+  $('#delete-bar').on('click', function(e) {
+    e.preventDefault();
+    var id = $(e.currentTarget).data('barid');
+    var conf = confirm('Are you sure you want to delete this bar?');
+    if (conf) {
+      deleteBar(id).done(function() {
+        window.location.pathname = '/bars';
+      });
+    }
+  });
 
 //Delete Bar events
 
