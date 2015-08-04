@@ -17,10 +17,10 @@ class CreateUploadsTable extends Migration {
 		Schema::create('uploads', function(Blueprint $table)
 		{
 
-			$table->increments('id');
-			$table->increments('bid');
+			$table->increments('upload');
+			$table->integer('bid');
 			$table->integer('uid');
-			$table->string("filename");
+			$table->string('filename');
 			$table->timestamps();
 		});
 	}
