@@ -22,14 +22,14 @@ class CreateBarsTable extends Migration {
 				$table->integer('uid');
 				$table->integer('active');
 				$table->integer('approved');
-
 				$table->string('barname');
 				$table->string('address');
 				$table->string('address2');
 				$table->string('city');
 				$table->string('state');
+				$table->string('phone');
+				$table->string('website');
 				$table->string('zipcode');
-				$table->string('promo');
 				$table->timestamps();
 				});
 		}
