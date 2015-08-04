@@ -43,7 +43,7 @@
         <td>
           @if ($bar->approved===1)
           {{-- TODO: these "approve", "reject" buttons don't work yet --}}
-          <a href="{{ route('games/games', array('id' => $bar->id)) }}"><span class="glyphicon glyphicon-calendar" data-toggle="tooltip" data-placement="bottom" title="Events" aria-hidden="true"></span><span class="sr-only">Edit Events</span></a>
+          <a href="{{ route('bars/bevents', array('id' => $bar->id)) }}"><span class="glyphicon glyphicon-calendar" data-toggle="tooltip" data-placement="bottom" title="Events" aria-hidden="true"></span><span class="sr-only">Edit Events</span></a>
           @else
           <a href="#"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="bottom" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve This Bar</span></a>
           <a href="#"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="bottom" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject This Bar</span></a>
