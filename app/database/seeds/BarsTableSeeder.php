@@ -7,8 +7,8 @@ public function run()
 {
     DB::table('bars')->delete();
 
-    
     Bar::create(array(
+	    'uid' =>1,
         'barname' => 'First Bar',
         'address' => '200 Main Street',
         'city' => 'Dubuque',

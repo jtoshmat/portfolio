@@ -5,7 +5,7 @@ class UserTableSeeder
 {
   public function run()
   {
-	  DB::table('user')->truncate();
+	  //DB::table('user')->truncate();
 
 	  $users = [
       [
