@@ -9,7 +9,7 @@
         {{ Form::open() }}
           <div class="form-group">
             {{ Form::label("username", "Username") }}
-            {{ Form::text("username", Input::old("username"), ["class" => "form-control", "required"]) }}
+            {{ Form::email("username", Input::old("username"), ["class" => "form-control", "required"]) }}
           </div>
           <div class="form-group">
             {{ Form::label("password", "Password") }}

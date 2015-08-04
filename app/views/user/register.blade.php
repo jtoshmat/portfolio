@@ -9,7 +9,7 @@
         {{ Form::open(array('url'=>'register', 'class'=>'form-signup')) }}
           <div class="form-group">
             {{ Form::label("username", "Username") }}
-            {{ Form::text("username", null, ["class" => "form-control", "required"]) }}
+            {{ Form::email("username", null, ["class" => "form-control", "required"]) }}
           </div>
           <div class="form-group">
             {{ Form::label("password", "Password") }}
