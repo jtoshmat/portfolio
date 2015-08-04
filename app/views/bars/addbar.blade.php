@@ -105,7 +105,7 @@
         </div>
         <div class="form-group">
           {{ Form::label("description", "Promo/Description") }}
-          {{ Form::textarea("description", Input::old("description"), ["class" => "form-control", "placeholder" => "optional", maxlength => "500"]) }}
+          {{ Form::textarea("description", Input::old("description"), ["class" => "form-control", "placeholder" => "optional", "maxlength" => "500"]) }}
           <div class="text-right"><small>500 character limit</small></div>
         </div>
 
