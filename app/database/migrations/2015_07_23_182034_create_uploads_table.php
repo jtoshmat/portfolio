@@ -20,6 +20,7 @@ class CreateUploadsTable extends Migration {
 		{
 
 			$table->increments('id');
+			$table->increments('bid');
 			$table->integer('uid');
 			$table->string("filename");
 			$table->timestamps();
