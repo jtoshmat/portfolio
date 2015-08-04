@@ -6,6 +6,7 @@
   <div class="table-controls page-header">
     <div class="row">
       <div class="col-xs-6">
+        {{ TODO: These links don't work yet. }}
         <p>Show: <a href="#">All</a> | <a href="#">Awaiting Approval (10)</a></p>
       </div>
       <div class="col-xs-6 text-right">
