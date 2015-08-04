@@ -1,7 +1,8 @@
+{!-- TODO: Is this necessary? --}
 @extends("layout")
 
 @section("content")
- 
+
  <a href="{{ URL::route("bars") }}">Bars</a> | <a  href="{{ route('bars/editbar', array('id' => $bars->id))
  }}">Edit</a>  >> {{$bars->promo}}
  <br />
@@ -10,12 +11,12 @@
 <div  class="table-responsive">
 	<a class='btn btn-warning' href="{{ route('games/addgame', array('id' => $bars->id)) }}">Add Game</a>
   <table class="table table-hover display nowrap dataTable dtr-inline">
-  
+
   <tbody>
   <tr>
   	<tr> <th colspan=2>Viewing</th> </tr>
   </tr>
-  
+
   <tr>
  	<td>ID: </td>
  	<td>1</td>

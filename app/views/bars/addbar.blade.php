@@ -5,7 +5,7 @@
     <h2>Add a Bar</h2>
   </div>
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-8">
       {{ Form::open(array("url" => "addbar", "class" => "form-signup")) }}
         <div class="form-group">
           {{ Form::label("barname", "Bar Name") }}
@@ -20,12 +20,6 @@
           {{ Form::text("city", Input::old("city"), ["class" => "form-control", "required"]) }}
         </div>
         <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              {{ Form::label("zipcode", "Zip Code") }}
-              {{ Form::text("zipcode", Input::old("zipcode"), ["class" => "form-control", "required"]) }}
-            </div>
-          </div>
           <div  class="col-sm-6">
             <div class="form-group">
               {{ Form::label("state", "State") }}
@@ -84,6 +78,12 @@
               ), Input::old("state"), ["class" => "form-control", "required"]) }}
             </div>
           </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              {{ Form::label("zipcode", "Zip Code") }}
+              {{ Form::text("zipcode", Input::old("zipcode"), ["class" => "form-control", "required"]) }}
+            </div>
+          </div>
         </div>
         <div class="row">
           <div class="col-sm-6">
@@ -100,11 +100,13 @@
           </div>
         </div>
         <div class="form-group">
-          <button class="btn btn-default" type="button" disabled="">Upload Logo</button>
+          {!-- TODO: Upload button doesn't work. --}
+          <button class="btn btn-default" type="button">Upload Logo</button>
         </div>
         <div class="form-group">
           {{ Form::label("description", "Promo/Description") }}
-          {{ Form::textarea("description", Input::old("description"), ["class" => "form-control", "placeholder" => "optional"]) }}
+          {{ Form::textarea("description", Input::old("description"), ["class" => "form-control", "placeholder" => "optional", maxlength => "500"]) }}
+          <div class="text-right"><small>500 character limit</small></div>
         </div>
 
         @if (count($errors) > 0)
@@ -119,7 +121,9 @@
         </div>
         @endif
 
-        {{ Form::submit("Add Bar", ["class" => "btn btn-primary"]) }}
+        <div class="text-right">
+          {{ Form::submit("Add Bar", ["class" => "btn btn-primary btn-lg"]) }}
+        </div>
       {{ Form::close() }}
     </div>
   </div>

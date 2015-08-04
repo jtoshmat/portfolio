@@ -1,86 +1,120 @@
 @extends("layout")
-
 @section("content")
-
-<br />
-
 <?php
 foreach ($bars as $bar){
 }
 
 
 ?>
-
-<ul>
-	@foreach($errors->all() as $error)
-		<li>{{ $error }}</li>
-	@endforeach
-</ul>
-
-<div  class="table-responsive">
-
-	<a class='btn btn-warning' href="{{ route('games/addgame', array('id' => $bar->id)) }}">Add Game</a>
-
-  {{ Form::open(array('url' => 'editbar/'.$bar->id)) }}
-  <table class="table table-hover display nowrap dataTable dtr-inline">
-  <tbody>
-
-  <tr>
-  	<TR> <TH COLSPAN=2>Editing</TH> </TR>
-  </tr>
-
-  <tr>
-	  <td>Logo:</td>
-	  <td>
-		  <?php
-
-		  $root = $_SERVER["DOCUMENT_ROOT"];
-		  $bar->filename = empty($bar->filename)?'/img/yourcompanylogo.png':'/img/uploads/'.$bar->filename;
-			  ?>
-		  <img class="barlogo" src="{{$bar->filename}}">
-	  <br />
-		  <img class="upload_user_image" id="id_{{$bar->id}}" src="/img/upload.png">
-
-	  </td>
-  </tr>
-
-  <tr>
- 	<td>ID: </td>
- 	<td>{{$bar->id}}</td>
-  </tr>
-
-  <tr>
- 	<td>Bar Name: </td>
-  <td>{{Form::text('barname', $bar->barname)}}</td>
-  </tr>
-
-  <tr>
- 	<td>Address: </td>
-  <td>{{Form::text('address', $bar->address)}}</td>
-  </tr>
-
-  <tr>
- 	<td>City: </td>
-  <td>{{Form::text('city', $bar->city)}}</td>
-  </tr>
-
-  <tr>
- 	<td>State: </td>
-  <td>{{Form::text('state', $bar->state)}}</td>
-  </tr>
-
-  <tr>
- 	<td>Zip Code: </td>
-  <td>{{Form::text('zipcode', $bar->zipcode)}}</td>
-  </tr>
-
-  <tr>
- 	<td>Website: </td>
-  <td>{{Form::text('website', $bar->website)}}</td>
-  </tr>
-
-
-  <tr>
+<div class="container">
+  <div class="page-header">
+    <h2>{{ $bar->barname }}</h2>
+  </div>
+  <div class="row">
+    <div class="col-sm-8">
+      {{ Form::open(array("url" => "editbar/".$bar->id, "class" => "form-signup")) }}
+        <div class="form-group">
+          {{ Form::label("barname", "Bar Name") }}
+          {{Form::text("barname", $bar->barname, ["class" => "form-control", "required"])}}
+        </div>
+        <div class="form-group">
+          {{ Form::label("address", "Address") }}
+          {{ Form::text("address", $bar->address, ["class" => "form-control", "required"]) }}
+        </div>
+        <div class="form-group">
+          {{ Form::label("city", "City") }}
+          {{ Form::text("city", $bar->city, ["class" => "form-control", "required"]) }}
+        </div>
+        <div class="row">
+          <div  class="col-sm-6">
+            <div class="form-group">
+              {{ Form::label("state", "State") }}
+              {{ Form::select('state', array(
+                "AL" => "Alabama",
+                "AK" => "Alaska",
+                "AZ" => "Arizona",
+                "AR" => "Arkansas",
+                "CA" => "California",
+                "CO" => "Colorado",
+                "CT" => "Connecticut",
+                "DE" => "Delaware",
+                "DC" => "District of Columbia",
+                "FL" => "Florida",
+                "GA" => "Georgia",
+                "HI" => "Hawaii",
+                "ID" => "Idaho",
+                "IL" => "Illinois",
+                "IN" => "Indiana",
+                "IA" => "Iowa",
+                "KS" => "Kansas",
+                "KY" => "Kentucky",
+                "LA" => "Louisiana",
+                "ME" => "Maine",
+                "MD" => "Maryland",
+                "MA" => "Massachusetts",
+                "MI" => "Michigan",
+                "MN" => "Minnesota",
+                "MS" => "Mississippi",
+                "MO" => "Missouri",
+                "MT" => "Montana",
+                "NE" => "Nebraska",
+                "NV" => "Nevada",
+                "NH" => "New Hampshire",
+                "NJ" => "New Jersey",
+                "NM" => "New Mexico",
+                "NY" => "New York",
+                "NC" => "North Carolina",
+                "ND" => "North Dakota",
+                "OH" => "Ohio",
+                "OK" => "Oklahoma",
+                "OR" => "Oregon",
+                "PA" => "Pennsylvania",
+                "RI" => "Rhode Island",
+                "SC" => "South Carolina",
+                "SD" => "South Dakota",
+                "TN" => "Tennessee",
+                "TX" => "Texas",
+                "UT" => "Utah",
+                "VT" => "Vermont",
+                "VA" => "Virginia",
+                "WA" => "Washington",
+                "WV" => "West Virginia",
+                "WI" => "Wisconsin",
+                "WY" => "Wyoming",
+              ), $bar->state, ["class" => "form-control", "required"]) }}
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              {{ Form::label("zipcode", "Zip Code") }}
+              {{ Form::text("zipcode", $bar->zipcode, ["class" => "form-control", "required"]) }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              {{ Form::label("phone", "Phone") }}
+              {{ Form::text("phone", $bar->phone, ["class" => "form-control", "required"]) }}
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              {{ Form::label("website", "Website") }}
+              {{ Form::text("website", $bar->website, ["class" => "form-control", "placeholder" => "optional"]) }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          {!-- TODO: Upload button doesn't work. --}
+          <button class="btn btn-default" type="button">Upload Logo</button>
+        </div>
+        <div class="form-group">
+          {{ Form::label("description", "Promo/Description") }}
+          {{ Form::textarea("description", $bar->description, ["class" => "form-control", "placeholder" => "optional", "maxlength" => "500"]) }}
+          <div class="text-right"><small>500 character limit</small></div>
+        </div>
+  {{--<tr>
  	<td>Approved: </td>
   <td>
 	  {{
@@ -98,22 +132,42 @@ foreach ($bars as $bar){
 	  }}
 
   </td>
-  </tr>
+  </tr>--}}
 
-
-  <tr>
-    <TR> <TH COLSPAN=2 style='text-align:center'> 
-  
-      {{Form::reset('Reset')}}
-		  {{Form::hidden('id', $bar->id)}}
-      {{ Form::submit('Update', ['name' => 'submit']) }}
-        </TH> </TR>
-  </tr>
-
-  </tbody>
-  </table>
-  {{ Form::close() }}
+        @if (count($errors) > 0)
+        <div class="alert alert-danger" role="alert">
+        @foreach($errors->all() as $error)
+          <p>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            {{ $error }}
+          </p>
+        @endforeach
+        </div>
+        @endif
+        {{ Form::hidden("id", $bar->id) }}
+        <div class="row">
+          <div class="col-xs-6">
+            <ul class="list-inline edit-bar-actions">
+            {!-- TODO: these glyphicon buttons don't work yet. --}
+            <li>
+              <a href="#"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve Bar</span></a>
+            </li>
+            <li>
+              <a href="#"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject Bar</span></a>
+            </li>
+            <li>
+              <a href="#" id="delete-bar" data-barid="{{ $bar->id }}"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Bar</span></a>
+            </li>
+            <li>
+          </ul>
+        </div>
+        <div class="col-xs-6 text-right">
+          {{ Form::submit("Update Bar", ["class" => "btn btn-primary"]) }}
+        </div>
+      {{ Form::close() }}
+    </div>
+  </div>
 </div>
 @stop
- 
- 
+
