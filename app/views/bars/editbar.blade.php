@@ -106,7 +106,7 @@ foreach ($bars as $bar){
           </div>
         </div>
         <div class="form-group">
-          {!-- TODO: Upload button doesn't work. --}
+          {{-- TODO: Upload button doesn't work. --}}
           <button class="btn btn-default" type="button">Upload Logo</button>
         </div>
         <div class="form-group">
@@ -114,26 +114,6 @@ foreach ($bars as $bar){
           {{ Form::textarea("description", $bar->description, ["class" => "form-control", "placeholder" => "optional", "maxlength" => "500"]) }}
           <div class="text-right"><small>500 character limit</small></div>
         </div>
-  {{--<tr>
- 	<td>Approved: </td>
-  <td>
-	  {{
-	   Form::select('approved', array(1 => 'Approved', 0 => 'Disapproved'), $bar->approved);
-	  }}
-
-  </td>
-  </tr>
-
-  <tr>
- 	<td>Active: </td>
-  <td>
-	  {{
-	   Form::select('active', array(1 => 'Active', 0 => 'Incactive'), $bar->active);
-	  }}
-
-  </td>
-  </tr>--}}
-
         @if (count($errors) > 0)
         <div class="alert alert-danger" role="alert">
         @foreach($errors->all() as $error)
@@ -148,13 +128,21 @@ foreach ($bars as $bar){
         {{ Form::hidden("id", $bar->id) }}
         <div class="row">
           <div class="col-xs-6">
+      			<?php
+      				$activebar = '';
+      				if ($bar->active) {
+      					$activebar = 'bar-active';
+      				} else {
+        				$activebar = 'bar-inactive';
+      				}
+      			?>
             <ul class="list-inline edit-bar-actions">
-            {!-- TODO: these glyphicon buttons don't work yet. --}
+            {{-- TODO: these glyphicon buttons don't work yet. --}}
             <li>
-              <a href="#"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve Bar</span></a>
+              <a href="#" class="$activebar"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve Bar</span></a>
             </li>
             <li>
-              <a href="#"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject Bar</span></a>
+              <a href="#" class="$activebar"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject Bar</span></a>
             </li>
             <li>
               <a href="#" id="delete-bar" data-barid="{{ $bar->id }}"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Bar</span></a>

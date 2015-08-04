@@ -1,4 +1,4 @@
-{!-- TODO: Is this necessary? --}
+{{-- TODO: Is this necessary? --}}
 @extends("layout")
 
 @section("content")
