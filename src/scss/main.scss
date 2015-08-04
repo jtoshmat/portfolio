@@ -23,3 +23,17 @@
     font-size: 1.5em;
   }
 }
+
+.edit-bar {
+  .nav-pills {
+    margin-bottom: 20px;
+  }
+}
+
+.action-approve-bar.bar-active {
+  color: #5cb85c;
+}
+
+.action-reject-bar.bar-inactive {
+  color: #d9534f;
+}

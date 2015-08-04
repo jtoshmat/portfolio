@@ -17,10 +17,13 @@ class CreateRunTable extends Migration {
 		Schema::dropIfExists("uploads");
 		Schema::dropIfExists("bevents");
 		Schema::dropIfExists("bars");
+		Schema::dropIfExists("games");
 		Schema::dropIfExists("roles");
 		Schema::dropIfExists("user");
+		Schema::dropIfExists("user_types");
 
-		Schema::create("user", function (Blueprint $table) {
+		Schema::create("user", function (Blueprint $table)
+		{
 			$table->increments("id");
 			$table->string("username",70)->unique();
 			$table->string("password");
@@ -28,6 +31,15 @@ class CreateRunTable extends Migration {
 			$table->string("remember_token")->nullable();
 			$table->timestamps();
 		});
+
+		Schema::create('user_types', function(Blueprint $table)
+		{
+			$table->increments('utid');
+			$table->integer('rid');
+			$table->string("title", 255);
+			$table->timestamps();
+		});
+
 		Schema::create('bars', function(Blueprint $table)
 		{
 			$table->increments('id');
@@ -76,7 +88,14 @@ class CreateRunTable extends Migration {
 			$table->string('privileges');
 			$table->timestamps();
 		});
-
+		Schema::create('games', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->integer('uid');
+			$table->integer('bid');
+			$table->string('title');
+			$table->timestamps();
+		});
 		$dbseed = new \DatabaseSeeder();
 		$dbseed->run();
 

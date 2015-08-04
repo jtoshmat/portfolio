@@ -35,7 +35,7 @@
 			?>
       <tr class="{{$activebar}}">
         <td class="text-center"><input type="checkbox" class="checkbox-delete" data-barid="{{ $bar->id }}"></td>
-        <td><a href="{{ route('bars/editbar', array('id' => $bar->id)) }}" data-toggle="tooltip" data-placement="bottom" title="View Bar">{{ $bar->barname }}</a></td>
+        <td><a href="{{ route('bars/editbar', array('id' => $bar->id)) }}" data-toggle="tooltip" data-placement="bottom" title="Edit">{{ $bar->barname }}</a></td>
         <td>{{ $bar->city }}</td>
         <td>{{ $bar->state }}</td>
         <td>{{ $bar->phone }}</td>
@@ -43,7 +43,7 @@
         <td>
           @if ($bar->approved===1)
           {{-- TODO: these "approve", "reject" buttons don't work yet --}}
-          <a href="{{ route('games/games', array('id' => $bar->id)) }}"><span class="glyphicon glyphicon-calendar" data-toggle="tooltip" data-placement="bottom" title="Events" aria-hidden="true"></span><span class="sr-only">Edit Events</span></a>
+          <a href="{{ route('bars/bevents', array('id' => $bar->id)) }}"><span class="glyphicon glyphicon-calendar" data-toggle="tooltip" data-placement="bottom" title="Events" aria-hidden="true"></span><span class="sr-only">Edit Events</span></a>
           @else
           <a href="#"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="bottom" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve This Bar</span></a>
           <a href="#"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="bottom" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject This Bar</span></a>

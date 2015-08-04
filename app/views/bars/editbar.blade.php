@@ -6,13 +6,23 @@ foreach ($bars as $bar){
 
 
 ?>
-<div class="container">
+<div class="container edit-bar">
   <div class="page-header">
     <h2>{{ $bar->barname }}</h2>
+    <p><a href="http://www.packerseverywhere.com/app/venues/{{ $bar->id }}">View on packerseverywhere.com</a></p>
   </div>
+  <ul class="nav nav-pills">
+    <li role="presentation" class="active"><a href="{{ route('bars/editbar', array('id' => $bar->id)) }}">Bar Info</a></li>
+    <li role="presentation"><a href="{{ route('bars/bevents', array('id' => $bar->id)) }}">Events</a></li>
+  </ul>
   <div class="row">
     <div class="col-sm-8">
-      {{ Form::open(array("url" => "editbar/".$bar->id, "class" => "form-signup")) }}
+      {{ Form::open(array("url" => "editbar/".$bar->id, "class" => "form-edit-bar")) }}
+        <div class="form-group">
+          {{-- TODO: This needs to have some kind of user lookup to match email to user ID. --}}
+          {{ Form::label(null, "Owner/Admin") }}
+          {{Form::text(null, null, ["class" => "form-control", "placeholder" => "email used to login to admin tool"])}}
+        </div>
         <div class="form-group">
           {{ Form::label("barname", "Bar Name") }}
           {{Form::text("barname", $bar->barname, ["class" => "form-control", "required"])}}
@@ -20,6 +30,9 @@ foreach ($bars as $bar){
         <div class="form-group">
           {{ Form::label("address", "Address") }}
           {{ Form::text("address", $bar->address, ["class" => "form-control", "required"]) }}
+        </div>
+        <div class="form-group">
+          {{ Form::text("address2", Input::old("address2"), ["class" => "form-control", "placeholder" => "optional"]) }}
         </div>
         <div class="form-group">
           {{ Form::label("city", "City") }}
@@ -138,16 +151,15 @@ foreach ($bars as $bar){
         				$activebar = 'bar-inactive';
       				}
       			?>
-            <ul class="list-inline edit-bar-actions">
-            {{-- TODO: these glyphicon buttons don't work yet. --}}
+            <ul id="edit-bar-actions" class="list-inline edit-bar-actions">
             <li>
-              <a href="#" class="$activebar"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve Bar</span></a>
+              <a href="#" id="approve-bar" class="edit-action action-approve-bar {{ $activebar }}"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve Bar</span></a>
             </li>
             <li>
-              <a href="#" class="$activebar"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject Bar</span></a>
+              <a href="#" id="reject-bar" class="edit-action action-reject-bar {{ $activebar }}"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject Bar</span></a>
             </li>
             <li>
-              <a href="#" id="delete-bar" data-barid="{{ $bar->id }}"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Bar</span></a>
+              <a href="#" id="delete-bar" data-barid="{{ $bar->id }}" class="action-delete-bar"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Bar</span></a>
             </li>
             <li>
           </ul>
