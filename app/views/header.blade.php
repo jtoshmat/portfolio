@@ -18,9 +18,6 @@
       	<li>
 	        <a href="http://www.packerseverywhere.com/app" target="_blank">View App</a>
       	</li>
-	      <li>
-		      <a href="{{ URL::route("admin/uploadcsv") }}">Upload CSV</a>
-	      </li>
       	<li>
 	        <a href="{{ URL::route("user/logout") }}">Log Out</a>
       	</li>

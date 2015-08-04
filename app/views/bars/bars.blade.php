@@ -3,8 +3,16 @@
 
 @section("content")
 <div class="container">
-  <div class="table-controls">
-  	<a href="{{ URL::route("bars/addbar") }}" class="btn btn-primary">Add Bar</a>
+  <div class="table-controls page-header">
+    <div class="row">
+      <div class="col-xs-6">
+        <p>Show: <a href="#">All</a> | <a href="#">Awaiting Approval (10)</a></p>
+      </div>
+      <div class="col-xs-6 text-right">
+      	<a href="{{ URL::route("bars/addbar") }}" class="btn btn-primary">Add Bar</a>
+	      <a href="{{ URL::route("admin/uploadcsv") }}" class="btn btn-default">Upload CSV</a>
+      </div>
+    </div>
   </div>
 
   <table id="bars-listing-table" class="table table-striped table-hover table-bordered'" cellspacing="0" width="100%">
