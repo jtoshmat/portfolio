@@ -1,12 +1,17 @@
 @extends("layout")
 @section("content")
-<div class="container">
+<div class="container add-bar">
   <div class="page-header">
     <h2>Add a Bar</h2>
   </div>
   <div class="row">
     <div class="col-sm-8">
-      {{ Form::open(array("url" => "addbar", "class" => "form-signup")) }}
+      {{ Form::open(array("url" => "addbar", "class" => "form-add-bar")) }}
+        <div class="form-group">
+          {{-- TODO: This needs to have some kind of user lookup to match email to user ID. --}}
+          {{ Form::label(null, "Owner/Admin") }}
+          {{Form::text(null, null, ["class" => "form-control", "placeholder" => "email used to login to admin tool"])}}
+        </div>
         <div class="form-group">
           {{ Form::label("barname", "Bar Name") }}
           {{ Form::text("barname", Input::old("barname"), ["class" => "form-control", "required"]) }}
