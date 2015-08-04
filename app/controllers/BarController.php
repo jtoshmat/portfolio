@@ -247,6 +247,8 @@ class BarController extends \BaseController {
 					'city' => Input::get('city'),
 					'state' => Input::get('state'),
 					'zipcode' => Input::get('zipcode'),
+					'phone' => Input::get('phone'),
+					'website' => Input::get('website'),
 
 				);
 
