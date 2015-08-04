@@ -144,11 +144,15 @@ class BarController extends \BaseController {
 					$Bar->barname = Input::get('barname');
 					$Bar->address = Input::get('address');
 					$Bar->city = Input::get('city');
+      		$Bar->state = Input::get('state');
 					$Bar->zipcode = Input::get('zipcode');
+      		$Bar->phone = Input::get('phone');
 					$Bar->website = Input::get('website');
+      		$Bar->description = Input::get('description');
 					$Bar->approved = Input::get('approved');
 					$Bar->active = Input::get('active');
 					$Bar->save();
+
 					\Session::flash('mymessage','The bar has been updated');
 					return Redirect::to('bars')->with('message', 'Thanks for updaing your bar');
 
@@ -217,10 +221,14 @@ class BarController extends \BaseController {
 		}
 		$id = Request::get('id');
 		$Bar = Bar::find($id);
-		$Bar->promo = Input::get('promo');
+		$Bar->barname = Input::get('barname');
 		$Bar->address = Input::get('address');
 		$Bar->city = Input::get('city');
+		$Bar->state = Input::get('state');
 		$Bar->zipcode = Input::get('zipcode');
+		$Bar->phone = Input::get('phone');
+		$Bar->website = Input::get('website');
+		$Bar->description = Input::get('description');
 		$Bar->approved = Input::get('approved');
 		$Bar->save();
 		\Session::flash('mymessage','The bar has been updated');
@@ -249,7 +257,7 @@ class BarController extends \BaseController {
 					'zipcode' => Input::get('zipcode'),
 					'phone' => Input::get('phone'),
 					'website' => Input::get('website'),
-
+					'description' => Input::get('description'),
 				);
 
 				DB::table('bars')->insert($insertData);

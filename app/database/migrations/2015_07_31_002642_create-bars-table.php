@@ -28,6 +28,7 @@ class CreateBarsTable extends Migration {
 				$table->string('phone');
 				$table->string('website');
 				$table->string('zipcode');
+				$table->string('description');
 				$table->timestamps();
 				});
 		}
