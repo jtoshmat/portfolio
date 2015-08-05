@@ -6,12 +6,13 @@
   <div class="table-controls page-header">
     <div class="row">
       <div class="col-xs-6">
-        {{-- TODO: These links don't work yet. --}}
-        <p>Show: <a href="#">All</a> | <a href="#">Awaiting Approval (10)</a></p>
+        Show
+        <button id="show-all-bars" class="btn btn-default active">All</button>
+        <button href="#" id="show-unapproved-bars" class="btn btn-default">Awaiting Approval <span id="approval-count"></span></button>
       </div>
       <div class="col-xs-6 text-right">
       	<a href="{{ URL::route("bars/addbar") }}" class="btn btn-primary">Add Bar</a>
-	      <a href="{{ URL::route("admin/uploadcsv") }}" class="btn btn-default">Upload CSV</a>
+{{--	      <a href="{{ URL::route("admin/uploadcsv") }}" class="btn btn-default">Upload CSV</a>--}}
       </div>
     </div>
   </div>
@@ -28,6 +29,7 @@
     		<th>Telephone</th>
     		<th>Website</th>
     		<th><span class="sr-only">Actions</span></th>
+    		<th><span class="sr-only">Status</span></th>
     	</tr>
     </thead>
     <tbody>
@@ -58,6 +60,7 @@
           @endif
           <a href="{{ route('bars/editbar', array('id' => $bar->id)) }}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Bar Information</span></a>
         </td>
+        <td>{{ $activebar }}</td>
       </tr>
     @endforeach
     </tbody>

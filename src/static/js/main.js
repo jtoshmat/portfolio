@@ -20,12 +20,43 @@ $(document).ready(function(){
    * Bars view handlers.
    */
   // Initialize Bars table.
-  $('#bars-listing-table').dataTable({
+  function updateInactiveCount() {
+    var countNumber = '(' + $('tr.bar-inactive').length + ')';
+    $('#approval-count').text(countNumber);
+  }
+
+  var barsTable = $('#bars-listing-table').DataTable({
     columnDefs: [
-      { orderable: false, targets: [0, 6] },
-      { searchable: false, targets: [0, 6] }
+      {
+        orderable: false,
+        searchable: false,
+        targets: [0, 6]
+      },
+      {
+        orderable: false,
+        visible: false,
+        targets: [7]
+      }
     ],
     order: [[ 1, 'asc' ]]
+  });
+
+  updateInactiveCount();
+
+  var statusColumn = barsTable.column(7);
+
+  $('#show-all-bars').on('click', function(e) {
+    e.preventDefault();
+    $(e.currentTarget).addClass('active')
+      .siblings('button').removeClass('active');
+    statusColumn.search('').draw();
+  });
+
+  $('#show-unapproved-bars').on('click', function(e) {
+    e.preventDefault();
+    $(e.currentTarget).addClass('active')
+      .siblings('button').removeClass('active');
+    statusColumn.search('bar-inactive').draw();
   });
 
 
