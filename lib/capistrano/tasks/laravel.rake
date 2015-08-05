@@ -27,7 +27,6 @@ namespace :laravel do
 				execute :sudo, :chmod, "-R 2777 app/storage/meta"
 				execute :sudo, :chmod, "-R 2777 app/storage/sessions"
 				execute :sudo, :chmod, "-R 2777 app/storage/views"
-				execute :sudo, :chown, "--recursive ec2-user:nobody public/uploads/"
 				execute :sudo, :chown, "--recursive ec2-user:nobody app/storage"
 			end
 		end
