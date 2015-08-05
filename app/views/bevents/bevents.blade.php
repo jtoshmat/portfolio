@@ -66,7 +66,7 @@ foreach($bevents as $bev){
 
       {{-- Game, with no related event created. --}}
       <tr>
-        <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
+        <td class="text-center"></td>
         <td>1/14/16</td>
         <td>No Event Planned</td>
         <td>vs Denver</td>
