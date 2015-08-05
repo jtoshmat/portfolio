@@ -6,7 +6,7 @@
   <div class="table-controls page-header">
     <div class="row">
       <div class="col-xs-6">
-        {{ TODO: These links don't work yet. }}
+        {{-- TODO: These links don't work yet. --}}
         <p>Show: <a href="#">All</a> | <a href="#">Awaiting Approval (10)</a></p>
       </div>
       <div class="col-xs-6 text-right">
@@ -15,8 +15,7 @@
       </div>
     </div>
   </div>
-
-  <table id="bars-listing-table" class="table table-striped table-hover table-bordered'" cellspacing="0" width="100%">
+  <table id="bars-listing-table" class="table table-hover" cellspacing="0">
   	<thead>
     	<tr>
     		<th class="text-center">
