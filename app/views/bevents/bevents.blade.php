@@ -22,11 +22,13 @@ foreach($bevents as $bev){
   <div class="table-controls">
     <div class="row">
       <div class="col-xs-6">
-        {{-- TODO: These links don't work yet. --}}
-        <p>Show: <a href="#">Upcoming</a> | <a href="#">Past</a></p>
+        {{-- TODO: These buttons don't work yet. --}}
+        Show
+        <button id="show-upcoming-events" class="btn btn-default active">Upcoming</button>
+        <button href="#" id="show-past-events" class="btn btn-default">Past</button>
       </div>
       <div class="col-xs-6 text-right">
-      	<a href="{{ URL::route("bars/addbevent") }}"" class="btn btn-primary">Add New Event</a>
+      	<a href="{{ URL::route("bars/addbevent") }}" class="btn btn-primary">Add New Event</a>
       </div>
     </div>
   </div>
