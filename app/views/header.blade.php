@@ -14,7 +14,7 @@
       <ul class="nav navbar-nav navbar-right">
       @if (Auth::check())
         <li role="presentation" class="visible-xs-block"><a href="{{ URL::route("bars") }}">Bar Index</a></li>
-        <li role="presentation" class="visible-xs-block"><a href="#">Season Schedule</a></li>
+        <li role="presentation" class="visible-xs-block"><a href="{{ URL::route("games/allgames") }}">Season Schedule</a></li>
       	<li>
 	        <a href="http://www.packerseverywhere.com/app" target="_blank">View App</a>
       	</li>
@@ -38,7 +38,7 @@
   <div class="container">
     <ul class="nav navbar-nav">
       <li role="presentation"><a href="{{ URL::route("bars") }}">Bar Index</a></li>
-      <li role="presentation"><a href="#">Season Schedule</a></li>
+      <li role="presentation"><a href="{{ URL::route("games/allgames") }}">Season Schedule</a></li>
     </ul>
   </div>
 </div>
