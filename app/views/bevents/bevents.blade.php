@@ -26,7 +26,7 @@ foreach($bevents as $bev){
         <p>Show: <a href="#">Upcoming</a> | <a href="#">Past</a></p>
       </div>
       <div class="col-xs-6 text-right">
-      	<a href="{{ URL::route("bars/addbar") }}" class="btn btn-primary">Add New Event</a>
+      	<a href="{{ URL::route("bars/addbevent") }}"" class="btn btn-primary">Add New Event</a>
       </div>
     </div>
   </div>
