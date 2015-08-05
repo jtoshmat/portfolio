@@ -16,8 +16,7 @@ namespace :composer do
 					execute "composer self-update"
 				else
 					execute :curl, "-sS", "https://getcomposer.org/installer", "|", :php
-					execute :mv, "composer.phar composer"
-					execute :chmod, "u+x composer"
+					execute "sudo mv composer.phar /usr/local/bin/composer"
 				end
 			end
 		end
