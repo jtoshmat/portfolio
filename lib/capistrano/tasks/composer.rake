@@ -16,12 +16,12 @@ namespace :composer do
 					execute "composer self-update"
 				else
 					execute :curl, "-sS", "https://getcomposer.org/installer", "|", :php
-					execute :sudo, "mv composer.phar /usr/local/bin/composer"
+					execute :sudo "mv composer.phar /usr/local/bin/composer"
 				end
 			end
 		end
 	end
-composer
+	
 	desc "Running libraries with Composer task"
 	task :update_dependencies do
 		on roles(:web, :api, :worker) do
