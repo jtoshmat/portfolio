@@ -19,6 +19,8 @@ class Role extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'roles';
 
-	
+	public function getRole($uid){
+		return Role::where('uid', '=', $uid)->firstOrFail();
+	}
 
 }

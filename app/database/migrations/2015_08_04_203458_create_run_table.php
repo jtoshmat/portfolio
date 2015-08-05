@@ -90,7 +90,7 @@ class CreateRunTable extends Migration {
 		});
 		Schema::create('games', function(Blueprint $table)
 		{
-			$table->increments('id');
+			$table->increments('gid');
 			$table->integer('uid');
 			$table->integer('bid');
 			$table->string('title');
