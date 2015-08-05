@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.2.1'
 
 set :application, 'packers-webapp'
 set :repo_url, 'git@github.com:bsd/packers-webapp-v2.git'
