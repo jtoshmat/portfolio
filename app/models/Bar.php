@@ -130,7 +130,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		$val = (int) Request::get('val');
 		$bid = (int) Request::segment(4);
 		$bar =Bar::find($bid);
-		$bar->approved = $val;
+		$bar->status = $val;
 		$bar->save();
 		return true;
 	}
@@ -162,7 +162,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		$Bar->phone = Input::get('phone');
 		$Bar->website = Input::get('website');
 		$Bar->description = Input::get('description');
-		$Bar->approved = Input::get('approved');
+		$Bar->status = Input::get('approved');
 		$Bar->save();
 		return $Bar;
 	}

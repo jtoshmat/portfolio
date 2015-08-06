@@ -51,7 +51,7 @@
         <td>{{ $bar->phone }}</td>
         <td>{{ $bar->website }}</td>
         <td>
-          @if ($bar->approved===1)
+          @if ($bar->status===1)
           {{-- TODO: these "approve", "reject" buttons don't work yet --}}
           <a href="{{ route('bevents/bevents', array('id' => $bar->id)) }}"><span class="glyphicon glyphicon-calendar" data-toggle="tooltip" data-placement="bottom" title="Events" aria-hidden="true"></span><span class="sr-only">Edit Events</span></a>
           @else

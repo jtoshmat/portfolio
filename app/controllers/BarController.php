@@ -79,7 +79,7 @@ class BarController extends \BaseController {
       		$Bar->phone = Input::get('phone');
 					$Bar->website = Input::get('website');
       		$Bar->description = Input::get('description');
-					$Bar->approved = Input::get('approved');
+					$Bar->status = Input::get('approved');
 					$Bar->active = Input::get('active');
 					$Bar->save();
 
