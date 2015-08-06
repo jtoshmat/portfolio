@@ -4,6 +4,9 @@ require 'capistrano/setup'
 # Include default deployment tasks
 require 'capistrano/deploy'
 
+# for hipchat notifications
+require 'hipchat/capistrano'
+
 # Include tasks from other gems included in your Gemfile
 #
 # For documentation on these, see for example:
