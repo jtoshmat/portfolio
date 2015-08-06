@@ -7,47 +7,158 @@ class User
   extends Eloquent
   implements UserInterface, RemindableInterface
 {
-  protected $table = "user";
-  protected $hidden = ["password"];
+	protected $table = "user";
+	protected $hidden = ["password"];
 
-  public static $rules = array(
-    'username'=>'required|unique:user|min:2',
-    'password'=>'required|alpha_num|between:6,12|confirmed',
-    'password_confirmation'=>'required|alpha_num|between:6,12'
-    );
+	public static $rules = array(
+	'username'=>'required|unique:user|min:2',
+	'password'=>'required|alpha_num|between:6,12|confirmed',
+	'password_confirmation'=>'required|alpha_num|between:6,12'
+	);
 
-  public static $rules2 = array(
-      'email'=>'required|email|min:4',
+	public static $rules2 = array(
+	'email'=>'required|email|min:4',
 
-  );
+	);
 
-  public function getAuthIdentifier()
-  {
-    return $this->getKey();
-  }
+	public static $deleteUser = array(
+		//'email'=>'required|email|min:4',
 
-  public function getAuthPassword()
-  {
-    return $this->password;
-  }
+	);
 
-  public function getRememberToken()
-  {
-    return $this->remember_token;
-  }
+	protected function isAdmin(){
+		return \Session::get('pusertype');
+	}
 
-  public function setRememberToken($value)
-  {
-    $this->remember_token = $value;
-  }
+	public function getAuthIdentifier()
+	{
+	return $this->getKey();
+	}
 
-  public function getRememberTokenName()
-  {
-    return "remember_token";
-  }
+	public function getAuthPassword()
+	{
+	return $this->password;
+	}
 
-  public function getReminderEmail()
-  {
-    return $this->email;
-  }
+	public function getRememberToken()
+	{
+	return $this->remember_token;
+	}
+
+	public function setRememberToken($value)
+	{
+	$this->remember_token = $value;
+	}
+
+	public function getRememberTokenName()
+	{
+	return "remember_token";
+	}
+
+	public function getReminderEmail()
+	{
+	return $this->email;
+	}
+
+	public function getAllUsers(){
+
+		if ($this->isAdmin()==1){
+			return User::all();
+		}
+
+		if ($this->isAdmin()==2){
+			return DB::select(DB::raw('select * from user where parentid='.Auth::user()->id.' or id='.Auth::user()->id));
+		}
+
+		return User::where('id', '=', Auth::user()->id)->get();
+
+	}
+
+	public function viewUser($id){
+		return User::find($id);
+	}
+
+	public function getUser($id){
+		return User::where('id', '=', $id)->firstOrFail();
+
+	}
+
+	public function registerUser(){
+		$roles = Input::get('roles');
+		$privileges = 6;
+		$user = new User;
+		$user->username = Input::get('username');
+		$user->password = Hash::make(Input::get('password'));
+		if ($this->isAdmin()===2){
+			$user->parentid = Auth::user()->id;
+			if ($roles==1){
+				$roles = 2;
+			}
+		}
+		if ($this->isAdmin()!==2 && $this->isAdmin()!==1){
+			$roles = 2;
+		}
+
+		$user->save();
+		$LastInsertId = $user->id;
+		$insertData = array('uid' => $LastInsertId,'pusertype' => $roles, 'privileges'=>$privileges);
+
+		if ($this->isAdmin()===2){
+			$insertData = array('uid' => $LastInsertId,'pusertype' => $roles, 'privileges'=>$privileges);
+		}
+
+		DB::table('roles')->insert($insertData);
+		return 'inserted';
+	}
+
+	public function deleteUser(){
+		$id = (int) Request::segment(3);
+		if ($id === Auth::user()->id){
+			return "You can not delete your own account";
+		}
+		$Role = Role::where('uid','=',$id);
+		$Role->delete();
+
+		$User = User::find($id);
+		return $User->delete();
+	}
+
+	public function updateUser(){
+		$privileges = 6;
+		$user = new User;
+		$id = Input::get('id');
+
+		if ($this->isAdmin()===2){
+			$user->parentid = Auth::user()->id;
+			if ($roles==1){
+				$roles = 2;
+			}
+		}
+		if ($this->isAdmin()!==2 && $this->isAdmin()!==1){
+			$roles = 0;
+		}
+
+		$fillable = array(
+			'email' => Input::get('email'),
+			'password' => Hash::make(Input::get('password')),
+		);
+
+		$user = User::where('id', '=', $id)->update($fillable);
+
+		$LastInsertId = $user->id;
+		$insertData = array('uid' => $LastInsertId,'pusertype' => $roles, 'privileges'=>$privileges);
+
+		if ($this->isAdmin()===2){
+			$insertData = array('uid' => $LastInsertId,'pusertype' => $roles, 'privileges'=>$privileges);
+		}
+
+		$fillable = array(
+			'pusertype' => Input::get('roles'),
+		);
+
+		$role = Role::where('uid', '=', $id)->update($fillable);
+	}
+
+
+
 }

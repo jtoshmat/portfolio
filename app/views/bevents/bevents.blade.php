@@ -1,6 +1,13 @@
 @extends("layout")
 @section("content")
 
+
+	<ul>
+		@foreach($errors->all() as $error)
+			<li>{{ $error }}</li>
+		@endforeach
+	</ul>
+
 <?php
 $bid = 0;
 foreach($bevents as $bev){
@@ -16,17 +23,19 @@ foreach($bevents as $bev){
   </div>
   <ul class="nav nav-pills">
     <li role="presentation"><a href="{{ route('bars/editbar', array('id' => '#')) }}">Bar Info</a></li>
-    <li role="presentation" class="active"><a href="{{ route('bars/bevents', array('id' => '#')) }}">Events</a></li>
+    <li role="presentation" class="active"><a href="{{ route('bevents/bevents', array('id' => '#')) }}">Events</a></li>
   </ul>
 
   <div class="table-controls">
     <div class="row">
       <div class="col-xs-6">
-        {{-- TODO: These links don't work yet. --}}
-        <p>Show: <a href="#">Upcoming</a> | <a href="#">Past</a></p>
+        {{-- TODO: These buttons don't work yet. --}}
+        Show
+        <button id="show-upcoming-events" class="btn btn-default active">Upcoming</button>
+        <button href="#" id="show-past-events" class="btn btn-default">Past</button>
       </div>
       <div class="col-xs-6 text-right">
-      	<a href="{{ URL::route("bars/addbar") }}" class="btn btn-primary">Add New Event</a>
+      	<a href="{{ URL::route("bars/addbevent") }}" class="btn btn-primary">Add New Event</a>
       </div>
     </div>
   </div>
@@ -47,31 +56,19 @@ foreach($bevents as $bev){
     <tbody>
 
       {{-- Event created, not related to game. --}}
-      <tr>
-        <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
-        <td>12/31/15</td>
-        <td>New Year's Eve</td>
-        <td>N/A</td>
-        <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
-      </tr>
-
       {{-- Event created, related to game. --}}
+      {{-- Game, with no related event created. --}}
+
+    @foreach($bevents as $bevent)
       <tr>
         <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
-        <td>1/1/16</td>
-        <td>New Year's Day Party</td>
-        <td>vs DetroitA</td>
-        <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
+        <td>{{$bevent->bid}}</td>
+        <td>{{$bevent->title}}</td>
+        <td>N/A</td>
+        <td class="text-center"><a href="/editbevent/{{$bevent->bid}}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip"
+                                                            data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
       </tr>
-
-      {{-- Game, with no related event created. --}}
-      <tr>
-        <td class="text-center"></td>
-        <td>1/14/16</td>
-        <td>No Event Planned</td>
-        <td>vs Denver</td>
-        <td class="text-center"><a href="#"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="bottom" title="Add Event" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Add Event</span></a></td>
-      </tr>
+    @endforeach
 
     </tbody>
   </table>

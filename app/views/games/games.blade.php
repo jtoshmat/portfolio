@@ -2,65 +2,93 @@
 
 @extends("layout")
 @section("content")
+<div class="container">
+  <div class="page-header">
+    <h2>Season Schedule</h2>
+  </div>
 
-	<h2><a href="{{ URL::route("bars") }}">Bars</a> | Games</h2>
+  <div class="table-controls">
+    <div class="row">
+      <div class="col-xs-6">
+        {{-- TODO: These buttons don't work yet. --}}
+        Show
+        <button id="show-upcoming-games" class="btn btn-default active">Upcoming</button>
+        <button href="#" id="show-past-games" class="btn btn-default">Past</button>
+      </div>
+      <div class="col-xs-6 text-right">
+      	<a href="{{ URL::route("games/addgame") }}" class="btn btn-primary">Add Game</a>
+      </div>
+    </div>
+  </div>
 
-	<div  class="table-responsive">
-		<table id="example" class="table table-hover display nowrap dataTable dtr-inline">
-			<thead>
+	<table id="games-listing-table" class="table table-hover" cellspacing="0">
+		<thead>
 			<tr>
-				<td>ID</td>
-				<td>Game Title</td>
-				<td>Coming soon</td>
-				<td>Coming soon</td>
-				<td>Coming soon</td>
-				<td>Coming soon</td>
-				<td>Coming soon</td>
+  			<th class="text-center">
+      		<a href="#" id="delete-selected-events"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="right" title="Delete Selected Events" aria-hidden="true"></span><span class="sr-only">Delete Selected Events</span></a>
+      		<input type="checkbox" class="table-toggle">
+    		</th>
+				<th>Date</th>
+				<th>Matchup</th>
+				<th>Time</th>
+				<th>TV</th>
+				<th>Notes</th>
+				<th><span class="sr-only">Actions</span></th>
 			</tr>
-			</thead>
-			<tfoot>
-			<tr>
-				<td>ID</td>
-				<td>Game Title</td>
-				<td>Coming soon</td>
-				<td>Coming soon</td>
-				<td>Coming soon</td>
-				<td>Coming soon</td>
-				<td>Coming soon</td>
-			</tr>
-			</tfoot>
-			<tbody>
-			@foreach($games as $game)
-
-				<tr>
-					<td>{{$game->gid}}</td>
-					<td>{{$game->title}}</td>
-					<td>.</td>
-					<td>.</td>
-					<td>.</td>
-					<td>.</td>
-					<td>
-						<a class='btn btn-primary' href="{{ route('games/game', array('id' => $game->gid)) }}">View</a>
-						<a class='btn btn-warning' href="{{ route('games/editgame', array('id' => $game->gid)) }}">Edit</a>
-						<a class='btn btn-danger delete_game' id='id_{{$game->gid}}' href=#>Delete</a>
-
-
-						@if ($game->totalEvents)
-
-							<a class='btn btn-default' href="{{ route('bars/bevents', array('id' => $game->gid))
-							}}">Events
-								({{$game->totalEvents}})</a>
-
-						@else
-							<a class='btn btn-disabled' disabled href="#">Events (0)</a>
-						@endif
-						<a class='btn btn-warning' href="{{ route('bars/addbevent', array('id' => $game->gid))
-						}}">Add Event</a>
-					</td>
-				</tr>
-			@endforeach
-			</tbody>
-		</table>
-	</div>
-
+		</thead>
+		<tbody>
+      <tr>
+        <td class="text-center"><input type="checkbox" class="checkbox-delete" data-gid="{{-- Game ID here --}}"></td>
+        <td><a href="{{-- route('games/editgame', array('id' => $game->gid)) --}}">1/1/16</a></td>
+        <td>@ Detroit {{-- "@" indicates an away game --}}</td>
+        <td>6:00PM CDT</td>
+        <td>FOX</td>
+        <td>{{-- Most games won't have notes. This is for things like noting a schedule change. --}}</td>
+        <td class="text-center"><a href="{{-- route('games/editgame', array('id' => $game->gid)) --}}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Game Information</span></a></td>
+      </tr>
+      <tr>
+        <td class="text-center"><input type="checkbox" class="checkbox-delete" data-gid="{{-- Game ID here --}}"></td>
+        <td><a href="{{-- route('games/editgame', array('id' => $game->gid)) --}}">1/23/16</a></td>
+        <td>vs Seattle {{-- "vs" indicates a home game --}}</td>
+        <td>6:00PM CDT</td>
+        <td>NBC</td>
+        <td>{{-- Most games won't have notes. This is for things like noting a schedule change. --}}</td>
+        <td class="text-center"><a href="{{-- route('games/editgame', array('id' => $game->gid)) --}}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Game Information</span></a></td>
+      </tr>
+		</tbody>
+	</table>
+</div>
 @stop
+
+{{-- here only for reference
+		@foreach($games as $game)
+
+			<tr>
+				<td>{{$game->gid}}</td>
+				<td>{{$game->title}}</td>
+				<td>.</td>
+				<td>.</td>
+				<td>.</td>
+				<td>.</td>
+				<td>
+					<a class='btn btn-primary' href="{{ route('games/game', array('id' => $game->gid)) }}">View</a>
+					<a class='btn btn-warning' href="{{ route('games/editgame', array('id' => $game->gid)) }}">Edit</a>
+					<a class='btn btn-danger delete_game' id='id_{{$game->gid}}' href=#>Delete</a>
+
+
+					@if ($game->totalEvents)
+
+						<a class='btn btn-default' href="{{ route('bars/bevents', array('id' => $game->gid))
+						}}">Events
+							({{$game->totalEvents}})</a>
+
+					@else
+						<a class='btn btn-disabled' disabled href="#">Events (0)</a>
+					@endif
+					<a class='btn btn-warning' href="{{ route('bars/addbevent', array('id' => $game->gid))
+					}}">Add Event</a>
+				</td>
+			</tr>
+		@endforeach
+--}}
+

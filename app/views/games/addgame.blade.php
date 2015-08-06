@@ -1,49 +1,62 @@
 @extends("layout")
-
 @section("content")
- 
-<br />
+<div class="container add-bar">
+  <div class="page-header">
+    <h2>Season Schedule</h2>
+  </div>
+  <div class="row">
+    <div class="col-sm-8">
+      {{ Form::open(array("url" => "addgame/'.$bid", "class" => "form-add-bar")) }}
+        <div class="form-group">
+          {{ Form::label("datetime", "Date") }}
+          {{Form::hidden("datetime", null, ["class" => "form-control datetime-picker"])}}
+        </div>
+        <div class="form-group">
+          {{ Form::label("vs", "vs") }}
+          <div class="row">
+            <div class="col-xs-8">
+              {{ Form::text("vs", Input::old("vs"), ["class" => "form-control", "required"]) }}
+            </div>
+            <div class="col-xs-4">
+              {{ Form::select("location", array(
+                "home" => "Home",
+                "away" => "Away"
+              ), Input::old("location"), ["class" => "form-control", "required"]) }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          {{ Form::label(null, "TV Station") }}
+          <div>
+            <label class="checkbox-inline">{{ Form::checkbox('tv', 'NBC') }} NBC</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv', 'CBS') }} CBS</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv', 'ESPN') }} ESPN</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv', 'FOX') }} FOX</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv', 'NFL Network') }} NFL Network</label>
+          </div>
+        </div>
+        <div class="form-group">
+          {{ Form::label("notes", "Notes") }}
+          {{ Form::textarea("description", Input::old("description"), ["class" => "form-control", "placeholder" => "optional"]) }}
+        </div>
 
+        @if (count($errors) > 0)
+        <div class="alert alert-danger" role="alert">
+        @foreach($errors->all() as $error)
+          <p>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            {{ $error }}
+          </p>
+        @endforeach
+        </div>
+        @endif
 
-<ul>
-	@foreach($errors->all() as $error)
-		<li>{{ $error }}</li>
-	@endforeach
-</ul>
-
-
-<div  class="table-responsive">
-  {{ Form::open(array('url' => 'addgame/'.$bid)) }}
-  <table class="table table-hover display nowrap dataTable dtr-inline">
-  <tbody>
-
-  <tr>
-  	<TR> <TH COLSPAN=2>Adding</TH> </TR>
-  </tr>
-
-
-
-  <tr>
-	  <td>Game Title: </td>
-	  <td>{{Form::text('title')}}</td>
-  </tr>
-
-
-
-
-
-  <tr>
-    <TR> <TH COLSPAN=2 style='text-align:center'> 
-     
-      {{Form::reset('Reset')}}
-      {{ Form::submit('Add', ['name' => 'submit']) }}
-        </TH> </TR>
-  </tr>
-
-  </tbody>
-  </table>
-  {{ Form::close() }}
+        <div class="text-right">
+          {{ Form::submit("Add Game", ["class" => "btn btn-primary"]) }}
+        </div>
+      {{ Form::close() }}
+    </div>
+  </div>
 </div>
 @stop
- 
- 

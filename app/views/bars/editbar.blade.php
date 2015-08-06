@@ -13,7 +13,7 @@ foreach ($bars as $bar){
   </div>
   <ul class="nav nav-pills">
     <li role="presentation" class="active"><a href="{{ route('bars/editbar', array('id' => $bar->id)) }}">Bar Info</a></li>
-    <li role="presentation"><a href="{{ route('bars/bevents', array('id' => $bar->id)) }}">Events</a></li>
+    <li role="presentation"><a href="{{ route('bevents/bevents', array('id' => $bar->id)) }}">Events</a></li>
   </ul>
   <div class="row">
     <div class="col-sm-8">
@@ -138,7 +138,7 @@ foreach ($bars as $bar){
         @endforeach
         </div>
         @endif
-        {{ Form::hidden("approved", $bar->approved) }}
+        {{ Form::hidden("status", $bar->status) }}
         {{ Form::hidden("active", $bar->active) }}
         {{ Form::hidden("id", $bar->id) }}
         <div class="row">
@@ -161,7 +161,6 @@ foreach ($bars as $bar){
             <li>
               <a href="#" id="delete-bar" data-barid="{{ $bar->id }}" class="action-delete-bar"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Bar</span></a>
             </li>
-            <li>
           </ul>
         </div>
         <div class="col-xs-6 text-right">

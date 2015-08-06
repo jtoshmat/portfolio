@@ -6,12 +6,13 @@
   <div class="table-controls page-header">
     <div class="row">
       <div class="col-xs-6">
-        {{-- TODO: These links don't work yet. --}}
-        <p>Show: <a href="#">All</a> | <a href="#">Awaiting Approval (10)</a></p>
+        Show
+        <button id="show-all-bars" class="btn btn-default active">All</button>
+        <button href="#" id="show-unapproved-bars" class="btn btn-default">Awaiting Approval <span id="approval-count"></span></button>
       </div>
       <div class="col-xs-6 text-right">
       	<a href="{{ URL::route("bars/addbar") }}" class="btn btn-primary">Add Bar</a>
-	      <a href="{{ URL::route("admin/uploadcsv") }}" class="btn btn-default">Upload CSV</a>
+{{--	      <a href="{{ URL::route("admin/uploadcsv") }}" class="btn btn-default">Upload CSV</a>--}}
       </div>
     </div>
   </div>
@@ -28,6 +29,7 @@
     		<th>Telephone</th>
     		<th>Website</th>
     		<th><span class="sr-only">Actions</span></th>
+    		<th><span class="sr-only">Status</span></th>
     	</tr>
     </thead>
     <tbody>
@@ -49,15 +51,16 @@
         <td>{{ $bar->phone }}</td>
         <td>{{ $bar->website }}</td>
         <td>
-          @if ($bar->approved===1)
+          @if ($bar->status===1)
           {{-- TODO: these "approve", "reject" buttons don't work yet --}}
-          <a href="{{ route('bars/bevents', array('id' => $bar->id)) }}"><span class="glyphicon glyphicon-calendar" data-toggle="tooltip" data-placement="bottom" title="Events" aria-hidden="true"></span><span class="sr-only">Edit Events</span></a>
+          <a href="{{ route('bevents/bevents', array('id' => $bar->id)) }}"><span class="glyphicon glyphicon-calendar" data-toggle="tooltip" data-placement="bottom" title="Events" aria-hidden="true"></span><span class="sr-only">Edit Events</span></a>
           @else
-          <a href="#"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="bottom" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve This Bar</span></a>
-          <a href="#"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="bottom" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject This Bar</span></a>
+          <a id="id_{{$bar->id}}" href="#"><span class="glyphicon glyphicon-ok action-approve-bar" data-toggle="tooltip" data-placement="bottom" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve This Bar</span></a>
+          <a id="id_{{$bar->id}}" href="#"><span class="glyphicon glyphicon-remove action-reject-bar" data-toggle="tooltip" data-placement="bottom" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject This Bar</span></a>
           @endif
           <a href="{{ route('bars/editbar', array('id' => $bar->id)) }}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Bar Information</span></a>
         </td>
+        <td>{{ $activebar }}</td>
       </tr>
     @endforeach
     </tbody>

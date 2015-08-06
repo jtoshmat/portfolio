@@ -6,31 +6,25 @@
 
 	class GameController extends \BaseController {
 
+		public $games;
+
+		public function __construct(){
+			$this->games = new Game();
+		}
 
 		public function allgames(){
-			$games = Game::all();
+			$games = $this->games->getAllGames();
 			return View::make('games/games')->with('games', $games);
 		}
 
 		public function games(){
-			$bid = (int) Request::segment(2);
-			//$games = Game::where('bid','=', $bid)->get();
-			$games = DB::select(DB::raw("
-			SELECT
-			gm.`bid`, gm.`title`, gm.`gid`,
-			(SELECT COUNT(*) FROM games LEFT JOIN bevents ON games.gid=bevents.gid WHERE bevents.gid=gm.gid) AS totalEvents
-			FROM games as gm
-			LEFT JOIN bevents as bs ON gm.gid=bs.gid
-			WHERE gm.bid = $bid
-			GROUP BY gm.gid
-					 "));
+			$games = $this->games->getGames();
 			return View::make('games/games')->with('games', $games);
 		}
 
 		public function game(){
 			$gid = (int) Request::segment(2);
-			//$games = Game::where('bid','=', $bid)->get();
-			$game = Game::where('gid','=',$gid)->firstOrFail();
+			$game = $this->games->getGame($gid);
 			return View::make('games/game')->with('game', $game);
 		}
 
@@ -40,16 +34,12 @@
 			if (Request::isMethod('post')) {
 				$validator = Validator::make(Input::all(), Game::$updategamerules);
 				if ($validator->passes()) {
+					$gid = (int) Request::segment(2);
 					$id = Request::get('id');
-					$bid = Game::where('gid','=',$gid)->get(array('bid'));
+					$bid = $this->games->getGame($gid)->get(array('bid'));
 					$bid = json_decode($bid, true);
 					$bid = (int) $bid[0]['bid'];
-
-					$Game = Game::where('gid','=',$gid)->update(
-						array(
-							'title' => Input::get('title'),
-						));;
-
+					$game = $this->games->editGame();
 					\Session::flash('mymessage','The game has been updated');
 					return Redirect::to('games/'.$bid)->with('message', 'The following errors occurred');
 				}else{
@@ -57,13 +47,12 @@
 					($validator)->withInput();
 				}
 			}
-			$game = Game::where('gid','=',$gid)->firstOrFail();
+			$game = $this->games->getGame($gid);
 			return View::make('games/editgame')->with('game', $game);
 		}
 
 		public function deleteGame(){
-			$gid = (int) Request::segment(2);
-            Game::where('gid','=',$gid)->delete();
+			$game = $this->games->deleteGame();
 			return 'The game has been deleted';
 
 		}
@@ -76,15 +65,8 @@
 			{
 				$validator = Validator::make(Input::all(), Game::$updategamerules);
 				if ($validator->passes()) {
-					$insertData = array(
-						'uid' => Auth::user()->id,
-						'bid' => $bid,
-						'title' => Input::get('title'),
-
-					);
-					DB::table('games')->insert($insertData);
+					$game = $this->games->addGame();
 					return Redirect::to('games/'.$bid)->with('message', 'Thanks for adding a game');
-
 				}else{
 					return Redirect::to('addgame/'.$bid)->with('message', 'The following errors occurred')->withErrors
 					($validator)
