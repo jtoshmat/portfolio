@@ -32,16 +32,9 @@ set :linked_dirs, %w{
 }
 
 # Hipchat notifications
-set :hipchat_token, "avUjmMaUjZ7pU8R9DLWH0vFfvXt0wQI4D5S7tM5m"
+set :hipchat_token, "35e01bf391d31ea25e1125e3dfba2a"
 set :hipchat_room_name, "738858"
 set :hipchat_announce, true
-set :hipchat_color, 'blue' #normal message color
-set :hipchat_success_color, 'green' #finished deployment message color
-set :hipchat_failed_color, 'red' #cancelled deployment message color
-set :hipchat_message_format, 'html'
-set :hipchat_options, {
-  :api_version  => "v2" # Set "v2" to send messages with API v2
-}
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
