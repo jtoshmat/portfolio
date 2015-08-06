@@ -181,7 +181,7 @@ Route::group(["before" => "auth"], function() {
             });
 
 
-          Route::any("admin/bars/appprove/{id}", [
+          Route::any("admin/bars/approve/{id}", [
               "as"   => "admin/bars/appprove",
               "uses" => "BarController@approveBar"
             ],function($id){
@@ -250,4 +250,4 @@ Route::group(["before" => "auth"], function() {
             "as"   => "user/reset",
             "uses" => "UserController@reset"
           ]);
- 
+

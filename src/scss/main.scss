@@ -19,7 +19,7 @@
   margin-bottom: 20px;
 }
 
-.edit-actions {
+#edit-bar-actions {
   .glyphicon {
     font-size: 1.5em;
   }
@@ -37,4 +37,13 @@
 
 .action-reject-bar.bar-inactive {
   color: #d9534f;
+}
+
+.edit-actions {
+  &.approved .action-approve-bar {
+    color: #5cb85c;
+  }
+  &.rejected .action-reject-bar {
+    color: #d9534f;
+  }
 }

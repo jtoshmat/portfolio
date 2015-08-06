@@ -42,7 +42,7 @@ class BarController extends \BaseController {
 			return View::make($this->isNotAuthorized());
 		}
 		$bars = $this->bars->approveBar();
-		return $bars;
+		return 'The bar status has been updated';
 	}
 
 	public function bar()
@@ -79,8 +79,7 @@ class BarController extends \BaseController {
       		$Bar->phone = Input::get('phone');
 					$Bar->website = Input::get('website');
       		$Bar->description = Input::get('description');
-					$Bar->status = Input::get('approved');
-					$Bar->active = Input::get('active');
+					$Bar->status = Input::get('status');
 					$Bar->save();
 
 					\Session::flash('mymessage','The bar has been updated');

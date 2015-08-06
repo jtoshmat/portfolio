@@ -16,15 +16,35 @@ $(document).ready(function(){
   }
 
 
+  // Change status of bar with a passed ID and new status value.
+  function updateBarStatus(id, status) {
+    var url = '/admin/bars/approve/' + id;
+    return $.ajax({
+      type: 'POST',
+      url: url,
+      data: {
+        val: status
+      }
+    });
+  }
+
+
+  var barStatuses = {
+    APPROVED: 'approved',
+    AWAITING_APPROVAL: 'awaiting-approval',
+    REJECTED: 'rejected'
+  };
+  var statusArray = [
+    barStatuses.APPROVED,
+    barStatuses.AWAITING_APPROVAL,
+    barStatuses.REJECTED
+  ];
+
+
   /**
    * Bars view handlers.
    */
   // Initialize Bars table.
-  function updateInactiveCount() {
-    var countNumber = '(' + $('tr.bar-inactive').length + ')';
-    $('#approval-count').text(countNumber);
-  }
-
   var barsTable = $('#bars-listing-table').DataTable({
     columnDefs: [
       {
@@ -40,23 +60,11 @@ $(document).ready(function(){
     ],
     order: [[ 1, 'asc' ]]
   });
-
-  updateInactiveCount();
-
   var statusColumn = barsTable.column(7);
 
-  $('#show-all-bars').on('click', function(e) {
-    e.preventDefault();
-    $(e.currentTarget).addClass('active')
-      .siblings('button').removeClass('active');
-    statusColumn.search('').draw();
-  });
-
-  $('#show-unapproved-bars').on('click', function(e) {
-    e.preventDefault();
-    $(e.currentTarget).addClass('active')
-      .siblings('button').removeClass('active');
-    statusColumn.search('bar-inactive').draw();
+  // Add handler for status dropdown filter.
+  $('#bar-status-filter').on('change', function(e) {
+    statusColumn.search($(e.currentTarget).val()).draw();
   });
 
 
@@ -64,6 +72,58 @@ $(document).ready(function(){
   $('.table-toggle', '#bars-listing-table').on('change', function() {
     var isChecked = $(this).prop('checked');
     $('.checkbox-delete').prop('checked', isChecked);
+  });
+
+
+  // Handlers for approve/reject buttons
+  $('.edit-actions').on('click', '.dynamic-action', function(e) {
+    e.preventDefault();
+    var $this = $(e.currentTarget);
+    var $actionContainer = $this.closest('.edit-actions')
+    var id = $this.data('barid');
+    var newStatus = {
+      code: 0,
+      cssClass: barStatuses.AWAITING_APPROVAL
+    };
+    var currentStatus = barStatuses.AWAITING_APPROVAL;
+
+    // Figure out the current status of the bar.
+    if ($actionContainer.hasClass(barStatuses.APPROVED)) {
+      currentStatus = barStatuses.APPROVED;
+    } else if ($actionContainer.hasClass(barStatuses.REJECTED)) {
+      currentStatus = barStatuses.REJECTED;
+    }
+
+    // Compare this to the action pressed and set the new status.
+    if ($this.data('status') === barStatuses.APPROVED &&
+        currentStatus !== barStatuses.APPROVED) {
+      newStatus.code = 1;
+      newStatus.cssClass = barStatuses.APPROVED;
+    } else if ($this.data('status') === barStatuses.REJECTED &&
+        currentStatus !== barStatuses.REJECTED) {
+      newStatus.code = -1;
+      newStatus.cssClass = barStatuses.REJECTED;
+    }
+
+    // Use the AJAX endpoint to update the bar, then update the table.
+    updateBarStatus(id, newStatus.code).done(function() {
+      $actionContainer.removeClass(statusArray.join(' '))
+        .addClass(newStatus.cssClass);
+
+      // If this was done in the bars listing table, update it.
+      if ($this.closest('#bars-listing-table').length > 0) {
+        var row = $(e.currentTarget).closest('tr').get(0);
+        var rowIndex = barsTable.row(row).index();
+        var status = $(e.currentTarget).data('status')
+        barsTable.cell(rowIndex, 7).data(status);
+        barsTable.draw();
+      }
+
+      // If this was done in an edit bar field, update it.
+      if ($this.closest('.form-edit-bar').length > 0) {
+        $('input[name="status"]').val(newStatus.code);
+      }
+    });
   });
 
 
@@ -87,7 +147,6 @@ $(document).ready(function(){
         var id = $this.data('barid');
         deleteBar(id).done(function() {
           $this.closest('tr').remove();
-          updateInactiveCount();
         });
       });
     }
@@ -97,18 +156,6 @@ $(document).ready(function(){
   /**
    * Edit Bar views handler.
    */
-  $('#approve-bar').on('click', function(e) {
-    e.preventDefault();
-    $('.edit-action').removeClass('bar-inactive').addClass('bar-active');
-    $('input[name="approved"], input[name="active"]').val(1);
-    $(e.currentTarget).closest('form').submit();
-  })
-  $('#reject-bar').on('click', function(e) {
-    e.preventDefault();
-    $('.edit-action').removeClass('bar-active').addClass('bar-inactive');
-    $('input[name="approved"], input[name="active"]').val(0);
-    $(e.currentTarget).closest('form').submit();
-  })
   $('#delete-bar').on('click', function(e) {
     e.preventDefault();
     var id = $(e.currentTarget).data('barid');

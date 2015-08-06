@@ -139,32 +139,34 @@ foreach ($bars as $bar){
         </div>
         @endif
         {{ Form::hidden("status", $bar->status) }}
-        {{ Form::hidden("active", $bar->active) }}
         {{ Form::hidden("id", $bar->id) }}
         <div class="row">
           <div class="col-xs-6">
       			<?php
-      				$activebar = '';
-      				if ($bar->active) {
-      					$activebar = 'bar-active';
-      				} else {
-        				$activebar = 'bar-inactive';
+      				$status = '';
+      				if ($bar->status === 1) {
+      					$status = 'approved';
+      				} else if ($bar->status === 0) {
+        				$status = 'awaiting-approval';
+      				} else if ($bar->status === -1) {
+        				$status = 'rejected';
       				}
       			?>
-            <ul id="edit-bar-actions" class="list-inline edit-bar-actions">
-            <li>
-              <a href="#" id="approve-bar" class="edit-action action-approve-bar {{ $activebar }}"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve Bar</span></a>
-            </li>
-            <li>
-              <a href="#" id="reject-bar" class="edit-action action-reject-bar {{ $activebar }}"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject Bar</span></a>
-            </li>
-            <li>
-              <a href="#" id="delete-bar" data-barid="{{ $bar->id }}" class="action-delete-bar"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Bar</span></a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-xs-6 text-right">
-          {{ Form::submit("Update Bar", ["class" => "btn btn-primary"]) }}
+            <ul id="edit-bar-actions" class="list-inline edit-actions {{ $status }}">
+              <li>
+                <a data-barid="{{ $bar->id }}" data-status="approved" href="#" class="dynamic-action action-approve-bar"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve Bar</span></a>
+              </li>
+              <li>
+                <a data-barid="{{ $bar->id }}" data-status="rejected" href="#" id="reject-bar" class="dynamic-action action-reject-bar"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject Bar</span></a>
+              </li>
+              <li>
+                <a data-barid="{{ $bar->id }}"  href="#" id="delete-bar"class="action-delete-bar"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Bar</span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-xs-6 text-right">
+            {{ Form::submit("Update Bar", ["class" => "btn btn-primary"]) }}
+          </div>
         </div>
       {{ Form::close() }}
     </div>
