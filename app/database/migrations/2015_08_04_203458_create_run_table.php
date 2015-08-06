@@ -94,6 +94,11 @@ class CreateRunTable extends Migration {
 			$table->integer('uid');
 			$table->integer('bid');
 			$table->string('title');
+			$table->string('matchup');
+			$table->string('location');
+			$table->string('description');
+			$table->dateTime('game_time');
+			$table->string('tv');
 			$table->timestamps();
 		});
 		$dbseed = new \DatabaseSeeder();

@@ -10,7 +10,7 @@ class Game extends Eloquent implements UserInterface, RemindableInterface {
 
 
 	public static $updategamerules = array(
-		'title'=>'required',
+		'matchup'=>'required',
 
 //		'address'=>'required|alpha|min:2',
 //		'city'=>'required|alpha|min:2',
@@ -57,7 +57,9 @@ class Game extends Eloquent implements UserInterface, RemindableInterface {
 		$bid = (int) $bid[0]['bid'];
 		$Game = Game::where('gid','=',$gid)->update(
 			array(
-				'title' => Input::get('title'),
+				'matchup' => Input::get('matchup'),
+				'description' => Input::get('description'),
+				'location' => Input::get('location'),
 			));;
 	}
 
@@ -71,7 +73,9 @@ class Game extends Eloquent implements UserInterface, RemindableInterface {
 		$insertData = array(
 			'uid' => Auth::user()->id,
 			'bid' => $bid,
-			'title' => Input::get('title'),
+			'matchup' => Input::get('matchup'),
+			'description' => Input::get('description'),
+			'location' => Input::get('location'),
 
 		);
 		return DB::table('games')->insert($insertData);

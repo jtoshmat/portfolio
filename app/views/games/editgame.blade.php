@@ -6,7 +6,7 @@
   </div>
   <div class="row">
     <div class="col-sm-8">
-      {{ Form::open(array("url" => "addgame/'.$bid", "class" => "form-add-bar")) }}
+      {{ Form::model($game, array("url" => 'editgame/'.$game->gid, "class" => "form-add-bar")) }}
         <div class="form-group">
           {{ Form::label("datetime", "Date") }}
           {{Form::hidden("datetime", null, ["class" => "form-control datetime-picker"])}}
@@ -15,13 +15,15 @@
           {{ Form::label("vs", "vs") }}
           <div class="row">
             <div class="col-xs-8">
-              {{ Form::text("vs", Input::old("vs"), ["class" => "form-control", "required"]) }}
+              {{ Form::text("matchup", Input::old("vs"), ["class" => "form-control", "required"]) }}
             </div>
             <div class="col-xs-4">
-              {{ Form::select("location", array(
-                "home" => "Home",
-                "away" => "Away"
-              ), Input::old("location"), ["class" => "form-control", "required"]) }}
+	            <?php
+	            $selectedDefault = $game->location;
+	            $allLocations = array("Home" => "Home", "Away" => "Away");
+	            ?>
+	            {{ Form::select('location', $allLocations, $selectedDefault, ["class" => "form-control", "required"]) }}
+
             </div>
           </div>
         </div>
@@ -60,9 +62,10 @@
             </ul>
           </div>
           <div class="col-xs-6 text-right">
-            {{ Form::submit("Add Game", ["class" => "btn btn-primary"]) }}
+            {{ Form::submit("Update Game", ["class" => "btn btn-primary"]) }}
           </div>
         </div>
+	    {{ Form::hidden("gid", $game->gid) }}
       {{ Form::close() }}
     </div>
   </div>

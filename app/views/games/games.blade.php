@@ -1,5 +1,3 @@
-
-
 @extends("layout")
 @section("content")
 <div class="container">
@@ -16,7 +14,7 @@
         <button href="#" id="show-past-games" class="btn btn-default">Past</button>
       </div>
       <div class="col-xs-6 text-right">
-      	<a href="{{ URL::route("games/addgame") }}" class="btn btn-primary">Add Game</a>
+      	<a href="{{ URL::route("games/addgame",array('bid'=>1)) }}" class="btn btn-primary">Add Game</a>
       </div>
     </div>
   </div>
@@ -37,24 +35,25 @@
 			</tr>
 		</thead>
 		<tbody>
+		@foreach ($games as $game)
+			<?php
+			$gameDate = strtotime($game->game_time);
+			$gameDate = date('m-d-Y', $gameDate);
+			$gameTime = strtotime($game->game_time);
+			$gameTime = date('h:i:s A', $gameTime);
+
+			?>
       <tr>
         <td class="text-center"><input type="checkbox" class="checkbox-delete" data-gid="{{-- Game ID here --}}"></td>
-        <td><a href="{{-- route('games/editgame', array('id' => $game->gid)) --}}">1/1/16</a></td>
-        <td>@ Detroit {{-- "@" indicates an away game --}}</td>
-        <td>6:00PM CDT</td>
-        <td>FOX</td>
+        <td><a href="{{-- route('games/editgame', array('id' => $game->gid)) --}}">{{$gameDate}}</a></td>
+        <td>{{$game->matchup}} {{-- "vs" indicates a home game --}}</td>
+        <td>{{$gameTime}}</td>
+        <td>{{$game->tv}}</td>
         <td>{{-- Most games won't have notes. This is for things like noting a schedule change. --}}</td>
-        <td class="text-center"><a href="{{-- route('games/editgame', array('id' => $game->gid)) --}}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Game Information</span></a></td>
+        <td class="text-center"><a href="/editgame/{{$game->gid}}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip"
+         data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Game Information</span></a></td>
       </tr>
-      <tr>
-        <td class="text-center"><input type="checkbox" class="checkbox-delete" data-gid="{{-- Game ID here --}}"></td>
-        <td><a href="{{-- route('games/editgame', array('id' => $game->gid)) --}}">1/23/16</a></td>
-        <td>vs Seattle {{-- "vs" indicates a home game --}}</td>
-        <td>6:00PM CDT</td>
-        <td>NBC</td>
-        <td>{{-- Most games won't have notes. This is for things like noting a schedule change. --}}</td>
-        <td class="text-center"><a href="{{-- route('games/editgame', array('id' => $game->gid)) --}}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Game Information</span></a></td>
-      </tr>
+			@endforeach
 		</tbody>
 	</table>
 </div>

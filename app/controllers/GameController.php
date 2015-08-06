@@ -41,7 +41,7 @@
 					$bid = (int) $bid[0]['bid'];
 					$game = $this->games->editGame();
 					\Session::flash('mymessage','The game has been updated');
-					return Redirect::to('games/'.$bid)->with('message', 'The following errors occurred');
+					return Redirect::to('allgames')->with('message', 'The following errors occurred');
 				}else{
 					return Redirect::to('editgame/'.$gid)->with('message', 'The following errors occurred')->withErrors
 					($validator)->withInput();
@@ -66,13 +66,13 @@
 				$validator = Validator::make(Input::all(), Game::$updategamerules);
 				if ($validator->passes()) {
 					$game = $this->games->addGame();
-					return Redirect::to('games/'.$bid)->with('message', 'Thanks for adding a game');
+					return Redirect::to('allgames')->with('message', 'Thanks for adding a game');
 				}else{
 					return Redirect::to('addgame/'.$bid)->with('message', 'The following errors occurred')->withErrors
 					($validator)
 						->withInput();
 				}
-				return Redirect::to('games/'.$bid)->with('message', 'Thanks for registering!');
+				return Redirect::to('allgames')->with('message', 'Thanks for registering!');
 
 			}
 			return View::make('games/addgame')->with('bid',$bid);

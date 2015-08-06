@@ -103,7 +103,7 @@ Route::any("editbevent/{bid}", [
 		return $gid;
 	});
 
-	Route::any("addgame/{bid}", [
+	Route::any("/addgame/{bid}", [
 		"as"   => "games/addgame",
 		"uses" => "GameController@addGame"
 	],function($bid){
