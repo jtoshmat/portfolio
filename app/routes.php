@@ -37,8 +37,8 @@ Route::any("users", [
 ]);
 
 	Route::any("bevents/{id}", [
-		"as"   => "bars/bevents",
-		"uses" => "BarController@bevents"
+		"as"   => "bevents/bevents",
+		"uses" => "BeventsController@bevents"
 	],function($bid){
 		return $bid;
 	});
@@ -51,8 +51,8 @@ Route::any("bevent/{bid}", [
   });
 
 Route::any("editbevent/{bid}", [
-    "as"   => "bars/editbevent",
-    "uses" => "BarController@editBevent"
+    "as"   => "bevent/editbevent",
+    "uses" => "BeventsController@editBevent"
   ],function($bid){
     return $bid;
   });

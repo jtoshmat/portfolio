@@ -13,7 +13,7 @@ foreach ($bars as $bar){
   </div>
   <ul class="nav nav-pills">
     <li role="presentation" class="active"><a href="{{ route('bars/editbar', array('id' => $bar->id)) }}">Bar Info</a></li>
-    <li role="presentation"><a href="{{ route('bars/bevents', array('id' => $bar->id)) }}">Events</a></li>
+    <li role="presentation"><a href="{{ route('bevents/bevents', array('id' => $bar->id)) }}">Events</a></li>
   </ul>
   <div class="row">
     <div class="col-sm-8">

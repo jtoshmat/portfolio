@@ -14,6 +14,10 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 		'title'=>'required',
 	);
 
+	public static $editbevent = array(
+		'title'=>'required',
+	);
+
 	protected function isAdmin(){
 		return \Session::get('pusertype');
 	}
@@ -29,12 +33,12 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function getBevent(){
-		$id = (int) Request::segment(2);
+		$bid = (int) Request::segment(2);
 		if ($this->isAdmin()===1) {
-			return Bevent::where('barid', '=', $id)->get();
+			return Bevent::where('bid', '=', $bid)->firstOrFail();
 		}
 		if ($this->isAdmin()===2) {
-			return Bevent::where('barid', '=', $id)->get();
+			return Bevent::where('bid', '=', $bid)->firstOrFail();
 		}
 	}
 
@@ -55,6 +59,16 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 		$id = (int) Request::segment(2);
 		$bevent = Bevent::where('bid', '=', $id)->firstOrFail();
 		return $bevent;
+	}
+
+	public function updateBevent(){
+		$bid = (int) Request::segment(2);
+		$bid = Request::get('bid');
+		$fillable = array(
+			'title' => Input::get('title'),
+		);
+		Bevent::where('bid', '=', $bid)->update($fillable);
+		return 1;
 	}
 
 	public function deleteBevent(){

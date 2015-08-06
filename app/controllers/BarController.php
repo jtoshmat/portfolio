@@ -171,19 +171,6 @@ class BarController extends \BaseController {
 		return View::make('bars/addbar');
 	}
 
-	public function bevents()
-	{
-		if ($this->isNotAuthorized()){
-			return View::make($this->isNotAuthorized());
-		}
-		$id = (int) Request::segment(2);
-		$bevents = $this->bevents->getBevent();
-		if ($bevents){
-			return View::make('bevents/bevents')->with('bevents', $bevents)->with('gid', $id);
-		}
-		return View::make('user/403');
-	}
-
 	public function bevent()
 	{
 		if ($this->isNotAuthorized()){
@@ -194,16 +181,6 @@ class BarController extends \BaseController {
 			return View::make('bevents/bevents')->with('bevents', $bevents);
 		}
 		return View::make('user/403');
-	}
-
-	public function editBevent()
-	{
-		if ($this->isNotAuthorized()){
-			return View::make($this->isNotAuthorized());
-		}
-		$bevents = $this->bevents->getBevent();
-		return View::make('bars/editBevent')->with('bevent', $bevents);
-
 	}
 
 	public function addBevent()
