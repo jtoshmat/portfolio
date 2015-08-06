@@ -161,7 +161,6 @@ foreach ($bars as $bar){
             <li>
               <a href="#" id="delete-bar" data-barid="{{ $bar->id }}" class="action-delete-bar"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Bar</span></a>
             </li>
-            <li>
           </ul>
         </div>
         <div class="col-xs-6 text-right">
