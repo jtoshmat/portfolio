@@ -16,6 +16,7 @@ public function run()
         'zipcode' => '52001',
         'phone' => '563-451-6893',
         'website' => 'www.toshmatov.us',
+        'status' => 0,
     ));
 
 

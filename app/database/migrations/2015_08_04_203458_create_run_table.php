@@ -45,7 +45,6 @@ class CreateRunTable extends Migration {
 			$table->increments('id');
 			$table->unsignedInteger('uid'); //unassigned
 			$table->foreign('uid')->references('id')->on('user')->onDelete('cascade');
-			$table->tinyInteger('active'); //tinyint
 			$table->tinyInteger('status'); //tinyint
 			$table->string('barname', 155);
 			$table->string('address');
