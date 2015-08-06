@@ -87,8 +87,9 @@ $(document).ready(function(){
         var id = $this.data('barid');
         deleteBar(id).done(function() {
           $this.closest('tr').remove();
+          updateInactiveCount();
         });
-      })
+      });
     }
   });
 
@@ -118,6 +119,15 @@ $(document).ready(function(){
       });
     }
   });
+
+
+  /**
+   * Initialize datetime pickers.
+   */
+  $('.datetime-picker').datetimepicker({
+    inline: true,
+    sideBySide: true
+  }).attr('type', 'hidden');
 
 //Delete Bar events
 

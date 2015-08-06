@@ -8,9 +8,6 @@
   </head>
   <body>
     @include("header")
-
-
-
     <div id="main-content" class="content main-content">
       @yield("content")
     </div>
