@@ -57,6 +57,6 @@ namespace :deploy do
 
   after :updated, "composer:install"
   after :updated, "laravel:setup"
-  after :publishing, "server:npm_install"
-  after :publishing, "server:gulp_build"
+  after :publishing, "server:install"
+
 end
