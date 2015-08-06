@@ -33,7 +33,7 @@ set :linked_dirs, %w{
 
 # Hipchat notifications
 set :hipchat_token, "avUjmMaUjZ7pU8R9DLWH0vFfvXt0wQI4D5S7tM5m"
-set :hipchat_room_name, "wpd: Packers"
+set :hipchat_room_name, "738858"
 set :hipchat_announce, true
 set :hipchat_color, 'blue' #normal message color
 set :hipchat_success_color, 'green' #finished deployment message color
