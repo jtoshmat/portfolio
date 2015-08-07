@@ -111,6 +111,9 @@ Route::any("editbevent/{bid}", [
 	});
 
 Route::group(["before" => "auth"], function() {
+            Route::any("/", function() {
+                return Redirect::to("bars");
+            });
 
             Route::any("bars", [
               "as"   => "bars",
