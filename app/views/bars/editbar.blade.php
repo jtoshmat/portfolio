@@ -21,7 +21,8 @@ foreach ($bars as $bar){
         <div class="form-group">
           {{-- TODO: This needs to have some kind of user lookup to match email to user ID. --}}
           {{ Form::label(null, "Owner/Admin") }}
-          {{Form::text(null, null, ["class" => "form-control", "placeholder" => "email used to login to admin tool"])}}
+          {{Form::text('email', $username,  ["class" => "form-control", 'readonly', "placeholder" => "email used to login
+          to admin tool"])}}
         </div>
         <div class="form-group">
           {{ Form::label("barname", "Bar Name") }}

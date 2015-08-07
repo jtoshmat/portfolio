@@ -64,6 +64,8 @@ class BarController extends \BaseController {
 		}
 		$id = (int) Request::segment(2);
 
+
+
 			$method = Request::method();
 			if (Request::isMethod('post'))
 			{
@@ -119,7 +121,7 @@ class BarController extends \BaseController {
 		}
 
 		if ($bars){
-			return View::make('bars/editbar')->with('bars', $bars);
+			return View::make('bars/editbar')->with('bars', $bars)->with('username',Auth::user()->username);
 		}
 		return $bars;
 		return View::make('user/403');
