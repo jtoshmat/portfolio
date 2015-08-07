@@ -109,13 +109,10 @@
         </div>
         <div class="form-group">
           {{ Form::label("logo", "Upload Logo") }}
-            <div class="bar-logo-container">
-    			  @if ($bar->filename)
-    	  		  <img class="bar-logo" src="/img/uploads/{{ $bar->filename }}">
-    			  @endif
-            </div>
-            {{ Form::file('logo', null, ["accept" => "image/x-png, image/gif, image/jpeg"]) }}
-{!--            <a href="{{ route('bars/upload', array('id' => $bar->id)) }}" class="btn btn-default action-upload-logo" target="_blank">Upload Logo</a>--}
+          <div class="bar-logo-container">
+          </div>
+          {{ Form::file('logo', ["class" => "bar-logo-upload", "accept" => "image/x-png, image/gif, image/jpeg"]) }}
+        </div>
         <div class="form-group">
           {{ Form::label("description", "Promo/Description") }}
           {{ Form::textarea("description", Input::old("description"), ["class" => "form-control", "placeholder" => "optional", "maxlength" => "500"]) }}

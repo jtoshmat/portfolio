@@ -167,7 +167,19 @@ $(document).ready(function(){
     }
   });
 
-  $('.action-upload-logo').on('click', function(e) {
+  $('.bar-logo-upload').change(function(){
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        var $img = $('<img>')
+        $img.attr('src', e.target.result).addClass('bar-logo');
+        $('.bar-logo-container').html($img);
+      };
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+/*  $('.action-upload-logo').on('click', function(e) {
     e.preventDefault();
     var url = e.currentTarget.href;
     var popup = window.open(url, 'upload', 'toolbar=no, status=no, scrollbars=yes, ' +
@@ -188,7 +200,7 @@ $(document).ready(function(){
         }
       }, 1000);
     }
-  });
+  });*/
 
 
   /**

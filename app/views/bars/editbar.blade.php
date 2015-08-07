@@ -126,8 +126,7 @@ foreach ($bars as $bar){
   	  		  <img class="bar-logo" src="/img/uploads/{{ $bar->filename }}">
   			  @endif
           </div>
-          {{ Form::file('logo', null, ["accept" => "image/x-png, image/gif, image/jpeg"]) }}
-{{--            <a href="{{ route('bars/upload', array('id' => $bar->id)) }}" class="btn btn-default action-upload-logo" target="_blank">Upload Logo</a>--}}
+          {{ Form::file('logo', ["class" => "bar-logo-upload", "accept" => "image/x-png, image/gif, image/jpeg"]) }}
         </div>
         <div class="form-group">
           {{ Form::label("description", "Promo/Description") }}
