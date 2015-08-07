@@ -3,6 +3,10 @@
 @import 'dataTables.bootstrap';
 @import 'bootstrap-datetimepicker';
 
+img {
+  max-width: 100%;
+}
+
 .main-header {
   margin-bottom: 0;
 }
@@ -46,4 +50,8 @@
   &.rejected .action-reject-bar {
     color: #d9534f;
   }
+}
+
+.bar-logo {
+  margin-bottom: 10px;
 }

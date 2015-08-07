@@ -120,7 +120,15 @@ foreach ($bars as $bar){
           </div>
         </div>
         <div class="form-group">
-          <a href="{{ route('bars/upload', array('id' => $bar->id)) }}" class="btn btn-default open-upload-logo" target="_blank">Upload Logo</a>
+          <label>Upload Logo</label>
+          <div>
+            <div class="bar-logo-container">
+    			  @if ($bar->filename)
+    	  		  <img class="bar-logo" src="/img/uploads/{{ $bar->filename }}">
+    			  @endif
+            </div>
+            <a href="{{ route('bars/upload', array('id' => $bar->id)) }}" class="btn btn-default action-upload-logo" target="_blank">Upload Logo</a>
+          </div>
         </div>
         <div class="form-group">
           {{ Form::label("description", "Promo/Description") }}

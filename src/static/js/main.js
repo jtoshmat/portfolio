@@ -167,6 +167,29 @@ $(document).ready(function(){
     }
   });
 
+  $('.action-upload-logo').on('click', function(e) {
+    e.preventDefault();
+    var url = e.currentTarget.href;
+    var popup = window.open(url, 'upload', 'toolbar=no, status=no, scrollbars=yes, ' +
+        'resizable=no, top=200, left=400, width=400, height=450');
+    if (window.localStorage) {
+      $(window).one('storage', function() {
+        var $img = $('<img>')
+        $img.attr('src', window.localStorage.getItem('barFile'))
+          .addClass('bar-logo');
+        $('.bar-logo-container').html($img);
+        window.localStorage.removeItem('barFile');
+      });
+    } else {
+      var timer = setInterval(function() {
+        if(popup.closed) {
+          clearInterval(timer);
+          document.location.reload();
+        }
+      }, 1000);
+    }
+  });
+
 
   /**
    * Initialize datetime pickers.

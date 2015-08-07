@@ -228,11 +228,6 @@ class BarController extends \BaseController {
 				$newFileName = 'logo_'.$daten."_".$uid."_".$bid.".png";
 				$size = (int) $file->getSize();
 				$path = $file->getRealPath();
-				echo "
-				<script type='text/javascript' src='/js/jquery-git2.min.js'></script>\n
-				<script type='text/javascript' src='/js/main.js'></script>
-				";
-				echo "<div style='text-align: center'><img width='250px' height='220px' src='/img/uploads/".$newFileName."'> </div>";
 
 				$validator = Validator::make(Input::all(), Upload::$uploadrules);
 				if ($validator->passes()) {
@@ -261,9 +256,8 @@ class BarController extends \BaseController {
 						return Redirect::to('upload')->with('message', 'The following errors occurred')->withErrors
 						($validator)
 							->withInput();
-					}
-			 echo "uploaded";
-			}
-		return View::make('bars/upload')->with('action', $action)->with('filename', $newFileName)->with('bid', $bid);
+				}
+		  }
+      return View::make('bars/upload')->with('action', $action)->with('filename', $newFileName)->with('bid', $bid);
 	}
 }
