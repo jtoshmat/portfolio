@@ -108,9 +108,14 @@
           </div>
         </div>
         <div class="form-group">
-          {{-- TODO: Upload button doesn't work. --}}
-          <button class="btn btn-default" type="button">Upload Logo</button>
-        </div>
+          {{ Form::label("logo", "Upload Logo") }}
+            <div class="bar-logo-container">
+    			  @if ($bar->filename)
+    	  		  <img class="bar-logo" src="/img/uploads/{{ $bar->filename }}">
+    			  @endif
+            </div>
+            {{ Form::file('logo', null, ["accept" => "image/x-png, image/gif, image/jpeg"]) }}
+{!--            <a href="{{ route('bars/upload', array('id' => $bar->id)) }}" class="btn btn-default action-upload-logo" target="_blank">Upload Logo</a>--}
         <div class="form-group">
           {{ Form::label("description", "Promo/Description") }}
           {{ Form::textarea("description", Input::old("description"), ["class" => "form-control", "placeholder" => "optional", "maxlength" => "500"]) }}

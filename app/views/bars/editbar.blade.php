@@ -17,7 +17,7 @@ foreach ($bars as $bar){
   </ul>
   <div class="row">
     <div class="col-sm-8">
-      {{ Form::open(array("url" => "editbar/".$bar->id, "class" => "form-edit-bar")) }}
+      {{ Form::open(array("url" => "editbar/".$bar->id, "class" => "form-edit-bar", "files" => true)) }}
         <div class="form-group">
           {{-- TODO: This needs to have some kind of user lookup to match email to user ID. --}}
           {{ Form::label(null, "Owner/Admin") }}
@@ -120,15 +120,14 @@ foreach ($bars as $bar){
           </div>
         </div>
         <div class="form-group">
-          <label>Upload Logo</label>
-          <div>
-            <div class="bar-logo-container">
-    			  @if ($bar->filename)
-    	  		  <img class="bar-logo" src="/img/uploads/{{ $bar->filename }}">
-    			  @endif
-            </div>
-            <a href="{{ route('bars/upload', array('id' => $bar->id)) }}" class="btn btn-default action-upload-logo" target="_blank">Upload Logo</a>
+          {{ Form::label("logo", "Upload Logo") }}
+          <div class="bar-logo-container">
+  			  @if ($bar->filename)
+  	  		  <img class="bar-logo" src="/img/uploads/{{ $bar->filename }}">
+  			  @endif
           </div>
+          {{ Form::file('logo', null, ["accept" => "image/x-png, image/gif, image/jpeg"]) }}
+{{--            <a href="{{ route('bars/upload', array('id' => $bar->id)) }}" class="btn btn-default action-upload-logo" target="_blank">Upload Logo</a>--}}
         </div>
         <div class="form-group">
           {{ Form::label("description", "Promo/Description") }}
