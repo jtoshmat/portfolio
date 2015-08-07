@@ -168,7 +168,7 @@ $(document).ready(function(){
   });
 
   $('.bar-logo-upload').change(function(){
-    if (this.files && this.files[0]) {
+    if (window.FileReader && this.files && this.files[0]) {
       var reader = new FileReader();
 
       reader.onload = function(e) {
