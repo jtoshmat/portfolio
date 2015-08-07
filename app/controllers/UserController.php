@@ -185,6 +185,51 @@ extends Controller
 	  return View::make("user/register")->with('roles',$roles)->with('privileges', $privileges);
 	}
 
+	public function forgotpassword()
+	{
+		$method = Request::method();
+		$secretquestion = null;
+		$username = null;
+		$password = null;
+		$secretanswer = null;
+		if (Request::isMethod('post')) {
+			$validator = Validator::make(Input::all(), User::$forgotpasswordrules);
+			if ($validator->passes()) {
+				/*
+				 * Checking the security question and answer
+				 */
+				$secret = Request::get('secret');
+				$User = new User();
+				if($secret) {
+					$password = $User->forgotPassword($secret);
+					if (isset($password['secretanswer'])){
+						$secretanswer = $password['secretanswer'];
+						$secretquestion = 'dsdcsdcsdc';
+						$username = 'sdcsdc';
+					}
+				}
+				$response = $User->forgotPassword();
+				if ($response){
+					$secretquestion = $response['secretquestion'];
+					$username = $response['username'];
+					$secretanswer = $response['secretanswer'];
+				}else{
+					return Redirect::back()->with('message', 'The following errors occurred')->withErrors('Your email
+					 is not found')
+						->withInput();
+				}
+			}else{
+				return Redirect::back()->with('message', 'The following errors occurred')->withErrors($validator)->withInput();
+			}
+		}
+		if (isset($password['error'])){
+			$password['error']='Your answer is incorrect';
+		}
+
+		return View::make("user/forgotpassword")->with('secretquestion', $secretquestion)->with('username',
+			$username)->with('password', $password)->with('secretanswer', $secretanswer);
+	}
+
 	public function getUser(){
 	  if ($this->isNotAuthorized()){
 	      return View::make($this->isNotAuthorized());

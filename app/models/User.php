@@ -16,6 +16,13 @@ class User
 	'password_confirmation'=>'required|alpha_num|between:6,12'
 	);
 
+	public static $forgotpasswordrules = array(
+	'email'=>'required|email',
+	);
+	public static $resetpasswordrules = array(
+	'email'=>'required|email',
+	);
+
 	public static $rules2 = array(
 	'email'=>'required|email|min:4',
 
@@ -158,6 +165,51 @@ class User
 
 		$role = Role::where('uid', '=', $id)->update($fillable);
 	}
+
+	public function forgotPassword($secret=null){
+		$email = Input::get('email');
+		$secretanswer = Input::get('secretanswer');
+		$found = User::where('username','=', $email)->get();
+		$found = json_decode($found, true);
+
+		$output = null;
+		if (!empty($found[0]['username'])){
+			$email = $found[0]['username'];
+
+			$output = array(
+				'username'=>$found[0]['username'],
+				'secretquestion'=>$found[0]['secretquestion'],
+				'secretanswer'=>$found[0]['secretanswer'],
+
+				);
+			$output['secrectanswer'] = null;
+
+			if ($secret){
+				if ($secretanswer===$found[0]['secretanswer']){
+					$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$";
+					$newPassword = substr(str_shuffle($chars),0,8);
+					//$newPassword = 'business';
+					$fillable = array(
+						'password' => Hash::make($newPassword),
+					);
+					$response = User::where('username', '=', $email)->update($fillable);
+					if ($response){
+						return $newPassword;
+					}
+				}else{
+					$output = array();
+					$output['error'] = 'answer is incorrect';
+
+				}
+			}
+
+
+		}
+		return $output;
+	}
+
+
+
 
 
 

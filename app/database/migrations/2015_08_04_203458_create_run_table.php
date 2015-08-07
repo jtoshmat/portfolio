@@ -28,6 +28,8 @@ class CreateRunTable extends Migration {
 			$table->string("username",70)->unique();
 			$table->string("password");
 			$table->string("email",155);
+			$table->string("secretquestion");
+			$table->string("secretanswer");
 			$table->string("remember_token")->nullable();
 			$table->timestamps();
 		});
