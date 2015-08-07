@@ -14,10 +14,6 @@
             <option value="awaiting-approval">Awaiting Approval</option>
             <option value="rejected">Rejected</option>
           </select>
-{{--        <button id="show-all-bars" class="btn btn-default active">All</button>
-        <button href="#" id="show-unapproved-bars" class="btn btn-default">Approved <span id="approved-count"></span></button>
-        <button href="#" id="show-unapproved-bars" class="btn btn-default">Awaiting Approval <span id="awaiting-approval-count"></span></button>
-        <button href="#" id="show-unapproved-bars" class="btn btn-default">Rejected <span id="rejected-count"></span></button>--}}
         </label>
       </div>
       <div class="col-xs-4 text-right">

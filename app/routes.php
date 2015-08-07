@@ -1,4 +1,4 @@
-	<?php
+<?php
 
 	/*
 	|--------------------------------------------------------------------------
@@ -12,33 +12,33 @@
 	*/
 
 	Route::any("error", [
-	"as"   => "errors/error",
-	"uses" => "UserController@error"
+		"as"   => "errors/error",
+		"uses" => "UserController@error"
 	]);
 
 	Route::any("/", [
-	"as"   => "user/login",
-	"uses" => "UserController@login"
+		"as"   => "user/login",
+		"uses" => "UserController@login"
 	]);
 
 	Route::any("users/login", [
-	"as"   => "user/login",
-	"uses" => "UserController@login"
+		"as"   => "user/login",
+		"uses" => "UserController@login"
 	]);
 
 	Route::any("register", [
-	"as"   => "register",
-	"uses" => "UserController@register"
+		"as"   => "register",
+		"uses" => "UserController@register"
 	]);
 
 	Route::any("forgotpassword", [
-	"as"   => "forgotpassword",
-	"uses" => "UserController@forgotpassword"
+		"as"   => "forgotpassword",
+		"uses" => "UserController@forgotpassword"
 	]);
 
 	Route::any("users", [
-	"as"   => "user/users",
-	"uses" => "UserController@users"
+		"as"   => "user/users",
+		"uses" => "UserController@users"
 	]);
 
 	Route::any("bevents/{id}", [
@@ -49,17 +49,17 @@
 	});
 
 	Route::any("bevent/{bid}", [
-	"as"   => "bars/bevent",
-	"uses" => "BarController@bevent"
+		"as"   => "bars/bevent",
+		"uses" => "BarController@bevent"
 	],function($bid){
-	return $bid;
+		return $bid;
 	});
 
 	Route::any("editbevent/{bid}", [
-	"as"   => "bevent/editbevent",
-	"uses" => "BeventsController@editBevent"
+		"as"   => "bevent/editbevent",
+		"uses" => "BeventsController@editBevent"
 	],function($bid){
-	return $bid;
+		return $bid;
 	});
 
 
@@ -115,144 +115,149 @@
 		return $bid;
 	});
 
+
 	Route::group(["before" => "auth"], function() {
+		Route::any("/", function() {
+			return Redirect::to("bars");
+		});
 
-	        Route::any("bars", [
-	          "as"   => "bars",
-	          "uses" => "BarController@bars"
-	        ]);
+		Route::any("bars", [
+			"as"   => "bars",
+			"uses" => "BarController@bars"
+		]);
 
-	      Route::any("bar/{id}", [
-	          "as"   => "bars/bar",
-	          "uses" => "BarController@bar"
-	        ],function($id){
-	          return $id;
-	        });
+		Route::any("bar/{id}", [
+			"as"   => "bars/bar",
+			"uses" => "BarController@bar"
+		],function($id){
+			return $id;
+		});
 
-	      Route::any("addbar", [
-	          "as"   => "bars/addbar",
-	          "uses" => "BarController@addBar"
-	        ],function($id){
-	          return $id;
-	        });
+		Route::any("addbar", [
+			"as"   => "bars/addbar",
+			"uses" => "BarController@addBar"
+		],function($id){
+			return $id;
+		});
 
-	      Route::any("upload/{id}", [
-	          "as"   => "bars/upload",
-	          "uses" => "BarController@uploadImage"
-	        ],function($id){
-	          return $id;
-	        });
+		Route::any("upload/{id}", [
+			"as"   => "bars/upload",
+			"uses" => "BarController@uploadImage"
+		],function($id){
+			return $id;
+		});
 
-	      Route::any("editbar/{id}", [
-	          "as"   => "bars/editbar",
-	          "uses" => "BarController@editBar"
-	        ],function($id){
-	          return $id;
-	        });
+		Route::any("editbar/{id}", [
+			"as"   => "bars/editbar",
+			"uses" => "BarController@editBar"
+		],function($id){
+			return $id;
+		});
 
-	      Route::post("/updatebevent", [
-	          "as"   => "bars/updatebevent",
-	          "uses" => "BarController@updateBevent"
-	        ],function($id){
-	          return $id;
-	        });
+		Route::post("/updatebevent", [
+			"as"   => "bars/updatebevent",
+			"uses" => "BarController@updateBevent"
+		],function($id){
+			return $id;
+		});
 
-	      Route::any("deletebevent", [
-	          "as"   => "bars/deletebevent",
-	          "uses" => "BarController@deleteBevent"
-	        ],function($id){
-	          return $id;
-	        });
+		Route::any("deletebevent", [
+			"as"   => "bars/deletebevent",
+			"uses" => "BarController@deleteBevent"
+		],function($id){
+			return $id;
+		});
 
-	      Route::any("addbevent/{gid}", [
-	          "as"   => "bars/addbevent",
-	          "uses" => "BarController@addBevent"
-	        ],function($gid){
-	          return $gid;
-	        });
+		Route::any("addbevent/{gid}", [
+			"as"   => "bars/addbevent",
+			"uses" => "BarController@addBevent"
+		],function($gid){
+			return $gid;
+		});
 
-	      Route::any("/deletebar", [
-	          "as"   => "bars/deletebar",
-	          "uses" => "BarController@deleteBar"
-	        ],function($id){
-	          return $id;
-	        });
+		Route::any("/deletebar", [
+			"as"   => "bars/deletebar",
+			"uses" => "BarController@deleteBar"
+		],function($id){
+			return $id;
+		});
 
-	      Route::post("/updatebar", [
-	          "as"   => "bars/updatebar",
-	          "uses" => "BarController@updateBar"
-	        ],function($id){
-	          return $id;
-	        });
-
-
-	      Route::any("admin/bars/approve/{id}", [
-	          "as"   => "admin/bars/appprove",
-	          "uses" => "BarController@approveBar"
-	        ],function($id){
-	          return $id;
-	        });
-
-	//            Route::get("user", [
-	//                "as"   => "user",
-	//                "uses" => "UserController@getUser"
-	//            ],function($id){
-	//                return $id;
-	//            });
+		Route::post("/updatebar", [
+			"as"   => "bars/updatebar",
+			"uses" => "BarController@updateBar"
+		],function($id){
+			return $id;
+		});
 
 
+		Route::any("admin/bars/approve/{id}", [
+			"as"   => "admin/bars/appprove",
+			"uses" => "BarController@approveBar"
+		],function($id){
+			return $id;
+		});
+
+//            Route::get("user", [
+//                "as"   => "user",
+//                "uses" => "UserController@getUser"
+//            ],function($id){
+//                return $id;
+//            });
 
 
 
-	/*            Route::get('user/{id}', array('as' => 'user', function($id)
-	        {
-	            // return our view and Nerd information
-	            return View::make('users/user') // pulls app/views/nerd-edit.blade.php
-	            ->with('nerd', User::find($id));
-	        }));*/
-
-	       Route::any('user/{id}', [
-	           "as"   => "user",
-	           "uses" => "UserController@getUser"
-	       ],function($id){
-	           return $id;
-	       });
-
-	       Route::any('user/delete/{id}', [
-	           "as"   => "user/delete",
-	           "uses" => "UserController@deleteUser"
-	       ],function($id){
-	           return $id;
-	       });
-
-			Route::any('user/viewuser/{id}', [
-				"as"   => "user/viewuser",
-				"uses" => "UserController@viewUser"
-			],function($id){
-				return $id;
-			});
 
 
-	        Route::any("/logout", [
-	          "as"   => "user/logout",
-	          "uses" => "UserController@logout"
-	          ]);
+		/*            Route::get('user/{id}', array('as' => 'user', function($id)
+					{
+						// return our view and Nerd information
+						return View::make('users/user') // pulls app/views/nerd-edit.blade.php
+						->with('nerd', User::find($id));
+					}));*/
 
-	        Route::any("uploadcsv", [
-	          "as"   => "admin/uploadcsv",
-	          "uses" => "UserController@uploadcsv"
-	          ]);
+		Route::any('user/{id}', [
+
+			"as"   => "user",
+			"uses" => "UserController@getUser"
+		],function($id){
+			return $id;
+		});
+
+		Route::any('user/delete/{id}', [
+			"as"   => "user/delete",
+			"uses" => "UserController@deleteUser"
+		],function($id){
+			return $id;
+		});
+
+		Route::any('user/viewuser/{id}', [
+			"as"   => "user/viewuser",
+			"uses" => "UserController@viewUser"
+		],function($id){
+			return $id;
+		});
 
 
-	        });
+		Route::any("/logout", [
+			"as"   => "user/logout",
+			"uses" => "UserController@logout"
+		]);
 
-	      Route::any("/request", [
-	        "as"   => "user/request",
-	        "uses" => "UserController@request"
-	      ]);
+		Route::any("uploadcsv", [
+			"as"   => "admin/uploadcsv",
+			"uses" => "UserController@uploadcsv"
+		]);
 
-	      Route::any("/reset/{token}", [
-	        "as"   => "user/reset",
-	        "uses" => "UserController@reset"
-	      ]);
+
+	});
+
+	Route::any("/request", [
+		"as"   => "user/request",
+		"uses" => "UserController@request"
+	]);
+
+	Route::any("/reset/{token}", [
+		"as"   => "user/reset",
+		"uses" => "UserController@reset"
+	]);
 

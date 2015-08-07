@@ -119,8 +119,7 @@ foreach ($bars as $bar){
           </div>
         </div>
         <div class="form-group">
-          {{-- TODO: Upload button doesn't work. --}}
-          <button class="btn btn-default" type="button">Upload Logo</button>
+          <a href="{{ route('bars/upload', array('id' => $bar->id)) }}" class="btn btn-default open-upload-logo" target="_blank">Upload Logo</a>
         </div>
         <div class="form-group">
           {{ Form::label("description", "Promo/Description") }}
