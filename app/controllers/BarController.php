@@ -169,7 +169,7 @@ class BarController extends \BaseController {
 					->withInput();
 			}
 		}
-		return View::make('bars/addbar');
+		return View::make('bars/addbar')->with('username',Auth::user()->username);
 	}
 
 	public function bevent()
