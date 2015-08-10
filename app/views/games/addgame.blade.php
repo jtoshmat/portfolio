@@ -12,10 +12,10 @@
           {{ Form::text("datetime", null, ["class" => "form-control datetime-picker"]) }}
         </div>
         <div class="form-group">
-          {{ Form::label("vs", "vs") }}
+          {{ Form::label("matchup", "vs") }}
           <div class="row">
             <div class="col-xs-8">
-              {{ Form::text("matchup", Input::old("vs"), ["class" => "form-control", "required"]) }}
+              {{ Form::text("matchup", Input::old("matchup"), ["class" => "form-control", "required"]) }}
             </div>
             <div class="col-xs-4">
               {{ Form::select("location", array(
