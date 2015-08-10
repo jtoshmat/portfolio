@@ -32,6 +32,9 @@ class User
 		//'email'=>'required|email|min:4',
 
 	);
+	public static $verifyusernamerules = array(
+		'email'=>'required|email|min:4',
+	);
 
 	protected function isAdmin(){
 		return \Session::get('pusertype');
@@ -208,8 +211,11 @@ class User
 		return $output;
 	}
 
-
-
+	public function verifyUsername(){
+		$username = Request::get('username');
+		$output = User::where('username','=',$username)->get(array('username'));
+		return $output;
+	}
 
 
 

@@ -31,6 +31,11 @@
 		"uses" => "UserController@login"
 	]);
 
+	Route::any("users/verifyusername", [
+		"as"   => "user/verifyusername",
+		"uses" => "UserController@verifyusername"
+	]);
+
 	Route::any("register", [
 		"as"   => "register",
 		"uses" => "UserController@register"

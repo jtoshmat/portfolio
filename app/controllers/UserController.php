@@ -385,4 +385,17 @@ extends Controller
 	  }
 	  return View::make("admin/uploadcsv");
 	}
+
+	public function verifyUsername(){
+		$method = Request::method();
+		if (Request::isMethod('post')) {
+			$validator = Validator::make(Input::all(), User::$verifyusernamerules);
+			if ($validator->passes()) {
+				$User = new User();
+				$output = $User->verifyUsername();
+				return json_encode($output);
+			}
+		}
+		return 'get email';
+	}
 }
