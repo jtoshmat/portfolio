@@ -16,6 +16,11 @@
 		"uses" => "UserController@error"
 	]);
 
+	Route::any("search", [
+		"as"   => "api/search",
+		"uses" => "ApiController@search"
+	]);
+
 	Route::any("/", [
 		"as"   => "user/login",
 		"uses" => "UserController@login"

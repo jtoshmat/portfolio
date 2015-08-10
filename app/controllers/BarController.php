@@ -33,7 +33,7 @@ class BarController extends \BaseController {
 		if ($bars){
 			return View::make('bars/bars')->with('bars', $bars);
 		}
-		return View::make('bars/addbar');
+		return View::make('bars/addbar')->with('username',Auth::user()->username);
 	}
 
 	public function approveBar()
