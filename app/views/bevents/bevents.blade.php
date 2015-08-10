@@ -49,16 +49,37 @@ foreach($bevents as $bev){
     		</th>
     		<th>Date</th>
     		<th>Event Title</th>
-    		<th>Matcup</th>
+    		<th>Matchup</th>
     		<th><span class="sr-only">Actions</span></th>
     	</tr>
     </thead>
     <tbody>
+{{-- Event created, not related to game. --}}
+      <tr>
+        <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
+        <td>12/31/15</td>
+        <td>New Year's Eve</td>
+        <td>N/A</td>
+        <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
+      </tr>
 
-      {{-- Event created, not related to game. --}}
       {{-- Event created, related to game. --}}
-      {{-- Game, with no related event created. --}}
+      <tr>
+        <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
+        <td>1/1/16</td>
+        <td>New Year's Day Party</td>
+        <td>vs DetroitA</td>
+        <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
+      </tr>
 
+      {{-- Game, with no related event created. --}}
+      <tr>
+        <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
+        <td>1/14/16</td>
+        <td>No Event Planned</td>
+        <td>vs Denver</td>
+        <td class="text-center"><a href="#"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="bottom" title="Add Event" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Add Event</span></a></td>
+      </tr>
     @foreach($bevents as $bevent)
       <tr>
         <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
