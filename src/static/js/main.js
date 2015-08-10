@@ -210,7 +210,7 @@ $(document).ready(function(){
   $('.datetime-picker').datetimepicker({
     inline: true,
     sideBySide: true
-  }).attr('type', 'hidden');
+  });
 
 //Delete Bar events
 
