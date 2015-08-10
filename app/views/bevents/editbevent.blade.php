@@ -9,7 +9,7 @@
       {{ Form::model($bevent, array('url' => 'editbevent/'.$bevent->bid, "class" => "form-edit-bar")) }})) }}
         <div class="form-group">
           {{ Form::label("datetime", "Date") }}
-          {{ Form::hidden("datetime", null, ["class" => "form-control datetime-picker"]) }}
+          {{ Form::text("datetime", null, ["class" => "form-control datetime-picker"]) }}
         </div>
         <div class="form-group">
           {{ Form::label("title", "Title") }}

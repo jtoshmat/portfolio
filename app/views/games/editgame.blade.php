@@ -9,7 +9,7 @@
       {{ Form::model($game, array("url" => 'editgame/'.$game->gid, "class" => "form-add-bar")) }}
         <div class="form-group">
           {{ Form::label("datetime", "Date") }}
-          {{Form::hidden("datetime", null, ["class" => "form-control datetime-picker"])}}
+          {{Form::text("datetime", null, ["class" => "form-control datetime-picker"])}}
         </div>
         <div class="form-group">
           {{ Form::label("vs", "vs") }}
