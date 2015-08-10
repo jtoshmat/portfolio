@@ -213,7 +213,7 @@ $(document).ready(function(){
   });
 
 //Delete Bar events
-
+/*
     $('.delete_bevent').click(function(){
         var id = $(this).attr('id');
         id = id.substr(3);
@@ -230,7 +230,7 @@ $(document).ready(function(){
      $.ajax({
         url: '/deletebevent?id='+id,
         type: "get",
-        data: {/* the id goes here */},
+        data: { enter id here},
         success: function(data, textStatus, jqXHR) {
              window.location = "/profile?action=deleted";
         }
@@ -238,7 +238,7 @@ $(document).ready(function(){
         }
 
 
-    });
+    });*/
 
 
 });
