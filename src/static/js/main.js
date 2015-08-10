@@ -208,7 +208,6 @@ $(document).ready(function(){
    * Initialize datetime pickers.
    */
   $('.datetime-picker').datetimepicker({
-    inline: true,
     sideBySide: true
   });
 

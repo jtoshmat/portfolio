@@ -8,16 +8,25 @@
     <div class="col-sm-8">
       {{ Form::open(array("url" => "addgame/$bid", "class" => "form-add-bar")) }}
         <div class="form-group">
-          {{ Form::label("datetime", "Date") }}
-          {{ Form::text("datetime", null, ["class" => "form-control datetime-picker"]) }}
+          <div class="row">
+            <div class="col-sm-6">
+              {{ Form::label("datetime", "Date") }}
+              {{ Form::text("datetime", null, ["class" => "form-control datetime-picker col-sm-8"]) }}
+            </div>
+            <div class="col-sm-6">
+              {{ Form::label("timezone", "Time Zone") }}
+              {{ Timezone::selectForm("US/Central", "Select a timezone", ["class" => "form-control col-sm-4", "name" => "timezone"]) }}
+            </div>
+          </div>
         </div>
         <div class="form-group">
-          {{ Form::label("matchup", "vs") }}
           <div class="row">
-            <div class="col-xs-8">
+            <div class="col-sm-6 col-xs-8">
+              {{ Form::label("matchup", "Matchup") }}
               {{ Form::text("matchup", Input::old("matchup"), ["class" => "form-control", "required"]) }}
             </div>
-            <div class="col-xs-4">
+            <div class="col-sm-6 col-xs-4">
+              {{ Form::label("location", "Location") }}
               {{ Form::select("location", array(
                 "home" => "Home",
                 "away" => "Away"
