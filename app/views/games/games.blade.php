@@ -45,7 +45,7 @@
 			?>
       <tr>
         <td class="text-center"><input type="checkbox" class="checkbox-delete" data-gid="{{-- Game ID here --}}"></td>
-        <td><a href="{{-- route('games/editgame', array('id' => $game->gid)) --}}">{{$gameDate}}</a></td>
+        <td><a href="/editgame/{{$game->gid}}">{{$gameDate}}</a></td>
         <td>{{$game->matchup}} {{-- "vs" indicates a home game --}}</td>
         <td>{{$gameTime}}</td>
         <td>{{$game->tv}}</td>
