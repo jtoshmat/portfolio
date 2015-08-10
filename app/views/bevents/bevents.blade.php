@@ -22,8 +22,8 @@ foreach($bevents as $bev){
     <p><a href="http://www.packerseverywhere.com/app/venues/#">View on packerseverywhere.com</a></p>
   </div>
   <ul class="nav nav-pills">
-    <li role="presentation"><a href="{{ route('bars/editbar', array('id' => '#')) }}">Bar Info</a></li>
-    <li role="presentation" class="active"><a href="{{ route('bevents/bevents', array('id' => '#')) }}">Events</a></li>
+    <li role="presentation"><a href="{{ route('bars/editbar', $barid) }}">Bar Info</a></li>
+    <li role="presentation" class="active"><a href="{{ route('bevents/bevents', $barid) }}">Events</a></li>
   </ul>
 
   <div class="table-controls">
@@ -35,7 +35,7 @@ foreach($bevents as $bev){
         <button href="#" id="show-past-events" class="btn btn-default">Past</button>
       </div>
       <div class="col-xs-6 text-right">
-      	<a href="{{ URL::route("bars/addbevent") }}" class="btn btn-primary">Add New Event</a>
+      	<a href="{{ URL::route("bars/addbevent", $barid) }}" class="btn btn-primary">Add New Event</a>
       </div>
     </div>
   </div>
