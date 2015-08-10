@@ -41,6 +41,14 @@ $(document).ready(function(){
   ];
 
 
+  // Add handler for Bars table master checkbox toggle.
+  $('.table-toggle').on('change', function(e) {
+    var isChecked = $(this).prop('checked');
+    $(e.currentTarget).closest('table').find('.checkbox-delete')
+      .prop('checked', isChecked);
+  });
+
+
   /**
    * Bars view handlers.
    */
@@ -65,13 +73,6 @@ $(document).ready(function(){
   // Add handler for status dropdown filter.
   $('#bar-status-filter').on('change', function(e) {
     statusColumn.search($(e.currentTarget).val()).draw();
-  });
-
-
-  // Add handler for Bars table master checkbox toggle.
-  $('.table-toggle', '#bars-listing-table').on('change', function() {
-    var isChecked = $(this).prop('checked');
-    $('.checkbox-delete').prop('checked', isChecked);
   });
 
 
