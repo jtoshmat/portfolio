@@ -4,7 +4,10 @@
 foreach ($bars as $bar){
 }
 
-
+$readonly = 'readonly';
+if ($admin===1){
+	$readonly = '';
+}
 ?>
 <div class="container edit-bar">
   <div class="page-header">
@@ -21,7 +24,7 @@ foreach ($bars as $bar){
         <div class="form-group">
           {{-- TODO: This needs to have some kind of user lookup to match email to user ID. --}}
           {{ Form::label(null, "Owner/Admin") }}
-          {{Form::text('email', $username,  ["class" => "form-control", 'readonly', "placeholder" => "email used to login
+          {{Form::text('email', $username,  ["class" => "form-control", ''.$readonly.'', "placeholder" => "email used to login
           to admin tool"])}}
         </div>
         <div class="form-group">

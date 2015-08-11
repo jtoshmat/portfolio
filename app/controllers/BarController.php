@@ -121,7 +121,8 @@ class BarController extends \BaseController {
 		}
 
 		if ($bars){
-			return View::make('bars/editbar')->with('bars', $bars)->with('username',Auth::user()->username);
+			return View::make('bars/editbar')->with('bars', $bars)->with('username',Auth::user()->username)->with
+			('admin', $this->isAdmin());
 		}
 		return $bars;
 		return View::make('user/403');
