@@ -33,6 +33,7 @@
 				<th>TV</th>
 				<th>Notes</th>
 				<th><span class="sr-only">Actions</span></th>
+				<th>(hidden sorting column)</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -51,7 +52,7 @@
         <td>
           @if ($game->location === "home")
             Home
-          @else 
+          @else
             Away
           @endif
         </td>
@@ -60,6 +61,7 @@
         <td>{{-- Most games won't have notes. This is for things like noting a schedule change. --}}</td>
         <td class="text-center"><a href="/editgame/{{$game->gid}}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip"
          data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Game Information</span></a></td>
+         <td>(unix time goes here)</td>
       </tr>
 			@endforeach
 		</tbody>
