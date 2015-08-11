@@ -19,6 +19,17 @@
             {{ Form::label("password_confirmation", "Confirm Password") }}
             {{ Form::password("password_confirmation", ["class" => "form-control", "required"]) }}
           </div>
+
+	      <div class="form-group">
+		    {{ Form::label("secret_question", "Secret Question") }}
+		    {{ Form::text("secretquestion", Input::old("secretquestion"), ["class" => "form-control", "required"]) }}
+	      </div>
+
+	      <div class="form-group">
+		    {{ Form::label("secret_answer", "Secret Answer") }}
+		    {{ Form::text("secretanswer", Input::old("secretanswer"), ["class" => "form-control", "required"]) }}
+	      </div>
+
 			    @if (Auth::check())
 		        @if ($roles)
 		        <div class="form-group">

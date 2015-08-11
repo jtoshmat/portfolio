@@ -12,8 +12,8 @@
     </ul>
 
             <!-- email -->
-    {{ Form::label('email', 'Email') }}
-    {{ Form::email('email') }}
+    {{ Form::label('username', 'Username') }}
+    {{ Form::email('username') }}
 
     Password: {{ Form::password('password', array('class'=>'input-block-level', 'placeholder'=>'Password')) }}
     Password 2: {{ Form::password('password_confirmation', array('class'=>'input-block-level', 'placeholder'=>'Confirm Password')) }}
@@ -29,6 +29,17 @@
         @endforeach
 
     @endif
+
+    <br />
+
+    {{ Form::label('secretquestion', 'Secret Question: ') }}
+    {{ Form::text('secretquestion') }}
+
+    <br />
+
+    {{ Form::label('secretanswer', 'Secret Answer: ') }}
+    {{ Form::text('secretanswer') }}
+
     <br />
     {{ Form::hidden('id') }}
     {{ Form::submit('Update', array('class'=>'input-block-level'))}}

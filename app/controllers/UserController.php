@@ -277,6 +277,8 @@ extends Controller
 			  $fillable = array(
 				  'email' => Input::get('email'),
 				  'password' => Hash::make(Input::get('password')),
+				  'secretquestion' => Input::get('secretquestion'),
+				  'secretanswer' => Input::get('secretanswer'),
 			  );
 			  $user = User::where('id', '=', $id)->update($fillable);
 

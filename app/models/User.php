@@ -13,7 +13,9 @@ class User
 	public static $rules = array(
 	'username'=>'required|unique:user|min:2',
 	'password'=>'required|alpha_num|between:6,12|confirmed',
-	'password_confirmation'=>'required|alpha_num|between:6,12'
+	'password_confirmation'=>'required|alpha_num|between:6,12',
+	'secretquestion'=>'required|min:4',
+	'secretanswer'=>'required|min:4',
 	);
 
 	public static $forgotpasswordrules = array(
@@ -24,7 +26,7 @@ class User
 	);
 
 	public static $rules2 = array(
-	'email'=>'required|email|min:4',
+	'username'=>'required|email|min:4',
 
 	);
 
@@ -99,6 +101,9 @@ class User
 		$user = new User;
 		$user->username = Input::get('username');
 		$user->password = Hash::make(Input::get('password'));
+		$user->secretquestion = Input::get('secretquestion');
+		$user->secretanswer = Input::get('secretanswer');
+
 		if ($this->isAdmin()===2){
 			$user->parentid = Auth::user()->id;
 			if ($roles==1){
