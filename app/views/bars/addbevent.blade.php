@@ -7,13 +7,15 @@
   <div class="row">
     <div class="col-sm-8">
       {{ Form::open(array("url" => "addbevent/bid", "class" => "form-add-bar")) }}
-        <div class="form-group">
-          <div class="row">
-            <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
               {{ Form::label("datetime", "Date") }}
               {{ Form::text("datetime", null, ["class" => "form-control datetime-picker"]) }}
             </div>
-            <div class="col-sm-6">
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
               {{ Form::label("timezone", "Time Zone") }}
               {{ Timezone::selectForm("US/Central", "Select a timezone", ["class" => "form-control", "name" => "timezone"]) }}
             </div>
@@ -21,7 +23,7 @@
         </div>
         <div class="form-group">
           {{ Form::label("title", "Title") }}
-          {{Form::text("title", Input::old("title"), ["class" => "form-control", "required"]) }}
+          {{ Form::text("title", Input::old("title"), ["class" => "form-control", "required"]) }}
         </div>
         <div class="form-group">
           {{ Form::label("description", "Description") }}
