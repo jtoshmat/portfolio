@@ -6,7 +6,7 @@
   </div>
   <div class="row">
     <div class="col-sm-8">
-      {{ Form::open(array("url" => "addbevent/bid", "class" => "form-add-bar")) }}
+      {{ Form::open(array("url" => "addbevent/1", "class" => "form-add-bar")) }}
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group">

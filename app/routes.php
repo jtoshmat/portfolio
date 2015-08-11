@@ -59,26 +59,19 @@
 	});
 
 	Route::any("bevent/{bid}", [
-		"as"   => "bars/bevent",
-		"uses" => "BarController@bevent"
+		"as"   => "bevent/bevent",
+		"uses" => "BeventsController@bevent"
 	],function($bid){
 		return $bid;
 	});
 
 	Route::any("editbevent/{bid}", [
-		"as"   => "bevent/editbevent",
+		"as"   => "bevents/editbevent",
 		"uses" => "BeventsController@editBevent"
 	],function($bid){
 		return $bid;
 	});
 
-
-	Route::any("addbevent", [
-		"as"   => "bars/addbevent",
-		"uses" => "BarController@addBevent"
-	],function($id){
-		return $id;
-	});
 
 
 
@@ -165,24 +158,24 @@
 		});
 
 		Route::post("/updatebevent", [
-			"as"   => "bars/updatebevent",
-			"uses" => "BarController@updateBevent"
+			"as"   => "bevent/updatebevent",
+			"uses" => "BeventsController@updateBevent"
 		],function($id){
 			return $id;
 		});
 
 		Route::any("deletebevent", [
-			"as"   => "bars/deletebevent",
-			"uses" => "BarController@deleteBevent"
+			"as"   => "bevent/deletebevent",
+			"uses" => "BeventsController@deleteBevent"
 		],function($id){
 			return $id;
 		});
 
-		Route::any("addbevent/{gid}", [
-			"as"   => "bars/addbevent",
-			"uses" => "BarController@addBevent"
-		],function($gid){
-			return $gid;
+		Route::any("addbevent/{bid}", [
+			"as"   => "bevents/addbevent",
+			"uses" => "BeventsController@addBevent"
+		],function($bid){
+			return $bid;
 		});
 
 		Route::any("/deletebar", [

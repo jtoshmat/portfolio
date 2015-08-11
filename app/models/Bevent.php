@@ -25,10 +25,10 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 	public function getBevents(){
 		$id = (int) Request::segment(2);
 		if ($this->isAdmin()===1) {
-			return Bevent::where('gid', '=', $id)->get();
+			return Bevent::where('barid', '=', $id)->get();
 		}
 		if ($this->isAdmin()===2) {
-			return Bevent::where('gid', '=', $id)->get();
+			return Bevent::where('barid', '=', $id)->get();
 		}
 	}
 
@@ -43,14 +43,17 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function addBevent(){
-		$gid = (int) Request::segment(2);
-		$bid = Game::where('gid','=',$gid)->get(array('bid'));
-		$bid = json_decode($bid, true);
-		$bid = (int) $bid[0]['bid'];
+		$bid = (int) Request::segment(2);
+		//$bid = Game::where('gid','=',$gid)->get(array('bid'));
+		//$bid = json_decode($bid, true);
+		//$bid = (int) $bid[0]['bid'];
+
+		$eventime = Input::get('datetime')." ".Input::get('timezone');
+
 		$insertData = array(
-			'gid' => $gid,
 			'barid' => $bid,
 			'title' => Input::get('title'),
+			'eventtime' => $eventime,
 		);
 		return DB::table('bevents')->insert($insertData);
 	}
@@ -64,8 +67,10 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 	public function updateBevent(){
 		$bid = (int) Request::segment(2);
 		$bid = Request::get('bid');
+		$eventime = Input::get('datetime')." ".Input::get('timezone');
 		$fillable = array(
 			'title' => Input::get('title'),
+			'eventtime' => $eventime,
 		);
 		Bevent::where('bid', '=', $bid)->update($fillable);
 		return 1;

@@ -70,5 +70,47 @@ class BeventsController extends \BaseController {
 
 	}
 
+	public function addBevent()
+	{
+		if ($this->isNotAuthorized()){
+			return View::make($this->isNotAuthorized());
+		}
+		$gid = (int) Request::segment(2);
+		$method = Request::method();
+		if (Request::isMethod('post')) {
+			$validator = Validator::make(Input::all(), Bevent::$addbevent);
+			if ($validator->passes()) {
+
+				$bevents = $this->Bevent->addBevent();
+				return Redirect::to('bevents/'.$gid);
+
+			}else{
+				return Redirect::to('addbevent/'.$gid)->with('message', 'The following errors occurred')->withErrors
+				($validator)->withInput();
+			}
+		}
+		return View::make('bevents/addbevent')->with('gid', $gid);
+	}
+
+	public function bevent()
+	{
+		if ($this->isNotAuthorized()){
+			return View::make($this->isNotAuthorized());
+		}
+		$bevents = $this->bevents->getBevent();
+		if ($bevents){
+			return View::make('bevents/bevents')->with('bevents', $bevents);
+		}
+		return View::make('user/403');
+	}
+
+	public function deleteBevent()
+	{
+		if ($this->isNotAuthorized()){
+			return View::make($this->isNotAuthorized());
+		}
+		$bevents = $this->bevents->deleteBevent();
+		return 'The event has been deleted';
+	}
 
 }

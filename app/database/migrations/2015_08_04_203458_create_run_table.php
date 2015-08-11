@@ -78,6 +78,7 @@ class CreateRunTable extends Migration {
 			$table->tinyInteger('gid');
 			$table->tinyInteger('userid');
 			$table->string("title");
+			$table->string("eventtime");
 			$table->timestamps();
 		});
 		Schema::create('roles', function(Blueprint $table)
