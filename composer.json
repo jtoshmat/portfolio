@@ -5,8 +5,7 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"camroncade/timezone": "0.1",
-		"webpatser/laravel-countries": "dev-master"
+		"camroncade/timezone": "0.1"
 	},
 	"autoload": {
 		"classmap": [
