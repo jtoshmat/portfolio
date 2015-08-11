@@ -105,6 +105,10 @@ foreach ($bars as $bar){
             </div>
           </div>
         </div>
+        <div class="form-group">
+          {{ Form::label("country", "Country") }}
+          {{ Form::text("country", null, ["class" => "form-control", "required"]) }}
+        </div>
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
