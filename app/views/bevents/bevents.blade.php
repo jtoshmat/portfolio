@@ -53,6 +53,7 @@ foreach($bevents as $bev){
     		<th>Home/Away</th>
     		<th>Time</th>
     		<th><span class="sr-only">Actions</span></th>
+    		<th>(hidden sorting column)</th>
     	</tr>
     </thead>
     <tbody>
@@ -65,6 +66,7 @@ foreach($bevents as $bev){
         <td>N/A</td>
         <td>12:00 AM{{-- Time of the event. --}}</td>
         <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
+        <td>(unix time goes here)</td>
       </tr>
 
       {{-- Event created, related to game. --}}
@@ -76,6 +78,7 @@ foreach($bevents as $bev){
         <td>Away</td>
         <td>12:00 AM {{-- Time of the event. --}}</td>
         <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
+        <td>(unix time goes here)</td>
       </tr>
 
       {{-- Game, with no related event created. --}}
@@ -87,17 +90,8 @@ foreach($bevents as $bev){
         <td>Home</td>
         <td>12:00 AM {{-- Time of the game. --}}</td>
         <td class="text-center"><a href="#"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="bottom" title="Add Event" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Add Event</span></a></td>
+        <td>(unix time goes here)</td>
       </tr>
-    @foreach($bevents as $bevent)
-      <tr>
-        <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
-        <td>{{$bevent->bid}}</td>
-        <td>{{$bevent->title}}</td>
-        <td>N/A</td>
-        <td class="text-center"><a href="/editbevent/{{$bevent->bid}}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip"
-                                                            data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
-      </tr>
-    @endforeach
 
     </tbody>
   </table>
