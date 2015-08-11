@@ -7,11 +7,18 @@
   <div class="row">
     <div class="col-sm-8">
       {{ Form::model($bevent, array('url' => 'editbevent/'.$bevent->bid, "class" => "form-edit-bar")) }})) }}
-        <div class="form-group">
-          {{ Form::label("datetime", "Date") }}
-          <div class="form-inline">
-            {{ Form::text("datetime", null, ["class" => "form-control datetime-picker"]) }}
-            {{ Timezone::selectForm("US/Central", "Select a timezone", ["class" => "form-control" "name" => "timezone"]) }}
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              {{ Form::label("datetime", "Date") }}
+              {{ Form::text("datetime", null, ["class" => "form-control datetime-picker"]) }}
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              {{ Form::label("timezone", "Time Zone") }}
+              {{ Timezone::selectForm("US/Central", "Select a timezone", ["class" => "form-control", "name" => "timezone"]) }}
+            </div>
           </div>
         </div>
         <div class="form-group">
