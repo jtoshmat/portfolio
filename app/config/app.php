@@ -122,7 +122,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Camroncade\Timezone\TimezoneServiceProvider',
-    'Webpatser\Countries\CountriesServiceProvider',
+//    'Webpatser\Countries\CountriesServiceProvider',
 
 	),
 
