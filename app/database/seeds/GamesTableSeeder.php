@@ -46,7 +46,7 @@ class GamesTableSeeder
       ],
       [
         "gid"       => "106",
-        "matchup"   => "Seattle Seahwaks",
+        "matchup"   => "Seattle Seahawks",
         "location"  => "home",
         "game_time" => \Carbon\Carbon::create(2015, 9, 20, 19, 30, 0, $tz),
         "tv"        => "NBC"
