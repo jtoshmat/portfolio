@@ -51,7 +51,7 @@
         <td>{{$gameTime}}</td>
         <td>{{$game->matchup}} {{-- "vs" indicates a home game --}}</td>
         <td>
-          @if ($game->location === "home")
+          @if ($game->location === "Home")
             Home
           @else
             Away
