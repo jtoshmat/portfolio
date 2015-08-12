@@ -201,6 +201,8 @@ $(document).ready(function(){
         var $this = $(this);
         var id = $this.data('barid');
         deleteBar(id).done(function() {
+          // TODO: is this the best way to remove tables? Maybe there's a Data
+          // Tables method that we should be using?
           $this.closest('tr').remove();
         });
       });
