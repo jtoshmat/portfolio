@@ -42,7 +42,7 @@
   			<?php
         $gameUnix = strtotime($game->game_time);
   			$gameDate = date('m/d/Y', $gameUnix);
-  			$gameTime = date('h:i:s A', $gameUnix);
+  			$gameTime = date('g:i A', $gameUnix);
   			?>
         <tr>
           <td class="text-center"><input type="checkbox" class="checkbox-delete" data-gid="{{ $game->gid }}"></td>
