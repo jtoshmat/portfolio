@@ -78,6 +78,7 @@ class BarController extends \BaseController {
 					$Bar->city = Input::get('city');
       		$Bar->state = Input::get('state');
       		$Bar->country = Input::get('country');
+      		$Bar->timezone = Input::get('timezone');
 					$Bar->zipcode = Input::get('zipcode');
       		$Bar->phone = Input::get('phone');
 					$Bar->website = Input::get('website');
