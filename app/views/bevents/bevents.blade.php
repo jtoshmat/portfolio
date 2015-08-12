@@ -2,6 +2,8 @@
 @section("content")
 
 
+
+
 	<ul>
 		@foreach($errors->all() as $error)
 			<li>{{ $error }}</li>
@@ -58,41 +60,37 @@ foreach($bevents as $bev){
     </thead>
     <tbody>
 
+    @foreach($bevents as $bevent)
       {{-- Event created, not related to game. --}}
+      @if ($bevent->gid===0)
       <tr>
         <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
         <td>12/31/15</td>
         <td>12:00 AM{{-- Time of the event. --}}</td>
-        <td>Example of event created, not related to game</td>
+        <td>{{$bevent->title}}</td>
         <td>N/A</td>
         <td>N/A</td>
         <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
         <td>(unix time goes here)</td>
       </tr>
-
+	 @endif
       {{-- Event created, related to game. --}}
+      @if ($bevent->gid>0)
       <tr>
         <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
         <td>1/1/16</td>
         <td>12:00 AM {{-- Time of the event. --}}</td>
-        <td>Example of event created, related to game</td>
+        <td>{{$bevent->title}}</td>
         <td>Detroit</td>
         <td>Away</td>
         <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
         <td>(unix time goes here)</td>
       </tr>
+	  @endif
 
       {{-- Game, with no related event created. --}}
-      <tr>
-        <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
-        <td>1/14/16</td>
-        <td>12:00 AM {{-- Time of the game. --}}</td>
-        <td>Example of game, with no related event created</td>
-        <td>Denver</td>
-        <td>Home</td>
-        <td class="text-center"><a href="#"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="bottom" title="Add Event" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Add Event</span></a></td>
-        <td>(unix time goes here)</td>
-      </tr>
+
+	  @endforeach
 
     </tbody>
   </table>

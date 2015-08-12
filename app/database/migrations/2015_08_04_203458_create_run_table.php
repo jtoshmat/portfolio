@@ -101,7 +101,7 @@ class CreateRunTable extends Migration {
 			$table->string('matchup');
 			$table->string('location');
 			$table->string('description');
-			$table->dateTime('game_time');
+			$table->timestamp('game_time');
 			$table->string('tv');
 			$table->timestamps();
 		});

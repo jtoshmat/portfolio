@@ -25,7 +25,8 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 	public function getBevents(){
 		$id = (int) Request::segment(2);
 		if ($this->isAdmin()===1) {
-			return Bevent::where('barid', '=', $id)->get();
+			return 
+			//return Bevent::where('barid', '=', $id)->get();
 		}
 		if ($this->isAdmin()===2) {
 			return Bevent::where('barid', '=', $id)->get();
