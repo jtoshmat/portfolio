@@ -27,9 +27,9 @@
       		<input type="checkbox" class="table-toggle">
     		</th>
 				<th>Date</th>
+				<th>Time</th>
 				<th>Matchup</th>
         <th>Home/Away</th>
-				<th>Time</th>
 				<th>TV</th>
 				<th>Notes</th>
 				<th><span class="sr-only">Actions</span></th>
@@ -48,6 +48,7 @@
       <tr>
         <td class="text-center"><input type="checkbox" class="checkbox-delete" data-gid="{{-- Game ID here --}}"></td>
         <td><a href="/editgame/{{$game->gid}}">{{$gameDate}}</a></td>
+        <td>{{$gameTime}}</td>
         <td>{{$game->matchup}} {{-- "vs" indicates a home game --}}</td>
         <td>
           @if ($game->location === "home")
@@ -56,7 +57,6 @@
             Away
           @endif
         </td>
-        <td>{{$gameTime}}</td>
         <td>{{$game->tv}}</td>
         <td>{{-- Most games won't have notes. This is for things like noting a schedule change. --}}</td>
         <td class="text-center"><a href="/editgame/{{$game->gid}}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip"
