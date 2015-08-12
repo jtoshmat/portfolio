@@ -258,6 +258,27 @@ $(document).ready(function(){
       $newInput.val(originalValue);
     });
   }).trigger('change');
+
+
+  /**
+   * Games list view handlers.
+   */
+
+  var gamesTable = $('#games-listing-table').DataTable({
+    columnDefs: [
+      {
+        searchable: false,
+        targets: [0, 7, 8]
+      },
+      {
+        visible: false,
+        targets: [8]
+      }
+    ],
+    order: [[ 8, 'asc' ]],
+    ordering: false
+  });
+  var statusColumn = barsTable.column(7);
 /*  $('.action-upload-logo').on('click', function(e) {
     e.preventDefault();
     var url = e.currentTarget.href;
