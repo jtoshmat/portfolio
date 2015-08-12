@@ -1,5 +1,10 @@
 @extends("layout")
 @section("content")
+<?php
+$gameUnix = strtotime($game->game_time);
+$gameDateTime = date('m/d/Y g:i A', $gameUnix);
+?>
+
 <div class="container add-bar">
   <div class="page-header">
     <h2>Season Schedule</h2>
@@ -11,7 +16,7 @@
           <div class="col-sm-6">
             <div class="form-group">
               {{ Form::label("datetime", "Date") }}
-              {{ Form::text("datetime", null, ["class" => "form-control datetime-picker col-sm-8"]) }}
+              {{ Form::text("datetime", $gameDateTime, ["class" => "form-control datetime-picker col-sm-8"]) }}
             </div>
           </div>
           <div class="col-sm-6">
