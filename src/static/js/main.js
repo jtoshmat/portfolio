@@ -29,6 +29,60 @@ $(document).ready(function(){
   }
 
 
+  var stateSelect = {
+    us: '<select name="state" class="form-control">' +
+      '<option value=""></option><option value="AK">AK</option>' +
+      '<option value="AL">AL</option><option value="AR">AR</option>' +
+      '<option value="AZ">AZ</option><option value="CA">CA</option>' +
+      '<option value="CO">CO</option><option value="CT">CT</option>' +
+      '<option value="DC">DC</option><option value="DE">DE</option>' +
+      '<option value="FL">FL</option><option value="GA">GA</option>' +
+      '<option value="HI">HI</option><option value="IA">IA</option>' +
+      '<option value="ID">ID</option><option value="IL">IL</option>' +
+      '<option value="IN">IN</option><option value="KS">KS</option>' +
+      '<option value="KY">KY</option><option value="LA">LA</option>' +
+      '<option value="MA">MA</option><option value="MD">MD</option>' +
+      '<option value="ME">ME</option><option value="MI">MI</option>' +
+      '<option value="MN">MN</option><option value="MO">MO</option>' +
+      '<option value="MS">MS</option><option value="MT">MT</option>' +
+      '<option value="NC">NC</option><option value="ND">ND</option>' +
+      '<option value="NE">NE</option><option value="NH">NH</option>' +
+      '<option value="NJ">NJ</option><option value="NM">NM</option>' +
+      '<option value="NV">NV</option><option value="NY">NY</option>' +
+      '<option value="OH">OH</option><option value="OK">OK</option>' +
+      '<option value="OR">OR</option><option value="PA">PA</option>' +
+      '<option value="RI">RI</option><option value="SC">SC</option>' +
+      '<option value="SD">SD</option><option value="TN">TN</option>' +
+      '<option value="TX">TX</option><option value="UT">UT</option>' +
+      '<option value="VA">VA</option><option value="VT">VT</option>' +
+      '<option value="WA">WA</option><option value="WI">WI</option>' +
+      '<option value="WV">WV</option><option value="WY">WY</option>' +
+      '<option value="--" disabled="disabled">---</option>' +
+      '<option value="AA">AA</option><option value="AE">AE</option>' +
+      '<option value="AP">AP</option><option value="AS">AS</option>' +
+      '<option value="FM">FM</option><option value="GU">GU</option>' +
+      '<option value="MH">MH</option><option value="MP">MP</option>' +
+      '<option value="PR">PR</option><option value="PW">PW</option>' +
+      '<option value="VI">VI</option></select>',
+    ca: '<select name="state" class="form-control">' +
+      '<option value=""></option>' +
+      '<option value="Alberta">Alberta</option>' +
+      '<option value="British Columbia">British Columbia</option>' +
+      '<option value="Manitoba">Manitoba</option>' +
+      '<option value="New Brunswick">New Brunswick</option>' +
+      '<option value="Newfoundland and Labrador">Newfoundland and ' +
+      'Labrador</option><option value="Northwest Territories">' +
+      'Northwest Territories</option><option value="Nova Scotia">' +
+      'Nova Scotia</option><option value="Nunavut">Nunavut</option>' +
+      '<option value="Ontario">Ontario</option>' +
+      '<option value="Prince Edward Island">Prince Edward Island</option>' +
+      '<option value="Quebec">Quebec</option>' +
+      '<option value="Saskatchewan">Saskatchewan</option>' +
+      '<option value="Yukon">Yukon</option></select>',
+    generic: '<input type="text" class="form-control" name="state">'
+  };
+
+
   var barStatuses = {
     APPROVED: 'approved',
     AWAITING_APPROVAL: 'awaiting-approval',
@@ -168,7 +222,7 @@ $(document).ready(function(){
     }
   });
 
-  $('.bar-logo-upload').change(function(){
+  $('.bar-logo-upload').on('change', function() {
     if (window.FileReader && this.files && this.files[0]) {
       var reader = new FileReader();
 
@@ -180,6 +234,28 @@ $(document).ready(function(){
       reader.readAsDataURL(this.files[0]);
     }
   });
+
+  // Swaps the state input for a select depending on the country chosen.
+  $('select[name="country"]').on('change', function(e) {
+    var $target = $(e.target);
+    var $stateInputs = $('select[name="state"], input[name="state"]');
+    $stateInputs.each(function() {
+      var originalValue = $(this).val();
+      var $newInput;
+      switch ($target.val()) {
+        case 'US' :
+          $newInput = $(stateSelect.us);
+          break;
+        case 'CA' :
+          $newInput = $(stateSelect.ca);
+          break;
+        default :
+          $newInput = $(stateSelect.generic);
+      }
+      $(this).replaceWith($newInput);
+      $newInput.val(originalValue);
+    });
+  }).trigger('change');
 /*  $('.action-upload-logo').on('click', function(e) {
     e.preventDefault();
     var url = e.currentTarget.href;
