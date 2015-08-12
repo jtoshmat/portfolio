@@ -172,7 +172,7 @@ class BarController extends \BaseController {
 					->withInput();
 			}
 		}
-		return View::make('bars/addbar')->with('username',Auth::user()->username);
+		return View::make('bars/addbar')->with('username',Auth::user()->username)->with('admin', $this->isAdmin());
 	}
 
 	public function uploadImage()

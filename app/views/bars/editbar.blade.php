@@ -23,9 +23,8 @@ if ($admin===1){
       {{ Form::open(array("url" => "editbar/".$bar->id, "class" => "form-edit-bar", "files" => true)) }}
         <div class="form-group">
           {{-- TODO: This needs to have some kind of user lookup to match email to user ID. --}}
-          {{ Form::label(null, "Owner/Admin") }}
-          {{Form::text('email', $username,  ["class" => "form-control", ''.$readonly.'', "placeholder" => "email used to login
-          to admin tool"])}}
+          {{ Form::label(null, "Owner/Admin Email Address") }}
+          {{Form::email('email', $username,  ["class" => "form-control", ''.$readonly.'', "placeholder" => "email used to login to admin tool"])}}
         </div>
         <div class="form-group">
           {{ Form::label("barname", "Bar Name") }}
