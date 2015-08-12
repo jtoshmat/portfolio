@@ -143,6 +143,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'city' => Input::get('city'),
 			'state' => Input::get('state'),
 			'zipcode' => Input::get('zipcode'),
+      'country' => Input::get('country'),
 			'phone' => Input::get('phone'),
 			'website' => Input::get('website'),
 			'description' => Input::get('description'),
@@ -159,6 +160,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		$Bar->city = Input::get('city');
 		$Bar->state = Input::get('state');
 		$Bar->zipcode = Input::get('zipcode');
+		$Bar->country = Input::get('country');
 		$Bar->phone = Input::get('phone');
 		$Bar->website = Input::get('website');
 		$Bar->description = Input::get('description');
