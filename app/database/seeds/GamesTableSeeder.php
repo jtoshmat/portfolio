@@ -146,7 +146,7 @@ class GamesTableSeeder
         "gid"       => "120",
         "matchup"   => "Minnesota Vikings",
         "location"  => "home",
-        "game_time" => \Carbon\Carbon::create(2015, 1, 3, 12, 0, 0, $tz),
+        "game_time" => \Carbon\Carbon::create(2016, 1, 3, 12, 0, 0, $tz),
         "tv"        => "FOX"
       ],
     ];
