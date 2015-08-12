@@ -67,7 +67,7 @@
           <div class="col-xs-6">
             <ul id="edit-game-actions" class="list-inline edit-actions">
               <li>
-                <a href="#" id="delete-game" data-gameid="{{-- Game ID here --}}" class="action-delete-bar"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Game</span></a>
+                <a href="#" id="delete-game" data-gameid="{{ $game->gid }}" class="action-delete-bar"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Game</span></a>
               </li>
             </ul>
           </div>
