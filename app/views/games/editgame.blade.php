@@ -45,6 +45,7 @@ $gameDateTime = date('m/d/Y g:i A', $gameUnix);
         <div class="form-group">
           {{ Form::label(null, "TV Station") }}
           <div>
+            {{-- TODO: Need to toggle checkboxes as appropriate. --}}
             <label class="checkbox-inline">{{ Form::checkbox('tv', 'NBC') }} NBC</label>
             <label class="checkbox-inline">{{ Form::checkbox('tv', 'CBS') }} CBS</label>
             <label class="checkbox-inline">{{ Form::checkbox('tv', 'ESPN') }} ESPN</label>
