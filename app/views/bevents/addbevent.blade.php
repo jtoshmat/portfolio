@@ -2,24 +2,14 @@
 @section("content")
 <div class="container add-bar">
   <div class="page-header">
-    <h2>Edit Event</h2>
+    <h2>Add Event</h2>
   </div>
   <div class="row">
     <div class="col-sm-8">
-      {{ Form::open(array("url" => "addbevent/1", "class" => "form-add-bar")) }}
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              {{ Form::label("datetime", "Date") }}
-              {{ Form::text("datetime", null, ["class" => "form-control datetime-picker"]) }}
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              {{ Form::label("timezone", "Time Zone") }}
-              {{ Timezone::selectForm("US/Central", "Select a timezone", ["class" => "form-control", "name" => "timezone"]) }}
-            </div>
-          </div>
+      {{ Form::open(array("url" => "addbevent/1{{-- TODO: this 1 needs to be replaced with bar id --}}", "class" => "form-add-bar")) }}
+        <div class="form-group">
+          {{ Form::label("datetime", "Local Date and Time") }}
+          {{ Form::text("datetime", Input::old("datetime"), ["class" => "form-control datetime-picker"]) }}
         </div>
         <div class="form-group">
           {{ Form::label("title", "Title") }}
@@ -41,18 +31,8 @@
         @endforeach
         </div>
         @endif
-        <div class="row">
-          <div class="col-xs-6">
-            <ul id="edit-game-actions" class="list-inline edit-actions">
-              <li>
-                {{-- TODO: hook up event action --}}
-                <a href="#" id="delete-game" data-eventid="{{-- Event ID here --}}" class="action-delete-bar"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Game</span></a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-xs-6 text-right">
-            {{ Form::submit("Add Event", ["class" => "btn btn-primary"]) }}
-          </div>
+        <div class="text-right">
+          {{ Form::submit("Add Event", ["class" => "btn btn-primary"]) }}
         </div>
 {{--	    {{ Form::hidden('bid', $bid) }}--}}
       {{ Form::close() }}

@@ -7,27 +7,18 @@
   <div class="row">
     <div class="col-sm-8">
       {{ Form::model($bevent, array('url' => 'editbevent/'.$bevent->bid, "class" => "form-edit-bar")) }})) }}
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              {{ Form::label("datetime", "Date") }}
-              {{ Form::text("datetime", null, ["class" => "form-control datetime-picker"]) }}
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              {{ Form::label("timezone", "Time Zone") }}
-              {{ Timezone::selectForm("US/Central", "Select a timezone", ["class" => "form-control", "name" => "timezone"]) }}
-            </div>
+          <div class="form-group">
+            {{ Form::label("datetime", "Local Date and Time") }}
+            {{ Form::text("datetime", $bevent->datetime, ["class" => "form-control datetime-picker"]) }}
           </div>
         </div>
         <div class="form-group">
           {{ Form::label("title", "Title") }}
-          {{Form::text("title")}}
+          {{ Form::text("title", $bevent->title )}}
         </div>
         <div class="form-group">
           {{ Form::label("description", "Description") }}
-          {{ Form::textarea("description", Input::old("description"), ["class" => "form-control", "placeholder" => "optional"]) }}
+          {{ Form::textarea("description", $bevent->description, ["class" => "form-control", "placeholder" => "optional"]) }}
         </div>
 
         @if (count($errors) > 0)
