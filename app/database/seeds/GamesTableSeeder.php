@@ -77,7 +77,6 @@ class GamesTableSeeder
         "matchup"   => "San Diego Chargers",
         "location"  => "home",
         "game_time" => \Carbon\Carbon::create(2015, 10, 18, 15, 25, 0, $tz),
-        "game_time" => "10/18/2015 3:25PM Central Time",
         "tv"        => "CBS"
       ],
       [
