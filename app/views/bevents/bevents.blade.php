@@ -74,15 +74,25 @@
         </td>
 	      <td data-order="{{ $eventUnix }}" data-filter="{{ $eventUnix }}">{{ $eventDate }}</td>
 	      <td data-order="{{ $eventTimeString }}">{{ $eventTime }}</td>
-	      <td>
-  	      @if ($bevent->btitle))
-  	        {{ $bevent->btitle }}
-  	      @else
-  	        No Event Planned
-  	      @endif
-	      </td>
+
+	      @if ($bevent->btitle)
+	      <td>{{ $bevent->btitle }}</td>
+	      @else
+	      <td class="text-muted">No Event Planned</td>
+	      @endif
+
+	      @if ($bevent->gmatchup)
 	      <td>{{ $bevent->gmatchup }}</td>
+	      @else
+	      <td class="text-muted">N/A</td>
+	      @endif
+
+	      @if ($bevent->glocation)
 	      <td>{{ ucfirst($bevent->glocation) }}</td>
+	      @else
+	      <td class="text-muted">N/A</td>
+	      @endif
+
         <td class="text-center">
         @if ($bevent->beventtime)
           <a href="{{ route('bevents/editbevent', array('id' => $bevent->bid)) }}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
