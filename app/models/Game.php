@@ -58,12 +58,17 @@ class Game extends Eloquent implements UserInterface, RemindableInterface {
 		$time = Input::get('datetime');
 		$time = date_parse_from_format('m/d/Y g:i A', $time);
 		$tz = 'US/Central';
+		$tv = Input::get('tv');
+		if(is_array($tv)) {
+			$tv = implode(', ', $tv);
+		}
 		$Game = Game::where('gid','=',$gid)->update(
 			array(
 				'matchup' => Input::get('matchup'),
 				'description' => Input::get('description'),
 				'location' => Input::get('location'),
-				"game_time" => \Carbon\Carbon::create($time['year'], $time['month'], $time['day'], $time['hour'], $time['minute'], 0, $tz),
+				'game_time' => \Carbon\Carbon::create($time['year'], $time['month'], $time['day'], $time['hour'], $time['minute'], 0, $tz),
+				'tv' => $tv,
 			));;
 	}
 
@@ -77,14 +82,19 @@ class Game extends Eloquent implements UserInterface, RemindableInterface {
 		$time = Input::get('datetime');
 		$time = date_parse_from_format('m/d/Y g:i A', $time);
 		$tz = 'US/Central';
+		$tv = Input::get('tv');
+		if(is_array($tv)) {
+			$tv = implode(', ', $tv);
+		}
+		print_r($tv);
 		$insertData = array(
 			'uid' => Auth::user()->id,
 			'bid' => $bid,
 			'matchup' => Input::get('matchup'),
 			'description' => Input::get('description'),
 			'location' => Input::get('location'),
-			"game_time" => \Carbon\Carbon::create($time['year'], $time['month'], $time['day'], $time['hour'], $time['minute'], 0, $tz),
-
+			'game_time' => \Carbon\Carbon::create($time['year'], $time['month'], $time['day'], $time['hour'], $time['minute'], 0, $tz),
+			'tv' => $tv,
 		);
 		return DB::table('games')->insert($insertData);
 	}

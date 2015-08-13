@@ -39,20 +39,30 @@ $gameDateTime = date('m/d/Y g:i A', $gameUnix);
           {{ Form::label(null, "TV Station") }}
           <div>
             {{-- TODO: Need to toggle checkboxes as appropriate. --}}
+            <?php 
+              $networks = explode(', ', $game->tv);
+              foreach ($networks as $network) {
+                if ($network === 'CBS') { $cbs = true; } 
+                if ($network === 'NBC') { $nbc = true; }
+                if ($network === 'ESPN') { $espn = true; }
+                if ($network === 'FOX') { $fox = true; }
+                if ($network === 'Packers TV Network') { $packers = true; }
+              }
+            ?>
             <label class="checkbox-inline">
-              <input type="checkbox" name="tv" value="NBC"> NBC
+              <input type="checkbox" name="tv[]" value="NBC" <?php echo isset($nbc) ? 'checked' : ''?> > NBC
             </label>
             <label class="checkbox-inline">
-              <input type="checkbox" name="tv" value="CBS"> CBS
+              <input type="checkbox" name="tv[]" value="CBS" <?php echo isset($cbs) ? 'checked' : ''?> > CBS
             </label>
             <label class="checkbox-inline">
-              <input type="checkbox" name="tv" value="ESPN"> ESPN
+              <input type="checkbox" name="tv[]" value="ESPN" <?php echo isset($espn) ? 'checked' : ''?> > ESPN
             </label>
             <label class="checkbox-inline">
-              <input type="checkbox" name="tv" value="FOX"> FOX
+              <input type="checkbox" name="tv[]" value="FOX" <?php echo isset($fox) ? 'checked' : ''?> > FOX
             </label>
             <label class="checkbox-inline">
-              <input type="checkbox" name="tv" value="Packers TV Network">Packers TV Network
+              <input type="checkbox" name="tv[]" value="Packers TV Network" <?php echo isset($packers) ? 'checked' : ''?> >Packers TV Network
             </label>
             {{-- Commenting out the laravel way of doing checkboxes as they are
                  coming up buggy and always checked on a model-bound form. --}}
