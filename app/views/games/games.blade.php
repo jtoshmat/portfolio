@@ -38,7 +38,6 @@
   				<th>TV</th>
   				<th>Notes</th>
   				<th><span class="sr-only">Actions</span></th>
-  				<th>(hidden sorting column)</th>
   			</tr>
   		</thead>
   		<tbody>
@@ -47,18 +46,18 @@
         $gameUnix = strtotime($game->game_time);
   			$gameDate = date('m/d/Y', $gameUnix);
   			$gameTime = date('g:i A', $gameUnix);
+  			$gameTimeString = date('Gi', $gameUnix);
   			?>
         <tr>
           <td class="text-center"><input type="checkbox" class="checkbox-delete" data-gid="{{ $game->gid }}"></td>
-          <td><a href="/editgame/{{$game->gid}}">{{$gameDate}}</a></td>
-          <td>{{ $gameTime }}</td>
+          <td data-order="{{ $gameUnix }}" data-filter="{{ $gameUnix }}"><a href="/editgame/{{$game->gid}}">{{ $gameDate }}</a></td>
+          <td data-order="{{ $gameTimeString }}">{{ $gameTime }}</td>
           <td>{{ $game->matchup }}</td>
           <td>{{ ucfirst($game->location) }}</td>
           <td>{{ $game->tv }}</td>
           <td>{{ $game->description }}</td>
           <td class="text-center"><a href="/editgame/{{$game->gid}}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip"
            data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Game Information</span></a></td>
-           <td>{{ $gameUnix }}</td>
         </tr>
   			@endforeach
   		</tbody>

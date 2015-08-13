@@ -122,7 +122,7 @@ $(document).ready(function(){
     ],
     order: [[ 1, 'asc' ]]
   });
-    var statusColumn = barsTable.column(7);
+  var statusColumn = barsTable.column(7);
 
   // Add handler for status dropdown filter.
   $('#bar-status-filter').on('change', function(e) {
@@ -267,22 +267,21 @@ $(document).ready(function(){
     var gamesTable = $('#games-listing-table').DataTable({
       columnDefs: [
         {
-          searchable: false,
-          targets: [0, 7]
+          orderable: false,
+          targets: [0, 6, 7]
         },
         {
-          visible: false,
-          targets: [8]
+          searchable: false,
+          targets: [0, 7]
         }
       ],
-      order: [[ 8, 'asc' ]],
-      ordering: false
+      order: [[ 1, 'asc' ]]
     });
     $.fn.dataTable.ext.search.push(
       function( settings, data, dataIndex ) {
         var now = new Date().getTime() / 1000;
         var filter = $('#game-filter').val();
-        var timestamp = parseInt( data[8] );
+        var timestamp = parseInt( data[1] );
         if (filter === 'upcoming') {
           return timestamp >= now ? true : false;
         } else if (filter === 'past') {
