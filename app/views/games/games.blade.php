@@ -7,13 +7,17 @@
 
   <div class="table-controls">
     <div class="row">
-      <div class="col-xs-6">
-        {{-- TODO: These buttons don't work yet. --}}
-        Show
-        <button id="show-upcoming-games" class="btn btn-default active">Upcoming</button>
-        <button href="#" id="show-past-games" class="btn btn-default">Past</button>
+      <div class="col-xs-8 form-inline">
+        <label>
+          Show
+          <select id="game-filter" class="form-control">
+            <option value="">All</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="past">Past</option>
+          </select>
+        </label>
       </div>
-      <div class="col-xs-6 text-right">
+      <div class="col-xs-4 text-right">
       	<a href="{{ URL::route("games/addgame",array('bid'=>1)) }}" class="btn btn-primary">Add Game</a>
       </div>
     </div>
@@ -42,7 +46,7 @@
   			<?php
         $gameUnix = strtotime($game->game_time);
   			$gameDate = date('m/d/Y', $gameUnix);
-  			$gameTime = date('h:i:s A', $gameUnix);
+  			$gameTime = date('g:i A', $gameUnix);
   			?>
         <tr>
           <td class="text-center"><input type="checkbox" class="checkbox-delete" data-gid="{{ $game->gid }}"></td>
