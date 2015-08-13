@@ -55,11 +55,15 @@ class Game extends Eloquent implements UserInterface, RemindableInterface {
 		$bid = Game::where('gid','=',$gid)->get(array('bid'));
 		$bid = json_decode($bid, true);
 		$bid = (int) $bid[0]['bid'];
+		$time = Input::get('datetime');
+		$time = date_parse_from_format('m/d/Y g:i A', $time);
+		$tz = 'US/Central';
 		$Game = Game::where('gid','=',$gid)->update(
 			array(
 				'matchup' => Input::get('matchup'),
 				'description' => Input::get('description'),
 				'location' => Input::get('location'),
+				"game_time" => \Carbon\Carbon::create($time['year'], $time['month'], $time['day'], $time['hour'], $time['minute'], 0, $tz),
 			));;
 	}
 
@@ -70,12 +74,16 @@ class Game extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function addGame(){
 		$bid = Request::segment(2);
+		$time = Input::get('datetime');
+		$time = date_parse_from_format('m/d/Y g:i A', $time);
+		$tz = 'US/Central';
 		$insertData = array(
 			'uid' => Auth::user()->id,
 			'bid' => $bid,
 			'matchup' => Input::get('matchup'),
 			'description' => Input::get('description'),
 			'location' => Input::get('location'),
+			"game_time" => \Carbon\Carbon::create($time['year'], $time['month'], $time['day'], $time['hour'], $time['minute'], 0, $tz),
 
 		);
 		return DB::table('games')->insert($insertData);
