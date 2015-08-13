@@ -1,107 +1,36 @@
 @extends("layout")
 @section("content")
 <?php
-
 	$barname = json_decode($barname)[0]->barname;
-?>
-
-<ul>
-		@foreach($errors->all() as $error)
-			<li>{{ $error }}</li>
-		@endforeach
-	</ul>
-
-@if (!$bevents)
-	<div class="container edit-bar">
-		<div class="page-header">
-			<h2>{{$barname}}</h2>
-			{{-- TODO: these need bar names and ID numbers. --}}
-			<p><a href="http://www.packerseverywhere.com/app/venues/#">View on packerseverywhere.com</a></p>
-		</div>
-		<ul class="nav nav-pills">
-			<li role="presentation"><a href="{{ route('bevents/editbevent', 1) }}">Bar Info</a></li>
-			<li role="presentation" class="active"><a href="{{ route('bevents/bevents', 1) }}">Events</a></li>
-		</ul>
-
-		<h3>No Events found.</h3>
-		<div class="table-controls">
-			<div class="row">
-				<div class="col-xs-6">
-					{{-- TODO: These buttons don't work yet. --}}
-					Show
-					<button id="show-upcoming-events" class="btn btn-default active">Upcoming</button>
-					<button href="#" id="show-past-events" class="btn btn-default">Past</button>
-				</div>
-				<div class="col-xs-6 text-right">
-					<a href="{{ URL::route("bevents/addbevent", $barid) }}" class="btn btn-primary">Add New Event</a>
-				</div>
-			</div>
-		</div>
-
-		<table id="bevents-listing-table" class="table table-hover" cellspacing="0">
-			<thead>
-			<tr>
-				<th class="text-center">
-					<a href="#" id="delete-selected-events"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="right" title="Delete Selected Events" aria-hidden="true"></span><span class="sr-only">Delete Selected Events</span></a>
-					<input type="checkbox" class="table-toggle">
-				</th>
-				<th>Date</th>
-				<th>Time</th>
-				<th>Event Title</th>
-				<th>Matchup</th>
-				<th>Home/Away</th>
-				<th><span class="sr-only">Actions</span></th>
-				<th>(hidden sorting column)</th>
-			</tr>
-			</thead>
-			<tbody>
-
-
-					<tr>
-						<td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
-						<td>&nbsp</td>
-						<td>&nbsp</td>
-						<td>&nbsp</td>
-						<td>&nbsp</td>
-						<td>&nbsp</td>
-						<td class="text-center">&nbsp</td>
-						<td>&nbsp</td>
-					</tr>
-
-
-			</tbody>
-		</table>
-
-	</div>
-@endif
-@if ($bevents)
-<?php
-$bbarid = 0;
-foreach($bevents as $bev){
-$bbarid= $bev->bbarid;
-	break;
+  $bbarid = 0;
+  foreach($bevents as $bev){
+  $bbarid= $bev->bbarid;
+  	break;
 }
 ?>
 <div class="container edit-bar">
   <div class="page-header">
     <h2>{{$barname}}</h2>
-    {{-- TODO: these need bar names and ID numbers. --}}
-    <p><a href="http://www.packerseverywhere.com/app/venues/#">View on packerseverywhere.com</a></p>
+    <p><a href="http://www.packerseverywhere.com/app/venues/{{ $bbarid }}">View on packerseverywhere.com</a></p>
   </div>
   <ul class="nav nav-pills">
-    <li role="presentation"><a href="{{ route('bevents/editbevent', $bbarid) }}">Bar Info</a></li>
-    <li role="presentation" class="active"><a href="{{ route('bevents/bevents', $bbarid) }}">Events</a></li>
+    <li role="presentation"><a href="{{ route('bars/editbar', array('id' => $bbarid)) }}">Bar Info</a></li>
+    <li role="presentation" class="active"><a href="{{ route('bevents/bevents', array('id' => $bbarid)) }}">Events</a></li>
   </ul>
 
   <div class="table-controls">
     <div class="row">
-      <div class="col-xs-6">
-        {{-- TODO: These buttons don't work yet. --}}
-        Show
-        <button id="show-upcoming-events" class="btn btn-default active">Upcoming</button>
-        <button href="#" id="show-past-events" class="btn btn-default">Past</button>
+      <div class="col-xs-8 form-inline">
+        <label>
+          Show
+          <select id="event-filter" class="form-control">
+            <option value="">All</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="past">Past</option>
+          </select>
+        </label>
       </div>
-      <div class="col-xs-6 text-right">
+      <div class="col-xs-4 text-right">
       	<a href="{{ URL::route("bevents/addbevent", $bbarid) }}" class="btn btn-primary">Add New Event</a>
       </div>
     </div>
@@ -120,128 +49,52 @@ $bbarid= $bev->bbarid;
     		<th>Matchup</th>
     		<th>Home/Away</th>
     		<th><span class="sr-only">Actions</span></th>
-    		<th>(hidden sorting column)</th>
     	</tr>
     </thead>
     <tbody>
 
     @foreach($bevents as $bevent)
-      {{-- Event created, not related to game. --}}
 
       <?php
-      if ($bevent->beventtime !=='0000-00-00 00:00:00'){
-	      $beventtime = strtotime($bevent->beventtime);
-	      $beventdate = date('m/d/y', $beventtime);
-	      $beventtime = date('h:i:s', $beventtime);
-      }else{
-	      $beventtime = 'N/A';
-	      $beventdate = 'N/A';
-      }
-      ?>
+        if ($bevent->beventtime) {
+          $eventUnix = strtotime($bevent->beventtime);
+        } else {
+          $eventUnix = strtotime($bevent->ggame_time);
+        }
+  			$eventDate = date('m/d/Y', $eventUnix);
+  			$eventTime = date('g:i A', $eventUnix);
+  			$eventTimeString = date('Gi', $eventUnix);
+			?>
 
-      @if ($bevent->bgid===0)
       <tr>
-        <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
-	      <td>{{$beventdate}}</td>
-	      <td>{{$beventtime}}</td>
-	      <td>{{$bevent->btitle}}</td>
-	      <td>{{$bevent->gmatchup}}</td>
-	      <td>{{$bevent->glocation}}</td>
-        <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
-        <td>{{$bevent->beventtime}}</td>
+        <td class="text-center">
+          @if ($bevent->beventtime)
+          <input type="checkbox" class="checkbox-delete" data-beventid="#">
+          @endif
+        </td>
+	      <td data-order="{{ $eventUnix }}" data-filter="{{ $eventUnix }}">{{ $eventDate }}</td>
+	      <td data-order="{{ $eventTimeString }}">{{ $eventTime }}</td>
+	      <td>
+  	      @if ($bevent->btitle))
+  	        {{ $bevent->btitle }}
+  	      @else
+  	        No Event Planned
+  	      @endif
+	      </td>
+	      <td>{{ $bevent->gmatchup }}</td>
+	      <td>{{ ucfirst($bevent->glocation) }}</td>
+        <td class="text-center">
+        @if ($bevent->beventtime)
+          <a href="{{ route('bevents/editbevent', array('id' => $bevent->bid)) }}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
+        @else
+{{-- TODO: Not sure if this is correct. URL should be going to /addbevent/BARID/GAMEID --}}
+          <a href="{{ route('bevents/addbevent', array('id' => $bbarid, 'gid' => $bevent->ggid)) }}"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="bottom" title="Create an event for this game" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Create an event for this game</span></a></td>
+        @endif
       </tr>
-	 @endif
-      {{-- Event created, related to game. --}}
-      @if ($bevent->bgid>0)
-      <tr>
-        <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
-
-        <td>{{$beventdate}}</td>
-        <td>{{$beventtime}}</td>
-        <td>{{$bevent->btitle}}</td>
-        <td>{{$bevent->gmatchup}}</td>
-        <td>{{$bevent->glocation}}</td>
-        <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
-        <td>{{$bevent->beventtime}}</td>
-      </tr>
-	  @else
-
-
-		      <tr>
-			      <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
-
-			      <td>{{$beventdate}}</td>
-			      <td>{{$beventtime}}</td>
-			      <td>{{$bevent->btitle}}</td>
-			      <td>{{$bevent->gmatchup}}</td>
-			      <td>{{$bevent->glocation}}</td>
-			      <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
-			      <td>{{$bevent->beventtime}}</td>
-		      </tr>
-
-      @endif
-
-
-
-      {{-- Game, with no related event created. --}}
-
 	  @endforeach
 
     </tbody>
   </table>
 
 </div>
-@endif
-{{-- Old stuff here only for reference
-
-	<h2><a href="{{ URL::route("bars") }}">Bars</a> | <a href="{{ URL::to("games/81") }}">Games</a>  | Events</h2>
-
- <a href="{{ URL::route("bars/addbevent") }}">Add new Event</a>
-<br />
-
-<div  class="table-responsive">
-  <table id="example" class="table table-hover display nowrap dataTable dtr-inline">
-  	<thead>
-  	<tr>
-  		<td>ID</td>
-  		<td>Bar ID</td>
-  		<td>Title</td>
-  		<td>Created</td>
-  		<td>Modified</td>
-  		<td>Action</td>
-  	</tr>
-  </thead>
-  <tfoot>
-  	<tr>
-  		<td>ID</td>
-  		<td>Bar ID</td>
-  		<td>Title</td>
-  		<td>Created</td>
-  		<td>Modified</td>
-  		<td>Action</td>
-  	</tr>
-  </tfoot>
-  <tbody>
-
-
-        @foreach($bevents as $bev)
-         <tr>
-            <td>{{$bev->bid}}</td>
-            <td>{{$bev->barid}}</td>
-            <td>{{$bev->title}}</td>
-            <td>{{$bev->created_at}}</td>
-            <td>{{$bev->updated_at}}</td>
-            <td>
-            	<a class='btn btn-primary' href="{{ route('bars/bevent', array('id' => $bev->bid)) }}">View</a>
-            	<a class='btn btn-warning' href="{{ route('bars/editbevent', array('id' => $bev->bid)) }}">Edit</a>
-	            <a class='btn btn-warning' href="{{ route('bars/addbevent', array('id' => $gid))}}">Add Event</a>
-            	<a class='btn btn-danger delete_bevent' id='id_{{$bev->bid}}' href=#>Delete</a>
-            </td>
-         </tr>
-    @endforeach
-    </tbody>
-  </table>
-</div>
---}}
 @stop
-
