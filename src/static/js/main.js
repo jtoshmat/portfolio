@@ -122,7 +122,7 @@ $(document).ready(function(){
     ],
     order: [[ 1, 'asc' ]]
   });
-  var statusColumn = barsTable.column(7);
+    var statusColumn = barsTable.column(7);
 
   // Add handler for status dropdown filter.
   $('#bar-status-filter').on('change', function(e) {
@@ -263,22 +263,40 @@ $(document).ready(function(){
   /**
    * Games list view handlers.
    */
-
-  var gamesTable = $('#games-listing-table').DataTable({
-    columnDefs: [
-      {
-        searchable: false,
-        targets: [0, 7, 8]
-      },
-      {
-        visible: false,
-        targets: [8]
+  if ($('#games-listing-table').length > 0) {
+    var gamesTable = $('#games-listing-table').DataTable({
+      columnDefs: [
+        {
+          searchable: false,
+          targets: [0, 7]
+        },
+        {
+          visible: false,
+          targets: [8]
+        }
+      ],
+      order: [[ 8, 'asc' ]],
+      ordering: false
+    });
+    $.fn.dataTable.ext.search.push(
+      function( settings, data, dataIndex ) {
+        var now = new Date().getTime() / 1000;
+        var filter = $('#game-filter').val();
+        var timestamp = parseInt( data[8] );
+        if (filter === 'upcoming') {
+          return timestamp >= now ? true : false;
+        } else if (filter === 'past') {
+          return now >= timestamp ? true : false;
+        } else {
+          return true;
+        }
       }
-    ],
-    order: [[ 8, 'asc' ]],
-    ordering: false
-  });
-  var statusColumn = barsTable.column(7);
+    );
+    $('#game-filter').on('change', function(e) {
+      gamesTable.draw();
+    });
+  }
+
 /*  $('.action-upload-logo').on('click', function(e) {
     e.preventDefault();
     var url = e.currentTarget.href;
