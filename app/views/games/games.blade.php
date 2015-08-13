@@ -12,7 +12,7 @@
           Show
           <select id="game-filter" class="form-control">
             <option value="">All</option>
-            <option value="upcoming">Upcoming</option>
+            <option value="upcoming" selected>Upcoming</option>
             <option value="past">Past</option>
           </select>
         </label>
@@ -28,7 +28,7 @@
   		<thead>
   			<tr>
     			<th class="text-center">
-        		<a href="#" id="delete-selected-games"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="right" title="Delete Selected Events" aria-hidden="true"></span><span class="sr-only">Delete Selected Events</span></a>
+        		<a href="#" id="delete-selected-games"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="right" title="Delete Selected Games" aria-hidden="true"></span><span class="sr-only">Delete Selected Games</span></a>
         		<input type="checkbox" class="table-toggle">
       		</th>
   				<th>Date</th>

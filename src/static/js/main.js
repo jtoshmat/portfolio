@@ -328,7 +328,43 @@ $(document).ready(function(){
     );
     $('#game-filter').on('change', function(e) {
       gamesTable.draw();
+    }).trigger('change');
+  }
+
+  /**
+   * Games list view handlers.
+   */
+  if ($('#bevents-listing-table').length > 0) {
+    var eventsTable = $('#bevents-listing-table').DataTable({
+      columnDefs: [
+        {
+          orderable: false,
+          targets: [0, 6]
+        },
+        {
+          searchable: false,
+          targets: [0, 6]
+        }
+      ],
+      order: [[ 1, 'asc' ]]
     });
+    $.fn.dataTable.ext.search.push(
+      function( settings, data, dataIndex ) {
+        var now = new Date().getTime() / 1000;
+        var filter = $('#event-filter').val();
+        var timestamp = parseInt( data[1] );
+        if (filter === 'upcoming') {
+          return timestamp >= now ? true : false;
+        } else if (filter === 'past') {
+          return now >= timestamp ? true : false;
+        } else {
+          return true;
+        }
+      }
+    );
+    $('#event-filter').on('change', function(e) {
+      eventsTable.draw();
+    }).trigger('change');
   }
 
 /*  $('.action-upload-logo').on('click', function(e) {

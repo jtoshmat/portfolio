@@ -25,7 +25,15 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 	public function getBevents(){
 		$id = (int) Request::segment(2);
 		if ($this->isAdmin()===1) {
-
+			return DB::select('select
+				bev.bid, bev.title as btitle,bev.barid as bbarid, bev.eventtime as beventtime, bev.gid as bgid,
+				gm.gid as ggid, gm.title as gtitle, gm.matchup as gmatchup, gm.location as glocation, gm.description as
+				gdescription, gm
+				.game_time as ggame_time, gm.tv as gtv
+				from bevents as bev right join games as gm on bev.gid=gm.gid
+				');
+		}
+		if ($this->isAdmin()===2) {
 			return DB::select('select
 				bev.bid, bev.title as btitle,bev.barid as bbarid, bev.eventtime as beventtime, bev.gid as bgid,
 				gm.gid as ggid, gm.title as gtitle, gm.matchup as gmatchup, gm.location as glocation, gm.description as
@@ -33,9 +41,6 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 				.game_time as ggame_time, gm.tv as gtv
 				from bevents as bev left join games as gm on bev.gid=gm.gid
 				');
-		}
-		if ($this->isAdmin()===2) {
-			return Bevent::where('barid', '=', $id)->get();
 		}
 	}
 
@@ -51,14 +56,14 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function addBevent(){
 		$bid = (int) Request::segment(2);
-		//$bid = Game::where('gid','=',$gid)->get(array('bid'));
-		//$bid = json_decode($bid, true);
-		//$bid = (int) $bid[0]['bid'];
+		$gid = (int) Request::query('gid');
+
 
 		$eventime = Input::get('datetime')." ".Input::get('timezone');
 
 		$insertData = array(
 			'barid' => $bid,
+			'gid' => $gid,
 			'title' => Input::get('title'),
 			'eventtime' => $eventime,
 		);
