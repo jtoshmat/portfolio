@@ -25,7 +25,7 @@
           Show
           <select id="event-filter" class="form-control">
             <option value="">All</option>
-            <option value="upcoming">Upcoming</option>
+            <option value="upcoming" selected>Upcoming</option>
             <option value="past">Past</option>
           </select>
         </label>

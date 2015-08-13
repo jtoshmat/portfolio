@@ -12,7 +12,7 @@
           Show
           <select id="game-filter" class="form-control">
             <option value="">All</option>
-            <option value="upcoming">Upcoming</option>
+            <option value="upcoming" selected>Upcoming</option>
             <option value="past">Past</option>
           </select>
         </label>
