@@ -5,6 +5,14 @@ $(document).ready(function(){
 
 
   // Sends a delete request with a passed ID. Returns a Promise.
+  function deleteGame(id) {
+    return $.ajax({
+      type: 'POST',
+      url: '/deletegame/id'
+    });
+  }
+
+  // Sends a delete request with a passed ID. Returns a Promise.
   function deleteBar(id) {
     return $.ajax({
       type: 'GET',
@@ -201,6 +209,33 @@ $(document).ready(function(){
         var $this = $(this);
         var id = $this.data('barid');
         deleteBar(id).done(function() {
+          // TODO: is this the best way to remove tables? Maybe there's a Data
+          // Tables method that we should be using?
+          $this.closest('tr').remove();
+        });
+      });
+    }
+  });
+
+  // Add handler for deletion button.
+  $('#delete-selected-events').on('click', function(e) {
+    e.preventDefault();
+    var $checkedBoxes = $('.checkbox-delete:checked');
+    var conf;
+
+    if ($checkedBoxes.length <= 0) {
+      alert('You haven\'t selected any games.')
+    } else if($checkedBoxes.length === 1) {
+      conf = confirm('Are you sure want to delete this games?');
+    } else {
+      conf = confirm('Are you sure want to delete these games?');
+    }
+
+    if (conf) {
+      $checkedBoxes.each(function() {
+        var $this = $(this);
+        var id = $this.data('gid');
+        deleteGame(id).done(function() {
           // TODO: is this the best way to remove tables? Maybe there's a Data
           // Tables method that we should be using?
           $this.closest('tr').remove();

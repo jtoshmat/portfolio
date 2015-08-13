@@ -52,9 +52,7 @@ class CreateRunTable extends Migration {
 			$table->string('address');
 			$table->string('address2');
 			$table->string('city', 155);
-			$table->string('state', 155);
-			$table->string('country', 155);
-			$table->string('timezone', 155);
+			$table->string('state', 2);
 			$table->string('phone'); //set the phone format in model validator
 			$table->string('website');
 			$table->string('zipcode');
@@ -80,7 +78,6 @@ class CreateRunTable extends Migration {
 			$table->tinyInteger('gid');
 			$table->tinyInteger('userid');
 			$table->string("title");
-			$table->timestamp('eventtime');
 			$table->timestamps();
 		});
 		Schema::create('roles', function(Blueprint $table)
@@ -101,7 +98,7 @@ class CreateRunTable extends Migration {
 			$table->string('matchup');
 			$table->string('location');
 			$table->string('description');
-			$table->timestamp('game_time');
+			$table->dateTime('game_time');
 			$table->string('tv');
 			$table->timestamps();
 		});
