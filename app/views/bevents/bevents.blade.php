@@ -10,10 +10,74 @@
 		@endforeach
 	</ul>
 
+@if (!$bevents)
+	<div class="container edit-bar">
+		<div class="page-header">
+			<h2>Bar name needs to go here</h2>
+			{{-- TODO: these need bar names and ID numbers. --}}
+			<p><a href="http://www.packerseverywhere.com/app/venues/#">View on packerseverywhere.com</a></p>
+		</div>
+		<ul class="nav nav-pills">
+			<li role="presentation"><a href="{{ route('bevents/editbevent', 1) }}">Bar Info</a></li>
+			<li role="presentation" class="active"><a href="{{ route('bevents/bevents', 1) }}">Events</a></li>
+		</ul>
+
+		<h3>No Events found.</h3>
+		<div class="table-controls">
+			<div class="row">
+				<div class="col-xs-6">
+					{{-- TODO: These buttons don't work yet. --}}
+					Show
+					<button id="show-upcoming-events" class="btn btn-default active">Upcoming</button>
+					<button href="#" id="show-past-events" class="btn btn-default">Past</button>
+				</div>
+				<div class="col-xs-6 text-right">
+					<a href="{{ URL::route("bevents/addbevent", $barid) }}" class="btn btn-primary">Add New Event</a>
+				</div>
+			</div>
+		</div>
+
+		<table id="bevents-listing-table" class="table table-hover" cellspacing="0">
+			<thead>
+			<tr>
+				<th class="text-center">
+					<a href="#" id="delete-selected-events"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="right" title="Delete Selected Events" aria-hidden="true"></span><span class="sr-only">Delete Selected Events</span></a>
+					<input type="checkbox" class="table-toggle">
+				</th>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Event Title</th>
+				<th>Matchup</th>
+				<th>Home/Away</th>
+				<th><span class="sr-only">Actions</span></th>
+				<th>(hidden sorting column)</th>
+			</tr>
+			</thead>
+			<tbody>
+
+
+					<tr>
+						<td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
+						<td>&nbsp</td>
+						<td>&nbsp</td>
+						<td>&nbsp</td>
+						<td>&nbsp</td>
+						<td>&nbsp</td>
+						<td class="text-center">&nbsp</td>
+						<td>&nbsp</td>
+					</tr>
+
+
+			</tbody>
+		</table>
+
+	</div>
+@endif
+@if ($bevents)
 <?php
 $bbarid = 0;
 foreach($bevents as $bev){
-$bbarid= 1;
+$bbarid= $bev->bbarid;
 	break;
 }
 ?>
@@ -109,6 +173,7 @@ $bbarid= 1;
   </table>
 
 </div>
+@endif
 {{-- Old stuff here only for reference
 
 	<h2><a href="{{ URL::route("bars") }}">Bars</a> | <a href="{{ URL::to("games/81") }}">Games</a>  | Events</h2>

@@ -33,7 +33,9 @@ class BeventsController extends \BaseController {
 		if ($bevents){
 			return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid);
 		}
-		return View::make('user/403');
+		$bevents = null;
+
+		return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid);
 	}
 
 	public function editBevent()
