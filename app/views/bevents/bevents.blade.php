@@ -163,7 +163,24 @@ $bbarid= $bev->bbarid;
         <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
         <td>{{$bevent->beventtime}}</td>
       </tr>
-	  @endif
+	  @else
+
+
+		      <tr>
+			      <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
+
+			      <td>{{$beventdate}}</td>
+			      <td>{{$beventtime}}</td>
+			      <td>{{$bevent->btitle}}</td>
+			      <td>{{$bevent->gmatchup}}</td>
+			      <td>{{$bevent->glocation}}</td>
+			      <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
+			      <td>{{$bevent->beventtime}}</td>
+		      </tr>
+
+      @endif
+
+
 
       {{-- Game, with no related event created. --}}
 
