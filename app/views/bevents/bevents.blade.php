@@ -11,9 +11,9 @@
 	</ul>
 
 <?php
-$bid = 0;
+$bbarid = 0;
 foreach($bevents as $bev){
-	$bid = $bev->barid;
+$bbarid= 1;
 	break;
 }
 ?>
@@ -24,8 +24,8 @@ foreach($bevents as $bev){
     <p><a href="http://www.packerseverywhere.com/app/venues/#">View on packerseverywhere.com</a></p>
   </div>
   <ul class="nav nav-pills">
-    <li role="presentation"><a href="{{ route('bevents/editbevent', $barid) }}">Bar Info</a></li>
-    <li role="presentation" class="active"><a href="{{ route('bevents/bevents', $barid) }}">Events</a></li>
+    <li role="presentation"><a href="{{ route('bevents/editbevent', $bbarid) }}">Bar Info</a></li>
+    <li role="presentation" class="active"><a href="{{ route('bevents/bevents', $bbarid) }}">Events</a></li>
   </ul>
 
   <div class="table-controls">
@@ -37,7 +37,7 @@ foreach($bevents as $bev){
         <button href="#" id="show-past-events" class="btn btn-default">Past</button>
       </div>
       <div class="col-xs-6 text-right">
-      	<a href="{{ URL::route("bevents/addbevent", $barid) }}" class="btn btn-primary">Add New Event</a>
+      	<a href="{{ URL::route("bevents/addbevent", $bbarid) }}" class="btn btn-primary">Add New Event</a>
       </div>
     </div>
   </div>
@@ -62,29 +62,42 @@ foreach($bevents as $bev){
 
     @foreach($bevents as $bevent)
       {{-- Event created, not related to game. --}}
-      @if ($bevent->gid===0)
+
+      <?php
+      if ($bevent->beventtime !=='0000-00-00 00:00:00'){
+	      $beventtime = strtotime($bevent->beventtime);
+	      $beventdate = date('m/d/y', $beventtime);
+	      $beventtime = date('h:i:s', $beventtime);
+      }else{
+	      $beventtime = 'N/A';
+	      $beventdate = 'N/A';
+      }
+      ?>
+
+      @if ($bevent->bgid===0)
       <tr>
         <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
-        <td>12/31/15</td>
-        <td>12:00 AM{{-- Time of the event. --}}</td>
-        <td>{{$bevent->title}}</td>
-        <td>N/A</td>
-        <td>N/A</td>
+	      <td>{{$beventdate}}</td>
+	      <td>{{$beventtime}}</td>
+	      <td>{{$bevent->btitle}}</td>
+	      <td>{{$bevent->gmatchup}}</td>
+	      <td>{{$bevent->glocation}}</td>
         <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
-        <td>(unix time goes here)</td>
+        <td>{{$bevent->beventtime}}</td>
       </tr>
 	 @endif
       {{-- Event created, related to game. --}}
-      @if ($bevent->gid>0)
+      @if ($bevent->bgid>0)
       <tr>
         <td class="text-center"><input type="checkbox" class="checkbox-delete" data-beventid="#"></td>
-        <td>1/1/16</td>
-        <td>12:00 AM {{-- Time of the event. --}}</td>
-        <td>{{$bevent->title}}</td>
-        <td>Detroit</td>
-        <td>Away</td>
+
+        <td>{{$beventdate}}</td>
+        <td>{{$beventtime}}</td>
+        <td>{{$bevent->btitle}}</td>
+        <td>{{$bevent->gmatchup}}</td>
+        <td>{{$bevent->glocation}}</td>
         <td class="text-center"><a href="#"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
-        <td>(unix time goes here)</td>
+        <td>{{$bevent->beventtime}}</td>
       </tr>
 	  @endif
 
