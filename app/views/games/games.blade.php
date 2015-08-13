@@ -28,7 +28,7 @@
   		<thead>
   			<tr>
     			<th class="text-center">
-        		<a href="#" id="delete-selected-events"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="right" title="Delete Selected Events" aria-hidden="true"></span><span class="sr-only">Delete Selected Events</span></a>
+        		<a href="#" id="delete-selected-games"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="right" title="Delete Selected Events" aria-hidden="true"></span><span class="sr-only">Delete Selected Events</span></a>
         		<input type="checkbox" class="table-toggle">
       		</th>
   				<th>Date</th>
