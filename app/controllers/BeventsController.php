@@ -30,12 +30,15 @@ class BeventsController extends \BaseController {
 		}
 		$barid = (int) Request::segment(2);
 		$bevents = $this->Bevent->getBevents();
+		$barname = Bar::where('id','=',$barid)->get(array('barname'));
+
 		if ($bevents){
-			return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid);
+			return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid)->with('barname',
+				$barname);
 		}
 		$bevents = null;
 
-		return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid);
+		return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid)->with('barname', $barname);
 	}
 
 	public function editBevent()

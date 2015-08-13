@@ -1,10 +1,11 @@
 @extends("layout")
 @section("content")
+<?php
 
+	$barname = json_decode($barname)[0]->barname;
+?>
 
-
-
-	<ul>
+<ul>
 		@foreach($errors->all() as $error)
 			<li>{{ $error }}</li>
 		@endforeach
@@ -13,7 +14,7 @@
 @if (!$bevents)
 	<div class="container edit-bar">
 		<div class="page-header">
-			<h2>Bar name needs to go here</h2>
+			<h2>{{$barname}}</h2>
 			{{-- TODO: these need bar names and ID numbers. --}}
 			<p><a href="http://www.packerseverywhere.com/app/venues/#">View on packerseverywhere.com</a></p>
 		</div>
@@ -83,7 +84,7 @@ $bbarid= $bev->bbarid;
 ?>
 <div class="container edit-bar">
   <div class="page-header">
-    <h2>Bar name needs to go here</h2>
+    <h2>{{$barname}}</h2>
     {{-- TODO: these need bar names and ID numbers. --}}
     <p><a href="http://www.packerseverywhere.com/app/venues/#">View on packerseverywhere.com</a></p>
   </div>
