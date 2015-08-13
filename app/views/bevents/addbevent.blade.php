@@ -6,7 +6,7 @@
   </div>
   <div class="row">
     <div class="col-sm-8">
-      {{ Form::open(array("url" => "addbevent/1{{-- TODO: this 1 needs to be replaced with bar id --}}", "class" => "form-add-bar")) }}
+      {{ Form::open(array("url" => "addbevent/1?gid=".$gid, "class" => "form-add-bar")) }}
         <div class="form-group">
           {{ Form::label("datetime", "Local Date and Time") }}
           {{ Form::text("datetime", Input::old("datetime"), ["class" => "form-control datetime-picker"]) }}

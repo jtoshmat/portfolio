@@ -56,14 +56,14 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function addBevent(){
 		$bid = (int) Request::segment(2);
-		//$bid = Game::where('gid','=',$gid)->get(array('bid'));
-		//$bid = json_decode($bid, true);
-		//$bid = (int) $bid[0]['bid'];
+		$gid = (int) Request::query('gid');
+
 
 		$eventime = Input::get('datetime')." ".Input::get('timezone');
 
 		$insertData = array(
 			'barid' => $bid,
+			'gid' => $gid,
 			'title' => Input::get('title'),
 			'eventtime' => $eventime,
 		);

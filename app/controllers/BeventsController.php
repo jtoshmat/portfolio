@@ -80,21 +80,21 @@ class BeventsController extends \BaseController {
 		if ($this->isNotAuthorized()){
 			return View::make($this->isNotAuthorized());
 		}
-		$gid = (int) Request::segment(2);
+		$barid = (int) Request::segment(2);
+		$gid = (int) Request::query('gid');
 		$method = Request::method();
 		if (Request::isMethod('post')) {
 			$validator = Validator::make(Input::all(), Bevent::$addbevent);
 			if ($validator->passes()) {
-
 				$bevents = $this->Bevent->addBevent();
-				return Redirect::to('bevents/'.$gid);
+				return Redirect::to('bevents/'.$barid);
 
 			}else{
-				return Redirect::to('addbevent/'.$gid)->with('message', 'The following errors occurred')->withErrors
+				return Redirect::to('addbevent/'.$barid)->with('message', 'The following errors occurred')->withErrors
 				($validator)->withInput();
 			}
 		}
-		return View::make('bevents/addbevent')->with('gid', $gid);
+		return View::make('bevents/addbevent')->with('barid', $barid)->with('gid', $gid);
 	}
 
 	public function bevent()
