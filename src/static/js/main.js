@@ -201,6 +201,8 @@ $(document).ready(function(){
         var $this = $(this);
         var id = $this.data('barid');
         deleteBar(id).done(function() {
+          // TODO: is this the best way to remove tables? Maybe there's a Data
+          // Tables method that we should be using?
           $this.closest('tr').remove();
         });
       });
@@ -256,6 +258,44 @@ $(document).ready(function(){
       $newInput.val(originalValue);
     });
   }).trigger('change');
+
+
+  /**
+   * Games list view handlers.
+   */
+  if ($('#games-listing-table').length > 0) {
+    var gamesTable = $('#games-listing-table').DataTable({
+      columnDefs: [
+        {
+          orderable: false,
+          targets: [0, 6, 7]
+        },
+        {
+          searchable: false,
+          targets: [0, 7]
+        }
+      ],
+      order: [[ 1, 'asc' ]]
+    });
+    $.fn.dataTable.ext.search.push(
+      function( settings, data, dataIndex ) {
+        var now = new Date().getTime() / 1000;
+        var filter = $('#game-filter').val();
+        var timestamp = parseInt( data[1] );
+        if (filter === 'upcoming') {
+          return timestamp >= now ? true : false;
+        } else if (filter === 'past') {
+          return now >= timestamp ? true : false;
+        } else {
+          return true;
+        }
+      }
+    );
+    $('#game-filter').on('change', function(e) {
+      gamesTable.draw();
+    });
+  }
+
 /*  $('.action-upload-logo').on('click', function(e) {
     e.preventDefault();
     var url = e.currentTarget.href;

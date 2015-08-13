@@ -1,5 +1,10 @@
 @extends("layout")
 @section("content")
+<?php
+$gameUnix = strtotime($game->game_time);
+$gameDateTime = date('m/d/Y g:i A', $gameUnix);
+?>
+
 <div class="container add-bar">
   <div class="page-header">
     <h2>Season Schedule</h2>
@@ -7,27 +12,20 @@
   <div class="row">
     <div class="col-sm-8">
       {{ Form::model($game, array("url" => 'editgame/'.$game->gid, "class" => "form-add-bar")) }}
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              {{ Form::label("datetime", "Date") }}
-              {{ Form::text("datetime", null, ["class" => "form-control datetime-picker col-sm-8"]) }}
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              {{ Form::label("timezone", "Time Zone") }}
-              {{ Timezone::selectForm("US/Central", "Select a timezone", ["class" => "form-control col-sm-4", "name" => "timezone"]) }}
-            </div>
-          </div>
-        </div>
         <div class="form-group">
-          <div class="row">
-            <div class="col-sm-6 col-xs-8">
+          {{ Form::label("datetime", "Date and Time") }}
+          {{ Form::text("datetime", $gameDateTime, ["class" => "form-control datetime-picker col-sm-8"]) }}
+          <div class="text-right"><small>Time listed is in the US/Central timezone.</small></div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-xs-8">
+            <div class="form-group">
               {{ Form::label("matchup", "Matchup") }}
               {{ Form::text("matchup", Input::old("matchup"), ["class" => "form-control", "required"]) }}
             </div>
-            <div class="col-sm-6 col-xs-4">
+          </div>
+          <div class="col-sm-6 col-xs-4">
+            <div class="form-group">
               {{ Form::label("location", "Location") }}
 	            <?php
 	            $selectedDefault = $game->location;
@@ -40,6 +38,7 @@
         <div class="form-group">
           {{ Form::label(null, "TV Station") }}
           <div>
+            {{-- TODO: Need to toggle checkboxes as appropriate. --}}
             <label class="checkbox-inline">{{ Form::checkbox('tv', 'NBC') }} NBC</label>
             <label class="checkbox-inline">{{ Form::checkbox('tv', 'CBS') }} CBS</label>
             <label class="checkbox-inline">{{ Form::checkbox('tv', 'ESPN') }} ESPN</label>
