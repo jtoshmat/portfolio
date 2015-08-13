@@ -39,11 +39,28 @@ $gameDateTime = date('m/d/Y g:i A', $gameUnix);
           {{ Form::label(null, "TV Station") }}
           <div>
             {{-- TODO: Need to toggle checkboxes as appropriate. --}}
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'NBC') }} NBC</label>
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'CBS') }} CBS</label>
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'ESPN') }} ESPN</label>
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'FOX') }} FOX</label>
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'NFL Network') }} NFL Network</label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="tv" value="NBC"> NBC
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="tv" value="CBS"> CBS
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="tv" value="ESPN"> ESPN
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="tv" value="FOX"> FOX
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="tv" value="Packers TV Network">Packers TV Network
+            </label>
+            {{-- Commenting out the laravel way of doing checkboxes as they are
+                 coming up buggy and always checked on a model-bound form. --}}
+            {{-- <label class="checkbox-inline">{{ Form::checkbox('tv', 'NBC', false) }} NBC</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv', 'CBS', false) }} CBS</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv', 'ESPN', false) }} ESPN</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv', 'FOX', false) }} FOX</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv', 'NFL Network', false) }} NFL Network</label>--}}
           </div>
         </div>
         <div class="form-group">
