@@ -82,6 +82,8 @@ class BeventsController extends \BaseController {
 		}
 		$barid = (int) Request::segment(2);
 		$gid = (int) Request::query('gid');
+		$barname = Bar::where('id','=', $barid)->get(array('barname'));
+
 		$method = Request::method();
 		if (Request::isMethod('post')) {
 			$validator = Validator::make(Input::all(), Bevent::$addbevent);
@@ -94,7 +96,7 @@ class BeventsController extends \BaseController {
 				($validator)->withInput();
 			}
 		}
-		return View::make('bevents/addbevent')->with('barid', $barid)->with('gid', $gid);
+		return View::make('bevents/addbevent')->with('barid', $barid)->with('gid', $gid)->with('barname', $barname);
 	}
 
 	public function bevent()
