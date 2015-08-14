@@ -143,8 +143,8 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'city' => Input::get('city'),
 			'state' => Input::get('state'),
 			'zipcode' => Input::get('zipcode'),
-      'country' => Input::get('country'),
-      'timezone' => Input::get('timezone'),
+            'country' => Input::get('country'),
+            'timezone' => Input::get('timezone'),
 			'phone' => Input::get('phone'),
 			'website' => Input::get('website'),
 			'description' => Input::get('description'),
@@ -160,15 +160,14 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		$Bar->address = Input::get('address');
 		$Bar->city = Input::get('city');
 		$Bar->state = Input::get('state');
-		$Bar->zipcode = Input::get('zipcode');
 		$Bar->country = Input::get('country');
 		$Bar->timezone = Input::get('timezone');
+		$Bar->zipcode = Input::get('zipcode');
 		$Bar->phone = Input::get('phone');
 		$Bar->website = Input::get('website');
 		$Bar->description = Input::get('description');
-		$Bar->status = Input::get('approved');
-		$Bar->save();
-		return $Bar;
+		$Bar->status = Input::get('status');
+		return $Bar->save();
 	}
 
 	public function deleteBar(){

@@ -72,20 +72,18 @@ class BarController extends \BaseController {
 				$validator = Validator::make(Input::all(), Bar::$updatebarrules);
 				if ($validator->passes()) {
 					$id = Request::get('id');
-					$Bar = Bar::find($id);
-					$Bar->barname = Input::get('barname');
-					$Bar->address = Input::get('address');
-					$Bar->city = Input::get('city');
-      		$Bar->state = Input::get('state');
-      		$Bar->country = Input::get('country');
-      		$Bar->timezone = Input::get('timezone');
-					$Bar->zipcode = Input::get('zipcode');
-      		$Bar->phone = Input::get('phone');
-					$Bar->website = Input::get('website');
-      		$Bar->description = Input::get('description');
-					$Bar->status = Input::get('status');
-					$Bar->save();
-
+					$email = Request::get('email');
+					$isUserEmailValid = User::where('username','=',$email)->get(array('username'));
+					foreach ($isUserEmailValid as $em){}
+					if (empty($em)){
+						return Redirect::to('editbar/'.$id)->with('message', 'The following errors occurred')->withErrors
+						("The email is not valid Bar Admin's email")
+							->withInput();
+					}
+					$Bar = new Bar();
+					if (!$Bar->updateBar()){
+						return 'goood';
+					}
 					\Session::flash('mymessage','The bar has been updated');
 					return Redirect::to('bars')->with('message', 'Thanks for updaing your bar');
 
