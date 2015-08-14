@@ -17,6 +17,9 @@ img {
 
 .page-header {
   margin-top: 0;
+  &.tabbed-header {
+    border-bottom: none;
+  }
 }
 
 .table-controls {

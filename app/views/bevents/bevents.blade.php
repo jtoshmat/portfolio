@@ -9,14 +9,16 @@
 }
 ?>
 <div class="container edit-bar">
-  <div class="page-header">
-    <h2>{{$barname}}</h2>
-    <p><a href="http://www.packerseverywhere.com/app/venues/{{ $bbarid }}">View on packerseverywhere.com</a></p>
+  <div class="page-header tabbed-header">
+    <h2>{{$barname}}
+      <small><a href="http://www.packerseverywhere.com/app/venues/{{ $bbarid }}" target="_blank"><span class="glyphicon glyphicon-new-window" data-toggle="tooltip" data-placement="top" title="View this bar on PackersEverywhere.com" aria-hidden="true"></span><span class="sr-only">View this bar on PackersEverywhere.com</a></small>
+    </h2>
+    <ul class="nav nav-tabs">
+      <li role="presentation"><a href="{{ route('bars/editbar', array('id' => $bbarid)) }}">Bar Info</a></li>
+      <li role="presentation" class="active"><a href="{{ route('bevents/bevents', array('id' => $bbarid)) }}">Events</a></li>
+    </ul>
   </div>
-  <ul class="nav nav-pills">
-    <li role="presentation"><a href="{{ route('bars/editbar', array('id' => $bbarid)) }}">Bar Info</a></li>
-    <li role="presentation" class="active"><a href="{{ route('bevents/bevents', array('id' => $bbarid)) }}">Events</a></li>
-  </ul>
+
 
   <div class="table-controls">
     <div class="row">

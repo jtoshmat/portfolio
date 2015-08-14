@@ -10,14 +10,15 @@ if ($admin===1){
 }
 ?>
 <div class="container edit-bar">
-  <div class="page-header">
-    <h2>{{ $bar->barname }}</h2>
-    <p><a href="http://www.packerseverywhere.com/app/venues/{{ $bar->id }}">View on packerseverywhere.com</a></p>
+  <div class="page-header tabbed-header">
+    <h2>{{ $bar->barname }}
+      <small><a href="http://www.packerseverywhere.com/app/venues/{{ $bar->id }}" target="_blank"><span class="glyphicon glyphicon-new-window" data-toggle="tooltip" data-placement="top" title="View this bar on PackersEverywhere.com" aria-hidden="true"></span><span class="sr-only">View this bar on PackersEverywhere.com</a></small>
+    </h2>
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="active"><a href="{{ route('bars/editbar', array('id' => $bar->id)) }}">Bar Info</a></li>
+      <li role="presentation"><a href="{{ route('bevents/bevents', array('id' => $bar->id)) }}">Events</a></li>
+    </ul>
   </div>
-  <ul class="nav nav-pills">
-    <li role="presentation" class="active"><a href="{{ route('bars/editbar', array('id' => $bar->id)) }}">Bar Info</a></li>
-    <li role="presentation"><a href="{{ route('bevents/bevents', array('id' => $bar->id)) }}">Events</a></li>
-  </ul>
   <div class="row">
     <div class="col-sm-8">
       {{ Form::open(array("url" => "editbar/".$bar->id, "class" => "form-edit-bar", "files" => true)) }}

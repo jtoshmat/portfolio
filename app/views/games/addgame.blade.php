@@ -30,11 +30,11 @@
         <div class="form-group">
           {{ Form::label(null, "TV Station") }}
           <div>
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'NBC') }} NBC</label>
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'CBS') }} CBS</label>
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'ESPN') }} ESPN</label>
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'FOX') }} FOX</label>
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'NFL Network') }} NFL Network</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv[]', 'NBC') }} NBC</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv[]', 'CBS') }} CBS</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv[]', 'ESPN') }} ESPN</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv[]', 'FOX') }} FOX</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv[]', 'NFL Network') }} NFL Network</label>
           </div>
         </div>
         <div class="form-group">

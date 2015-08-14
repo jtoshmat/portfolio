@@ -1,9 +1,16 @@
 @extends("layout")
 @section("content")
 <div class="container add-bar">
-  <div class="page-header">
-    <h2>Add Event</h2>
+  <div class="page-header tabbed-header">
+    <h2>Bar Name Goes Here
+      <small><a href="http://www.packerseverywhere.com/app/venues/{{-- $bbarid --}}" target="_blank"><span class="glyphicon glyphicon-new-window" data-toggle="tooltip" data-placement="top" title="View this bar on PackersEverywhere.com" aria-hidden="true"></span><span class="sr-only">View this bar on PackersEverywhere.com</a></small>
+    </h2>
+    <ul class="nav nav-tabs">
+      <li role="presentation"><a href="{{-- route('bars/editbar', array('id' => $bbarid)) --}}">Bar Info</a></li>
+      <li role="presentation" class="active"><a href="{{-- route('bevents/bevents', array('id' => $bbarid)) --}}">Events</a></li>
+    </ul>
   </div>
+  <h3>Add Event</h3>
   <div class="row">
     <div class="col-sm-8">
       {{ Form::open(array("url" => "addbevent/1?gid=".$gid, "class" => "form-add-bar")) }}
