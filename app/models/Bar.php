@@ -72,6 +72,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'regex:/(^[0-9 ]{5,5}$)+/'
 		),
 		'website'=>'active_url|min:7',
+		'logo'=>'image',
 	);
 
 	use UserTrait, RemindableTrait;

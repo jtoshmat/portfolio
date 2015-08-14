@@ -8,7 +8,7 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 class Upload extends Eloquent implements UserInterface, RemindableInterface {
 
 	public static $uploadrules = array(
-		'avatar'=>'image',
+		'logo'=>'image',
 		'bid'=> 'required|numeric|min:1',
 
 	);
@@ -22,6 +22,20 @@ class Upload extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'uploads';
 
+
+	public function addUploadedImage($filename, $bid){
+		$checkLogoDuplicate = Upload::where('filename','=', $filename)->where('bid','=', $bid)->count();
+		if($checkLogoDuplicate){
+			return false;
+		}
+		$output = DB::table('uploads')->insert(
+			[
+				'filename' => $filename,
+				'uid'      => Auth::user()->id,
+				'bid'      => $bid,
+			]
+		);
+	}
 	
 
 }

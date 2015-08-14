@@ -63,15 +63,15 @@ class BarController extends \BaseController {
 			return View::make($this->isNotAuthorized());
 		}
 		$id = (int) Request::segment(2);
-
-
-
 			$method = Request::method();
 			if (Request::isMethod('post'))
 			{
+				$id = Request::get('id');
 				$validator = Validator::make(Input::all(), Bar::$updatebarrules);
 				if ($validator->passes()) {
-					$id = Request::get('id');
+					if (Input::hasFile('logo')){
+						$this->uploadLogo($id);
+					}
 					$email = Request::get('email');
 					$isUserEmailValid = User::where('username','=',$email)->get(array('username'));
 					foreach ($isUserEmailValid as $em){}
@@ -173,51 +173,23 @@ class BarController extends \BaseController {
 		return View::make('bars/addbar')->with('username',Auth::user()->username)->with('admin', $this->isAdmin());
 	}
 
-	public function uploadImage()
-	{
-			$uid = Auth::user()->id;
-			$action = Request::query('action');
-			$bid = (int) Request::segment(2);
-			$newFileName = null;
-
-			if (Input::hasFile('avatar'))
-			{
-				$bid = Input::get('bid');
-				$file = Input::file('avatar');
-				$daten = date('m').date('d').date('Y');
-				$newFileName = 'logo_'.$daten."_".$uid."_".$bid.".png";
-				$size = (int) $file->getSize();
-				$path = $file->getRealPath();
-
-				$validator = Validator::make(Input::all(), Upload::$uploadrules);
-				if ($validator->passes()) {
-						if ($size>=100024){
-							echo "<div style='text-align: center;'><h2>Your logo image must be 400 px by 400px </h2>";
-							return "<button onclick='window.history.back();'>Go Back</button></div>";
-
-						}
-						$file->move('img/uploads', $newFileName);
-						$duplicateFound = DB::table('uploads')->where('filename','=',$newFileName)
-							->where('bid','=',$bid)->count();
-						if ($duplicateFound==0) {
-							$uploaded = DB::table('uploads')->insert(
-								[
-									'filename' => $newFileName,
-									'uid'      => $uid,
-									'bid'      => $bid,
-								]
-							);
-						}else{
-							$output = Upload::where('bid', '=',$bid)->where('filename','=', $newFileName)->update(
-								['filename' => $newFileName]
-							);
-						}
-					}else{
-						return Redirect::to('upload')->with('message', 'The following errors occurred')->withErrors
-						($validator)
-							->withInput();
-				}
-		  }
-      return View::make('bars/upload')->with('action', $action)->with('filename', $newFileName)->with('bid', $bid);
+	protected function uploadLogo($bid){
+		$output = null;
+		$uid = Auth::user()->id;
+		$file = Input::file('logo');
+		$daten = date('m').date('d').date('Y');
+		$path = $file->getRealPath();
+		$newFileName = 'logo_'.$daten."_".$uid."_".$bid.".png";
+		$size = (int) $file->getSize();
+		list($width, $height) = getimagesize($file);
+		if ($width>700 || $height>700){
+			$output['message'] = "The image width and heght must be these sizes";
+			return $output;
+		}
+		$file->move('img/uploads', $newFileName);
+		$Upload = new Upload();
+		$Upload->addUploadedImage($newFileName, $bid);
+		return 1;
 	}
+
 }
