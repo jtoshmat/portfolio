@@ -4,13 +4,6 @@ $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
 
 
-  // Sends a delete request with a passed ID. Returns a Promise.
-  function deleteGame(id) {
-    return $.ajax({
-      type: 'POST',
-      url: '/deletegame/id'
-    });
-  }
 
   // Sends a delete request with a passed ID. Returns a Promise.
   function deleteBar(id) {
@@ -23,6 +16,24 @@ $(document).ready(function(){
     });
   }
 
+  // Sends a delete request with a passed ID. Returns a Promise.
+  function deleteEvent(id) {
+    return $.ajax({
+      type: 'GET',
+      url: '/deletebevent',
+      data: {
+        id: id
+      }
+    });
+  }
+
+  // Sends a delete request with a passed ID. Returns a Promise.
+  function deleteGame(id) {
+    return $.ajax({
+      type: 'POST',
+      url: '/deletegame/' + id
+    });
+  }
 
   // Change status of bar with a passed ID and new status value.
   function updateBarStatus(id, status) {
@@ -219,6 +230,33 @@ $(document).ready(function(){
 
   // Add handler for deletion button.
   $('#delete-selected-events').on('click', function(e) {
+    e.preventDefault();
+    var $checkedBoxes = $('.checkbox-delete:checked');
+    var conf;
+
+    if ($checkedBoxes.length <= 0) {
+      alert('You haven\'t selected any events.')
+    } else if($checkedBoxes.length === 1) {
+      conf = confirm('Are you sure want to delete this events?');
+    } else {
+      conf = confirm('Are you sure want to delete these events?');
+    }
+
+    if (conf) {
+      $checkedBoxes.each(function() {
+        var $this = $(this);
+        var id = $this.data('gid');
+        deleteEvent(id).done(function() {
+          // TODO: is this the best way to remove tables? Maybe there's a Data
+          // Tables method that we should be using?
+          $this.closest('tr').remove();
+        });
+      });
+    }
+  });
+
+  // Add handler for deletion button.
+  $('#delete-selected-games').on('click', function(e) {
     e.preventDefault();
     var $checkedBoxes = $('.checkbox-delete:checked');
     var conf;
