@@ -11,7 +11,7 @@
 <div class="container edit-bar">
   <div class="page-header tabbed-header">
     <h2>{{$barname}}
-      <small><a href="http://www.packerseverywhere.com/app/venues/{{ $bbarid }}"><span class="glyphicon glyphicon-new-window" data-toggle="tooltip" data-placement="top" title="View this bar on PackersEverywhere.com" aria-hidden="true"></span><span class="sr-only">View this bar on PackersEverywhere.com</a></small>
+      <small><a href="http://www.packerseverywhere.com/app/venues/{{ $bbarid }}" target="_blank"><span class="glyphicon glyphicon-new-window" data-toggle="tooltip" data-placement="top" title="View this bar on PackersEverywhere.com" aria-hidden="true"></span><span class="sr-only">View this bar on PackersEverywhere.com</a></small>
     </h2>
     <ul class="nav nav-tabs">
       <li role="presentation"><a href="{{ route('bars/editbar', array('id' => $bbarid)) }}">Bar Info</a></li>
