@@ -42,7 +42,9 @@
       		<input type="checkbox" class="table-toggle">
     		</th>
     		<th>Date</th>
-    		<th>Time</th>
+    		<th>Time
+      		<span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="bottom" title="Times listed are in the {{ str_replace('_', ' ', $bartimezone) }} timezone." aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Times listed are in the {{ str_replace('_', ' ', $bartimezone) }} timezone.</span>
+    		</th>
     		<th>Event Title</th>
     		<th>Matchup</th>
     		<th>Home/Away</th>
@@ -54,14 +56,17 @@
     @foreach($bevents as $bevent)
 
       <?php
+        $tz = new DateTimeZone($bartimezone);
         if ($bevent->beventtime) {
-          $eventUnix = strtotime($bevent->beventtime);
+          $dateTime = new DateTime($bevent->beventtime, $tz);
         } else {
-          $eventUnix = strtotime($bevent->ggame_time);
+          $dateTime = new DateTime($bevent->ggame_time, new DateTimeZone('US/Central'));
         }
-  			$eventDate = date('m/d/Y', $eventUnix);
-  			$eventTime = date('g:i A', $eventUnix);
-  			$eventTimeString = date('Gi', $eventUnix);
+        $dateTime->setTimeZone($tz);
+        $eventUnix = $dateTime->getTimestamp();
+  			$eventDate = $dateTime->format('m/d/Y');
+  			$eventTime = $dateTime->format('g:i A');
+  			$eventTimeString = $dateTime->format('Gi');
 			?>
 
       <tr>
