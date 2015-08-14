@@ -6,7 +6,7 @@
   </div>
   <div class="row">
     <div class="col-sm-8">
-      {{ Form::model($bevent, array('url' => 'editbevent/'.$bevent->bid, "class" => "form-edit-bar")) }})) }}
+      {{ Form::model($bevent, array('url' => 'editbevent/'.$bevent->bid, "class" => "form-edit-bar")) }}
           <div class="form-group">
             {{ Form::label("datetime", "Local Date and Time") }}
             {{ Form::text("datetime", $bevent->datetime, ["class" => "form-control datetime-picker"]) }}
