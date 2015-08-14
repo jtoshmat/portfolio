@@ -21,6 +21,7 @@
         <div class="form-group">
           {{ Form::label("datetime", "Local Date and Time") }}
           {{ Form::text("datetime", $bevent->datetime, ["class" => "form-control datetime-picker"]) }}
+          <div class="text-right"><small>Time listed is in the {{ str_replace('_', ' ', $bartimezone) }} timezone.</small></div>
         </div>
         <div class="form-group">
           {{ Form::label("title", "Title") }}
