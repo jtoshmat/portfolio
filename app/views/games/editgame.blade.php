@@ -39,11 +39,38 @@ $gameDateTime = date('m/d/Y g:i A', $gameUnix);
           {{ Form::label(null, "TV Station") }}
           <div>
             {{-- TODO: Need to toggle checkboxes as appropriate. --}}
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'NBC') }} NBC</label>
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'CBS') }} CBS</label>
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'ESPN') }} ESPN</label>
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'FOX') }} FOX</label>
-            <label class="checkbox-inline">{{ Form::checkbox('tv', 'NFL Network') }} NFL Network</label>
+            <?php 
+              $networks = explode(', ', $game->tv);
+              foreach ($networks as $network) {
+                if ($network === 'CBS') { $cbs = true; } 
+                if ($network === 'NBC') { $nbc = true; }
+                if ($network === 'ESPN') { $espn = true; }
+                if ($network === 'FOX') { $fox = true; }
+                if ($network === 'Packers TV Network') { $packers = true; }
+              }
+            ?>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="tv[]" value="NBC" <?php echo isset($nbc) ? 'checked' : ''?> > NBC
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="tv[]" value="CBS" <?php echo isset($cbs) ? 'checked' : ''?> > CBS
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="tv[]" value="ESPN" <?php echo isset($espn) ? 'checked' : ''?> > ESPN
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="tv[]" value="FOX" <?php echo isset($fox) ? 'checked' : ''?> > FOX
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" name="tv[]" value="Packers TV Network" <?php echo isset($packers) ? 'checked' : ''?> >Packers TV Network
+            </label>
+            {{-- Commenting out the laravel way of doing checkboxes as they are
+                 coming up buggy and always checked on a model-bound form. --}}
+            {{-- <label class="checkbox-inline">{{ Form::checkbox('tv', 'NBC', false) }} NBC</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv', 'CBS', false) }} CBS</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv', 'ESPN', false) }} ESPN</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv', 'FOX', false) }} FOX</label>
+            <label class="checkbox-inline">{{ Form::checkbox('tv', 'NFL Network', false) }} NFL Network</label>--}}
           </div>
         </div>
         <div class="form-group">
