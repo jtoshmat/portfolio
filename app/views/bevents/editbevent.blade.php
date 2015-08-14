@@ -1,5 +1,8 @@
 @extends("layout")
 @section("content")
+<?php
+  $bartimezone = json_decode($bartime)[0]->timezone;
+?>
 <div class="container add-bar">
   <div class="page-header tabbed-header">
     <h2>Bar Name Goes Here

@@ -59,13 +59,14 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 		$gid = (int) Request::query('gid');
 
 
-		$eventime = Input::get('datetime')." ".Input::get('timezone');
+		$eventtime = Input::get('datetime')." ".Input::get('timezone');
+		$eventtime = date_parse_from_format('m/d/Y g:i A', $eventtime);
 
 		$insertData = array(
 			'barid' => $bid,
 			'gid' => $gid,
 			'title' => Input::get('title'),
-			'eventtime' => $eventime,
+			'eventtime' => \Carbon\Carbon::create($eventtime['year'], $eventtime['month'], $eventtime['day'], $eventtime['hour'], $eventtime['minute'], 0, $tz),
 		);
 		return DB::table('bevents')->insert($insertData);
 	}
@@ -79,10 +80,12 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 	public function updateBevent(){
 		$bid = (int) Request::segment(2);
 		$bid = Request::get('bid');
-		$eventime = Input::get('datetime')." ".Input::get('timezone');
+		$eventtime = Input::get('datetime');
+		$eventtime = date_parse_from_format('m/d/Y g:i A', $eventtime);
+		$tz = Input::get('timezone');
 		$fillable = array(
 			'title' => Input::get('title'),
-			'eventtime' => $eventime,
+			'eventtime' => \Carbon\Carbon::create($eventtime['year'], $eventtime['month'], $eventtime['day'], $eventtime['hour'], $eventtime['minute'], 0, $tz),
 		);
 		Bevent::where('bid', '=', $bid)->update($fillable);
 		return 1;

@@ -31,6 +31,7 @@ class BeventsController extends \BaseController {
 		$barid = (int) Request::segment(2);
 		$bevents = $this->Bevent->getBevents();
 		$barname = Bar::where('id','=',$barid)->get(array('barname'));
+		$bartimezone = Bar::where('id','=',$barid)->get(array('timezone'));
 
 		if ($bevents){
 			return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid)->with('barname',
@@ -38,7 +39,7 @@ class BeventsController extends \BaseController {
 		}
 		$bevents = null;
 
-		return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid)->with('barname', $barname);
+		return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid)->with('barname', $barname)->with('timezone', $bartimzone);
 	}
 
 	public function editBevent()
