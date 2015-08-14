@@ -2,7 +2,7 @@
 @section("content")
 <?php
 	$barname = json_decode($barname)[0]->barname;
-
+  $bartimezone = json_decode($bartimezone)[0]->timezone;
 ?>
 <div class="container edit-bar">
   <div class="page-header tabbed-header">
