@@ -2,20 +2,16 @@
 @section("content")
 <?php
 	$barname = json_decode($barname)[0]->barname;
-  $bbarid = 0;
-  foreach($bevents as $bev){
-  $bbarid= $bev->bbarid;
-  	break;
-}
+
 ?>
 <div class="container edit-bar">
   <div class="page-header tabbed-header">
     <h2>{{$barname}}
-      <small><a href="http://www.packerseverywhere.com/app/venues/{{ $bbarid }}" target="_blank"><span class="glyphicon glyphicon-new-window" data-toggle="tooltip" data-placement="top" title="View this bar on PackersEverywhere.com" aria-hidden="true"></span><span class="sr-only">View this bar on PackersEverywhere.com</a></small>
+      <small><a href="http://www.packerseverywhere.com/app/venues/{{ $barid }}" target="_blank"><span class="glyphicon glyphicon-new-window" data-toggle="tooltip" data-placement="top" title="View this bar on PackersEverywhere.com" aria-hidden="true"></span><span class="sr-only">View this bar on PackersEverywhere.com</a></small>
     </h2>
     <ul class="nav nav-tabs">
-      <li role="presentation"><a href="{{ route('bars/editbar', array('id' => $bbarid)) }}">Bar Info</a></li>
-      <li role="presentation" class="active"><a href="{{ route('bevents/bevents', array('id' => $bbarid)) }}">Events</a></li>
+      <li role="presentation"><a href="{{ route('bars/editbar', array('id' => $barid)) }}">Bar Info</a></li>
+      <li role="presentation" class="active"><a href="{{ route('bevents/bevents', array('id' => $barid)) }}">Events</a></li>
     </ul>
   </div>
 
@@ -33,7 +29,7 @@
         </label>
       </div>
       <div class="col-xs-4 text-right">
-      	<a href="{{ URL::route("bevents/addbevent", $bbarid) }}" class="btn btn-primary">Add New Event</a>
+      	<a href="{{ URL::route("bevents/addbevent", $barid) }}" class="btn btn-primary">Add New Event</a>
       </div>
     </div>
   </div>
@@ -100,7 +96,8 @@
           <a href="{{ route('bevents/editbevent', array('id' => $bevent->bid)) }}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
         @else
 {{-- TODO: Not sure if this is correct. URL should be going to /addbevent/BARID/GAMEID --}}
-          <a href="{{ route('bevents/addbevent', array('id' => $bbarid, 'gid' => $bevent->ggid)) }}"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="bottom" title="Create an event for this game" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Create an event for this game</span></a></td>
+   <a href="{{ url('addbevent/'.$barid."?gid=".$bevent->ggid) }}"><span class="glyphicon glyphicon-plus" data-toggle="tooltip"
+                                                              data-placement="bottom" title="Create an event for this game" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Create an event for this game</span></a></td>
         @endif
       </tr>
 	  @endforeach
