@@ -39,10 +39,10 @@ $gameDateTime = date('m/d/Y g:i A', $gameUnix);
           {{ Form::label(null, "TV Station") }}
           <div>
             {{-- TODO: Need to toggle checkboxes as appropriate. --}}
-            <?php 
+            <?php
               $networks = explode(', ', $game->tv);
               foreach ($networks as $network) {
-                if ($network === 'CBS') { $cbs = true; } 
+                if ($network === 'CBS') { $cbs = true; }
                 if ($network === 'NBC') { $nbc = true; }
                 if ($network === 'ESPN') { $espn = true; }
                 if ($network === 'FOX') { $fox = true; }
@@ -93,7 +93,7 @@ $gameDateTime = date('m/d/Y g:i A', $gameUnix);
           <div class="col-xs-6">
             <ul id="edit-game-actions" class="list-inline edit-actions">
               <li>
-                <a href="#" id="delete-game" data-gameid="{{ $game->gid }}" class="action-delete-bar"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Game</span></a>
+                <a href="#" id="delete-game" data-gid="{{ $game->gid }}" class="action-delete-bar"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Game</span></a>
               </li>
             </ul>
           </div>

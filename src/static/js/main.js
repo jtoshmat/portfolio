@@ -424,6 +424,21 @@ $(document).ready(function(){
 
 
   /**
+   * Edit game view handlers.
+   */
+  $('#delete-game').on('click', function(e) {
+    e.preventDefault();
+    var id = $(e.currentTarget).data('gid');
+    var conf = confirm('Are you sure you want to delete this event?');
+    if (conf) {
+      deleteGame(id).done(function() {
+        window.location.pathname = '/allgames';
+      });
+    }
+  });
+
+
+  /**
    * Initialize datetime pickers.
    */
   $('.datetime-picker').datetimepicker({
