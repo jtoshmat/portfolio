@@ -4,3 +4,5 @@ public
 vendor
 .idea
 bootstrap/compiled.php
+bootstrap/start.php
+

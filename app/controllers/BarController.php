@@ -186,11 +186,8 @@ class BarController extends \BaseController {
 		$newFileName = 'logo_'.$daten."_".$uid."_".$bid.".png";
 		$size = (int) $file->getSize();
 		list($width, $height) = getimagesize($file);
-		if ($width>700 || $height>700){
-			$output['message'] = "The image width and heght must be these sizes";
-			return $output;
-		}
 		$file->move('img/uploads', $newFileName);
+		$image = Image::make(sprintf('img/uploads/%s', $newFileName))->resize(250, 250)->save();
 		$Upload = new Upload();
 		$Upload->addUploadedImage($newFileName, $bid);
 		return 1;

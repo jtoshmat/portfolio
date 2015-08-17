@@ -151,7 +151,10 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'description' => Input::get('description'),
 		);
 
-		DB::table('bars')->insert($insertData);
+		$lastId = DB::table('bars')->insertGetId($insertData);
+
+		return $lastId;
+
 	}
 
 	public function updateBar(){
