@@ -32,7 +32,9 @@
         		<input type="checkbox" class="table-toggle">
       		</th>
   				<th>Date</th>
-  				<th>Time</th>
+  				<th>Time
+    				<span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="bottom" title="Times listed are in the US/Central timezone." aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Times listed are in the US/Central timezone.</span>
+  				</th>
   				<th>Matchup</th>
           <th>Home/Away</th>
   				<th>TV</th>
@@ -43,10 +45,11 @@
   		<tbody>
   		@foreach ($games as $game)
   			<?php
-        $gameUnix = strtotime($game->game_time);
-  			$gameDate = date('m/d/Y', $gameUnix);
-  			$gameTime = date('g:i A', $gameUnix);
-  			$gameTimeString = date('Gi', $gameUnix);
+  			$dateTime = new DateTime($game->game_time, new DateTimeZone('US/Central'));
+        $gameUnix = $dateTime->getTimestamp();
+  			$gameDate = $dateTime->format('m/d/Y');
+  			$gameTime = $dateTime->format('g:i A');
+  			$gameTimeString = $dateTime->format('Gi');
   			?>
         <tr>
           <td class="text-center"><input type="checkbox" class="checkbox-delete" data-gid="{{ $game->gid }}"></td>
