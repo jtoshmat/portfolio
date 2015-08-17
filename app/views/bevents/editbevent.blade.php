@@ -3,6 +3,8 @@
 <?php
   $barname = json_decode($barname)[0]->barname;
   $bartimezone = json_decode($bartimezone)[0]->timezone;
+  $eventtime = new DateTime($bevent->eventtime, new DateTimeZone($bartimezone));
+  $eventtime = $eventtime->format('m/d/Y g:i A');
 ?>
 <div class="container add-bar">
   <div class="page-header tabbed-header">
@@ -20,7 +22,7 @@
       {{ Form::model($bevent, array('url' => 'editbevent/'.$bevent->bid, "class" => "form-edit-bar")) }}
         <div class="form-group">
           {{ Form::label("datetime", "Local Date and Time") }}
-          {{ Form::text("datetime", $bevent->datetime, ["class" => "form-control datetime-picker"]) }}
+          {{ Form::text("datetime", $eventtime, ["class" => "form-control datetime-picker"]) }}
           <div class="text-right"><small>Time listed is in the {{ str_replace('_', ' ', $bartimezone) }} timezone.</small></div>
         </div>
         <div class="form-group">
