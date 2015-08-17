@@ -72,7 +72,7 @@
       <tr>
         <td class="text-center">
           @if ($bevent->beventtime)
-          <input type="checkbox" class="checkbox-delete" data-beventid="#">
+          <input type="checkbox" class="checkbox-delete" data-eventid="{{ $bevent->bid }}">
           @endif
         </td>
 	      <td data-order="{{ $eventUnix }}" data-filter="{{ $eventUnix }}">{{ $eventDate }}</td>

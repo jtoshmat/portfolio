@@ -50,7 +50,7 @@
             <ul id="edit-game-actions" class="list-inline edit-actions">
               <li>
                 {{-- TODO: hook up event action --}}
-                <a href="#" id="delete-game" data-eventid="{{ $bevent->id }}" class="action-delete-bar"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Game</span></a>
+                <a href="#" id="delete-event" data-eventid="{{ $bevent->bid }}" data-barid="{{ $barid }}" class="action-delete-event"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Event</span></a>
               </li>
             </ul>
           </div>
@@ -59,7 +59,7 @@
           </div>
         </div>
         {{ Form::hidden('timezone', $bartimezone) }}
-	    {{ Form::hidden('bid', $bevent->id) }}
+  	    {{ Form::hidden('bid', $bevent->bid) }}
       {{ Form::close() }}
     </div>
   </div>

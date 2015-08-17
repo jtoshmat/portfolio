@@ -237,7 +237,7 @@ $(document).ready(function(){
     if ($checkedBoxes.length <= 0) {
       alert('You haven\'t selected any events.')
     } else if($checkedBoxes.length === 1) {
-      conf = confirm('Are you sure want to delete this events?');
+      conf = confirm('Are you sure want to delete this event?');
     } else {
       conf = confirm('Are you sure want to delete these events?');
     }
@@ -245,7 +245,7 @@ $(document).ready(function(){
     if (conf) {
       $checkedBoxes.each(function() {
         var $this = $(this);
-        var id = $this.data('gid');
+        var id = $this.data('eventid');
         deleteEvent(id).done(function() {
           // TODO: is this the best way to remove tables? Maybe there's a Data
           // Tables method that we should be using? Also, for this we need
@@ -405,6 +405,22 @@ $(document).ready(function(){
       eventsTable.draw();
     }).trigger('change');
   }
+
+
+  /**
+   * Edit event view handlers.
+   */
+  $('#delete-event').on('click', function(e) {
+    e.preventDefault();
+    var id = $(e.currentTarget).data('eventid');
+    var barid = $(e.currentTarget).data('barid');
+    var conf = confirm('Are you sure you want to delete this event?');
+    if (conf) {
+      deleteEvent(id).done(function() {
+        window.location.pathname = '/bevents/' + barid;
+      });
+    }
+  });
 
 
   /**
