@@ -162,7 +162,11 @@ class BarController extends \BaseController {
 		{
 		$validator = Validator::make(Input::all(), Bar::$addrules);
 			if ($validator->passes()) {
-				$bars = $this->bars->addBar();
+				$lastInsertedBarId = $this->bars->addBar();
+
+				//if (Input::hasFile('logo')){
+					$this->uploadLogo($lastInsertedBarId);
+				//}
 				return Redirect::to('bars')->with('message', 'Thanks for registering your bar');
 
 			}else{
