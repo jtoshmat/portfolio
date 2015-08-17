@@ -58,9 +58,9 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 		$bid = (int) Request::segment(2);
 		$gid = (int) Request::query('gid');
 
-
-		$eventtime = Input::get('datetime')." ".Input::get('timezone');
+		$eventtime = Input::get('datetime');
 		$eventtime = date_parse_from_format('m/d/Y g:i A', $eventtime);
+		$tz = Input::get('timezone');
 
 		$insertData = array(
 			'barid' => $bid,
