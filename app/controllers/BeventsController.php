@@ -73,7 +73,7 @@ class BeventsController extends \BaseController {
 		}
 
 		$bevent = $this->Bevent->getBevent();
-		return View::make('bevents/editbevent')->with('barname', $barname)->with('bevent', $bevent)->with('bartimezone', $bartimezone);
+		return View::make('bevents/editbevent')->with('barname', $barname)->with('bevent', $bevent)->with('bartimezone', $bartimezone)->with('barid', $bid);
 
 	}
 

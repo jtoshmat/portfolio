@@ -16,11 +16,11 @@
 <div class="container add-bar">
   <div class="page-header tabbed-header">
     <h2>{{$barname}}
-      <small><a href="http://www.packerseverywhere.com/app/venues/{{-- $bbarid --}}" target="_blank"><span class="glyphicon glyphicon-new-window" data-toggle="tooltip" data-placement="top" title="View this bar on PackersEverywhere.com" aria-hidden="true"></span><span class="sr-only">View this bar on PackersEverywhere.com</a></small>
+      <small><a href="http://www.packerseverywhere.com/app/venues/{{ $barid }}" target="_blank"><span class="glyphicon glyphicon-new-window" data-toggle="tooltip" data-placement="top" title="View this bar on PackersEverywhere.com" aria-hidden="true"></span><span class="sr-only">View this bar on PackersEverywhere.com</a></small>
     </h2>
     <ul class="nav nav-tabs">
-      <li role="presentation"><a href="{{-- route('bars/editbar', array('id' => $bbarid)) --}}">Bar Info</a></li>
-      <li role="presentation" class="active"><a href="{{-- route('bevents/bevents', array('id' => $bbarid)) --}}">Events</a></li>
+      <li role="presentation"><a href="{{ route('bars/editbar', array('id' => $barid)) }}">Bar Info</a></li>
+      <li role="presentation" class="active"><a href="{{ route('bevents/bevents', array('id' => $barid)) }}">Events</a></li>
     </ul>
   </div>
   <h3>Add Event</h3>
@@ -56,7 +56,6 @@
           {{ Form::submit("Add Event", ["class" => "btn btn-primary"]) }}
         </div>
         {{ Form::hidden('timezone', $bartimezone) }}
-{{--	    {{ Form::hidden('bid', $bid) }}--}}
       {{ Form::close() }}
     </div>
   </div>
