@@ -248,7 +248,8 @@ $(document).ready(function(){
         var id = $this.data('gid');
         deleteEvent(id).done(function() {
           // TODO: is this the best way to remove tables? Maybe there's a Data
-          // Tables method that we should be using?
+          // Tables method that we should be using? Also, for this we need
+          // to revert the table row back to the game info.
           $this.closest('tr').remove();
         });
       });
