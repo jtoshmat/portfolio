@@ -1,8 +1,12 @@
 @extends("layout")
 @section("content")
+<?php
+  $barname = json_decode($barname)[0]->barname;
+  $bartimezone = json_decode($bartimezone)[0]->timezone;
+?>
 <div class="container add-bar">
   <div class="page-header tabbed-header">
-    <h2>Bar Name Goes Here
+    <h2>{{$barname}}
       <small><a href="http://www.packerseverywhere.com/app/venues/{{-- $bbarid --}}" target="_blank"><span class="glyphicon glyphicon-new-window" data-toggle="tooltip" data-placement="top" title="View this bar on PackersEverywhere.com" aria-hidden="true"></span><span class="sr-only">View this bar on PackersEverywhere.com</a></small>
     </h2>
     <ul class="nav nav-tabs">
@@ -17,6 +21,7 @@
         <div class="form-group">
           {{ Form::label("datetime", "Local Date and Time") }}
           {{ Form::text("datetime", $bevent->datetime, ["class" => "form-control datetime-picker"]) }}
+          <div class="text-right"><small>Time listed is in the {{ str_replace('_', ' ', $bartimezone) }} timezone.</small></div>
         </div>
         <div class="form-group">
           {{ Form::label("title", "Title") }}
@@ -51,6 +56,7 @@
             {{ Form::submit("Update Event", ["class" => "btn btn-primary"]) }}
           </div>
         </div>
+        {{ Form::hidden('timezone', $bartimezone) }}
 	    {{ Form::hidden('bid', $bevent->id) }}
       {{ Form::close() }}
     </div>

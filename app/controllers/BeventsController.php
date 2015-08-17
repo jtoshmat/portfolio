@@ -31,14 +31,14 @@ class BeventsController extends \BaseController {
 		$barid = (int) Request::segment(2);
 		$bevents = $this->Bevent->getBevents();
 		$barname = Bar::where('id','=',$barid)->get(array('barname'));
+		$bartimezone = Bar::where('id','=',$barid)->get(array('timezone'));
 
 		if ($bevents){
-			return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid)->with('barname',
-				$barname);
+			return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid)->with('barname', $barname)->with('bartimezone', $bartimezone);
 		}
 		$bevents = null;
 
-		return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid)->with('barname', $barname);
+		return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid)->with('barname', $barname)->with('bartimezone', $bartimezone);
 	}
 
 	public function editBevent()
@@ -47,6 +47,8 @@ class BeventsController extends \BaseController {
 			return View::make($this->isNotAuthorized());
 		}
 		$bid = (int) Request::segment(2);
+		$barname = Bar::where('id','=',$bid)->get(array('barname'));
+		$bartimezone = Bar::where('id','=',$bid)->get(array('timezone'));
 		$method = Request::method();
 		if (Request::isMethod('post'))
 		{
@@ -71,7 +73,7 @@ class BeventsController extends \BaseController {
 		}
 
 		$bevent = $this->Bevent->getBevent();
-		return View::make('bevents/editbevent')->with('bevent', $bevent);
+		return View::make('bevents/editbevent')->with('barname', $barname)->with('bevent', $bevent)->with('bartimezone', $bartimezone);
 
 	}
 
@@ -81,9 +83,9 @@ class BeventsController extends \BaseController {
 			return View::make($this->isNotAuthorized());
 		}
 		$barid = (int) Request::segment(2);
+		$barname = Bar::where('id','=',$barid)->get(array('barname'));
+		$bartimezone = Bar::where('id','=',$barid)->get(array('timezone'));
 		$gid = (int) Request::query('gid');
-		$barname = Bar::where('id','=', $barid)->get(array('barname'));
-
 		$method = Request::method();
 		if (Request::isMethod('post')) {
 			$validator = Validator::make(Input::all(), Bevent::$addbevent);
@@ -96,7 +98,7 @@ class BeventsController extends \BaseController {
 				($validator)->withInput();
 			}
 		}
-		return View::make('bevents/addbevent')->with('barid', $barid)->with('gid', $gid)->with('barname', $barname);
+		return View::make('bevents/addbevent')->with('barid', $barid)->with('gid', $gid)->with('barname', $barname)->with('bartimezone', $bartimezone);
 	}
 
 	public function bevent()
