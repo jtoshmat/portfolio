@@ -86,6 +86,9 @@ class BeventsController extends \BaseController {
 		$barname = Bar::where('id','=',$barid)->get(array('barname'));
 		$bartimezone = Bar::where('id','=',$barid)->get(array('timezone'));
 		$gid = (int) Request::query('gid');
+		$gamematchup = Game::where('gid','=',$gid)->get(array('matchup'));
+		$gametime = Game::where('gid','=',$gid)->get(array('game_time'));
+
 		$method = Request::method();
 		if (Request::isMethod('post')) {
 			$validator = Validator::make(Input::all(), Bevent::$addbevent);
@@ -98,7 +101,7 @@ class BeventsController extends \BaseController {
 				($validator)->withInput();
 			}
 		}
-		return View::make('bevents/addbevent')->with('barid', $barid)->with('gid', $gid)->with('barname', $barname)->with('bartimezone', $bartimezone);
+		return View::make('bevents/addbevent')->with('barid', $barid)->with('gid', $gid)->with('barname', $barname)->with('bartimezone', $bartimezone)->with('gamematchup', $gamematchup)->with('gametime', $gametime);
 	}
 
 	public function bevent()
