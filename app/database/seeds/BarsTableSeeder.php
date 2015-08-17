@@ -17,7 +17,7 @@ public function run()
         'country' => 'US',
         'timezone' => 'US/Central',
         'phone' => '563-451-6893',
-        'website' => 'www.toshmatov.us',
+        'website' => 'http://www.google.com',
         'status' => 0,
     ));
 
