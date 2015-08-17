@@ -6,7 +6,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"camroncade/timezone": "0.1",
-        "intervention/image": "dev-master"
+    "intervention/image": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
