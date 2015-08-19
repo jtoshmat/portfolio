@@ -11,6 +11,10 @@
 	|
 	*/
 
+	Route::get('env_test', function() {
+		dd(App::environment());
+	});
+
 	Route::any("error", [
 		"as"   => "errors/error",
 		"uses" => "UserController@error"
