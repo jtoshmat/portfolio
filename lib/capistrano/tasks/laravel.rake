@@ -22,11 +22,11 @@ namespace :laravel do
 		on roles(:web, :app) do
 			within release_path do
 				execute :chmod, "u+x artisan"
-				execute :sudo, :chmod, "-R 2777 app/storage/cache"
+				execute :sudo, :chmod, "-R 777 app/storage/cache"
 				execute :sudo, :chmod, "-R o+w  app/storage/logs"
-				execute :sudo, :chmod, "-R 2777 app/storage/meta"
-				execute :sudo, :chmod, "-R 2777 app/storage/sessions"
-				execute :sudo, :chmod, "-R 2777 app/storage/views"
+				execute :sudo, :chmod, "-R 777 app/storage/meta"
+				execute :sudo, :chmod, "-R 777 app/storage/sessions"
+				execute :sudo, :chmod, "-R 777 app/storage/views"
 				execute :sudo, :chown, "--recursive ec2-user:nobody app/storage"
 			end
 		end
