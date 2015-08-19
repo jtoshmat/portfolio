@@ -12,10 +12,10 @@ class User
 
 	public static $rules = array(
 	'username'=>'required|unique:user|min:2',
-	'password'=>'required|alpha_num|between:6,12|confirmed',
+	'password'=>'required|alpha_num|min:6,12|confirmed',
 	'password_confirmation'=>'required|alpha_num|between:6,12',
-	'secretquestion'=>'required|min:4',
-	'secretanswer'=>'required|min:4',
+	'secretquestion'=>'required',
+	'secretanswer'=>'required',
 	);
 
 	public static $forgotpasswordrules = array(
@@ -196,7 +196,6 @@ class User
 				if ($secretanswer===$found[0]['secretanswer']){
 					$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$";
 					$newPassword = substr(str_shuffle($chars),0,8);
-					//$newPassword = 'business';
 					$fillable = array(
 						'password' => Hash::make($newPassword),
 					);

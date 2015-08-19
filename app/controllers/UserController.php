@@ -50,7 +50,7 @@ extends Controller
 	    }
 
 	    return Redirect::back()->withErrors([
-	      "password" => ["Credentials invalid."]
+	      "password" => ["Your email or password are incorrect."]
 	    ]);
 	  } else {
 	    return Redirect::back()
@@ -214,9 +214,7 @@ extends Controller
 					$username = $response['username'];
 					$secretanswer = $response['secretanswer'];
 				}else{
-					return Redirect::back()->with('message', 'The following errors occurred')->withErrors('Your email
-					 is not found')
-						->withInput();
+					return Redirect::back()->with('message', 'The following errors occurred')->withErrors('Your email was not found')->withInput();
 				}
 			}else{
 				return Redirect::back()->with('message', 'The following errors occurred')->withErrors($validator)->withInput();
