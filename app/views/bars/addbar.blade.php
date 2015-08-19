@@ -299,21 +299,21 @@ if ($admin===1){
           </div>
           <div class="col-sm-6">
             <div class="form-group">
-              {{ Form::label("website", "Website") }}
-              {{ Form::text("website", Input::old("url"), ["class" => "form-control", "placeholder" => "optional"]) }}
+              {{ Form::label("website", "Website") }} <small class="text-muted">optional</small>
+              {{ Form::text("website", Input::old("url"), ["class" => "form-control", "placeholder" => "http://www.mywebsite.com"]) }}
             </div>
           </div>
         </div>
         <div class="form-group">
-          {{ Form::label("logo", "Upload Logo") }}
+          {{ Form::label("logo", "Upload Logo") }} <small class="text-muted">optional</small>
           <div class="bar-logo-container">
           </div>
           {{ Form::file('logo', ["class" => "bar-logo-upload", "accept" => "image/x-png, image/gif, image/jpeg"]) }}
         </div>
         <div class="form-group">
-          {{ Form::label("description", "Promo/Description") }}
-          {{ Form::textarea("description", Input::old("description"), ["class" => "form-control", "placeholder" => "optional", "maxlength" => "500"]) }}
-          <div class="text-right"><small>500 character limit</small></div>
+          {{ Form::label("description", "Promo/Description") }} <small class="text-muted">optional</small>
+          {{ Form::textarea("description", Input::old("description"), ["class" => "form-control character-limit", "maxlength" => "1000"]) }}
+          <div class="character-count">1000 characters remaining</div>
         </div>
 
         @if (count($errors) > 0)

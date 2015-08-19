@@ -23,7 +23,6 @@ if ($admin===1){
     <div class="col-sm-8">
       {{ Form::open(array("url" => "editbar/".$bar->id, "class" => "form-edit-bar", "files" => true)) }}
         <div class="form-group">
-          {{-- TODO: This needs to have some kind of user lookup to match email to user ID. --}}
           {{ Form::label(null, "Owner/Admin Email Address") }}
           {{Form::email('email', $username,  ["class" => "form-control", ''.$readonly.'', "placeholder" => "email used to login to admin tool"])}}
         </div>
@@ -308,13 +307,13 @@ if ($admin===1){
           </div>
           <div class="col-sm-6">
             <div class="form-group">
-              {{ Form::label("website", "Website") }}
-              {{ Form::text("website", $bar->website, ["class" => "form-control", "placeholder" => "optional"]) }}
+              {{ Form::label("website", "Website") }} <small class="text-muted">optional</small>
+              {{ Form::text("website", $bar->website, ["class" => "form-control", "placeholder" => "http://www.mywebsite.com"]) }}
             </div>
           </div>
         </div>
         <div class="form-group">
-          {{ Form::label("logo", "Upload Logo") }}
+          {{ Form::label("logo", "Upload Logo") }} <small class="text-muted">optional</small>
           <div class="bar-logo-container">
   			  @if ($bar->filename)
   	  		  <img class="bar-logo" src="/img/uploads/{{ $bar->filename }}">
@@ -323,9 +322,9 @@ if ($admin===1){
           {{ Form::file('logo', ["class" => "bar-logo-upload", "accept" => "image/x-png, image/gif, image/jpeg"]) }}
         </div>
         <div class="form-group">
-          {{ Form::label("description", "Promo/Description") }}
-          {{ Form::textarea("description", $bar->description, ["class" => "form-control", "placeholder" => "optional", "maxlength" => "500"]) }}
-          <div class="text-right"><small>500 character limit</small></div>
+          {{ Form::label("description", "Promo/Description") }} <small class="text-muted">optional</small>
+          {{ Form::textarea("description", $bar->description, ["class" => "form-control character-limit", "maxlength" => "1000"]) }}
+          <div class="character-count">1000 characters remaining</div>
         </div>
         @if (count($errors) > 0)
         <div class="alert alert-danger" role="alert">

@@ -30,8 +30,9 @@
           {{ Form::text("title", $bevent->title, ["class" => "form-control"]) }}
         </div>
         <div class="form-group">
-          {{ Form::label("description", "Description") }}
-          {{ Form::textarea("description", $bevent->description, ["class" => "form-control", "placeholder" => "optional"]) }}
+          {{ Form::label("description", "Description") }} <small>Time listed is in the US/Central timezone.</small>
+          {{ Form::textarea("description", $bevent->description, ["class" => "form-control character-limit", "maxlength" => "1000"]) }}
+          <div class="character-count">1000 characters remaining</div>
         </div>
 
         @if (count($errors) > 0)

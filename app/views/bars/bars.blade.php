@@ -3,7 +3,10 @@
 
 @section("content")
 <div class="container">
-  <div class="table-controls page-header">
+  <div class="page-header">
+    <h2>Bar Index</h2>
+  </div>
+  <div class="table-controls">
     <div class="row">
       <div class="col-xs-8 form-inline">
         <label>

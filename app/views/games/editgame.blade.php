@@ -74,8 +74,10 @@ $gameDateTime = date('m/d/Y g:i A', $gameUnix);
           </div>
         </div>
         <div class="form-group">
-          {{ Form::label("notes", "Notes") }}
-          {{ Form::textarea("description", Input::old("description"), ["class" => "form-control", "placeholder" => "optional"]) }}
+          {{ Form::label("notes", "Notes") }} <small class="text-muted">optional</small>
+          {{ Form::textarea("description", $game->description, ["class" => "form-control character-limit", "maxlength" => "1000"]) }}
+          <div class="character-count">1000 characters remaining</div>
+
         </div>
 
         @if (count($errors) > 0)

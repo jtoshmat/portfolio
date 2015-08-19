@@ -445,4 +445,27 @@ $(document).ready(function(){
     sideBySide: true
   });
 
+  /**
+   * Initialize chara ter counters.
+   */
+  $('.character-limit').on('keyup', function(e) {
+    var $this = $(this);
+    var limit = parseInt($this.attr('maxlength'), 10);
+    var current = $this.val().length;
+    if (current > limit) {
+      e.preventDefault();
+    } else {
+      var $count = $this.siblings('.character-count');
+      var message = '';
+      message += limit - current;
+      message += limit === 1 ? ' character' : ' characters';
+      message += ' remaining';
+      $count.text(message);
+      if (limit - current <= 10) {
+        $count.addClass('text-danger');
+      } else {
+        $count.removeClass('text-danger');
+      }
+    }
+  }).trigger('keyup');
 });
