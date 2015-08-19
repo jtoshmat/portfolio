@@ -80,6 +80,7 @@ class CreateRunTable extends Migration {
 			$table->tinyInteger('gid');
 			$table->tinyInteger('userid');
 			$table->string("title");
+			$table->string('description',1000);
 			$table->timestamp('eventtime');
 			$table->timestamps();
 		});
@@ -100,7 +101,7 @@ class CreateRunTable extends Migration {
 			$table->string('title');
 			$table->string('matchup');
 			$table->string('location');
-			$table->string('description');
+			$table->string('description',1000);
 			$table->timestamp('game_time');
 			$table->string('tv');
 			$table->timestamps();

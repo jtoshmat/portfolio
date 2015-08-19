@@ -66,6 +66,7 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 			'barid' => $bid,
 			'gid' => $gid,
 			'title' => Input::get('title'),
+			'description' => Input::get('description'),
 			'eventtime' => \Carbon\Carbon::create($eventtime['year'], $eventtime['month'], $eventtime['day'], $eventtime['hour'], $eventtime['minute'], 0, $tz),
 		);
 		return DB::table('bevents')->insert($insertData);
@@ -85,6 +86,7 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 		$tz = Input::get('timezone');
 		$fillable = array(
 			'title' => Input::get('title'),
+			'description' => Input::get('description'),
 			'eventtime' => \Carbon\Carbon::create($eventtime['year'], $eventtime['month'], $eventtime['day'], $eventtime['hour'], $eventtime['minute'], 0, $tz),
 		);
 		Bevent::where('bid', '=', $bid)->update($fillable);
