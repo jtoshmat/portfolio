@@ -27,6 +27,7 @@
           </div>
           @endif
           {{ Form::submit("Login", ["class" => "btn btn-primary"]) }}
+          <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"
         {{ Form::close() }}
         </div>
       </div>
