@@ -1,9 +1,10 @@
 @extends("layout")
 @section("content")
 <?php
-	$barname = json_decode($barname)[0]->barname;
-  $bartimezone = json_decode($bartimezone)[0]->timezone;
+$barname = json_decode($barname)[0]->barname;
+$bartimezone = json_decode($bartimezone)[0]->timezone;
 ?>
+
 <div class="container edit-bar">
   <div class="page-header tabbed-header">
     <h2>{{$barname}}
@@ -53,7 +54,63 @@
     </thead>
     <tbody>
 
-    @foreach($bevents as $bevent)
+
+    @foreach($bevents[2] as $bevent)
+	    @if ($bevent->bgid==0)
+		    <?php
+		    $tz = new DateTimeZone($bartimezone);
+		    if ($bevent->beventtime) {
+			    $dateTime = new DateTime($bevent->beventtime, $tz);
+		    } else {
+			    $dateTime = new DateTime($bevent->ggame_time, new DateTimeZone('US/Central'));
+		    }
+		    $dateTime->setTimeZone($tz);
+		    $eventUnix = $dateTime->getTimestamp();
+		    $eventDate = $dateTime->format('m/d/Y');
+		    $eventTime = $dateTime->format('g:i A');
+		    $eventTimeString = $dateTime->format('Gi');
+		    ?>
+
+		    <tr>
+			    <td class="text-center">
+				    @if ($bevent->beventtime)
+					    <input type="checkbox" class="checkbox-delete" data-eventid="{{ $bevent->bid }}">
+				    @endif
+			    </td>
+			    <td data-order="{{ $eventUnix }}" data-filter="{{ $eventUnix }}">{{ $eventDate }}</td>
+			    <td data-order="{{ $eventTimeString }}">{{ $eventTime }}</td>
+
+			    @if ($bevent->btitle)
+				    <td>{{ $bevent->btitle }}</td>
+			    @else
+				    <td class="text-muted">No Event Planned</td>
+			    @endif
+
+			    @if ($bevent->gmatchup)
+				    <td>N/A</td>
+			    @else
+				    <td class="text-muted">N/A</td>
+			    @endif
+
+			    @if ($bevent->glocation)
+				    <td>N/A</td>
+			    @else
+				    <td class="text-muted">N/A</td>
+			    @endif
+
+			    <td class="text-center">
+				    @if ($bevent->beventtime)
+					    <a href="{{ route('bevents/editbevent', array('id' => $bevent->bid)) }}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
+			    @else
+				    <a href="{{ url('addbevent/'.$barid."?gid=".$bevent->ggid) }}"><span class="glyphicon glyphicon-plus" data-toggle="tooltip"
+				                                                                         data-placement="bottom" title="Create an event for this game" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Create an event for this game</span></a></td>
+			    @endif
+		    </tr>
+	    @endif
+    @endforeach
+
+
+    @foreach($bevents[1] as $bevent)
 
       <?php
         $tz = new DateTimeZone($bartimezone);

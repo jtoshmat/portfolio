@@ -30,6 +30,7 @@ class BeventsController extends \BaseController {
 		}
 		$barid = (int) Request::segment(2);
 		$bevents = $this->Bevent->getBevents();
+
 		$barname = Bar::where('id','=',$barid)->get(array('barname'));
 		$bartimezone = Bar::where('id','=',$barid)->get(array('timezone'));
 
