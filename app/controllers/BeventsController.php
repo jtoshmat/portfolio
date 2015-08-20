@@ -121,7 +121,8 @@ class BeventsController extends \BaseController {
 		if ($this->isNotAuthorized()){
 			return View::make($this->isNotAuthorized());
 		}
-		$bevents = $this->bevents->deleteBevent();
+		$Bevent = new Bevent();
+		$bevents = $Bevent->deleteBevent();
 		return 'The event has been deleted';
 	}
 
