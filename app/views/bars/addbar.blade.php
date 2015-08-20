@@ -12,7 +12,7 @@ if ($admin===1){
   </div>
   <div class="row">
     <div class="col-sm-8">
-      {{ Form::open(array("url" => "addbar", "class" => "form-add-bar")) }}
+      {{ Form::open(array("url" => "addbar", "class" => "form-add-bar", "files" => true)) }}
         <div class="form-group">
           {{-- TODO: This needs to have some kind of user lookup to match email to user ID. --}}
           {{ Form::label(null, "Owner/Admin Email Address") }}
