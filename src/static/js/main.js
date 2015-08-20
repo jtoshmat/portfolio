@@ -220,64 +220,7 @@ $(document).ready(function(){
         var $this = $(this);
         var id = $this.data('barid');
         deleteBar(id).done(function() {
-          // TODO: is this the best way to remove tables? Maybe there's a Data
-          // Tables method that we should be using?
-          $this.closest('tr').remove();
-        });
-      });
-    }
-  });
-
-  // Add handler for deletion button.
-  $('#delete-selected-events').on('click', function(e) {
-    e.preventDefault();
-    var $checkedBoxes = $('.checkbox-delete:checked');
-    var conf;
-
-    if ($checkedBoxes.length <= 0) {
-      alert('You haven\'t selected any events.')
-    } else if($checkedBoxes.length === 1) {
-      conf = confirm('Are you sure want to delete this event?');
-    } else {
-      conf = confirm('Are you sure want to delete these events?');
-    }
-
-    if (conf) {
-      $checkedBoxes.each(function() {
-        var $this = $(this);
-        var id = $this.data('eventid');
-        deleteEvent(id).done(function() {
-          // TODO: is this the best way to remove tables? Maybe there's a Data
-          // Tables method that we should be using? Also, for this we need
-          // to revert the table row back to the game info.
-          $this.closest('tr').remove();
-        });
-      });
-    }
-  });
-
-  // Add handler for deletion button.
-  $('#delete-selected-games').on('click', function(e) {
-    e.preventDefault();
-    var $checkedBoxes = $('.checkbox-delete:checked');
-    var conf;
-
-    if ($checkedBoxes.length <= 0) {
-      alert('You haven\'t selected any games.')
-    } else if($checkedBoxes.length === 1) {
-      conf = confirm('Are you sure want to delete this games?');
-    } else {
-      conf = confirm('Are you sure want to delete these games?');
-    }
-
-    if (conf) {
-      $checkedBoxes.each(function() {
-        var $this = $(this);
-        var id = $this.data('gid');
-        deleteGame(id).done(function() {
-          // TODO: is this the best way to remove tables? Maybe there's a Data
-          // Tables method that we should be using?
-          $this.closest('tr').remove();
+          barsTable.row($this.closest('tr')).remove().draw();
         });
       });
     }
@@ -368,10 +311,35 @@ $(document).ready(function(){
     $('#game-filter').on('change', function(e) {
       gamesTable.draw();
     }).trigger('change');
+
+    // Add handler for games deletion button.
+    $('#delete-selected-games').on('click', function(e) {
+      e.preventDefault();
+      var $checkedBoxes = $('.checkbox-delete:checked');
+      var conf;
+
+      if ($checkedBoxes.length <= 0) {
+        alert('You haven\'t selected any games.')
+      } else if($checkedBoxes.length === 1) {
+        conf = confirm('Are you sure want to delete this games?');
+      } else {
+        conf = confirm('Are you sure want to delete these games?');
+      }
+
+      if (conf) {
+        $checkedBoxes.each(function() {
+          var $this = $(this);
+          var id = $this.data('gid');
+          deleteGame(id).done(function() {
+            gamesTable.row($this.closest('tr')).remove().draw();
+          });
+        });
+      }
+    });
   }
 
   /**
-   * Games list view handlers.
+   * Events list view handlers.
    */
   if ($('#bevents-listing-table').length > 0) {
     var eventsTable = $('#bevents-listing-table').DataTable({
@@ -404,6 +372,74 @@ $(document).ready(function(){
     $('#event-filter').on('change', function(e) {
       eventsTable.draw();
     }).trigger('change');
+
+    // Add handler for event deletion button.
+    $('#delete-selected-events').on('click', function(e) {
+      e.preventDefault();
+      var $checkedBoxes = $('.checkbox-delete:checked');
+      var conf;
+
+      if ($checkedBoxes.length <= 0) {
+        alert('You haven\'t selected any events.')
+      } else if($checkedBoxes.length === 1) {
+        conf = confirm('Are you sure want to delete this event?');
+      } else {
+        conf = confirm('Are you sure want to delete these events?');
+      }
+
+      if (conf) {
+        $checkedBoxes.each(function() {
+          var $this = $(this);
+          var id = $this.data('eventid');
+          deleteEvent(id).done(function() {
+            // TODO: is this the best way to remove tables? Maybe there's a Data
+            // Tables method that we should be using? Also, for this we need
+            // to revert the table row back to the game info.
+            var $row =  $this.closest('tr');
+            var gamedate = $this.data('gamedate');
+            var gametime = $this.data('gametime');
+            var gameunix = $this.data('gameunix');
+            var gametimestring = $this.data('timestring');
+            if (gamedate) {
+              // We're deleting an event attached to a game, so we need to
+              // redraw the table with the original game time.
+
+              // Remove the checkbox.
+              $this.remove();
+
+              // Update the date column.
+              $row.find('td').eq(1).data('order', gameunix)
+                .data('filter', gameunix).text(gamedate).end()
+              // Update the time column.
+                .eq(2).data('order', gametimestring).text(gametime).end()
+              // Update the event title column
+                .eq(3).addClass('text-muted').text('No Event Planned').end()
+              // Update the action column
+                .eq(6).html(function() {
+                  var url = '/addbevent/' + $row.data('barid') + '?gid=' +
+                      $row.data('gameid');
+                  var html = '<a href="' + url + '">' +
+                    '<span class="glyphicon glyphicon-plus" ' +
+                    'data-toggle="tooltip" data-placement="bottom" ' +
+                    'title="Create an event for this game"' +
+                    'aria-hidden="true"></span><span class="sr-only">' +
+                    '<span class="sr-only">Create an event for this game' +
+                    '</span></a>';
+                  return html;
+                });
+
+              // Redraw the table.
+              eventsTable.row($row).draw();
+
+            } else {
+              // This deleted event is not attached to a game. We can just
+              // remove it as normal.
+              eventsTable.row($row).remove().draw();
+            }
+          });
+        });
+      }
+    });
   }
 
 

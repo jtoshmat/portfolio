@@ -114,10 +114,11 @@ $bartimezone = json_decode($bartimezone)[0]->timezone;
 
       <?php
         $tz = new DateTimeZone($bartimezone);
+        $gametime = $bevent->ggame_time ? new DateTime($bevent->ggame_time, new DateTimeZone('US/Central')) : null;
         if ($bevent->beventtime) {
           $dateTime = new DateTime($bevent->beventtime, $tz);
         } else {
-          $dateTime = new DateTime($bevent->ggame_time, new DateTimeZone('US/Central'));
+          $dateTime = $gametime;
         }
         $dateTime->setTimeZone($tz);
         $eventUnix = $dateTime->getTimestamp();
@@ -126,13 +127,22 @@ $bartimezone = json_decode($bartimezone)[0]->timezone;
   			$eventTimeString = $dateTime->format('Gi');
 			?>
 
-      <tr>
+      <tr data-gameid="{{ $bevent->ggid }}" data-barid="{{ $barid }}">
         <td class="text-center">
           @if ($bevent->beventtime)
-          <input type="checkbox" class="checkbox-delete" data-eventid="{{ $bevent->bid }}">
+          <input type="checkbox" class="checkbox-delete" data-eventid="{{ $bevent->bid }}"<?php
+  	       if (isset($bevent->gmatchup) && isset($bevent->btitle)) {
+    	        echo(' data-gamedate="'.$gametime->setTimeZone($tz)->format('m/d/Y').'"');
+    	        echo(' data-gametime="'.$gametime->setTimeZone($tz)->format('g:i A').'"');
+    	        echo(' data-gameunix="'.$gametime->setTimeZone($tz)->getTimestamp().'"');
+    	        echo(' data-timestring="'.$gametime->setTimeZone($tz)->format('Gi').'"');
+  	       }
+        ?>>
           @endif
         </td>
+
 	      <td data-order="{{ $eventUnix }}" data-filter="{{ $eventUnix }}">{{ $eventDate }}</td>
+
 	      <td data-order="{{ $eventTimeString }}">{{ $eventTime }}</td>
 
 	      @if ($bevent->btitle)
@@ -157,8 +167,7 @@ $bartimezone = json_decode($bartimezone)[0]->timezone;
         @if ($bevent->beventtime)
           <a href="{{ route('bevents/editbevent', array('id' => $bevent->bid)) }}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
         @else
-   <a href="{{ url('addbevent/'.$barid."?gid=".$bevent->ggid) }}"><span class="glyphicon glyphicon-plus" data-toggle="tooltip"
-                                                              data-placement="bottom" title="Create an event for this game" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Create an event for this game</span></a></td>
+        <a href="{{ url('addbevent/'.$barid."?gid=".$bevent->ggid) }}"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="bottom" title="Create an event for this game" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Create an event for this game</span></a></td>
         @endif
       </tr>
 	  @endforeach
