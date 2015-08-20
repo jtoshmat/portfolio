@@ -26,7 +26,7 @@
   <h3>Add Event</h3>
   <div class="row">
     <div class="col-sm-8">
-      {{ Form::open(array("url" => "addbevent/$barid ?gid=".$gid, "class" => "form-add-bar")) }}
+      {{ Form::open(array("url" => "addbevent/$barid?gid=".$gid, "class" => "form-add-bar")) }}
         <div class="form-group">
           {{ Form::label("datetime", "Local Date and Time") }}
           {{ Form::text("datetime", Input::old("datetime") ? Input::old("datetime") : $time, ["class" => "form-control datetime-picker"]) }}
