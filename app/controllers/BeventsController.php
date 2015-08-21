@@ -48,9 +48,15 @@ class BeventsController extends \BaseController {
 			return View::make($this->isNotAuthorized());
 		}
 		$bid = (int) Request::segment(2);
-		$barname = Bar::where('id','=',$bid)->get(array('barname'));
-		$bartimezone = Bar::where('id','=',$bid)->get(array('timezone'));
+		$barid = (int) Request::query('barid');
+
+		 $barname = DB::select(DB::raw('select barname from bars where id='.$barid.''));
+ 
+ 
+		
+		$bartimezone = Bar::where('id','=',$barid)->get(array('timezone'));
 		$method = Request::method();
+
 		if (Request::isMethod('post'))
 		{
 			$validator = Validator::make(Input::all(), Bevent::$editbevent);
@@ -74,7 +80,7 @@ class BeventsController extends \BaseController {
 		}
 
 		$bevent = $this->Bevent->getBevent();
-		return View::make('bevents/editbevent')->with('barname', $barname)->with('bevent', $bevent)->with('bartimezone', $bartimezone)->with('barid', $bid);
+		return View::make('bevents/editbevent')->with('barname', $barname)->with('bevent', $bevent)->with('bartimezone', $bartimezone)->with('barid', $barid);
 
 	}
 
