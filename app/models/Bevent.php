@@ -39,6 +39,7 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 				gdescription, gm
 				.game_time as ggame_time, gm.tv as gtv
 				from bevents as bev right join games as gm on bev.gid=0
+				where bev.barid = '.$id.'
 				group by btitle order by bev.gid desc
 				');
 			return $output;
