@@ -157,9 +157,10 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 	}
 
-	public function updateBar(){
-		$id = Request::get('id');
-		$Bar = Bar::find($id);
+	public function updateBar($bid, $uid){
+
+		$Bar = Bar::find($bid);
+		$Bar->uid = $uid;
 		$Bar->barname = Input::get('barname');
 		$Bar->address = Input::get('address');
 		$Bar->city = Input::get('city');

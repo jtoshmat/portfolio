@@ -66,30 +66,43 @@ class BarController extends \BaseController {
 			$method = Request::method();
 			if (Request::isMethod('post'))
 			{
-				$id = Request::get('id');
+				$bid = Request::get('id');
+				$uid = Request::get('uid');
+
 				$validator = Validator::make(Input::all(), Bar::$updatebarrules);
 				if ($validator->passes()) {
 					if (Input::hasFile('logo')){
-						$this->uploadLogo($id);
+						$this->uploadLogo($bid);
 					}
 					$email = Request::get('email');
 					$isUserEmailValid = User::where('username','=',$email)->get(array('username'));
 					foreach ($isUserEmailValid as $em){}
 					if (empty($em)){
-						return Redirect::to('editbar/'.$id)->with('message', 'The following errors occurred')->withErrors
-						("The email is not valid Bar Admin's email")
-							->withInput();
+						$user = new User;
+						$user->username = $email;
+						$user->email = $email;
+						$user->password = Hash::make(Input::get('abc123'));
+						$user->save();
+						$bid = $LastInsertId = $user->id;
+						$insertData = array('uid' => $LastInsertId,'pusertype' => 6, 'privileges'=>6);
+						DB::table('roles')->insert($insertData);
+
+					}else{
+						$userdata = User::where('username','=',$email)->get(array('id'));
+						foreach ($userdata as $usd){}
+						$uid = $usd->id;
 					}
 					$Bar = new Bar();
-					if (!$Bar->updateBar()){
+
+					if (!$Bar->updateBar($bid, $uid)){
 						return 'goood';
 					}
 					\Session::flash('mymessage','The bar has been updated');
 					return Redirect::to('bars')->with('message', 'Thanks for updaing your bar');
 
 				}else{
-					$id = Input::get('id');
-					return Redirect::to('editbar/'.$id)->with('message', 'The following errors occurred')->withErrors
+
+					return Redirect::to('editbar/'.$bid)->with('message', 'The following errors occurred')->withErrors
 					($validator)
 						->withInput();
 				}
@@ -163,10 +176,9 @@ class BarController extends \BaseController {
 		$validator = Validator::make(Input::all(), Bar::$addrules);
 			if ($validator->passes()) {
 				$lastInsertedBarId = $this->bars->addBar();
-
-				//if (Input::hasFile('logo')){
+				if (Input::hasFile('logo')){
 					$this->uploadLogo($lastInsertedBarId);
-				//}
+				}
 				return Redirect::to('bars')->with('message', 'Thanks for registering your bar');
 
 			}else{
