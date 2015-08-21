@@ -100,7 +100,7 @@ $bartimezone = json_decode($bartimezone)[0]->timezone;
 
 			    <td class="text-center">
 				    @if ($bevent->beventtime)
-					    <a href="{{ route('bevents/editbevent', array('barid' => 24, 'bid' => $bevent->bid)) }}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
+					    <a href="{{ route('bevents/editbevent', array('barid' => $barid, 'bid' => $bevent->bid)) }}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
 			    @else
 				    <a href="{{ url('addbevent/'.$barid."?gid=".$bevent->ggid) }}"><span class="glyphicon glyphicon-plus" data-toggle="tooltip"
 				                                                                         data-placement="bottom" title="Create an event for this game" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Create an event for this game</span></a></td>
