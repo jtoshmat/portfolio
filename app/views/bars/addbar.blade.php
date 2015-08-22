@@ -286,7 +286,7 @@ if ($admin===1){
           <div class="col-sm-6">
             <div class="form-group">
               {{ Form::label("timezone", "Time Zone") }}
-              {{ Timezone::selectForm("US/Central", "Select a timezone", ["class" => "form-control", "name" => "timezone"]) }}
+              {{ Timezone::selectForm(null, "Select a timezone", ["class" => "form-control", "name" => "timezone"]) }}
             </div>
           </div>
         </div>

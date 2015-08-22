@@ -276,6 +276,13 @@ $(document).ready(function(){
     });
   }).trigger('change');
 
+  var $tzselect = $('select[name="timezone"]');
+  if ($tzselect.length > 0 && !$tzselect.val()) {
+    var tz = jstz.determine();
+    var timezone = tz.name();
+    $tzselect.val(timezone);
+  }
+
 
   /**
    * Games list view handlers.

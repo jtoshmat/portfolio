@@ -1,6 +1,6 @@
 .DS_Store*
 node_modules
-public
-vendor
+/public
+/vendor
 .idea
 bootstrap/compiled.php
