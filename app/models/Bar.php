@@ -151,6 +151,12 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'description' => Input::get('description'),
 		);
 
+		$geoData = $this->geocodeBar($insertData['zipcode']);
+		if($geoData) {
+			$insertData['latitude'] = $geoData->latitude;
+			$insertData['longitude'] = $geoData->longitude;
+		}
+
 		$lastId = DB::table('bars')->insertGetId($insertData);
 
 		return $lastId;
@@ -168,12 +174,19 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		'country' => Input::get('country'),
 		'timezone' => Input::get('timezone'),
 		'zipcode' => Input::get('zipcode'),
-		 'phone' => Input::get('phone'),
+		'phone' => Input::get('phone'),
 		'website' => Input::get('website'),
 		'owner_email' => Input::get('owner_email'),
 		'description' => Input::get('description'),
 			
 		);
+
+		$geoData = $this->geocodeBar($fillable['zipcode']);
+		if($geoData) {
+			$fillable['latitude'] = $geoData->latitude;
+			$fillable['longitude'] = $geoData->longitude;
+		}
+
 		$output = Bar::where('id','=', 4)->update($fillable);
 		return $output;
 
@@ -182,6 +195,15 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	public function deleteBar(){
 		$id = (int) Request::query('id');
 		return Bar::find($id)->delete();
+	}
+
+	public function geocodeBar($zipcode) {
+		$geoData = DB::select(
+			DB::raw("
+				SELECT latitude, longitude FROM ref_zip_details WHERE zip = $zipcode;
+			")
+		);
+		return !empty($geoData) ? $geoData[0] : false;
 	}
 
 
