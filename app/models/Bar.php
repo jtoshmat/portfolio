@@ -158,21 +158,25 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function updateBar($bid, $uid){
+ 	
+		$fillable = array(
+		'uid' => $uid,
+		'barname' => Input::get('barname'),
+		'address' => Input::get('address'),
+		'city' => Input::get('city'),
+		'state' => Input::get('state'),
+		'country' => Input::get('country'),
+		'timezone' => Input::get('timezone'),
+		'zipcode' => Input::get('zipcode'),
+		 'phone' => Input::get('phone'),
+		'website' => Input::get('website'),
+		'owner_email' => Input::get('owner_email'),
+		'description' => Input::get('description'),
+			
+		);
+		$output = Bar::where('id','=', 4)->update($fillable);
+		return $output;
 
-		$Bar = Bar::find($bid);
-		$Bar->uid = $uid;
-		$Bar->barname = Input::get('barname');
-		$Bar->address = Input::get('address');
-		$Bar->city = Input::get('city');
-		$Bar->state = Input::get('state');
-		$Bar->country = Input::get('country');
-		$Bar->timezone = Input::get('timezone');
-		$Bar->zipcode = Input::get('zipcode');
-		$Bar->phone = Input::get('phone');
-		$Bar->website = Input::get('website');
-		$Bar->description = Input::get('description');
-		$Bar->status = Input::get('status');
-		return $Bar->save();
 	}
 
 	public function deleteBar(){

@@ -57,6 +57,7 @@ class CreateRunTable extends Migration {
 			$table->string('timezone', 155);
 			$table->string('phone'); //set the phone format in model validator
 			$table->string('website');
+			$table->string('owner_email');
 			$table->string('zipcode');
 			$table->string('description',1000);
 			$table->timestamps();

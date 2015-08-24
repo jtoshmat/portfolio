@@ -33,7 +33,7 @@ class BarController extends \BaseController {
 		if ($bars){
 			return View::make('bars/bars')->with('bars', $bars);
 		}
-		return View::make('bars/addbar')->with('username',Auth::user()->username);
+		return View::make('bars/addbar')->with('username',Auth::user()->username)->with('admin', $this->isAdmin());
 	}
 
 	public function approveBar()
@@ -74,16 +74,18 @@ class BarController extends \BaseController {
 					if (Input::hasFile('logo')){
 						$this->uploadLogo($bid);
 					}
-					$email = Request::get('email');
+					$email = Request::get('owner_email');
 					$isUserEmailValid = User::where('username','=',$email)->get(array('username'));
-					foreach ($isUserEmailValid as $em){}
+					foreach ($isUserEmailValid as $em){
+
+					}
 					if (empty($em)){
 						$user = new User;
 						$user->username = $email;
 						$user->email = $email;
 						$user->password = Hash::make(Input::get('abc123'));
 						$user->save();
-						$bid = $LastInsertId = $user->id;
+						$uid = $bid = $LastInsertId = $user->id;
 						$insertData = array('uid' => $LastInsertId,'pusertype' => 6, 'privileges'=>6);
 						DB::table('roles')->insert($insertData);
 
@@ -91,13 +93,16 @@ class BarController extends \BaseController {
 						$userdata = User::where('username','=',$email)->get(array('id'));
 						foreach ($userdata as $usd){}
 						$uid = $usd->id;
-					}
+					}	
+
+
 					$Bar = new Bar();
 
-					if (!$Bar->updateBar($bid, $uid)){
-						return 'goood';
-					}
-					\Session::flash('mymessage','The bar has been updated');
+					$output = $Bar->updateBar($bid, $uid);
+
+					if ($output!==1){
+						return "The bar is not updated";
+					}	
 					return Redirect::to('bars')->with('message', 'Thanks for updaing your bar');
 
 				}else{
@@ -110,29 +115,9 @@ class BarController extends \BaseController {
 
 			}
 
-		switch ($this->isAdmin()){
-			case 1: //Super Admin
-				//$bars = Bar::where('id', '=', $id)->firstOrFail();
-				$bars = DB::select(DB::raw('select * from bars as b left join uploads as upl on b.id=upl.bid where b
-				.id='.$id.' group by b.id'));
-
-				//$bars = Bar::where('id', '=', $id)->where('uid', '=', Auth::user()->id)->firstOrFail();
-				break;
-
-			case 2: //Bar Admin
-				$bars = DB::select(DB::raw('select * from bars as b left join uploads as upl on b.id=upl.bid where b
-				.id='.$id.''));
-				break;
-
-			case 3: //Bar Admin
-				$bars = Bar::where('id', '=', $id)->where('uid', '=', Auth::user()->id)->firstOrFail();
-				break;
-
-			default: //Anybody else
-				$bars = Bar::where('id', '=', $id)->where('uid', '=', Auth::user()->id)->firstOrFail();
-				break;
-		}
-
+	 
+		$bars = DB::select(DB::raw('select * from bars as b left join uploads as upl on b.id=upl.bid where b.id='.$id.' group by b.id'));
+ 
 		if ($bars){
 			return View::make('bars/editbar')->with('bars', $bars)->with('username',Auth::user()->username)->with
 			('admin', $this->isAdmin());
