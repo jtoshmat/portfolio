@@ -47,20 +47,32 @@ class BeventsController extends \BaseController {
 		if ($this->isNotAuthorized()){
 			return View::make($this->isNotAuthorized());
 		}
-		$bid = (int) Request::segment(2);
-		$barid = (int) Request::query('barid');
-
+		 $bid = (int) Request::segment(2);
+		 $gid = Request::query('gid');
+	
+		 $barid = DB::select(DB::raw('select barid from bevents where bid='.$bid.''));
+		 $barid= $barid[0]->barid;
 		 $barname = DB::select(DB::raw('select barname from bars where id='.$barid.''));
- 
- 
 		
-		$bartimezone = Bar::where('id','=',$barid)->get(array('timezone'));
-		$method = Request::method();
+		 $bartimezone = Bar::where('id','=',$barid)->get(array('timezone'));
+		 $method = Request::method();
 
 		if (Request::isMethod('post'))
 		{
 			$validator = Validator::make(Input::all(), Bevent::$editbevent);
 			if ($validator->passes()) {
+
+				$datetime = Input::get('datetime');
+				$gid = (int) Request::query('gid');
+				$game_time = DB::select(DB::raw('select game_time from games where gid='.$gid.''));
+				
+				$game_time = strtotime($game_time[0]->game_time);
+				$datetime = strtotime($datetime);
+				if ($datetime!==$game_time){
+					return Redirect::to('editbevent/'.$bid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
+				('The event time must match the game time');
+				}
+				
 				$Bevent = new Bevent();
 				$Bevent->updateBevent();
 				$barid = Bevent::where('bid','=',$bid)->get(array('barid'));
@@ -80,7 +92,7 @@ class BeventsController extends \BaseController {
 		}
 
 		$bevent = $this->Bevent->getBevent();
-		return View::make('bevents/editbevent')->with('barname', $barname)->with('bevent', $bevent)->with('bartimezone', $bartimezone)->with('barid', $barid);
+		return View::make('bevents/editbevent')->with('barname', $barname)->with('bevent', $bevent)->with('bartimezone', $bartimezone)->with('barid', $barid)->with('gid', $gid);
 
 	}
 
