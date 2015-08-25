@@ -15,7 +15,7 @@ return array(
     |
     */
 
-    'driver' => 'memcache',
+    'driver' => 'memcached',
 
     /*
     |--------------------------------------------------------------------------
@@ -90,6 +90,6 @@ return array(
     |
     */
 
-    'prefix' => 'packer-staging',
+    'prefix' => 'packers-staging',
 
 );
