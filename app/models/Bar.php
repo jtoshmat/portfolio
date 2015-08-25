@@ -17,11 +17,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	);
 
 	public static $addrules = array(
-		'barname'=>array(
-			'required',
-			'min:2',
-			'regex:/(^[A-Za-z0-9 ]+$)+/'
-		),
+		'barname'=>'required|string',
 		'address'=>array(
 			'required',
 			'min:2',
@@ -43,6 +39,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'regex:/(^[0-9 ]{5,5}$)+/'
 		),
 		'website'=>'active_url|min:7',
+		'timezone'=>'required',
 	);
 
 	public static $updatebarrules = array(
