@@ -101,7 +101,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function getBars(){
 		$id = Auth::user()->id;
-		if ($this->isAdmin()===1) {
+		if ($this->isAdmin()) {
 			return DB::select(DB::raw('
 				SELECT *, (SELECT count(*) FROM bars LEFT JOIN games ON bars.id=games.bid WHERE games.bid=b.id) as
 				totalGames,b.id as id, b.uid as uid
@@ -112,7 +112,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 				GROUP BY b.id
 					 '));
 		}
-		if ($this->isAdmin()===0) {
+		else {
 			return DB::select(DB::raw('
 				SELECT *, (SELECT count(*) FROM bars LEFT JOIN games ON bars.id=games.bid WHERE games.bid=b.id) as
 				totalGames,b.id as id, b.uid as uid
