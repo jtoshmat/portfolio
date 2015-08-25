@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('BarsTableSeeder');
 		$this->call('GamesTableSeeder');
 		$this->call('RefZipDetailsSeeder');
+		$this->call('CreateSessionsTable');
 	}
 
 }
