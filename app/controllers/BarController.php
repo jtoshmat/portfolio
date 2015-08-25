@@ -9,10 +9,9 @@ class BarController extends \BaseController {
 	public $bars;
 
 	protected function isNotAuthorized(){
-		if (\Session::get('privileges')==0){
+		if (!Auth::user()){
 			return 'user/403';
 		}
-
 	}
 
 	protected function isAdmin(){
