@@ -38,6 +38,14 @@ class User
 		'email'=>'required|email|min:4',
 	);
 
+	public function uploads() {
+		return $this->hasMany('Upload', 'uid');
+	}
+
+	public function bars() {
+		return $this->hasMany('Bar', 'uid');
+	}
+
 	protected function isAdmin(){
 		return Auth::user()->admin;
 		//return \Session::get('pusertype');
@@ -210,8 +218,6 @@ class User
 
 				}
 			}
-
-
 		}
 		return $output;
 	}
@@ -221,7 +227,4 @@ class User
 		$output = User::where('username','=',$username)->get(array('username'));
 		return $output;
 	}
-
-
-
 }

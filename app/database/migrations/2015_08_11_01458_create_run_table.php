@@ -108,8 +108,6 @@ class CreateRunTable extends Migration {
 			$table->string('tv');
 			$table->timestamps();
 		});
-		$dbseed = new \DatabaseSeeder();
-		$dbseed->run();
 
 	}
 
@@ -120,7 +118,14 @@ class CreateRunTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('run');
+		Schema::dropIfExists("run");
+		Schema::dropIfExists("uploads");
+		Schema::dropIfExists("bevents");
+		Schema::dropIfExists("bars");
+		Schema::dropIfExists("games");
+		Schema::dropIfExists("roles");
+		Schema::dropIfExists("user");
+		Schema::dropIfExists("user_types");
 	}
 
 }

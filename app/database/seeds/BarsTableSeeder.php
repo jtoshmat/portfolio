@@ -7,20 +7,21 @@ public function run()
 {
     DB::table('bars')->delete();
 
-    Bar::create(array(
-	    'uid' =>1,
-        'barname' => 'First Bar',
-        'address' => '200 Main Street',
-        'city' => 'Dubuque',
-        'state' => 'IA',
-        'zipcode' => '52001',
-        'country' => 'US',
-        'timezone' => 'US/Central',
-        'phone' => '563-451-6893',
-        'website' => 'http://www.google.com',
-        'status' => 0,
-    ));
+    $new = new Bar;
+	    $new->uid = 1;
+        $new->barname = 'First Bar';
+        $new->slug = 'first-bar';
+        $new->address = '200 Main Street';
+        $new->city = 'Dubuque';
+        $new->state = 'IA';
+        $new->zipcode = '52001';
+        $new->country = 'US';
+        $new->timezone = 'US/Central';
+        $new->phone = '563-451-6893';
+        $new->website = 'http://www.google.com';
+        $new->status = 0;
 
+    $new->save();
 
 }
 
