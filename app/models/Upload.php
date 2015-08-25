@@ -22,6 +22,13 @@ class Upload extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'uploads';
 
+	public function bar() {
+		return $this->belongsTo('Bar', 'bid');
+	}
+
+	public function user() {
+		return $this->belongsTo('User', 'uid');
+	}
 
 	public function addUploadedImage($filename, $bid){
 		$checkLogoDuplicate = Upload::where('filename','=', $filename)->where('bid','=', $bid)->count();

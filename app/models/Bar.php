@@ -84,6 +84,20 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'bars';
 
+	protected $rzd;
+
+	public function __construct() {
+		$this->rzd = new RefZipDetails;
+	}
+
+	public function upload() {
+		return $this->hasOne('Upload', 'bid');
+	}
+
+	public function events() {
+		return $this->hasMany('Bevent', 'barid');
+	}
+
 	protected function isAdmin(){
 		return \Session::get('pusertype');
 	}
@@ -140,6 +154,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		$insertData = array(
 			'uid' => Auth::user()->id,
 			'barname' => Input::get('barname'),
+			'slug' => (\Illuminate\Support\Str::slug(Input::get('barname'))),
 			'address' => Input::get('address'),
 			'city' => Input::get('city'),
 			'state' => Input::get('state'),
@@ -153,8 +168,8 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 		$geoData = $this->geocodeBar($insertData['zipcode']);
 		if($geoData) {
-			$insertData['latitude'] = $geoData->latitude;
-			$insertData['longitude'] = $geoData->longitude;
+			$insertData['latitude'] = $geoData['latitude'];
+			$insertData['longitude'] = $geoData['longitude'];
 		}
 
 		$lastId = DB::table('bars')->insertGetId($insertData);
@@ -183,8 +198,8 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 		$geoData = $this->geocodeBar($fillable['zipcode']);
 		if($geoData) {
-			$fillable['latitude'] = $geoData->latitude;
-			$fillable['longitude'] = $geoData->longitude;
+			$fillable['latitude'] = $geoData['latitude'];
+			$fillable['longitude'] = $geoData['longitude'];
 		}
 
 		$output = Bar::where('id','=', 4)->update($fillable);
@@ -198,14 +213,16 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function geocodeBar($zipcode) {
-		$geoData = DB::select(
-			DB::raw("
-				SELECT latitude, longitude FROM ref_zip_details WHERE zip = $zipcode;
-			")
-		);
-		return !empty($geoData) ? $geoData[0] : false;
+		$geoData = $this->rzd->getGeoDataByZip($zipcode);
+		return !empty($geoData) ? $geoData->toArray() : false;
 	}
 
+	public function findByName($name) {
+		return $this->where('barname', '=', $name)->with('events')->where('status', '=', 1)->first();
+	}
 
+	public function findByZip($zipcode) {
+		return $this->where('zipcode', '=', $zipcode)->with('events')->where('status', '=', 1)->get();
+	}
 
 }
