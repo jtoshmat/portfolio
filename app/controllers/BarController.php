@@ -100,10 +100,7 @@ class BarController extends \BaseController {
 					$Bar = new Bar();
 
 					$output = $Bar->updateBar($bid, $uid);
-
-					if ($output!==1){
-						return "The bar is not updated";
-					}	
+ 
 					return Redirect::to('bars')->with('message', 'Thanks for updaing your bar');
 
 				}else{
@@ -185,7 +182,12 @@ class BarController extends \BaseController {
 		$size = (int) $file->getSize();
 		list($width, $height) = getimagesize($file);
 		$file->move('img/uploads', $newFileName);
-		$image = Image::make(sprintf('img/uploads/%s', $newFileName))->resize(250, 250)->save();
+	 	
+	 	$width = ($width>250)?250:$width;
+	 	$height = ($height>250)?250:$height;
+	 	
+
+		$image = Image::make(sprintf('img/uploads/%s', $newFileName))->resize($width, $height)->save();
 		$Upload = new Upload();
 		$Upload->addUploadedImage($newFileName, $bid);
 		return 1;
