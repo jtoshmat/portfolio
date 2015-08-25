@@ -112,6 +112,7 @@ $bartimezone = json_decode($bartimezone)[0]->timezone;
 
     @foreach($bevents[1] as $bevent)
 
+
       <?php
         $tz = new DateTimeZone($bartimezone);
         $gametime = $bevent->ggame_time ? new DateTime($bevent->ggame_time, new DateTimeZone('US/Central')) : null;
@@ -145,7 +146,7 @@ $bartimezone = json_decode($bartimezone)[0]->timezone;
 
 	      <td data-order="{{ $eventTimeString }}">{{ $eventTime }}</td>
 
-	      @if ($bevent->btitle)
+	      @if ($bevent->btitle && $bevent->bbarid==$barid)
 	      <td>{{ $bevent->btitle }}</td>
 	      @else
 	      <td class="text-muted">No Event Planned</td>
@@ -165,7 +166,7 @@ $bartimezone = json_decode($bartimezone)[0]->timezone;
 
         <td class="text-center">
         @if ($bevent->beventtime)
-          <a href="{{ route('bevents/editbevent', array('id' => $bevent->bid)) }}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
+          <a href="{{ url('editbevent/'.$bevent->bid."?gid=".$bevent->ggid) }}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
         @else
         <a href="{{ url('addbevent/'.$barid."?gid=".$bevent->ggid) }}"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="bottom" title="Create an event for this game" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Create an event for this game</span></a></td>
         @endif

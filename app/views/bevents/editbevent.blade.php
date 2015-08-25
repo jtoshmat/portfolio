@@ -1,6 +1,7 @@
 @extends("layout")
 @section("content")
 <?php
+
   $barname = $barname[0]->barname;
   $bartimezone = $bartimezone[0]->timezone;
   $eventtime = new DateTime($bevent->eventtime, new DateTimeZone($bartimezone));
@@ -20,7 +21,7 @@
   <h3>Edit Event</h3>
   <div class="row">
     <div class="col-sm-8">
-      {{ Form::model($bevent, array('url' => 'editbevent/'.$bevent->bid, "class" => "form-edit-bar")) }}
+      {{ Form::model($bevent, array('url' => 'editbevent/'.$bevent->bid.'?gid='.$gid, "class" => "form-edit-bar")) }}
         <div class="form-group">
           {{ Form::label("datetime", "Local Date and Time") }}
           {{ Form::text("datetime", $eventtime, ["class" => "form-control datetime-picker"]) }}

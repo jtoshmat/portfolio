@@ -39,7 +39,8 @@ class User
 	);
 
 	protected function isAdmin(){
-		return \Session::get('pusertype');
+		return Auth::user()->admin;
+		//return \Session::get('pusertype');
 	}
 
 	public function getAuthIdentifier()

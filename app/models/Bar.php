@@ -17,11 +17,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	);
 
 	public static $addrules = array(
-		'barname'=>array(
-			'required',
-			'min:2',
-			'regex:/(^[A-Za-z0-9 ]+$)+/'
-		),
+		'barname'=>'required|string',
 		'address'=>array(
 			'required',
 			'min:2',
@@ -43,6 +39,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'regex:/(^[0-9 ]{5,5}$)+/'
 		),
 		'website'=>'active_url|min:7',
+		'timezone'=>'required',
 	);
 
 	public static $updatebarrules = array(
@@ -85,7 +82,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	protected $table = 'bars';
 
 	protected function isAdmin(){
-		return \Session::get('pusertype');
+		return Auth::user()->admin;
 	}
 
 	public function getBars(){
@@ -101,7 +98,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 				GROUP BY b.id
 					 '));
 		}
-		if ($this->isAdmin()===2) {
+		if ($this->isAdmin()===0) {
 			return DB::select(DB::raw('
 				SELECT *, (SELECT count(*) FROM bars LEFT JOIN games ON bars.id=games.bid WHERE games.bid=b.id) as
 				totalGames,b.id as id, b.uid as uid
@@ -121,7 +118,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		if ($this->isAdmin()===1) {
 			return Bar::where('id', '=', $id)->firstOrFail();
 		}
-		if ($this->isAdmin()===2) {
+		if ($this->isAdmin()===0) {
 			return Bar::where('id', '=', $id)->where('uid', '=', Auth::user()->id)->firstOrFail();
 		}
 		return false;
@@ -158,21 +155,25 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function updateBar($bid, $uid){
+ 	
+		$fillable = array(
+		'uid' => $uid,
+		'barname' => Input::get('barname'),
+		'address' => Input::get('address'),
+		'city' => Input::get('city'),
+		'state' => Input::get('state'),
+		'country' => Input::get('country'),
+		'timezone' => Input::get('timezone'),
+		'zipcode' => Input::get('zipcode'),
+		 'phone' => Input::get('phone'),
+		'website' => Input::get('website'),
+		'owner_email' => Input::get('owner_email'),
+		'description' => Input::get('description'),
+			
+		);
+		$output = Bar::where('id','=', 4)->update($fillable);
+		return $output;
 
-		$Bar = Bar::find($bid);
-		$Bar->uid = $uid;
-		$Bar->barname = Input::get('barname');
-		$Bar->address = Input::get('address');
-		$Bar->city = Input::get('city');
-		$Bar->state = Input::get('state');
-		$Bar->country = Input::get('country');
-		$Bar->timezone = Input::get('timezone');
-		$Bar->zipcode = Input::get('zipcode');
-		$Bar->phone = Input::get('phone');
-		$Bar->website = Input::get('website');
-		$Bar->description = Input::get('description');
-		$Bar->status = Input::get('status');
-		return $Bar->save();
 	}
 
 	public function deleteBar(){

@@ -19,7 +19,7 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 	);
 
 	protected function isAdmin(){
-		return \Session::get('pusertype');
+		return Auth::user()->admin;
 	}
 
 	public function getBevents(){
@@ -44,7 +44,7 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 				');
 			return $output;
 		}
-		if ($this->isAdmin()===2) {
+		if ($this->isAdmin()===0) {
 			return DB::select('select
 				bev.bid, bev.title as btitle,bev.barid as bbarid, bev.eventtime as beventtime, bev.gid as bgid,
 				gm.gid as ggid, gm.title as gtitle, gm.matchup as gmatchup, gm.location as glocation, gm.description as
@@ -60,7 +60,7 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 		if ($this->isAdmin()===1) {
 			return Bevent::where('bid', '=', $bid)->firstOrFail();
 		}
-		if ($this->isAdmin()===2) {
+		if ($this->isAdmin()===0) {
 			return Bevent::where('bid', '=', $bid)->firstOrFail();
 		}
 	}
