@@ -112,6 +112,7 @@ $bartimezone = json_decode($bartimezone)[0]->timezone;
 
     @foreach($bevents[1] as $bevent)
 
+
       <?php
         $tz = new DateTimeZone($bartimezone);
         $gametime = $bevent->ggame_time ? new DateTime($bevent->ggame_time, new DateTimeZone('US/Central')) : null;
@@ -145,7 +146,7 @@ $bartimezone = json_decode($bartimezone)[0]->timezone;
 
 	      <td data-order="{{ $eventTimeString }}">{{ $eventTime }}</td>
 
-	      @if ($bevent->btitle)
+	      @if ($bevent->btitle && $bevent->bbarid==$barid)
 	      <td>{{ $bevent->btitle }}</td>
 	      @else
 	      <td class="text-muted">No Event Planned</td>
