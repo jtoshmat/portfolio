@@ -30,6 +30,7 @@ class CreateRunTable extends Migration {
 			$table->string("email",155);
 			$table->string("secretquestion");
 			$table->string("secretanswer");
+			$table->boolean('admin', false);
 			$table->string("remember_token")->nullable();
 			$table->timestamps();
 		});

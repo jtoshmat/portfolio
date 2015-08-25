@@ -85,7 +85,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	protected $table = 'bars';
 
 	protected function isAdmin(){
-		return \Session::get('pusertype');
+		return Auth::user()->admin;
 	}
 
 	public function getBars(){
@@ -101,7 +101,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 				GROUP BY b.id
 					 '));
 		}
-		if ($this->isAdmin()===2) {
+		if ($this->isAdmin()===0) {
 			return DB::select(DB::raw('
 				SELECT *, (SELECT count(*) FROM bars LEFT JOIN games ON bars.id=games.bid WHERE games.bid=b.id) as
 				totalGames,b.id as id, b.uid as uid
@@ -121,7 +121,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		if ($this->isAdmin()===1) {
 			return Bar::where('id', '=', $id)->firstOrFail();
 		}
-		if ($this->isAdmin()===2) {
+		if ($this->isAdmin()===0) {
 			return Bar::where('id', '=', $id)->where('uid', '=', Auth::user()->id)->firstOrFail();
 		}
 		return false;

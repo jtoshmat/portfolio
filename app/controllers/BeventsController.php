@@ -11,7 +11,7 @@ class BeventsController extends \BaseController {
 	}
 
 	protected function isAdmin(){
-		return \Session::get('pusertype');
+		return Auth::user()->admin;
 	}
 
 	public function __construct(){

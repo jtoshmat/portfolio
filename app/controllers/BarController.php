@@ -16,12 +16,13 @@ class BarController extends \BaseController {
 	}
 
 	protected function isAdmin(){
-		return \Session::get('pusertype');
+		return Auth::user()->admin;
 	}
 
 	public function __construct(){
 		$this->bars = new Bar();
 		$this->bevents = new Bevent();
+		 
 	}
 
 	public function bars()
