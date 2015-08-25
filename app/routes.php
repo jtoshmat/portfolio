@@ -11,6 +11,11 @@
 	|
 	*/
 
+	Route::get('bar_test', function() {
+		$bars = Bar::all();
+		return $bars;
+	});
+
 	Route::get('env_test', function() {
 		dd(App::environment());
 	});
