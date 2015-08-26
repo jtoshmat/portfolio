@@ -57,6 +57,14 @@ class BarController extends \api\ApiController {
         }
     }
 
+    private function getBarsByGeoData($ll, $radius) {
+
+    }
+
+    private function getBarsByZip($zip){
+
+    }
+
     private function transformUpload($object) {
         if($object->upload) {
             $object->logo = $object->upload->filename;
