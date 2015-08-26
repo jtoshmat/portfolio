@@ -28,7 +28,7 @@ set :linked_dirs, %w{
   app/storage/meta
   app/storage/sessions
   app/storage/views
-  public/img/uploadsgit 
+  public/img/uploads
   vendor
 }
 
