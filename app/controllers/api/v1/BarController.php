@@ -9,10 +9,6 @@ class BarController extends \api\ApiController {
 
     protected $rzd;
 
-    public $transformMap = array(
-        'phone' => 'telephone',
-    );
-
     public function __construct() {
         $this->bar = new \Bar;
         $this->rzd = new \RefZipDetails;
@@ -27,8 +23,7 @@ class BarController extends \api\ApiController {
         else {
             $bar = $this->bar->findByName($inputs['name']);
             if($bar) {
-                $transformedBar = $this->transform($bar);
-                return $this->apiResponse($transformedBar->toArray());
+                return $this->apiResponse($bar);
             }
             else{
                 return $this->errorResponse('Bar not found', 404);
@@ -51,25 +46,15 @@ class BarController extends \api\ApiController {
         if(isset($inputs['zipcode'])) {
             $bars = $this->bar->findByZip($inputs['zipcode']);
             if($bars->count() > 0) {
-                $bars->each(function($bar){
-                    $bar = $this->transform($bar);
-                });
+//                $bars->each(function($bar){
+//                    $bar = $this->transform($bar);
+//                });
                 dd($bars->toArray());
             }
             else{
                 dd('no bars!');
             }
         }
-    }
-
-    private function transform($object) {
-        unset($object->status);
-        $this->transformUpload($object);
-        foreach($this->transformMap as $old => $new) {
-            $object->$new = $object->$old;
-            unset($object->$old);
-        }
-        return $object;
     }
 
     private function transformUpload($object) {

@@ -20,6 +20,14 @@ public function run()
         $new->phone = '563-451-6893';
         $new->website = 'http://www.google.com';
         $new->status = 0;
+        $new->dst_offset = -5;
+        $new->gmt_offset = -4;
+
+        $rzd = new RefZipDetails;
+        $geoData = $rzd->getGeoDataByZip(52001);
+
+        $new->latitude = $geoData->latitude;
+        $new->longitude = $geoData->longitude;
 
     $new->save();
 

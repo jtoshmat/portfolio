@@ -11,7 +11,8 @@ class UserTableSeeder
       [
         "username" => "admin@bluestatedigital.com",
         "password" => Hash::make("business"),
-        "email"    => "admin@bluestatedigital.com"
+        "email"    => "admin@bluestatedigital.com",
+        "admin"    => 1
       ],
     ];
 

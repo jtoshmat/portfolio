@@ -18,6 +18,10 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 		'title'=>'required',
 	);
 
+	public function bar() {
+		return $this->belongsTo('Bar', 'barid');
+	}
+
 	protected function isAdmin(){
 		return Auth::user()->admin;
 	}
@@ -77,6 +81,7 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 			'barid' => $bid,
 			'gid' => $gid,
 			'title' => Input::get('title'),
+			'slug' => \Illuminate\Support\Str::slug(Input::get('title')),
 			'description' => Input::get('description'),
 			'eventtime' => \Carbon\Carbon::create($eventtime['year'], $eventtime['month'], $eventtime['day'], $eventtime['hour'], $eventtime['minute'], 0, $tz),
 		);
@@ -108,6 +113,35 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 		$id = (int) Request::query('id');
 		$Bevent = Bevent::where('bid','=', $id);
 		return $Bevent->delete();
+	}
+
+	public function apiTransform() {
+		unset($this->gid);
+		unset($this->userid);
+		unset($this->created_at);
+		unset($this->updated_at);
+		$this->rsvp_count = 0;
+		$this->days_to_event = $this->diffInDays($this->eventtime);
+		$this->tz = $this->bar->timezone; unset($this->bar);
+		$this->key_name = $this->slug; unset($this->slug);
+		$this->scheduledTime = $this->eventtime; unset($this->eventtime);
+		if($this->game) {
+			$this->game_key_name = $this->game->slug;
+			$this->game_tv_channel = $this->game->tv;
+		}
+		unset($this->game);
+		unset($this->bid);
+		unset($this->barid);
+
+
+	}
+
+	public function diffInDays($date1) {
+		$datetime1 = new DateTime();
+		$datetime2 = new DateTime($date1);
+		$interval = $datetime1->diff($datetime2);
+
+		return $interval->days;
 	}
 
 }

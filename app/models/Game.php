@@ -91,6 +91,7 @@ class Game extends Eloquent implements UserInterface, RemindableInterface {
 			'uid' => Auth::user()->id,
 			'bid' => $bid,
 			'matchup' => Input::get('matchup'),
+			'slug' => \Illuminate\Support\Str::slug(Input::get('matchup')),
 			'description' => Input::get('description'),
 			'location' => Input::get('location'),
 			'game_time' => \Carbon\Carbon::create($time['year'], $time['month'], $time['day'], $time['hour'], $time['minute'], 0, $tz),

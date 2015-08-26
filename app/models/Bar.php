@@ -215,11 +215,36 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function findByName($name) {
-		return $this->where('barname', '=', $name)->with('events')->where('status', '=', 1)->first();
+		$bar = $this->where('barname', '=', $name)
+					->orWhere('slug', '=', $name)
+					->with('events')
+					->with('upload')
+					->where('status', '=', 1)->first();
+
+		$bar->events->each(function($event) {
+			$event->game = \Game::where('gid', '=', $event->gid)->first();
+			$event->apiTransform();
+			//unset($event->barid);
+		});
+		$bar->apiTransform();
+		return $bar;
 	}
 
 	public function findByZip($zipcode) {
-		return $this->where('zipcode', '=', $zipcode)->with('events')->where('status', '=', 1)->get();
+		return $this->where('zipcode', '=', $zipcode)->with('events')->where('status', '=', 1)->first();
+	}
+
+	public function apiTransform() {
+		unset($this->id);
+		unset($this->uid);
+		unset($this->status);
+		$this->telephone = $this->phone; unset($this->phone);
+		$this->county = null;
+		$this->logo = $this->upload ? $this->upload->logo : null;
+		unset($this->upload);
+		$this->timeAdded = (string) $this->created_at; unset($this->created_at);
+		unset($this->owner_email);
+		unset($this->updated_at);
 	}
 
 }
