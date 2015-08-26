@@ -180,17 +180,11 @@ class BarController extends \BaseController {
 		$newFileName = time() . 'logo_'.$daten."_".$uid."_".$bid.".png";
 		$size = (int) $file->getSize();
 		list($width, $height) = getimagesize($file);
-
-		$savePath = '/tmp/packers-webapp/uploads';
-		File::exists('/tmp/packers-webapp/uploads') or File::makeDirectory($path, $mode = 0777, true, true);
-		$file->move($savePath, $newFileName);
 	 	
 	 	$width = ($width>250)?250:$width;
 	 	$height = ($height>250)?250:$height;
-
-		$image = Image::make(sprintf($savePath.'/%s', $newFileName))->resize($width, $height)->save();
-
-		$link = $this->uploadToS3($newFileName, $savePath);
+		
+		$link = $this->uploadToS3($newFileName, $path);
 		if($link) {
 			$Upload = new Upload();
 			$Upload->addUploadedImage($link, $bid);
@@ -207,7 +201,7 @@ class BarController extends \BaseController {
 		$s3->putObject(array(
 			'Bucket' => $bucket,
 			'Key' => $fileName,
-			'SourceFile' => $pathToFile .'/'. $fileName,
+			'SourceFile' => $pathToFile,
 			'ACL' => 'public-read'
 		));
 
