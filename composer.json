@@ -6,6 +6,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"camroncade/timezone": "0.1",
+	    "aws/aws-sdk-php-laravel": "1.*",
     "intervention/image": "dev-master"
 	},
 	"autoload": {
