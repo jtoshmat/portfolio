@@ -180,7 +180,10 @@ class BarController extends \BaseController {
 		$newFileName = time() . 'logo_'.$daten."_".$uid."_".$bid.".png";
 		$size = (int) $file->getSize();
 		list($width, $height) = getimagesize($file);
-		$file->move('img/uploads', $newFileName);
+
+		$path = public_path() . '/img/uploads';
+		File::exists($path) or File::makeDirectory($path, $mode = 0777, true, true);
+		$file->move($path, $newFileName);
 	 	
 	 	$width = ($width>250)?250:$width;
 	 	$height = ($height>250)?250:$height;
