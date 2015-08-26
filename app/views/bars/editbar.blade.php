@@ -316,7 +316,7 @@ if ($admin===1){
           {{ Form::label("logo", "Upload Logo") }} <small class="text-muted">optional</small>
           <div class="bar-logo-container">
   			  @if ($bar->filename)
-  	  		  <img class="bar-logo" src="/img/uploads/{{ $bar->filename }}">
+  	  		  <img class="bar-logo" src="{{ $bar->filename }}">
   			  @endif
           </div>
           {{ Form::file('logo', ["class" => "bar-logo-upload", "accept" => "image/x-png, image/gif, image/jpeg"]) }}

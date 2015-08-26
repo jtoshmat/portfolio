@@ -177,19 +177,37 @@ class BarController extends \BaseController {
 		$file = Input::file('logo');
 		$daten = date('m').date('d').date('Y');
 		$path = $file->getRealPath();
-		$newFileName = 'logo_'.$daten."_".$uid."_".$bid.".png";
+		$newFileName = time() . 'logo_'.$daten."_".$uid."_".$bid.".png";
 		$size = (int) $file->getSize();
 		list($width, $height) = getimagesize($file);
-		$file->move('img/uploads', $newFileName);
 	 	
 	 	$width = ($width>250)?250:$width;
 	 	$height = ($height>250)?250:$height;
-	 	
+		
+		$link = $this->uploadToS3($newFileName, $path);
+		if($link) {
+			$Upload = new Upload();
+			$Upload->addUploadedImage($link, $bid);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
-		$image = Image::make(sprintf('img/uploads/%s', $newFileName))->resize($width, $height)->save();
-		$Upload = new Upload();
-		$Upload->addUploadedImage($newFileName, $bid);
-		return 1;
+	private function uploadToS3($fileName, $pathToFile) {
+		$bucket = Config::get('aws::bucket_name');
+		$s3 = App::make('aws')->get('s3');
+		$s3->putObject(array(
+			'Bucket' => $bucket,
+			'Key' => $fileName,
+			'SourceFile' => $pathToFile,
+			'ACL' => 'public-read'
+		));
+
+		$link = $s3->getObjectUrl($bucket, $fileName);
+
+		return $link ? $link : false;
 	}
 
 }
