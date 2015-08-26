@@ -181,16 +181,16 @@ class BarController extends \BaseController {
 		$size = (int) $file->getSize();
 		list($width, $height) = getimagesize($file);
 
-		$path = public_path() . '/img/uploads';
-		File::exists($path) or File::makeDirectory($path, $mode = 0777, true, true);
-		$file->move($path, $newFileName);
+		$savePath = '/tmp/packers-webapp/uploads';
+		File::exists('/tmp/packers-webapp/uploads') or File::makeDirectory($path, $mode = 0777, true, true);
+		$file->move($savePath, $newFileName);
 	 	
 	 	$width = ($width>250)?250:$width;
 	 	$height = ($height>250)?250:$height;
 
-		$image = Image::make(sprintf('img/uploads/%s', $newFileName))->resize($width, $height)->save();
+		$image = Image::make(sprintf($savePath.'/%s', $newFileName))->resize($width, $height)->save();
 
-		$link = $this->uploadToS3($newFileName);
+		$link = $this->uploadToS3($newFileName, $savePath);
 		if($link) {
 			$Upload = new Upload();
 			$Upload->addUploadedImage($link, $bid);
@@ -201,13 +201,13 @@ class BarController extends \BaseController {
 		}
 	}
 
-	private function uploadToS3($fileName) {
+	private function uploadToS3($fileName, $pathToFile) {
 		$bucket = Config::get('aws::bucket_name');
 		$s3 = App::make('aws')->get('s3');
 		$s3->putObject(array(
 			'Bucket' => $bucket,
 			'Key' => $fileName,
-			'SourceFile' => 'img/uploads/' . $fileName,
+			'SourceFile' => $pathToFile .'/'. $fileName,
 			'ACL' => 'public-read'
 		));
 
