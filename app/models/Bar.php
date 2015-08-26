@@ -199,7 +199,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			$fillable['longitude'] = $geoData['longitude'];
 		}
 
-		$output = Bar::where('id','=', 4)->update($fillable);
+		$output = Bar::where('id','=', $bid)->update($fillable);
 		return $output;
 
 	}
