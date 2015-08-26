@@ -81,13 +81,7 @@ class BarController extends \BaseController {
 					}
 					if (empty($em)){
 						$user = new User;
-						$user->username = $email;
-						$user->email = $email;
-						$user->password = Hash::make(Input::get('abc123'));
-						$user->save();
-						$uid = $bid = $LastInsertId = $user->id;
-						$insertData = array('uid' => $LastInsertId,'pusertype' => 6, 'privileges'=>6);
-						DB::table('roles')->insert($insertData);
+						$user->createProfile($email);
 
 					}else{
 						$userdata = User::where('username','=',$email)->get(array('id'));
@@ -187,7 +181,7 @@ class BarController extends \BaseController {
 		$link = $this->uploadToS3($newFileName, $path);
 		if($link) {
 			$Upload = new Upload();
-			$Upload->addUploadedImage($link, $bid);
+			return $Upload->addUploadedImage($link, $bid);
 			return true;
 		}
 		else {
