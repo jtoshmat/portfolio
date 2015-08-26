@@ -38,13 +38,13 @@ extends Controller
 	      To represent --- triplet use 0 |  nothing
 	      */
 	      $uid = Auth::user()->id;
-	        $roleModel = new Role();
-	        $role = $roleModel->getRole($uid);
-	        $rid = $role->get(array('rid'));
-	        $rid = json_decode($rid, true);
-	        $rid = (int) $rid[0]['rid'];
-	        \Session::put('privileges', $role->privileges);
-	        \Session::put('pusertype', $role->pusertype);
+	        //$roleModel = new Role();
+	        //$role = $roleModel->getRole($uid);
+	        //$rid = $role->get(array('rid'));
+	        //$rid = json_decode($rid, true);
+	        //$rid = (int) $rid[0]['rid'];
+	        //\Session::put('privileges', $role->privileges);
+	        //\Session::put('pusertype', $role->pusertype);
 	        \Session::flash('mymessage','You are logged in');
 	      return Redirect::route("bars");
 	    }

@@ -7,6 +7,7 @@
 		"laravel/framework": "4.2.*",
 		"camroncade/timezone": "0.1",
 	    "aws/aws-sdk-php-laravel": "1.*",
+	  	"guzzlehttp/guzzle": "~4.0",
     "intervention/image": "dev-master"
 	},
 	"autoload": {
@@ -17,7 +18,10 @@
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php"
-		]
+		],
+	  "psr-4": {
+		"Packers\\": "app/Packers"
+	  }
 	},
 	"scripts": {
 		"post-install-cmd": [
