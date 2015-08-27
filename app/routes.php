@@ -264,6 +264,7 @@
 	});
 
 	Route::group(array('prefix' => 'api'), function () {
+		Route::get('venues/{name}', 'api\v1\BarController@show');
 		Route::get('venues', 'api\v1\BarController@show');
 		Route::get('venues/search', 'api\v1\BarController@search');
 	});

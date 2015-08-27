@@ -215,19 +215,25 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function findByName($name) {
-		$bar = $this->where('barname', '=', $name)
-					->orWhere('slug', '=', $name)
-					->with('events')
-					->with('upload')
-					->where('status', '=', 1)->first();
+		try {
+			$bar = $this->where('barname', '=', $name)
+				->orWhere('slug', '=', $name)
+				->with('events')
+				->with('upload')
+				->where('status', '=', 1)->firstOrFail();
 
-		$bar->events->each(function($event) {
-			$event->game = \Game::where('gid', '=', $event->gid)->first();
-			$event->apiTransform();
-			//unset($event->barid);
-		});
-		$bar->apiTransform();
-		return $bar;
+			if ($bar->events->count() > 0) {
+				$bar->events->each(function ($event) {
+					$event->game = \Game::where('gid', '=', $event->gid)->first();
+					$event->apiTransform();
+				});
+			}
+			$bar->apiTransform();
+			return $bar;
+		}
+		catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+			return false;
+		}
 	}
 
 	public function findByZip($zipcode) {
@@ -235,16 +241,25 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function apiTransform() {
-		unset($this->id);
-		unset($this->uid);
-		unset($this->status);
+		unset($this->id, $this->uid, $this->status);
+		$this->key_name = $this->slug; unset($this->slug);
 		$this->telephone = $this->phone; unset($this->phone);
 		$this->county = null;
 		$this->logo = $this->upload ? $this->upload->logo : null;
 		unset($this->upload);
 		$this->timeAdded = (string) $this->created_at; unset($this->created_at);
-		unset($this->owner_email);
-		unset($this->updated_at);
+		$this->email = $this->owner_email;
+		$this->name = $this->barname;
+		unset($this->owner_email, $this->updated_at, $this->barname);
+		$this->contactFirstName = null;
+		$this->contactLastName = null;
+		$this->favorites = 0;
+		$this->hash = "";
+		$this->latlng = array(
+			'lat' => (float) $this->latitude,
+			'lon' => (float) $this->longitude
+		);
+		unset($this->longitude, $this->latitude);
 	}
 
 }

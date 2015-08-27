@@ -14,16 +14,14 @@ class BarController extends \api\ApiController {
         $this->rzd = new \RefZipDetails;
     }
 
-    public function show() {
-        $inputs = Input::all();
-
-        if(!isset($inputs['name'])) {
+    public function show($name=null) {
+        if(!isset($name) || empty($name)) {
             return $this->errorResponse('Must include a bar name', 500);
         }
         else {
-            $bar = $this->bar->findByName($inputs['name']);
+            $bar = $this->bar->findByName($name);
             if($bar) {
-                return $this->apiResponse($bar);
+                return $this->apiVenueResponse($bar);
             }
             else{
                 return $this->errorResponse('Bar not found', 404);
@@ -75,5 +73,13 @@ class BarController extends \api\ApiController {
     private function getGeoDataFromZip($zipcode) {
         $geoData = $this->rzd->getGeoDataByZip($zipcode);
         return !empty($geoData) ? $geoData->toArray() : false;
+    }
+
+    public function apiVenueResponse($data) {
+        $response = \Response::json(array(
+            'status' => 'OK',
+            'location' => $data
+        ), 200);
+        return $response;
     }
 }
