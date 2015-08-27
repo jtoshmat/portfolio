@@ -1,15 +1,22 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: jonschwartz
- * Date: 8/27/15
- * Time: 2:39 PM
- */
+<?php namespace Packers\Services\Mailers;
 
-namespace Packers\Services\Mailers;
+class UserImportMailer extends PackersMailer
+{
+    public function run($user)
+    {
+        $view = 'emails.users.import';
+        $subject = 'You\'re a very imported person!';
+        $data = array(
+            'username' => 'username',
+            'password' => 'gopackgo',
+        );
 
-
-class UserImportMailer
+        if($this->sendTo($user, $subject, $view, $data)) {
+            $this->logEmail('email.import.notification', $user);
+            return true;
+        }
+    }
+}
 {
 
 }

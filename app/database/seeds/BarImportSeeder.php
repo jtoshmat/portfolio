@@ -91,7 +91,7 @@ class BarImportSeeder extends Seeder
         catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             $user = User::create([
                 "username" => $bar['email'],
-                "password" => Hash::make("test"),
+                "password" => Hash::make("gopackgo"),
                 "email"    => $bar['email'],
                 "admin"    => 0,
                 "imported" => 1

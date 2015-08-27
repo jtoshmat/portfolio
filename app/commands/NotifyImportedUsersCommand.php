@@ -20,6 +20,11 @@ class NotifyImportedUsersCommand extends Command {
 	 */
 	protected $description = 'Sends notification email to all imported users';
 
+	protected $mailer;
+
+	protected $emails_sent = 0;
+
+	protected $emails_skipped = 0;
 	/**
 	 * Create a new command instance.
 	 *
@@ -28,6 +33,8 @@ class NotifyImportedUsersCommand extends Command {
 	public function __construct()
 	{
 		parent::__construct();
+
+		$this->mailer = new \Packers\Services\Mailers\UserImportMailer;
 	}
 
 	/**
@@ -47,11 +54,16 @@ class NotifyImportedUsersCommand extends Command {
 				$log = EmailLog::where('user_id', '=', $user->id)
 					           ->where('type', '=', 'email.import.notification')
 							   ->firstOrFail();
+				$this->emails_skipped++;
 			}
  			catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
-				$this->info($user->email . " will be emailed!");
+				$this->mailer->run($user, 'email.import.notification');
+				$this->info('email sent to ' . $user->email);
+				$this->emails_sent++;
 			}
 		}
+
+		$this->info('Finished! ' . $this->emails_sent . ' emails sent | ' . $this->emails_skipped . ' emails skipped.');
 	}
 
 	/**
