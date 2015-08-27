@@ -236,6 +236,26 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		}
 	}
 
+	public function findAllByZip($zipcode) {
+		try {
+			$bar = $this->where('zipcode', '=', $zipcode)
+				->with('events')
+				->with('upload')
+				->where('status', '=', 1)->firstOrFail();
+			if ($bar->events && $bar->events->count() > 0) {
+				$bar->events->each(function ($event) {
+					$event->game = \Game::where('gid', '=', $event->gid)->first();
+					$event->apiTransform();
+				});
+			}
+			$bar->apiTransform();
+			return $bar;
+		}
+		catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+			return false;
+		}
+	}
+
 	public function findByZip($zipcode) {
 		return $this->where('zipcode', '=', $zipcode)->with('events')->where('status', '=', 1)->first();
 	}

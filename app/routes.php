@@ -11,13 +11,9 @@
 	|
 	*/
 
-	Route::get('bar_test', function() {
-		$bars = Bar::all();
-		return $bars;
-	});
-
-	Route::get('env_test', function() {
-		dd(App::environment());
+	Route::get('emailtest', function() {
+		$mailer = new Packers\Services\Mailers\UserWelcomeEmail;
+		$mailer->run();
 	});
 
 	Route::any("error", [
@@ -264,7 +260,6 @@
 	});
 
 	Route::group(array('prefix' => 'api'), function () {
-		Route::get('venues/{name}', 'api\v1\BarController@show');
 		Route::get('venues', 'api\v1\BarController@show');
 		Route::get('venues/search', 'api\v1\BarController@search');
 	});

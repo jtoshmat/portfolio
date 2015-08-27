@@ -16,7 +16,7 @@ class BarController extends \api\ApiController {
 
     public function show($name=null) {
         if(!isset($name) || empty($name)) {
-            return $this->errorResponse('Must include a bar name', 500);
+            return $this->errorResponse('Must include a bar name', 400);
         }
         else {
             $bar = $this->bar->findByName($name);
@@ -29,12 +29,11 @@ class BarController extends \api\ApiController {
         }
     }
 
-    //@todo finish this!
     public function search() {
         $inputs = Input::all();
 
         if(!isset($inputs['ll']) && !isset($inputs['radius']) && !isset($inputs['zipcode'])) {
-            return $this->errorResponse('Must provide search parameters', 500);
+            return $this->errorResponse('Must provide search parameters', 400);
         }
 
         if(isset($inputs['ll']) && !isset($inputs['radius']) || !isset($inputs['ll']) && isset($inputs['radius'])) {
@@ -42,19 +41,14 @@ class BarController extends \api\ApiController {
         }
 
         if(isset($inputs['zipcode'])) {
-            $bars = $this->bar->findByZip($inputs['zipcode']);
-            if($bars->count() > 0) {
-//                $bars->each(function($bar){
-//                    $bar = $this->transform($bar);
-//                });
-                dd($bars->toArray());
+            $bars = $this->bar->findAllByZip($inputs['zipcode']);
+                return $bars;
             }
             else{
-                dd('no bars!');
+                return $this->errorResponse('No bars found', 404);
             }
-        }
     }
-
+    
     private function getBarsByGeoData($ll, $radius) {
 
     }
