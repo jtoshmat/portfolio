@@ -42,13 +42,13 @@ class BarController extends \api\ApiController {
 
         if(isset($inputs['zipcode'])) {
             $bars = $this->bar->findAllByZip($inputs['zipcode']);
-                return $bars;
+                return $this->apiVenueResponse($bars);
             }
             else{
                 return $this->errorResponse('No bars found', 404);
             }
     }
-    
+
     private function getBarsByGeoData($ll, $radius) {
 
     }
