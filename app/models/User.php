@@ -9,6 +9,7 @@ class User
 {
 	protected $table = "user";
 	protected $hidden = ["password"];
+	protected $fillable = ["username", "password", "email", "admin", "imported"];
 
 	public static $rules = array(
 	'username'=>'required|unique:user|min:2',
@@ -111,28 +112,14 @@ class User
 		$user->admin = 0;
 		$user->username = Input::get('username');
 		$user->password = Hash::make(Input::get('password'));
+		$user->email = Input::get('username');
 		$user->secretquestion = Input::get('secretquestion');
 		$user->secretanswer = Input::get('secretanswer');
-
-//		if ($this->isAdmin()===2){
-//			$user->parentid = Auth::user()->id;
-//			if ($roles==1){
-//				$roles = 2;
-//			}
-//		}
-//		if ($this->isAdmin()!==2 && $this->isAdmin()!==1){
-//			$roles = 2;
-//		}
 
 		$user->save();
 		$LastInsertId = $user->id;
 		$insertData = array('uid' => $LastInsertId,'pusertype' => $roles, 'privileges'=>$privileges);
 
-//		if ($this->isAdmin()===2){
-//			$insertData = array('uid' => $LastInsertId,'pusertype' => $roles, 'privileges'=>$privileges);
-//		}
-//
-//		DB::table('roles')->insert($insertData);
 		return 'inserted';
 	}
 

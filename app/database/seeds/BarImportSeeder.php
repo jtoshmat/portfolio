@@ -84,8 +84,23 @@ class BarImportSeeder extends Seeder
     public function addBar($bar) {
         $newBar = new Bar();
 
-        $newBar->uid = 1; //tmp setting this to the admin user.
-        $newBar->status = 0;
+        //create a new user for each email!
+        try{
+            $user = User::where('username', '=', $bar['email'])->firstOrFail();
+        }
+        catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            $user = User::create([
+                "username" => $bar['email'],
+                "password" => Hash::make("test"),
+                "email"    => $bar['email'],
+                "admin"    => 0,
+                "imported" => 1
+            ]);
+
+        }
+
+        $newBar->uid = $user->id;
+        $newBar->status = 1;
         $newBar->barname = $bar['name'];
         $newBar->slug = $bar['key_name'];
         $newBar->address = $bar['address'];

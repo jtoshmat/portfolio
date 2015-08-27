@@ -19,7 +19,7 @@ public function run()
         $new->timezone = 'US/Central';
         $new->phone = '563-451-6893';
         $new->website = 'http://www.google.com';
-        $new->status = 0;
+        $new->status = 1;
         $new->dst_offset = -5;
         $new->gmt_offset = -4;
 
