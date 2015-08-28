@@ -49,7 +49,7 @@ $(document).ready(function(){
 
 
   var stateSelect = {
-    us: '<select name="state" class="form-control">' +
+    us: '<select name="state" class="form-control" required>' +
       '<option value=""></option><option value="AK">AK</option>' +
       '<option value="AL">AL</option><option value="AR">AR</option>' +
       '<option value="AZ">AZ</option><option value="CA">CA</option>' +
@@ -83,7 +83,7 @@ $(document).ready(function(){
       '<option value="MH">MH</option><option value="MP">MP</option>' +
       '<option value="PR">PR</option><option value="PW">PW</option>' +
       '<option value="VI">VI</option></select>',
-    ca: '<select name="state" class="form-control">' +
+    ca: '<select name="state" class="form-control" required>' +
       '<option value=""></option>' +
       '<option value="Alberta">Alberta</option>' +
       '<option value="British Columbia">British Columbia</option>' +
@@ -98,7 +98,7 @@ $(document).ready(function(){
       '<option value="Quebec">Quebec</option>' +
       '<option value="Saskatchewan">Saskatchewan</option>' +
       '<option value="Yukon">Yukon</option></select>',
-    generic: '<input type="text" class="form-control" name="state">'
+    generic: '<input type="text" class="form-control" name="state" required>'
   };
 
 
