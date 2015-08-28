@@ -30,10 +30,11 @@ class Upload extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->belongsTo('User', 'uid');
 	}
 
-	public function addUploadedImage($filename, $bid){
+	public function addUploadedImage($filename, $bid, $uid=null){
 
 		$checkLogoDuplicate = Upload::where('bid','=', $bid)->get(array('uploadid'));
 		$uploadid = false;
+
 		foreach ($checkLogoDuplicate as $found) {
 			if ($found){
 				$uploadid = $found->uploadid;
@@ -53,10 +54,11 @@ class Upload extends Eloquent implements UserInterface, RemindableInterface {
         }
 
 		//insert a new image
+		$uid = ($uid)?$uid:Auth::user()->id;
 		$output = DB::table('uploads')->insert(
 			[
 				'filename' => $filename,
-				'uid'      => Auth::user()->id,
+				'uid'      => $uid,
 				'bid'      => $bid,
 			]
 		);

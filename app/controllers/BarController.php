@@ -189,6 +189,29 @@ class BarController extends \BaseController {
 		}
 	}
 
+	public function uploadLogoApi($bid,$uid){
+		$output = null;
+		$file = Input::file('logo');
+		$daten = date('m').date('d').date('Y');
+		$path = $file->getRealPath();
+		$newFileName = time() . 'logo_'.$daten."_".$uid."_".$bid.".png";
+		$size = (int) $file->getSize();
+		list($width, $height) = getimagesize($file);
+	 	
+	 	$width = ($width>250)?250:$width;
+	 	$height = ($height>250)?250:$height;
+		
+		$link = $this->uploadToS3($newFileName, $path);
+
+		if($link) {
+			$Upload = new Upload();
+			return $Upload->addUploadedImage($link, $bid, $uid);
+		}
+		else {
+			return false;
+		}
+	}
+
 	private function uploadToS3($fileName, $pathToFile) {
 		$bucket = Config::get('aws::bucket_name');
 		$s3 = App::make('aws')->get('s3');
