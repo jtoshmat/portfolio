@@ -33,17 +33,18 @@ class BeventsController extends \BaseController {
 		if (empty($bevents)){
 			return Redirect::to('addbevent/'.$barid);
 		}
-		 
+
 
 		$barname = Bar::where('id','=',$barid)->get(array('barname'));
+		$barslug = Bar::where('id','=',$barid)->get(array('slug'));
 		$bartimezone = Bar::where('id','=',$barid)->get(array('timezone'));
 
 		if ($bevents){
-			return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid)->with('barname', $barname)->with('bartimezone', $bartimezone);
+			return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid)->with('barname', $barname)->with('bartimezone', $bartimezone)->with('barslug', $barslug);
 		}
 		$bevents = null;
 
-		return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid)->with('barname', $barname)->with('bartimezone', $bartimezone);
+		return View::make('bevents/bevents')->with('bevents', $bevents)->with('barid', $barid)->with('barname', $barname)->with('bartimezone', $bartimezone)->with('barslug', $barslug);
 	}
 
 	public function editBevent()
@@ -53,11 +54,12 @@ class BeventsController extends \BaseController {
 		}
 		 $bid = (int) Request::segment(2);
 		 $gid = Request::query('gid');
-	
+
 		 $barid = DB::select(DB::raw('select barid from bevents where bid='.$bid.''));
 		 $barid= $barid[0]->barid;
 		 $barname = DB::select(DB::raw('select barname from bars where id='.$barid.''));
-		
+		 $barslug = DB::select(DB::raw('select slug from bars where id='.$barid.''));
+
 		 $bartimezone = Bar::where('id','=',$barid)->get(array('timezone'));
 		 $method = Request::method();
 
@@ -69,14 +71,14 @@ class BeventsController extends \BaseController {
 				$datetime = Input::get('datetime');
 				$gid = (int) Request::query('gid');
 				$game_time = DB::select(DB::raw('select game_time from games where gid='.$gid.''));
-				
+
 				$game_time = strtotime($game_time[0]->game_time);
 				$datetime = strtotime($datetime);
 				if ($datetime!==$game_time){
 					return Redirect::to('editbevent/'.$bid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
 				('The event time must match the game time');
 				}
-				
+
 				$Bevent = new Bevent();
 				$Bevent->updateBevent();
 				$barid = Bevent::where('bid','=',$bid)->get(array('barid'));
@@ -96,7 +98,7 @@ class BeventsController extends \BaseController {
 		}
 
 		$bevent = $this->Bevent->getBevent();
-		return View::make('bevents/editbevent')->with('barname', $barname)->with('bevent', $bevent)->with('bartimezone', $bartimezone)->with('barid', $barid)->with('gid', $gid);
+		return View::make('bevents/editbevent')->with('barname', $barname)->with('bevent', $bevent)->with('bartimezone', $bartimezone)->with('barid', $barid)->with('gid', $gid)->with('barslug', $barslug);
 
 	}
 
@@ -107,6 +109,7 @@ class BeventsController extends \BaseController {
 		}
 		$barid = (int) Request::segment(2);
 		$barname = Bar::where('id','=',$barid)->get(array('barname'));
+		$barslug = Bar::where('id','=',$barid)->get(array('slug'));
 		$bartimezone = Bar::where('id','=',$barid)->get(array('timezone'));
 		$gid = (int) Request::query('gid');
 		$gamematchup = Game::where('gid','=',$gid)->get(array('matchup'));
@@ -124,7 +127,7 @@ class BeventsController extends \BaseController {
 				($validator)->withInput();
 			}
 		}
-		return View::make('bevents/addbevent')->with('barid', $barid)->with('gid', $gid)->with('barname', $barname)->with('bartimezone', $bartimezone)->with('gamematchup', $gamematchup)->with('gametime', $gametime);
+		return View::make('bevents/addbevent')->with('barid', $barid)->with('gid', $gid)->with('barname', $barname)->with('bartimezone', $bartimezone)->with('gamematchup', $gamematchup)->with('gametime', $gametime)->with('barslug', $barslug);
 	}
 
 	public function bevent()
