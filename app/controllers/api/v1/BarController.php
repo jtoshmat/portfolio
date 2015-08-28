@@ -83,4 +83,46 @@ class BarController extends \api\ApiController {
         ), 200);
         return $response;
     }
+
+
+    public function createBar(){
+            $method = \Request::method();
+            if (\Request::isMethod('post'))
+            {
+                $validator = \Validator::make(\Input::all(), \Bar::$addbarrulesapi);
+                    $User = new \User();
+                    $Bar = new \Bar();
+                    $BarController = new \BarController;
+                
+                if ($validator->passes()) {
+                    
+                    $email = \Input::get('email');
+                    $isUser = $User->verifyUsernameApi($email);
+                    $userExists = isset($isUser[0])?true:false;
+
+                    if (!$userExists){
+                        $uid = $User->createUserApi($email);
+                    }else{
+                        $uid = $isUser[0]->id;
+                    }
+                    //create a new bar here
+                    $bid = $Bar->createBarApi($uid); 
+
+                    //Upload logo 
+                    $uploadedFileName = null;
+                    if (\Input::hasFile('logo')){
+                        $uploadedFileName = $BarController->uploadLogoApi($bid,$uid);
+                    }
+                    return $this->errorResponse('Success', 200);
+
+                }
+                return $this->errorResponse($validator->errors()->all(), 404);
+            }
+            return $this->errorResponse('This is an invalid request', 404);
+    }
+
+    public function createBarForm(){
+            return \View::make('bars/addbarapi');
+    }
+
 }

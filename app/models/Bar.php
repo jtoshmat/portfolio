@@ -72,6 +72,15 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		'logo'=>'image',
 	);
 
+	public static $addbarrulesapi = array(
+		'barname'=>'required|string',
+		'zipcode'=>array(
+			'required',
+			'min:5',
+			'regex:/(^[0-9 ]{5,5}$)+/'
+		),
+		);
+
 	use UserTrait, RemindableTrait;
 
 	/**
@@ -298,6 +307,16 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'lon' => (float) $this->longitude
 		);
 		unset($this->longitude, $this->latitude);
+	}
+
+	public function createBarApi($uid){
+		$bar = new \Bar;
+		$bar->uid = $uid;
+		$bar->barname = \Input::get('barname');
+		$bar->zipcode = \Input::get('zipcode');
+		$bar->save();
+		$insertedId = $bar->id;
+		return $insertedId;
 	}
 
 }
