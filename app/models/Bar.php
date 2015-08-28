@@ -79,6 +79,9 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'min:5',
 			'regex:/(^[0-9 ]{5,5}$)+/'
 		),
+		'email'=>'required|email',
+		'address'=>'required',
+
 		);
 
 	use UserTrait, RemindableTrait;
@@ -313,7 +316,11 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		$bar = new \Bar;
 		$bar->uid = $uid;
 		$bar->barname = \Input::get('barname');
+		$bar->address = \Input::get('address');
+		$bar->city = \Input::get('city');
 		$bar->zipcode = \Input::get('zipcode');
+		$bar->owner_email = \Input::get('email');
+		$bar->phone = \Input::get('phone');
 		$bar->save();
 		$insertedId = $bar->id;
 		return $insertedId;

@@ -4,9 +4,9 @@
             <label>Bar Name<span class="req"> *</span>
             <input type="text" required="required" placeholder="John's Grub and Pub" id="barname" value="" name="barname" class="text"></label>
             <label>Address<span class="req"> *</span>
-            <input type="text" required="required" placeholder="123 Anyplace St." id="bar_address" value="" name="custom-62" class="text"></label>
+            <input type="text" required="required" placeholder="123 Anyplace St." id="bar_address" value="" name="address" class="text"></label>
             <label id="city-label">City
-            <input type="text" placeholder="Green Bay" id="city" value="" name="custom-63" class="text"></label>
+            <input type="text" placeholder="Green Bay" id="city" value="" name="city" class="text"></label>
             <label id="zip-label">ZIP Code<span class="req"> *</span>
             <input type="text" required="required" placeholder="54301" id="custom-65" value="" name="zipcode" class="text"></label>
             <p class="req-note"><span class="req">* </span> denotes required fields.</p>
@@ -16,7 +16,7 @@
             <label>Contact Email<span class="req"> *</span>
             <input type="email" required="required" placeholder="td@lambeaufield.org" id="email" value="" name="email" class="text"></label>
             <label>Contact Phone
-            <input type="text" placeholder="(920) 555-1212" id="bar-phone" value="" name="custom-64" class="text"></label>
+            <input type="text" placeholder="(920) 555-1212" id="bar-phone" value="" name="phone" class="text"></label>
             <label>Website
             <input type="text" placeholder="" id="liquor_license" value="" name="custom-66" class="text"></label>
         </fieldset>
