@@ -72,6 +72,18 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		'logo'=>'image',
 	);
 
+	public static $addbarrulesapi = array(
+		'barname'=>'required|string',
+		'zipcode'=>array(
+			'required',
+			'min:5',
+			'regex:/(^[0-9 ]{5,5}$)+/'
+		),
+		'email'=>'required|email',
+		'address'=>'required',
+
+		);
+
 	use UserTrait, RemindableTrait;
 
 	/**
@@ -215,19 +227,63 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function findByName($name) {
-		$bar = $this->where('barname', '=', $name)
-					->orWhere('slug', '=', $name)
-					->with('events')
-					->with('upload')
-					->where('status', '=', 1)->first();
+		try {
+			$bar = $this->where('barname', '=', $name)
+				->orWhere('slug', '=', $name)
+				->with('events')
+				->with('upload')
+				->where('status', '=', 1)->firstOrFail();
 
-		$bar->events->each(function($event) {
-			$event->game = \Game::where('gid', '=', $event->gid)->first();
-			$event->apiTransform();
-			//unset($event->barid);
-		});
-		$bar->apiTransform();
-		return $bar;
+			if ($bar->events->count() > 0) {
+				$bar->events->each(function ($event) {
+					$event->game = \Game::where('gid', '=', $event->gid)->first();
+					$event->apiTransform();
+				});
+			}
+			$bar->apiTransform();
+			return $bar;
+		}
+		catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+			return false;
+		}
+	}
+
+	public function findAllByZip($zipcode) {
+		$bars = $this->where('zipcode', '=', $zipcode)
+			->with('events')
+			->with('upload')
+			->where('status', '=', 1)->get();
+		if($bars) {
+			foreach($bars as $bar) {
+				if ($bar->events && $bar->events->count() > 0) {
+					$bar->events->each(function ($event) {
+						$event->game = \Game::where('gid', '=', $event->gid)->first();
+						$event->apiTransform();
+					});
+				}
+				$bar->apiTransform();
+			}
+			return $bars;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public function findByGeo($ll, $ln, $radius){
+		$bars = $this->selectRaw(" *,
+            (6371 * acos( cos( radians(".$ll.") ) * cos( radians( `latitude` ) ) * cos( radians( `longitude` ) - radians(".$ln.") ) + sin( radians(".$ll.") ) * sin( radians( `latitude` ) ) ) ) AS distance")
+			->having('distance', '<=', $radius)
+			->orderBy('distance', 'asc')
+			->with('upload')
+			->get();
+
+		if($bars) {
+			foreach($bars as $bar) {
+				$bar->apiTransform();
+			}
+		}
+		return $bars;
 	}
 
 	public function findByZip($zipcode) {
@@ -235,16 +291,39 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function apiTransform() {
-		unset($this->id);
-		unset($this->uid);
-		unset($this->status);
+		unset($this->id, $this->uid, $this->status);
+		$this->key_name = $this->slug; unset($this->slug);
 		$this->telephone = $this->phone; unset($this->phone);
 		$this->county = null;
 		$this->logo = $this->upload ? $this->upload->logo : null;
 		unset($this->upload);
 		$this->timeAdded = (string) $this->created_at; unset($this->created_at);
-		unset($this->owner_email);
-		unset($this->updated_at);
+		$this->email = $this->owner_email;
+		$this->name = $this->barname;
+		unset($this->owner_email, $this->updated_at, $this->barname);
+		$this->contactFirstName = null;
+		$this->contactLastName = null;
+		$this->favorites = 0;
+		$this->hash = "";
+		$this->latlng = array(
+			'lat' => (float) $this->latitude,
+			'lon' => (float) $this->longitude
+		);
+		unset($this->longitude, $this->latitude);
+	}
+
+	public function createBarApi($uid){
+		$bar = new \Bar;
+		$bar->uid = $uid;
+		$bar->barname = \Input::get('barname');
+		$bar->address = \Input::get('address');
+		$bar->city = \Input::get('city');
+		$bar->zipcode = \Input::get('zipcode');
+		$bar->owner_email = \Input::get('email');
+		$bar->phone = \Input::get('phone');
+		$bar->save();
+		$insertedId = $bar->id;
+		return $insertedId;
 	}
 
 }

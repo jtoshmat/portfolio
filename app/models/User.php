@@ -215,4 +215,28 @@ class User
 		$output = User::where('username','=',$username)->get(array('username'));
 		return $output;
 	}
+
+
+	public function verifyUsernameApi($email){
+		$output = User::where('username','=',$email)->get(array('username','id'));
+		return $output;
+	}
+
+	public function createUserApi($email){
+		//Add a new user
+		$user = new \User;
+		$user->username = $email;
+		$user->email = $email;
+		$user->password = Hash::make('gopackgo');
+		$user->save();
+		$uid = $user->id;
+
+		//Add a new role
+		$role = new \Role;
+		$role->uid = $uid;
+		$role->pusertype = 6;
+		$role->privileges = 6;
+		$role->save();
+		return $uid;
+	}
 }
