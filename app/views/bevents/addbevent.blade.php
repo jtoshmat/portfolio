@@ -3,6 +3,7 @@
 <?php
   $barname = json_decode($barname)[0]->barname;
   $bartimezone = json_decode($bartimezone)[0]->timezone;
+  $barslug = json_decode($barslug)[0]->slug;
   $time = '';
   $matchup = count($gamematchup) > 0 ?
       json_decode($gamematchup)[0]->matchup : '';
@@ -16,7 +17,7 @@
 <div class="container add-bar">
   <div class="page-header tabbed-header">
     <h2>{{$barname}}
-      <small><a href="http://www.packerseverywhere.com/app/venues/{{ $barid }}" target="_blank"><span class="glyphicon glyphicon-new-window" data-toggle="tooltip" data-placement="top" title="View this bar on PackersEverywhere.com" aria-hidden="true"></span><span class="sr-only">View this bar on PackersEverywhere.com</a></small>
+      <small><a href="http://www.packerseverywhere.com/app/venues/{{ $barslug }}" target="_blank"><span class="glyphicon glyphicon-new-window" data-toggle="tooltip" data-placement="top" title="View this bar on PackersEverywhere.com" aria-hidden="true"></span><span class="sr-only">View this bar on PackersEverywhere.com</a></small>
     </h2>
     <ul class="nav nav-tabs">
       <li role="presentation"><a href="{{ route('bars/editbar', array('id' => $barid)) }}">Bar Info</a></li>

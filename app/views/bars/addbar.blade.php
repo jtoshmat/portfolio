@@ -14,9 +14,8 @@ if ($admin===1){
     <div class="col-sm-8">
       {{ Form::open(array("url" => "addbar", "class" => "form-add-bar", "files" => true)) }}
         <div class="form-group">
-          {{-- TODO: This needs to have some kind of user lookup to match email to user ID. --}}
           {{ Form::label(null, "Owner/Admin Email Address") }}
-          {{Form::email('email', $username,  ["class" => "form-control", ''.$readonly.'', "placeholder" => "email used to login to admin tool"])}}
+          {{ Form::email('email', $username,  ["class" => "form-control", ''.$readonly.'', "placeholder" => "email used to login to admin tool", "required"]) }}
         </div>
         <div class="form-group">
           {{ Form::label("barname", "Bar Name") }}
@@ -37,7 +36,6 @@ if ($admin===1){
           <div  class="col-sm-6">
             <div class="form-group">
               {{ Form::label("state", "State/Province/Region") }}
-              {{-- Add javascript handler to swap this out for a select dropdown as necessary on country field change. --}}
               {{ Form::text("state", Input::old("state"), ["class" => "form-control", "required"]) }}
             </div>
           </div>

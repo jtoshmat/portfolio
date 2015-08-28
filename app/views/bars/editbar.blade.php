@@ -12,7 +12,7 @@ if ($admin===1){
 <div class="container edit-bar">
   <div class="page-header tabbed-header">
     <h2>{{ $bar->barname }}
-      <small><a href="http://www.packerseverywhere.com/app/venues/{{ $bar->id }}" target="_blank"><span class="glyphicon glyphicon-new-window" data-toggle="tooltip" data-placement="top" title="View this bar on PackersEverywhere.com" aria-hidden="true"></span><span class="sr-only">View this bar on PackersEverywhere.com</a></small>
+      <small><a href="http://www.packerseverywhere.com/app/venues/{{ $bar->slug }}" target="_blank"><span class="glyphicon glyphicon-new-window" data-toggle="tooltip" data-placement="top" title="View this bar on PackersEverywhere.com" aria-hidden="true"></span><span class="sr-only">View this bar on PackersEverywhere.com</a></small>
     </h2>
     <ul class="nav nav-tabs">
       <li role="presentation" class="active"><a href="{{ route('bars/editbar', array('id' => $bar->id)) }}">Bar Info</a></li>
@@ -24,11 +24,11 @@ if ($admin===1){
       {{ Form::open(array("url" => "editbar/".$bar->id, "class" => "form-edit-bar", "files" => true)) }}
         <div class="form-group">
           {{ Form::label(null, "Owner/Admin Email Address") }}
-          {{Form::email('owner_email', $bar->owner_email,  ["class" => "form-control", ''.$readonly.'', "placeholder" => "email used to login to admin tool"])}}
+          {{ Form::email('owner_email', $bar->owner_email,  ["class" => "form-control", ''.$readonly.'', "placeholder" => "email used to login to admin tool", "required"]) }}
         </div>
         <div class="form-group">
           {{ Form::label("barname", "Bar Name") }}
-          {{Form::text("barname", $bar->barname, ["class" => "form-control", "required"])}}
+          {{ Form::text("barname", $bar->barname, ["class" => "form-control", "required"]) }}
         </div>
         <div class="form-group">
           {{ Form::label("address", "Address") }}
@@ -45,7 +45,6 @@ if ($admin===1){
           <div  class="col-sm-6">
             <div class="form-group">
               {{ Form::label("state", "State/Province/Region") }}
-              {{-- Add javascript handler to swap this out for a select dropdown as necessary on country field change. --}}
               {{ Form::text("state", $bar->state, ["class" => "form-control", "required"]) }}
             </div>
           </div>
