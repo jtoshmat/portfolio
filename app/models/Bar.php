@@ -258,6 +258,22 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		}
 	}
 
+	public function findByGeo($ll, $ln, $radius){
+		$bars = $this->selectRaw(" *,
+            (6371 * acos( cos( radians(".$ll.") ) * cos( radians( `latitude` ) ) * cos( radians( `longitude` ) - radians(".$ln.") ) + sin( radians(".$ll.") ) * sin( radians( `latitude` ) ) ) ) AS distance")
+			->having('distance', '<=', $radius)
+			->orderBy('distance', 'asc')
+			->with('upload')
+			->get();
+
+		if($bars) {
+			foreach($bars as $bar) {
+				$bar->apiTransform();
+			}
+		}
+		return $bars;
+	}
+
 	public function findByZip($zipcode) {
 		return $this->where('zipcode', '=', $zipcode)->with('events')->where('status', '=', 1)->first();
 	}

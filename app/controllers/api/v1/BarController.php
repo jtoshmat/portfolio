@@ -32,12 +32,18 @@ class BarController extends \api\ApiController {
     public function search() {
         $inputs = Input::all();
 
+ 
+
         if(!isset($inputs['ll']) && !isset($inputs['radius']) && !isset($inputs['zipcode'])) {
             return $this->errorResponse('Must provide search parameters', 400);
         }
 
         if(isset($inputs['ll']) && !isset($inputs['radius']) || !isset($inputs['ll']) && isset($inputs['radius'])) {
             return $this->errorResponse('Must provde both ll and radius');
+        }
+
+        if(isset($inputs['ll']) && isset($inputs['radius'])) {
+            return $this->getBarsByGeoData($inputs['ll'],$inputs['ln'], $inputs['radius']);
         }
 
         if(isset($inputs['zipcode'])) {
@@ -49,8 +55,9 @@ class BarController extends \api\ApiController {
             }
     }
 
-    private function getBarsByGeoData($ll, $radius) {
-
+    private function getBarsByGeoData($ll, $ln, $radius) {
+         $bar = $this->bar->findByGeo($ll, $ln, $radius);          
+         return $bar;
     }
 
     private function getBarsByZip($zip){
