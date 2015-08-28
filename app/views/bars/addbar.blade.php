@@ -36,7 +36,6 @@ if ($admin===1){
           <div  class="col-sm-6">
             <div class="form-group">
               {{ Form::label("state", "State/Province/Region") }}
-              {{-- Add javascript handler to swap this out for a select dropdown as necessary on country field change. --}}
               {{ Form::text("state", Input::old("state"), ["class" => "form-control", "required"]) }}
             </div>
           </div>
