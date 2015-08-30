@@ -23,20 +23,17 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'min:2',
 			'regex:/(^[A-Za-z0-9 ]+$)+/'
 		),
-		'city'=>array(
-			'required',
-			'min:2',
-			'regex:/(^[A-Za-z0-9 ]+$)+/'
-		),
+		'city'=>'required | string',
+		/*
 		'state'=>array(
 			'required',
-			'min:2',
+			'min:2
 			'regex:/(^[A-Z]{2}+$)+/'
-		),
+		),*/
 		'zipcode'=>array(
 			'required',
 			'min:5',
-			'regex:/(^[0-9 ]{5,5}$)+/'
+			'regex:/([A-Z0-9 ]{5,10}$)+/'
 		),
 		'website'=>'active_url|min:7',
 		'timezone'=>'required',
@@ -58,15 +55,16 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'min:2',
 			'regex:/(^[A-Za-z0-9 ]+$)+/'
 		),
+		/*
 		'state'=>array(
 			'required',
 			'min:2',
 			'regex:/(^[A-Z]{2}+$)+/'
-		),
+		),*/
 		'zipcode'=>array(
 			'required',
 			'min:5',
-			'regex:/(^[0-9 ]{5,5}$)+/'
+			'regex:/([A-Z0-9 ]{5,10}$)+/'
 		),
 		'website'=>'active_url|min:7',
 		'logo'=>'image',

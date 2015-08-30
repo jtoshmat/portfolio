@@ -6,9 +6,9 @@
   $barslug = json_decode($barslug)[0]->slug;
   $time = '';
   $matchup = count($gamematchup) > 0 ?
-      json_decode($gamematchup)[0]->matchup : '';
+      $gamematchup: '';
   if (count($gametime) > 0) {
-    $dateTime = new DateTime(json_decode($gametime)[0]->game_time,
+    $dateTime = new DateTime($gametime,
         new DateTimeZone('US/Central'));
     $dateTime->setTimeZone(new DateTimeZone($bartimezone));
     $time = $dateTime->format('m/d/Y g:i A');
@@ -24,7 +24,11 @@
       <li role="presentation" class="active"><a href="{{ route('bevents/bevents', array('id' => $barid)) }}">Events</a></li>
     </ul>
   </div>
+  @if ($gamematchup)
+  <h3>Add Event for {{$gamematchup}} game.</h3>
+  @else
   <h3>Add Event</h3>
+  @endif
   <div class="row">
     <div class="col-sm-8">
       {{ Form::open(array("url" => "addbevent/$barid?gid=".$gid, "class" => "form-add-bar")) }}

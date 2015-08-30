@@ -22,7 +22,11 @@
   <h3>Edit Event</h3>
   <div class="row">
     <div class="col-sm-8">
-      {{ Form::model($bevent, array('url' => 'editbevent/'.$bevent->bid.'?gid='.$gid, "class" => "form-edit-bar")) }}
+      <?php
+       $gid = isset($gid)?'?gid='.$gid:null;
+
+      ?>
+      {{ Form::model($bevent, array('url' => 'editbevent/'.$bevent->bid.$gid, "class" => "form-edit-bar")) }}
         <div class="form-group">
           {{ Form::label("datetime", "Local Date and Time") }}
           {{ Form::text("datetime", $eventtime, ["class" => "form-control datetime-picker"]) }}

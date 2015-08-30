@@ -81,14 +81,13 @@ class BarController extends \BaseController {
 					}
 					if (empty($em)){
 						$user = new User;
-						$user->createProfile($email);
+						$uid = $user->createProfile($email);
 
 					}else{
 						$userdata = User::where('username','=',$email)->get(array('id'));
 						foreach ($userdata as $usd){}
 						$uid = $usd->id;
 					}	
-
 
 					$Bar = new Bar();
 

@@ -216,6 +216,24 @@ class User
 		return $output;
 	}
 
+	public function createProfile($email){
+		//Add a new user
+		$user = new \User;
+		$user->username = $email;
+		$user->email = $email;
+		$user->password = Hash::make('gopackgo');
+		$user->save();
+		$uid = $user->id;
+
+		//Add a new role
+		$role = new \Role;
+		$role->uid = $uid;
+		$role->pusertype = 6;
+		$role->privileges = 6;
+		$role->save();
+		return $uid;
+	}
+
 
 	public function verifyUsernameApi($email){
 		$output = User::where('username','=',$email)->get(array('username','id'));
