@@ -31,9 +31,9 @@ class BarController extends \BaseController {
 		}
 		$bars = $this->bars->getBars();
 		if ($bars){
-			return View::make('bars/bars')->with('bars', $bars);
+			return View::make('bars/bars')->with('bars', $bars, Auth::user()->username)->with('admin', $this->isAdmin());
 		}
-		return View::make('bars/addbar')->with('username',Auth::user()->username)->with('admin', $this->isAdmin());
+		return View::make('bars/addbar')->with('username', Auth::user()->username)->with('admin', $this->isAdmin());
 	}
 
 	public function approveBar()
