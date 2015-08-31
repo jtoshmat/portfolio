@@ -59,9 +59,14 @@
           <td>{{ ucfirst($game->location) }}</td>
           <td>{{ $game->tv }}</td>
           <td>{{ $game->description }}</td>
+          @if($isAdmin)
           <td class="text-center"><a href="/editgame/{{$game->gid}}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip"
            data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Game Information</span></a></td>
         </tr>
+        @else
+        <td>&nbsp</td>
+
+        @endif
   			@endforeach
   		</tbody>
   	</table>
