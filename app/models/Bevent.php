@@ -73,10 +73,10 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function getBevent(){
 		$bid = (int) Request::segment(2);
-		if ($this->isAdmin()===1) {
+		if ($this->isAdmin()==1) {
 			return Bevent::where('bid', '=', $bid)->firstOrFail();
 		}
-		if ($this->isAdmin()===0) {
+		if ($this->isAdmin()==0) {
 			return Bevent::where('bid', '=', $bid)->firstOrFail();
 		}
 	}

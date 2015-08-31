@@ -139,10 +139,10 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function getBar(){
 		$id = (int) Request::segment(2);
-		if ($this->isAdmin()===1) {
+		if ($this->isAdmin()==1) {
 			return Bar::where('id', '=', $id)->firstOrFail();
 		}
-		if ($this->isAdmin()===0) {
+		if ($this->isAdmin()==0) {
 			return Bar::where('id', '=', $id)->where('uid', '=', Auth::user()->id)->firstOrFail();
 		}
 		return false;

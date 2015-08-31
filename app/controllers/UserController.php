@@ -170,7 +170,7 @@ extends Controller
 	  }
 	  $roles = array();
 	  $privileges = array();
-	  if ($this->isAdmin()===1){
+	  if ($this->isAdmin()==1){
 	      $roles[1]='Super Admin';
 	      $privileges[7] = 'All Privieleges';
 	  }
@@ -178,7 +178,7 @@ extends Controller
 	  $privileges[6] = 'Read and Write';
 	  $privileges[4] = 'Read Only';
 
-	  if ($this->isAdmin()===0){
+	  if ($this->isAdmin()==0){
 	      $roles=NULL;
 	  }
 
@@ -246,7 +246,7 @@ extends Controller
 
 	  $roles = array();
 	  $privileges = array();
-	  if ($this->isAdmin()===1){
+	  if ($this->isAdmin()==1){
 	      $roles[1]='Super Admin';
 	      $privileges[7] = 'All Privieleges';
 	  }
@@ -257,7 +257,7 @@ extends Controller
 	  $privileges[6] = 'Read and Write';
 	  $privileges[4] = 'Read Only';
 
-	  if ($this->isAdmin()===0){
+	  if ($this->isAdmin()==0){
 	      $roles=NULL;
 	  }
 	  $users = $this->User->getUser($id);
