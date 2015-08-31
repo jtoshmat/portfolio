@@ -342,21 +342,23 @@ if ($admin===1){
           <div class="col-xs-6">
       			<?php
       				$status = '';
-      				if ($bar->status === 1) {
+      				if ($bar->status == 1) {
       					$status = 'approved';
-      				} else if ($bar->status === 0) {
+      				} else if ($bar->status == 0) {
         				$status = 'awaiting-approval';
-      				} else if ($bar->status === -1) {
+      				} else if ($bar->status == -1) {
         				$status = 'rejected';
       				}
       			?>
             <ul id="edit-bar-actions" class="list-inline edit-actions {{ $status }}">
+              @if ($admin)
               <li>
                 <a data-barid="{{ $bar->id }}" data-status="approved" href="#" class="dynamic-action action-approve-bar"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve Bar</span></a>
               </li>
               <li>
                 <a data-barid="{{ $bar->id }}" data-status="rejected" href="#" id="reject-bar" class="dynamic-action action-reject-bar"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject Bar</span></a>
               </li>
+              @endif
               <li>
                 <a data-barid="{{ $bar->id }}"  href="#" id="delete-bar"class="action-delete-bar"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Bar</span></a>
               </li>

@@ -46,11 +46,11 @@
       @foreach($bars as $bar)
   			<?php
   				$status = '';
-  				if ($bar->status === 1) {
+  				if ($bar->status == 1) {
   					$status = 'approved';
-  				} else if ($bar->status === 0) {
+  				} else if ($bar->status == 0) {
     				$status = 'awaiting-approval';
-  				} else if ($bar->status === -1) {
+  				} else if ($bar->status == -1) {
     				$status = 'rejected';
   				}
   			$bar->totalGames = isset($bar->totalGames)?$bar->totalGames:0;
@@ -64,8 +64,10 @@
           <td>{{ $bar->website }}</td>
           <td>
             <div class="edit-actions {{ $status }}">
+              @if ($admin)
               <a data-barid="{{$bar->id}}" data-status="approved" class="dynamic-action action-approve-bar " href="#"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="bottom" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve This Bar</span></a>
               <a data-barid="{{$bar->id}}" data-status="rejected" href="#" class="dynamic-action action-reject-bar"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="bottom" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject This Bar</span></a>
+              @endif
               <a class="action-edit-events" href="{{ route('bevents/bevents', array('id' => $bar->id)) }}"><span class="glyphicon glyphicon-calendar" data-toggle="tooltip" data-placement="bottom" title="Events" aria-hidden="true"></span><span class="sr-only">Edit Events</span></a>
               <a href="{{ route('bars/editbar', array('id' => $bar->id)) }}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Bar Information</span></a>
             </div>
