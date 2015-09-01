@@ -17,9 +17,11 @@
           </select>
         </label>
       </div>
+      @if ($admin)
       <div class="col-xs-4 text-right">
       	<a href="{{ URL::route("games/addgame",array('bid'=>1)) }}" class="btn btn-primary">Add Game</a>
       </div>
+      @endif
     </div>
   </div>
 
