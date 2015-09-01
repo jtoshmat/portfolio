@@ -15,7 +15,7 @@
       @if (Auth::check())
         <li role="presentation" class="visible-xs-block"><a href="{{ URL::route("bars") }}">Bar Index</a></li>
         <li role="presentation" class="visible-xs-block"><a href="{{ URL::route("games/allgames") }}">Season Schedule</a></li>
-      	<li>
+        <li>
 	        <a href="http://www.packerseverywhere.com/app" target="_blank">View App</a>
       	</li>
       	<li>
@@ -39,6 +39,11 @@
     <ul class="nav navbar-nav">
       <li role="presentation"><a href="{{ URL::route("bars") }}">Bar Index</a></li>
       <li role="presentation"><a href="{{ URL::route("games/allgames") }}">Season Schedule</a></li>
+      @if (Auth::user()->admin == 1)
+        <li role="presentation"><a href="{{ url("admin/users") }}">Edit Users</a></li>
+      @else
+        <li role="presentation"><a href="{{ URL::route("user.edit") }}">Edit Profile</a></li>
+      @endif
     </ul>
   </div>
 </div>

@@ -205,31 +205,16 @@
 			return $id;
 		});
 
-//            Route::get("user", [
-//                "as"   => "user",
-//                "uses" => "UserController@getUser"
-//            ],function($id){
-//                return $id;
-//            });
+		Route::get("admin/users/{id}", 'UserController@adminEditUser');
+		Route::get("admin/users", 'UserController@adminIndex');
+		Route::any("user/edit", array('as' => 'user.edit', 'uses' => 'UserController@editUser'));
 
-
-
-
-
-		/*            Route::get('user/{id}', array('as' => 'user', function($id)
-					{
-						// return our view and Nerd information
-						return View::make('users/user') // pulls app/views/nerd-edit.blade.php
-						->with('nerd', User::find($id));
-					}));*/
-
-		Route::any('user/{id}', [
-
-			"as"   => "user",
-			"uses" => "UserController@getUser"
-		],function($id){
-			return $id;
-		});
+//		Route::any('user/{id}', [
+//			"as"   => "user",
+//			"uses" => "UserController@getUser"
+//		],function($id){
+//			return $id;
+//		});
 
 		Route::any('user/delete/{id}', [
 			"as"   => "user/delete",

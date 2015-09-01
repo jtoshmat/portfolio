@@ -235,32 +235,8 @@ extends Controller
 	  //$id = (int) Request::query('id');
 	  $id = (int) Request::segment(2);
 
+	  $user = User::find($id);
 
-
-
-
-	  //$users = DB::select(DB::raw('select * from user where parentid='.Auth::user()->id.' or id='.Auth::user()->id));
-	  //$users = DB::select(DB::raw('select * from user left join roles on user.id=roles.uid where id='.$id))->get();
-	  $users = User::find($id);
-
-
-	  $roles = array();
-	  $privileges = array();
-	  if ($this->isAdmin()==1){
-	      $roles[1]='Super Admin';
-	      $privileges[7] = 'All Privieleges';
-	  }
-
-	  $roles[2]='Bar Admin';
-
-
-	  $privileges[6] = 'Read and Write';
-	  $privileges[4] = 'Read Only';
-
-	  if ($this->isAdmin()==0){
-	      $roles=NULL;
-	  }
-	  $users = $this->User->getUser($id);
 	  $method = Request::method();
 	  if (Request::isMethod('post'))
 	  {
@@ -294,7 +270,103 @@ extends Controller
 		  }
 		}
 
-	  return View::make("user/user")->with('users', $users)->with('roles',$roles)->with('privileges',$privileges);
+	  return View::make("user/user")->with('user', $user);
+	}
+
+	public function adminEditUser($id){
+		if ($this->isNotAuthorized()) {
+			return View::make($this->isNotAuthorized());
+		}
+
+		if (Auth::user()->admin==0) {
+			return Redirect::to('/')->with('message', 'That page is restricted.');
+		}
+
+		$user = $this->User->findById($id);
+
+		if(!$user){
+			return Redirect::to('admin/users')->with('message', 'User not found');
+		}
+
+		$method = Request::method();
+		if (Request::isMethod('post'))
+		{
+
+			$validator = Validator::make(Input::all(), User::$userSelfUpdate);
+			$roles = Input::get('roles');
+			$id = Input::get('id');
+
+			if ($validator->passes()) {
+				$id = Input::get('id');
+
+				$fillable = array(
+					'email' => Input::get('email'),
+					'password' => Hash::make(Input::get('password')),
+					'username' => Input::get('username')
+				);
+				$user = User::where('id', '=', $id)->update($fillable);
+
+				return Redirect::to('user/edit')->withErrors('Updated');
+
+			} else {
+				return Redirect::to('user/edit')->with('message', 'The following errors occurred')->withErrors
+				($validator)
+					->withInput();
+			}
+		}
+
+		return View::make("user/user")->with('user', $user);
+	}
+
+	public function editUser(){
+		if ($this->isNotAuthorized()){
+			return View::make($this->isNotAuthorized());
+		}
+
+		$user = Auth::user();
+
+		$method = Request::method();
+		if (Request::isMethod('post'))
+		{
+
+			$validator = Validator::make(Input::all(), User::$userSelfUpdate);
+			$roles = Input::get('roles');
+			$id = Input::get('id');
+
+			if ($validator->passes()) {
+				$id = Input::get('id');
+
+				$fillable = array(
+					'email' => Input::get('email'),
+					'password' => Hash::make(Input::get('password')),
+					'username' => Input::get('username')
+				);
+				$user = User::where('id', '=', $id)->update($fillable);
+
+				return Redirect::to('user/edit')->withErrors('Updated');
+
+			} else {
+				return Redirect::to('user/edit')->with('message', 'The following errors occurred')->withErrors
+				($validator)
+					->withInput();
+			}
+		}
+
+		return View::make("user/user")->with('user', $user);
+	}
+
+	public function adminindex() {
+		if ($this->isNotAuthorized()) {
+			return View::make($this->isNotAuthorized());
+		}
+
+		if (Auth::user()->admin==0) {
+			return Redirect::to('/')->with('message', 'That page is restricted.');
+		}
+
+		$users = $this->User->index();
+
+		return View::make('admin/users')->with('users', $users);
 	}
 
 	public function deleteUser(){
