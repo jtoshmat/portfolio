@@ -3,6 +3,7 @@
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
+use Packers\Services\Mailers\BarApprovalMailer;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
 class Bar extends Eloquent implements UserInterface, RemindableInterface {
@@ -93,8 +94,11 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $rzd;
 
+	protected $mailer;
+
 	public function __construct() {
 		$this->rzd = new RefZipDetails;
+		$this->mailer = new BarApprovalMailer;
 	}
 
 	public function upload() {
@@ -103,6 +107,10 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function events() {
 		return $this->hasMany('Bevent', 'barid');
+	}
+
+	public function user() {
+		return $this->belongsTo('User', 'uid');
 	}
 
 	protected function isAdmin(){
@@ -151,9 +159,15 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	public function approveBar(){
 		$val = (int) Request::get('val');
 		$bid = (int) Request::segment(4);
-		$bar =Bar::find($bid);
-		$bar->status = $val;
+		$bar = Bar::where('id', '=', $bid)->with('user')->first();
+		$bar->status = 1;
 		$bar->save();
+
+		//send the associated user a welcome email
+		$user = $bar->user;
+		if($user) {
+			$this->mailer->run($user, $bar);
+		}
 		return true;
 	}
 

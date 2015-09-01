@@ -42,7 +42,7 @@ class BarController extends \BaseController {
 			return View::make($this->isNotAuthorized());
 		}
 		$bars = $this->bars->approveBar();
-		return 'The bar status has been updated';
+		return Redirect::to('bars')->with('message', 'Bar has been approved!');
 	}
 
 	public function bar()
