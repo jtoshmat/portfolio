@@ -169,6 +169,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'phone' => Input::get('phone'),
 			'website' => Input::get('website'),
 			'description' => Input::get('description'),
+			'owner_email' => Input::get('email')
 		);
 
 		$geoData = $this->geocodeBar($insertData['zipcode']);
@@ -196,10 +197,12 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		'zipcode' => Input::get('zipcode'),
 		'phone' => Input::get('phone'),
 		'website' => Input::get('website'),
-		'owner_email' => Input::get('owner_email'),
 		'description' => Input::get('description'),
-			
 		);
+
+		if(!empty(\Input::get('owner_email'))) {
+			$fillable['owner_email'] = Input::get('owner_email');
+		}
 
 		$geoData = $this->geocodeBar($fillable['zipcode']);
 		if($geoData) {

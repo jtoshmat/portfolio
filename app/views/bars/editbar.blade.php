@@ -1,12 +1,12 @@
 @extends("layout")
 @section("content")
 <?php
-foreach ($bars as $bar){
-}
+
 
 $readonly = 'readonly';
 if ($admin===1){
 	$readonly = '';
+  //dd($bar);
 }
 ?>
 <div class="container edit-bar">
@@ -22,10 +22,12 @@ if ($admin===1){
   <div class="row">
     <div class="col-sm-8">
       {{ Form::open(array("url" => "editbar/".$bar->id, "class" => "form-edit-bar", "files" => true)) }}
+        @if($admin == 1)
         <div class="form-group">
           {{ Form::label(null, "Owner/Admin Email Address") }}
-          {{ Form::email('owner_email', $bar->owner_email,  ["class" => "form-control", ''.$readonly.'', "placeholder" => "email used to login to admin tool", "required"]) }}
+          {{ Form::email('owner_email', $bar_owner->email,  ["class" => "form-control", ''.$readonly.'', "placeholder" => "email used to login to admin tool", "required"]) }}
         </div>
+        @endif
         <div class="form-group">
           {{ Form::label("barname", "Bar Name") }}
           {{ Form::text("barname", $bar->barname, ["class" => "form-control", "required"]) }}

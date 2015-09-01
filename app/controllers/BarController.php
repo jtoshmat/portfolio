@@ -108,12 +108,14 @@ class BarController extends \BaseController {
 
 			}
 
-	 
-		$bars = DB::select(DB::raw('select * from bars as b left join uploads as upl on b.id=upl.bid where b.id='.$id.' group by b.id'));
- 
-		if ($bars){
-			return View::make('bars/editbar')->with('bars', $bars)->with('username',Auth::user()->username)->with
-			('admin', $this->isAdmin());
+
+		$bar = Bar::where('id', '=', $id)->with('upload')->with('user')->first();
+		if ($bar){
+			if($bar->upload) {
+				$bar->filename = $bar->upload->filename;
+			}
+			return View::make('bars/editbar')->with('bar', $bar)->with('username', Auth::user()->username)->with
+			('admin', $this->isAdmin())->with('bar_owner', $bar->user);
 		}
 		return $bars;
 		return View::make('user/403');
