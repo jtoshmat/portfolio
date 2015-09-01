@@ -19,11 +19,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 	public static $addrules = array(
 		'barname'=>'required|string',
-		'address'=>array(
-			'required',
-			'min:2',
-			'regex:/(^[A-Za-z0-9 ]+$)+/'
-		),
+		'address'=>'required|string',
 		'city'=>'required | string',
 		/*
 		'state'=>array(
@@ -41,21 +37,9 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	);
 
 	public static $updatebarrules = array(
-		'barname'=>array(
-			'required',
-			'min:2',
-			'regex:/(^[A-Za-z0-9 ]+$)+/'
-		),
-		'address'=>array(
-			'required',
-			'min:2',
-			'regex:/(^[A-Za-z0-9 ]+$)+/'
-		),
-		'city'=>array(
-			'required',
-			'min:2',
-			'regex:/(^[A-Za-z0-9 ]+$)+/'
-		),
+		'barname'=>'required|string',
+		'address'=>'required|string',
+		'city'=>'required|string',
 		/*
 		'state'=>array(
 			'required',
