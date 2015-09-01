@@ -198,11 +198,8 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		'phone' => Input::get('phone'),
 		'website' => Input::get('website'),
 		'description' => Input::get('description'),
+		'owner_email' => Input::get('owner_email')
 		);
-
-		if(!empty(\Input::get('owner_email'))) {
-			$fillable['owner_email'] = Input::get('owner_email');
-		}
 
 		$geoData = $this->geocodeBar($fillable['zipcode']);
 		if($geoData) {
