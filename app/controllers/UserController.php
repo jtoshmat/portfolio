@@ -355,7 +355,7 @@ extends Controller
 		return View::make("user/user")->with('user', $user);
 	}
 
-	public function adminindex() {
+	public function adminIndex() {
 		if ($this->isNotAuthorized()) {
 			return View::make($this->isNotAuthorized());
 		}
@@ -373,18 +373,21 @@ extends Controller
 	  if ($this->isNotAuthorized()){
 		  return 'Unauthorized Access';
 	  }
+	  if (Auth::user()->admin == 0){
+		  return Redirect::to('/')->with('message', 'That page is restricted.');
+	  }
 	  $id = (int) Request::segment(3);
 
 		$method = Request::method();
 		if (Request::isMethod('post'))
 		{
-			$validator = Validator::make(Input::all(), Bar::$deleteUser);
+			$validator = Validator::make(Input::all(), User::$deleteUser);
 			if ($validator->passes()) {
 				\Session::flash('mymessage','The User has been deleted');
-				return 'The user id: '.$id.' has been deleted';
+				return Redirect::back()->with('message', 'User #'.$id.' has been deleted');
 			}else{
 				\Session::flash('mymessage','The User can not been deleted');
-				return 'The user id: '.$id.' can not been deleted';
+				return Redirect::back()->with('error', 'Error deleting user #'.$id);
 			}
 		}
 		\Session::flash('mymessage','Validation failed');
