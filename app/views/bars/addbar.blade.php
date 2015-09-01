@@ -36,7 +36,7 @@ if ($admin===1){
           <div  class="col-sm-6">
             <div class="form-group">
               {{ Form::label("state", "State/Province/Region") }}
-              {{ Form::text("state", Input::old("state"), ["class" => "form-control", "required"]) }}
+              {{ Form::text("state", Input::old("state"), ["class" => "form-control"]) }}
             </div>
           </div>
           <div class="col-sm-6">
