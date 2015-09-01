@@ -4,9 +4,8 @@
 
 
 $readonly = 'readonly';
-if ($admin===1){
+if ($admin == 1){
 	$readonly = '';
-  //dd($bar);
 }
 ?>
 <div class="container edit-bar">
