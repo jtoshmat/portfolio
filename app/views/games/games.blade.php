@@ -28,8 +28,10 @@
   		<thead>
   			<tr>
     			<th class="text-center">
+      			@if ($admin)
         		<a href="#" id="delete-selected-games"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="right" title="Delete Selected Games" aria-hidden="true"></span><span class="sr-only">Delete Selected Games</span></a>
         		<input type="checkbox" class="table-toggle">
+	      		@endif
       		</th>
   				<th>Date</th>
   				<th>Time
@@ -39,7 +41,11 @@
           <th>Home/Away</th>
   				<th>TV</th>
   				<th>Notes</th>
-  				<th><span class="sr-only">Actions</span></th>
+  				<th>
+    				@if ($admin)
+    				<span class="sr-only">Actions</span>
+    				@endif
+  				</th>
   			</tr>
   		</thead>
   		<tbody>
@@ -52,21 +58,30 @@
   			$gameTimeString = $dateTime->format('Gi');
   			?>
         <tr>
-          <td class="text-center"><input type="checkbox" class="checkbox-delete" data-gid="{{ $game->gid }}"></td>
-          <td data-order="{{ $gameUnix }}" data-filter="{{ $gameUnix }}"><a href="/editgame/{{$game->gid}}">{{ $gameDate }}</a></td>
+          <td class="text-center">
+            @if ($admin)
+            <input type="checkbox" class="checkbox-delete" data-gid="{{ $game->gid }}">
+            @endif
+          </td>
+          <td data-order="{{ $gameUnix }}" data-filter="{{ $gameUnix }}">
+            @if ($admin)
+            <a href="/editgame/{{$game->gid}}">{{ $gameDate }}</a>
+            @else
+            {{ $gameDate }}
+            @endif
+          </td>
           <td data-order="{{ $gameTimeString }}">{{ $gameTime }}</td>
           <td>{{ $game->matchup }}</td>
           <td>{{ ucfirst($game->location) }}</td>
           <td>{{ $game->tv }}</td>
           <td>{{ $game->description }}</td>
-          @if($isAdmin)
-          <td class="text-center"><a href="/editgame/{{$game->gid}}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip"
-           data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Game Information</span></a></td>
+          <td class="text-center">
+            @if ($admin)
+            <a href="/editgame/{{$game->gid}}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip"
+           data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Game Information</span></a>
+           @endif
+         </td>
         </tr>
-        @else
-        <td>&nbsp</td>
-
-        @endif
   			@endforeach
   		</tbody>
   	</table>

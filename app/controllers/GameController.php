@@ -11,14 +11,14 @@
 		public function __construct(){
 			$this->games = new Game();
 		}
-		
+
 		protected function isAdmin(){
 			return Auth::user()->admin;
 		}
 
 		public function allgames(){
 			$games = $this->games->getAllGames();
-			return View::make('games/games')->with('games', $games)->with('isAdmin', $this->isAdmin());
+			return View::make('games/games')->with('games', $games)->with('admin', $this->isAdmin());
 		}
 
 		public function games(){
