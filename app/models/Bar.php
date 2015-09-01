@@ -160,13 +160,13 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		$val = (int) Request::get('val');
 		$bid = (int) Request::segment(4);
 		$bar = Bar::where('id', '=', $bid)->with('user')->first();
-		$bar->status = 1;
+		$bar->status = $val;
 		$bar->save();
 
-		//send the associated user a welcome email
+		//send the associated user a ( welcome | approved | rejected ) email (only the first time each action happens)
 		$user = $bar->user;
 		if($user) {
-			$this->mailer->run($user, $bar);
+			$this->mailer->run($user, $bar, $val);
 		}
 		return true;
 	}
@@ -328,11 +328,24 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		$bar = new \Bar;
 		$bar->uid = $uid;
 		$bar->barname = \Input::get('barname');
+		$bar->slug = Str::slug($bar->barname);
 		$bar->address = \Input::get('address');
 		$bar->city = \Input::get('city');
 		$bar->zipcode = \Input::get('zipcode');
 		$bar->owner_email = \Input::get('email');
+		$bar->website = \Input::get('website');
+		$bar->description = \Input::get('description');
 		$bar->phone = \Input::get('phone');
+		$bar->from_api = 1;
+
+		$geoData = $this->geocodeBar($bar->zipcode);
+		if($geoData) {
+			$bar->latitude = $geoData['latitude'];
+			$bar->longitude = $geoData['longitude'];
+			$bar->state = $geoData['state_cd'];
+			$bar->country = 'US';
+		}
+
 		$bar->save();
 		$insertedId = $bar->id;
 		return $insertedId;

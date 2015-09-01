@@ -11,4 +11,13 @@ abstract class ApiController extends \BaseController
         ), $code);
         return $response;
     }
+
+    public function apiResponse($data) {
+        $response = \Response::json(array(
+            'status' => 'OK',
+            'data' => $data
+        ), 200);
+        return $response;
+    }
+
 }

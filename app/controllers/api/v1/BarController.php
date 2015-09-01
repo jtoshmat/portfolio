@@ -76,15 +76,6 @@ class BarController extends \api\ApiController {
         return !empty($geoData) ? $geoData->toArray() : false;
     }
 
-    public function apiVenueResponse($data) {
-        $response = \Response::json(array(
-            'status' => 'OK',
-            'location' => $data
-        ), 200);
-        return $response;
-    }
-
-
     public function createBar(){
             $method = \Request::method();
             if (\Request::isMethod('post'))
@@ -113,7 +104,7 @@ class BarController extends \api\ApiController {
                     if (\Input::hasFile('logo')){
                         $uploadedFileName = $BarController->uploadLogoApi($bid,$uid);
                     }
-                    return $this->errorResponse('Success', 200);
+                    return $this->apiResponse(array('message' => 'success'), 200);
 
                 }
                 return $this->errorResponse($validator->errors()->all(), 404);
@@ -123,6 +114,14 @@ class BarController extends \api\ApiController {
 
     public function createBarForm(){
             return \View::make('bars/addbarapi');
+    }
+
+    public function apiVenueResponse($data) {
+        $response = \Response::json(array(
+            'status' => 'OK',
+            'location' => $data
+        ), 200);
+        return $response;
     }
 
 }

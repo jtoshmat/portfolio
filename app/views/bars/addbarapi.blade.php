@@ -18,7 +18,7 @@
             <label>Contact Phone
             <input type="text" placeholder="(920) 555-1212" id="bar-phone" value="" name="phone" class="text"></label>
             <label>Website
-            <input type="text" placeholder="" id="liquor_license" value="" name="custom-66" class="text"></label>
+            <input type="text" placeholder="" id="liquor_license" value="" name="website" class="text"></label>
         </fieldset>
         <fieldset class="wide">
             <legend>More Info</legend>
@@ -30,7 +30,7 @@
         <fieldset>
             <legend>Your Establishment</legend>
             <p class="textarea-label">Why should Packers Fans come to your bar? Any specials? Number of TVs or seats?
-            <textarea cols="40" rows="8" name="custom-67"></textarea></p>
+            <textarea cols="40" rows="8" name="description"></textarea></p>
             <input type="submit" id="bar-submit" value="Join the Pack" name="submit" class="submit button button-yellow floatr">
             
 

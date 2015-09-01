@@ -41,6 +41,9 @@ class BarController extends \BaseController {
 		if ($this->isNotAuthorized()){
 			return View::make($this->isNotAuthorized());
 		}
+		if (Auth::user()->admin == 0){
+			return Redirect::to('bars')->with('error', 'You do not have privileges for this action.');
+		}
 		$bars = $this->bars->approveBar();
 		return Redirect::to('bars')->with('message', 'Bar has been approved!');
 	}
