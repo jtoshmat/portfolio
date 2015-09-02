@@ -2,7 +2,7 @@
 @section("content")
   <div class="container edit-user">
     <div class="page-header">
-      <h2>Edit Info <small>{{ $user->username }}</small></h2>
+      <h2>Edit User <small>{{ $user->username }}</small></h2>
     </div>
     <div class="row">
       <div class="col-sm-8">
