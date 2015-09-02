@@ -28,7 +28,7 @@
       ?>
       {{ Form::model($bevent, array('url' => 'editbevent/'.$bevent->bid.$gid, "class" => "form-edit-bar")) }}
         <div class="form-group">
-          {{ Form::label("datetime", "Local Date and Time") }}
+          {{ Form::label("datetime", "Time listed is in the US/Central timezone.") }}
           {{ Form::text("datetime", $eventtime, ["class" => "form-control datetime-picker"]) }}
           <div class="text-right"><small>Time listed is in the {{ str_replace('_', ' ', $bartimezone) }} timezone.</small></div>
         </div>

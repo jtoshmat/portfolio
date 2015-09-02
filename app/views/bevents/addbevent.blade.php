@@ -33,7 +33,7 @@
     <div class="col-sm-8">
       {{ Form::open(array("url" => "addbevent/$barid?gid=".$gid, "class" => "form-add-bar")) }}
         <div class="form-group">
-          {{ Form::label("datetime", "Local Date and Time") }}
+          {{ Form::label("datetime", "Time listed is in the US/Central timezone.") }}
           {{ Form::text("datetime", Input::old("datetime") ? Input::old("datetime") : $time, ["class" => "form-control datetime-picker"]) }}
           <div class="text-right"><small>Time listed is in the {{ str_replace('_', ' ', $bartimezone) }} timezone.</small></div>
         </div>
