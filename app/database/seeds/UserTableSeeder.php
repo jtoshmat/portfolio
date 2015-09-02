@@ -20,6 +20,12 @@ class UserTableSeeder
           "email"    => "testAdmin@packerseverywhere.com",
           "admin"    => 1
       ],
+      [
+          "username" => "uitester@packerseverywhere.com",
+          "password" => Hash::make("gopackgo"),
+          "email"    => "testAdmin@packerseverywhere.com",
+          "admin"    => 0
+      ],
     ];
 
     foreach ($users as $user) {
