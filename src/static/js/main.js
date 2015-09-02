@@ -482,6 +482,35 @@ $(document).ready(function(){
 
 
   /**
+   * User list view handlers.
+   */
+  if ($('#user-listing-table').length > 0) {
+    var userTable = $('#user-listing-table').DataTable({
+      columnDefs: [
+        {
+          orderable: false,
+          targets: [0, 4]
+        },
+        {
+          searchable: false,
+          targets: [0, 4]
+        }
+      ],
+      order: [[ 0, 'asc' ]]
+    });
+
+    $('.delete-user').on('click', function(e) {
+      e.preventDefault();
+      var conf = confirm('Are you sure you want to delete this user?');
+
+      if (conf) {
+        $(e.currentTarget).closest('form.delete-user-form').submit();
+      }
+    });
+  }
+
+
+  /**
    * Initialize datetime pickers.
    */
   $('.datetime-picker').datetimepicker({
