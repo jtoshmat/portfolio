@@ -103,12 +103,7 @@ class User
 	}
 
 	public function index() {
-		Cache::forget('users.all');
-		$allUsers = Cache::remember('users.all', 30, function() {
-			return User::all();
-		});
-
-		return $allUsers;
+		return User::all();
 	}
 
 	public function findById($id) {
