@@ -320,7 +320,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		$bar->website = \Input::get('website');
 		$bar->description = \Input::get('description');
 		$bar->phone = \Input::get('phone');
-		//$bar->from_api = 1;
+		$bar->from_api = 1;
 
 		$geoData = $this->geocodeBar($bar->zipcode);
 		if($geoData) {
