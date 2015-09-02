@@ -73,12 +73,19 @@ class BeventsController extends \BaseController {
 				$gid = (int) Request::query('gid');
 				if ($gid){
 					$game_time = DB::select(DB::raw('select game_time from games where gid='.$gid.''));
+
 					$game_time = strtotime($game_time[0]->game_time);
 					$datetime = strtotime($datetime);
-					if ($datetime!==$game_time){
+
+					$game_dt = new DateTime(date('Y-m-d', $game_time));
+					$input_dt = new DateTime(date('Y-m-d', $datetime));
+
+					 
+				 	if(date('Y-m-d', $game_time) != date('Y-m-d', $datetime)){
 						return Redirect::to('editbevent/'.$bid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
-					('The event time must match the game time');
-					}
+						('The event date must match the game date');				
+				 	}
+				  
 				}
 
 				$Bevent = new Bevent();
