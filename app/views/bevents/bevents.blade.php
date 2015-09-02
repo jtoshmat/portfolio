@@ -74,7 +74,7 @@ $barslug = json_decode($barslug)[0]->slug;
 
 		    <tr>
 			    <td class="text-center">
-				    @if ($bevent->beventtime)
+				    @if ($bevent->bbarid==$barid)
 					    <input type="checkbox" class="checkbox-delete" data-eventid="{{ $bevent->bid }}">
 				    @endif
 			    </td>
@@ -113,7 +113,6 @@ $barslug = json_decode($barslug)[0]->slug;
 
     @foreach($bevents[1] as $bevent)
 
-
       <?php
         $tz = new DateTimeZone($bartimezone);
         $gametime = $bevent->ggame_time ? new DateTime($bevent->ggame_time, new DateTimeZone('US/Central')) : null;
@@ -131,7 +130,7 @@ $barslug = json_decode($barslug)[0]->slug;
 
       <tr data-gameid="{{ $bevent->ggid }}" data-barid="{{ $barid }}">
         <td class="text-center">
-          @if ($bevent->beventtime)
+          @if ($bevent->bbarid==$barid)
           <input type="checkbox" class="checkbox-delete" data-eventid="{{ $bevent->bid }}"<?php
   	       if (isset($bevent->gmatchup) && isset($bevent->btitle)) {
     	        echo(' data-gamedate="'.$gametime->setTimeZone($tz)->format('m/d/Y').'"');
@@ -166,7 +165,7 @@ $barslug = json_decode($barslug)[0]->slug;
 	      @endif
 
         <td class="text-center">
-        @if ($bevent->beventtime)
+        @if ($bevent->bbarid==$barid)
           <a href="{{ url('editbevent/'.$bevent->bid."?gid=".$bevent->ggid) }}"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Edit Event Information</span></a></td>
         @else
         <a href="{{ url('addbevent/'.$barid."?gid=".$bevent->ggid) }}"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="bottom" title="Create an event for this game" aria-hidden="true"></span><span class="sr-only"><span class="sr-only">Create an event for this game</span></a></td>
