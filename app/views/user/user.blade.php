@@ -24,7 +24,15 @@
           {{ Form::password("password_confirmation", ["class" => "form-control"]) }}
         </div>
         @if (count($errors) > 0)
-        <div class="alert alert-danger" role="alert">
+        <?php
+         foreach($errors->all() as $error){
+             $class = 'alert alert-danger';  
+             if($error=='Updated'){
+                $class = 'alert alert-success'; 
+             }
+         }
+         ?>
+        <div class="{{$class}}" role="alert">
           @foreach($errors->all() as $error)
             <p>
               <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
