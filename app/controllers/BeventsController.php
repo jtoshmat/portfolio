@@ -124,10 +124,18 @@ class BeventsController extends \BaseController {
 		$method = Request::method();
 		if (Request::isMethod('post')) {
 			$validator = Validator::make(Input::all(), Bevent::$addbevent);
+
 			if ($validator->passes()) {
+				$datetimeInput = Input::get('datetime');
+				$today_dt = new DateTime(date('Y-m-d'));
+				$Input_dt = new DateTime($datetimeInput);
+
+			if ($Input_dt < $today_dt) { 
+					return Redirect::to('addbevent/'.$barid)->with('message', 'The following errors occurred')->withErrors
+					('Events can only be created in the future')->withInput();
+			}
 				$bevents = $this->Bevent->addBevent();
 				return Redirect::to('bevents/'.$barid);
-
 			}else{
 				return Redirect::to('addbevent/'.$barid)->with('message', 'The following errors occurred')->withErrors
 				($validator)->withInput();
