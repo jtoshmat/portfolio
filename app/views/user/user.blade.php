@@ -1,48 +1,59 @@
 @extends("layout")
 @section("content")
-
-
-    {{ Form::model($users, array('url' => 'user/'.$users->id)) }}
-    <h2 class="er">User Profile Update</h2>
-
-    <ul>
-        @foreach($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-
-            <!-- email -->
-    {{ Form::label('username', 'Username') }}
-    {{ Form::email('username') }}
-
-    Password: {{ Form::password('password', array('class'=>'input-block-level', 'placeholder'=>'Password')) }}
-    Password 2: {{ Form::password('password_confirmation', array('class'=>'input-block-level', 'placeholder'=>'Confirm Password')) }}
-
-    @if (Auth::check())
-        @if ($roles)
-            Roles: {{ Form::select('roles', $roles, '3')}}
+  <div class="container edit-user">
+    <div class="page-header">
+      <h2>Edit Info <small>{{ $user->username }}</small></h2>
+    </div>
+    <div class="row">
+      <div class="col-sm-8">
+        {{ Form::open(array("url" => "user/edit", "class" => "form-edit-user")) }}
+        <div class="form-group">
+          {{ Form::label("username", "Username") }}
+          {{ Form::email("username", $user->username,  ["class" => "form-control", "placeholder" => "email used to login to admin tool", "required"]) }}
+        </div>
+        <div class="form-group">
+          {{ Form::label("email", "Email") }}
+          {{ Form::text("email", $user->email, ["class" => "form-control", "required"]) }}
+        </div>
+        <div class="form-group">
+          {{ Form::label("password", "Password") }}
+          {{ Form::password("password", ["class" => "form-control", "placeholder" => "Enter and confirm new password to change."]) }}
+        </div>
+        <div class="form-group">
+          {{ Form::label("password_confirmation", "Confirm Password") }}
+          {{ Form::password("password_confirmation", ["class" => "form-control"]) }}
+        </div>
+        @if (count($errors) > 0)
+        <div class="alert alert-danger" role="alert">
+          @foreach($errors->all() as $error)
+            <p>
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <span class="sr-only">Error:</span>
+              {{ $error }}
+            </p>
+          @endforeach
+        </div>
         @endif
-        <br />
-        Grant:
-        @foreach ($privileges as $value => $label)
-            {{$label}} : {{Form::radio('privileges', $value);}}
-        @endforeach
-
-    @endif
-
-    <br />
-
-    {{ Form::label('secretquestion', 'Secret Question: ') }}
-    {{ Form::text('secretquestion') }}
-
-    <br />
-
-    {{ Form::label('secretanswer', 'Secret Answer: ') }}
-    {{ Form::text('secretanswer') }}
-
-    <br />
-    {{ Form::hidden('id') }}
-    {{ Form::submit('Update', array('class'=>'input-block-level'))}}
-    {{ Form::close() }}
-
+        {{ Form::hidden("id", $user->id) }}
+        <div class="row">
+          <div class="col-xs-6">
+            {{-- TODO(jjandoc): Add in functional delete button for admins. --}}
+            {{-- @if ($admin)
+            <ul id="edit-user-actions" class="list-inline edit-actions">
+              <li>
+                {{ Form::open(array("url" => "user/delete/".$user->id, "class" => "delete-user-form")) }}
+                <a href="#" id="delete-user"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="bottom" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete User</span></a>
+                {{ Form::close() }}
+              </li>
+            </ul>
+            @endif --}}
+          </div>
+          <div class="col-xs-6 text-right">
+            {{ Form::submit("Update", ["class" => "btn btn-primary"]) }}
+          </div>
+        </div>
+        {{ Form::close() }}
+      </div>
+    </div>
+  </div>
 @stop

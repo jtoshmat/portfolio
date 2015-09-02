@@ -31,6 +31,12 @@ class User
 
 	);
 
+	public static $userSelfUpdate = array(
+		'username'=>'required|email|min:4',
+		'password'=>'alpha_num|min:6,12|confirmed',
+		'password_confirmation'=>'required_with:password|same:password|alpha_num|between:6,12',
+	);
+
 	public static $deleteUser = array(
 		//'email'=>'required|email|min:4',
 
@@ -94,6 +100,25 @@ class User
 
 		return User::where('id', '=', Auth::user()->id)->get();
 
+	}
+
+	public function index() {
+		Cache::forget('users.all');
+		$allUsers = Cache::remember('users.all', 30, function() {
+			return User::all();
+		});
+
+		return $allUsers;
+	}
+
+	public function findById($id) {
+		try {
+			$user = $this->where('id', '=', $id)->firstOrFail();
+			return $user;
+		}
+		catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+			return false;
+		}
 	}
 
 	public function viewUser($id){
