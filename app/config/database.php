@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => '192.168.10.10',
-			'database'  => 'homestead',
-			'username'  => 'homestead',
-			'password'  => 'secret',
+			'host'      => 'rds-wpdsvc-gen-001.wpd.bsd.net',
+			'database'  => 'packers_prod',
+			'username'  => 'packers_prod',
+			'password'  => '9p5v4eWMT',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
