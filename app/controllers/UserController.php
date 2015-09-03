@@ -161,7 +161,17 @@ extends Controller
 	  {
 	    $validator = Validator::make(Input::all(), User::$rules);
 	    if ($validator->passes()) {
-		    $this->User->registerUser();
+ 
+		    $output = $this->User->registerUser();
+		    //Auto login on successfull registration
+		    if ($output){
+		    	  	$credentials = $this->getLoginCredentials();
+				   	if (Auth::attempt($credentials)) {
+				     return Redirect::route("bars");
+				   	}
+		    }
+
+
 	        return Redirect::to('users/login')->with('message', 'Thanks for registering!');
 	    } else {
 	        return Redirect::to('register')->with('message', 'The following errors occurred')->withErrors($validator)->withInput();

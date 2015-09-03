@@ -135,12 +135,11 @@ class User
 		$user->email = Input::get('username');
 		$user->secretquestion = Input::get('secretquestion');
 		$user->secretanswer = Input::get('secretanswer');
-
 		$user->save();
 		$LastInsertId = $user->id;
 		$insertData = array('uid' => $LastInsertId,'pusertype' => $roles, 'privileges'=>$privileges);
 
-		return 'inserted';
+		return $LastInsertId;
 	}
 
 	public function deleteUser(){
