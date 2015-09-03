@@ -32,18 +32,20 @@ class BarController extends \api\ApiController {
     public function search() {
         $inputs = Input::all();
 
- 
+        $parm = explode(',', $inputs['ll']);
+        $ll = $parm[0];
+        $ln = $parm[1];
 
-        if(!isset($inputs['ll']) && !isset($inputs['radius']) && !isset($inputs['zipcode'])) {
+        if(!isset($ll) && !isset($inputs['radius']) && !isset($inputs['zipcode'])) {
             return $this->errorResponse('Must provide search parameters', 400);
         }
 
-        if(isset($inputs['ll']) && !isset($inputs['radius']) || !isset($inputs['ll']) && isset($inputs['radius'])) {
+        if(isset($ll) && !isset($inputs['radius']) || !isset($ll) && isset($inputs['radius'])) {
             return $this->errorResponse('Must provde both ll and radius');
         }
 
-        if(isset($inputs['ll']) && isset($inputs['radius'])) {
-            return $this->getBarsByGeoData($inputs['ll'],$inputs['ln'], $inputs['radius']);
+        if(isset($ll) && isset($inputs['radius'])) {
+            return $this->getBarsByGeoData($ll,$ln, $inputs['radius']);
         }
 
         if(isset($inputs['zipcode'])) {
