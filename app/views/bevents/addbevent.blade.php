@@ -33,9 +33,13 @@
     <div class="col-sm-8">
       {{ Form::open(array("url" => "addbevent/$barid?gid=".$gid, "class" => "form-add-bar")) }}
         <div class="form-group">
-          {{ Form::label("datetime", "Time listed is in the US/Central timezone.") }}
+          {{ Form::label("datetime", "Event Date and Time") }}
+          @if ($gamematchup)
+          {{ Form::text("datetime", Input::old("datetime") ? Input::old("datetime") : $time, ["class" => "form-control datetime-picker limit-date", "data-date" => $dateTime->format('m/d/Y') ]) }}
+          @else
           {{ Form::text("datetime", Input::old("datetime") ? Input::old("datetime") : $time, ["class" => "form-control datetime-picker"]) }}
-          <div class="text-right"><small>Time listed is in the {{ str_replace('_', ' ', $bartimezone) }} timezone.</small></div>
+          @endif
+          <div class="text-right"><small>Time listed is in the bar's local timezone: {{ str_replace('_', ' ', $bartimezone) }}</small></div>
         </div>
         <div class="form-group">
           {{ Form::label("title", "Title") }}

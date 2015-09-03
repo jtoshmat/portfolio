@@ -513,8 +513,14 @@ $(document).ready(function(){
   /**
    * Initialize datetime pickers.
    */
-  $('.datetime-picker').datetimepicker({
-    sideBySide: true
+  $('.datetime-picker').each(function() {
+    var options = {
+      sideBySide: true
+    };
+    if ($(this).hasClass('limit-date')) {
+      options.enabledDates = [$(this).data('date')];
+    }
+    $(this).datetimepicker(options);
   });
 
   /**
