@@ -138,9 +138,18 @@ class BeventsController extends \BaseController {
 				$Input_dt = new DateTime($datetimeInput);
 
 			if ($Input_dt < $today_dt) { 
-					return Redirect::to('addbevent/'.$barid)->with('message', 'The following errors occurred')->withErrors
+					return Redirect::to('addbevent/'.$barid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
 					('Events can only be created in the future')->withInput();
 			}
+				
+				$datetimeInput = date('Y-m-d', strtotime($datetimeInput));
+				$gametimeOutput = date('Y-m-d', strtotime($gametime));
+			 
+				if($datetimeInput != $gametimeOutput){
+					return Redirect::to('addbevent/'.$barid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
+					('The event date must match the game date')->withInput();			
+				}
+
 				$bevents = $this->Bevent->addBevent();
 				return Redirect::to('bevents/'.$barid);
 			}else{
