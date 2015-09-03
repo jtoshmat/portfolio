@@ -1,3 +1,4 @@
+{{-- TODO: Clean up? This is not being used. --}}
 @extends("layout")
 @section("content")
 	<div class="container">

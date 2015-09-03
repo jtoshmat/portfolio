@@ -185,13 +185,12 @@ extends Controller
 	  return View::make("user/register")->with('roles',$roles)->with('privileges', $privileges);
 	}
 
+  // TODO: This function needs to be cleaned up. It's not being used.
 	public function forgotpassword()
 	{
 		$method = Request::method();
-		$secretquestion = null;
 		$username = null;
 		$password = null;
-		$secretanswer = null;
 		if (Request::isMethod('post')) {
 			$validator = Validator::make(Input::all(), User::$forgotpasswordrules);
 			if ($validator->passes()) {
@@ -251,8 +250,6 @@ extends Controller
 			  $fillable = array(
 				  'email' => Input::get('email'),
 				  'password' => Hash::make(Input::get('password')),
-				  'secretquestion' => Input::get('secretquestion'),
-				  'secretanswer' => Input::get('secretanswer'),
 			  );
 			  $user = User::where('id', '=', $id)->update($fillable);
 
