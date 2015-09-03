@@ -49,6 +49,8 @@ img {
 }
 
 .edit-actions {
+  white-space: nowrap;
+
   &.approved .action-approve-bar {
     color: #5cb85c;
   }

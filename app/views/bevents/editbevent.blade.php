@@ -5,8 +5,8 @@
   $barname = $barname[0]->barname;
   $barslug = $barslug[0]->slug;
   $bartimezone = $bartimezone[0]->timezone;
-  $eventtime = new DateTime($bevent->eventtime, new DateTimeZone($bartimezone));
-  $eventtime = $eventtime->format('m/d/Y g:i A');
+  $eventDate = new DateTime($bevent->eventtime, new DateTimeZone($bartimezone));
+  $eventtime = $eventDate->format('m/d/Y g:i A');
 
 ?>
 <div class="container add-bar">
@@ -22,11 +22,19 @@
   <h3>Edit Event</h3>
   <div class="row">
     <div class="col-sm-8">
-      {{ Form::model($bevent, array('url' => 'editbevent/'.$bevent->bid.'?gid='.$gid, "class" => "form-edit-bar")) }}
+      <?php
+       $gid = isset($gid)?'?gid='.$gid:null;
+
+      ?>
+      {{ Form::model($bevent, array('url' => 'editbevent/'.$bevent->bid.$gid, "class" => "form-edit-bar")) }}
         <div class="form-group">
-          {{ Form::label("datetime", "Local Date and Time") }}
+          {{ Form::label("datetime", "Event Date and Time") }}
+          @if ($gid)
+          {{ Form::text("datetime", $eventtime, ["class" => "form-control datetime-picker limit-date", "data-date" => $eventDate->format('m/d/Y') ]) }}
+          @else
           {{ Form::text("datetime", $eventtime, ["class" => "form-control datetime-picker"]) }}
-          <div class="text-right"><small>Time listed is in the {{ str_replace('_', ' ', $bartimezone) }} timezone.</small></div>
+          @endif
+          <div class="text-right"><small>Time listed is in the bar's local timezone: {{ str_replace('_', ' ', $bartimezone) }}</small></div>
         </div>
         <div class="form-group">
           {{ Form::label("title", "Title") }}

@@ -14,6 +14,18 @@ class UserTableSeeder
         "email"    => "admin@bluestatedigital.com",
         "admin"    => 1
       ],
+      [
+          "username" => "testAdmin@packerseverywhere.com",
+          "password" => Hash::make("gopackgo"),
+          "email"    => "testAdmin@packerseverywhere.com",
+          "admin"    => 1
+      ],
+      [
+          "username" => "uitester@packerseverywhere.com",
+          "password" => Hash::make("gopackgo"),
+          "email"    => "testAdmin@packerseverywhere.com",
+          "admin"    => 0
+      ],
     ];
 
     foreach ($users as $user) {

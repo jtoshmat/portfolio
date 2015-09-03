@@ -3,6 +3,7 @@
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
+use Packers\Services\Mailers\BarApprovalMailer;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
 class Bar extends Eloquent implements UserInterface, RemindableInterface {
@@ -18,59 +19,53 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 	public static $addrules = array(
 		'barname'=>'required|string',
-		'address'=>array(
-			'required',
-			'min:2',
-			'regex:/(^[A-Za-z0-9 ]+$)+/'
-		),
-		'city'=>array(
-			'required',
-			'min:2',
-			'regex:/(^[A-Za-z0-9 ]+$)+/'
-		),
+		'address'=>'required|string',
+		'city'=>'required | string',
+		/*
 		'state'=>array(
 			'required',
-			'min:2',
+			'min:2
 			'regex:/(^[A-Z]{2}+$)+/'
-		),
+		),*/
 		'zipcode'=>array(
 			'required',
 			'min:5',
-			'regex:/(^[0-9 ]{5,5}$)+/'
+			'regex:/([A-Z0-9 ]{5,10}$)+/'
 		),
 		'website'=>'active_url|min:7',
 		'timezone'=>'required',
 	);
 
 	public static $updatebarrules = array(
-		'barname'=>array(
-			'required',
-			'min:2',
-			'regex:/(^[A-Za-z0-9 ]+$)+/'
-		),
-		'address'=>array(
-			'required',
-			'min:2',
-			'regex:/(^[A-Za-z0-9 ]+$)+/'
-		),
-		'city'=>array(
-			'required',
-			'min:2',
-			'regex:/(^[A-Za-z0-9 ]+$)+/'
-		),
+		'barname'=>'required|string',
+		'address'=>'required|string',
+		'city'=>'required|string',
+		/*
 		'state'=>array(
 			'required',
 			'min:2',
 			'regex:/(^[A-Z]{2}+$)+/'
+		),*/
+		'zipcode'=>array(
+			'required',
+			'min:5',
+			'regex:/([A-Z0-9 ]{5,10}$)+/'
 		),
+		'website'=>'active_url|min:7',
+		'logo'=>'image',
+	);
+
+	public static $addbarrulesapi = array(
+		'barname'=>'required|string',
 		'zipcode'=>array(
 			'required',
 			'min:5',
 			'regex:/(^[0-9 ]{5,5}$)+/'
 		),
-		'website'=>'active_url|min:7',
-		'logo'=>'image',
-	);
+		'email'=>'required|email',
+		'address'=>'required',
+
+		);
 
 	use UserTrait, RemindableTrait;
 
@@ -83,8 +78,11 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $rzd;
 
+	protected $mailer;
+
 	public function __construct() {
 		$this->rzd = new RefZipDetails;
+		$this->mailer = new BarApprovalMailer;
 	}
 
 	public function upload() {
@@ -93,6 +91,10 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function events() {
 		return $this->hasMany('Bevent', 'barid');
+	}
+
+	public function user() {
+		return $this->belongsTo('User', 'uid');
 	}
 
 	protected function isAdmin(){
@@ -129,10 +131,10 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function getBar(){
 		$id = (int) Request::segment(2);
-		if ($this->isAdmin()===1) {
+		if ($this->isAdmin()==1) {
 			return Bar::where('id', '=', $id)->firstOrFail();
 		}
-		if ($this->isAdmin()===0) {
+		if ($this->isAdmin()==0) {
 			return Bar::where('id', '=', $id)->where('uid', '=', Auth::user()->id)->firstOrFail();
 		}
 		return false;
@@ -141,9 +143,15 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	public function approveBar(){
 		$val = (int) Request::get('val');
 		$bid = (int) Request::segment(4);
-		$bar =Bar::find($bid);
+		$bar = Bar::where('id', '=', $bid)->with('user')->first();
 		$bar->status = $val;
 		$bar->save();
+
+		//send the associated user a ( welcome | approved | rejected ) email (only the first time each action happens)
+		$user = $bar->user;
+		if($user) {
+			$this->mailer->run($user, $bar, $val);
+		}
 		return true;
 	}
 
@@ -161,6 +169,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'phone' => Input::get('phone'),
 			'website' => Input::get('website'),
 			'description' => Input::get('description'),
+			'owner_email' => Input::get('email')
 		);
 
 		$geoData = $this->geocodeBar($insertData['zipcode']);
@@ -188,9 +197,8 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		'zipcode' => Input::get('zipcode'),
 		'phone' => Input::get('phone'),
 		'website' => Input::get('website'),
-		'owner_email' => Input::get('owner_email'),
 		'description' => Input::get('description'),
-			
+		'owner_email' => Input::get('owner_email')
 		);
 
 		$geoData = $this->geocodeBar($fillable['zipcode']);
@@ -215,19 +223,63 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function findByName($name) {
-		$bar = $this->where('barname', '=', $name)
-					->orWhere('slug', '=', $name)
-					->with('events')
-					->with('upload')
-					->where('status', '=', 1)->first();
+		try {
+			$bar = $this->where('barname', '=', $name)
+				->orWhere('slug', '=', $name)
+				->with('events')
+				->with('upload')
+				->where('status', '=', 1)->firstOrFail();
 
-		$bar->events->each(function($event) {
-			$event->game = \Game::where('gid', '=', $event->gid)->first();
-			$event->apiTransform();
-			//unset($event->barid);
-		});
-		$bar->apiTransform();
-		return $bar;
+			if ($bar->events->count() > 0) {
+				$bar->events->each(function ($event) {
+					$event->game = \Game::where('gid', '=', $event->gid)->first();
+					$event->apiTransform();
+				});
+			}
+			$bar->apiTransform();
+			return $bar;
+		}
+		catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+			return false;
+		}
+	}
+
+	public function findAllByZip($zipcode) {
+		$bars = $this->where('zipcode', '=', $zipcode)
+			->with('events')
+			->with('upload')
+			->where('status', '=', 1)->get();
+		if($bars) {
+			foreach($bars as $bar) {
+				if ($bar->events && $bar->events->count() > 0) {
+					$bar->events->each(function ($event) {
+						$event->game = \Game::where('gid', '=', $event->gid)->first();
+						$event->apiTransform();
+					});
+				}
+				$bar->apiTransform();
+			}
+			return $bars;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public function findByGeo($ll, $ln, $radius){
+		$bars = $this->selectRaw(" *,
+            (6371 * acos( cos( radians(".$ll.") ) * cos( radians( `latitude` ) ) * cos( radians( `longitude` ) - radians(".$ln.") ) + sin( radians(".$ll.") ) * sin( radians( `latitude` ) ) ) ) AS distance")
+			->having('distance', '<=', $radius)
+			->orderBy('distance', 'asc')
+			->with('upload')
+			->get();
+
+		if($bars) {
+			foreach($bars as $bar) {
+				$bar->apiTransform();
+			}
+		}
+		return $bars;
 	}
 
 	public function findByZip($zipcode) {
@@ -235,16 +287,52 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function apiTransform() {
-		unset($this->id);
-		unset($this->uid);
-		unset($this->status);
+		unset($this->id, $this->uid, $this->status);
+		$this->key_name = $this->slug; unset($this->slug);
 		$this->telephone = $this->phone; unset($this->phone);
 		$this->county = null;
 		$this->logo = $this->upload ? $this->upload->logo : null;
 		unset($this->upload);
 		$this->timeAdded = (string) $this->created_at; unset($this->created_at);
-		unset($this->owner_email);
-		unset($this->updated_at);
+		$this->email = $this->owner_email;
+		$this->name = $this->barname;
+		unset($this->owner_email, $this->updated_at, $this->barname);
+		$this->contactFirstName = null;
+		$this->contactLastName = null;
+		$this->favorites = 0;
+		$this->hash = "";
+		$this->latlng = array(
+			'lat' => (float) $this->latitude,
+			'lon' => (float) $this->longitude
+		);
+		unset($this->longitude, $this->latitude);
+	}
+
+	public function createBarApi($uid){
+		$bar = new \Bar;
+		$bar->uid = $uid;
+		$bar->barname = \Input::get('barname');
+		$bar->slug = Str::slug($bar->barname);
+		$bar->address = \Input::get('address');
+		$bar->city = \Input::get('city');
+		$bar->zipcode = \Input::get('zipcode');
+		$bar->owner_email = \Input::get('email');
+		$bar->website = \Input::get('website');
+		$bar->description = \Input::get('description');
+		$bar->phone = \Input::get('phone');
+		$bar->from_api = 1;
+
+		$geoData = $this->geocodeBar($bar->zipcode);
+		if($geoData) {
+			$bar->latitude = $geoData['latitude'];
+			$bar->longitude = $geoData['longitude'];
+			$bar->state = $geoData['state_cd'];
+			$bar->country = 'US';
+		}
+
+		$bar->save();
+		$insertedId = $bar->id;
+		return $insertedId;
 	}
 
 }

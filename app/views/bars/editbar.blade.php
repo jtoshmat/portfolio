@@ -1,11 +1,10 @@
 @extends("layout")
 @section("content")
 <?php
-foreach ($bars as $bar){
-}
+
 
 $readonly = 'readonly';
-if ($admin===1){
+if ($admin == 1){
 	$readonly = '';
 }
 ?>
@@ -24,7 +23,7 @@ if ($admin===1){
       {{ Form::open(array("url" => "editbar/".$bar->id, "class" => "form-edit-bar", "files" => true)) }}
         <div class="form-group">
           {{ Form::label(null, "Owner/Admin Email Address") }}
-          {{ Form::email('owner_email', $bar->owner_email,  ["class" => "form-control", ''.$readonly.'', "placeholder" => "email used to login to admin tool", "required"]) }}
+          {{ Form::email('owner_email', $bar_owner->email,  ["class" => "form-control", ''.$readonly.'', "placeholder" => "email used to login to admin tool", "required"]) }}
         </div>
         <div class="form-group">
           {{ Form::label("barname", "Bar Name") }}
@@ -44,8 +43,8 @@ if ($admin===1){
         <div class="row">
           <div  class="col-sm-6">
             <div class="form-group">
-              {{ Form::label("state", "State/Province/Region") }}
-              {{ Form::text("state", $bar->state, ["class" => "form-control", "required"]) }}
+              {{ Form::label("state", "State/Province/Region") }} <small class="text-muted">optional</small>
+              {{ Form::text("state", $bar->state, ["class" => "form-control"]) }}
             </div>
           </div>
           <div class="col-sm-6">
@@ -342,21 +341,23 @@ if ($admin===1){
           <div class="col-xs-6">
       			<?php
       				$status = '';
-      				if ($bar->status === 1) {
+      				if ($bar->status == 1) {
       					$status = 'approved';
-      				} else if ($bar->status === 0) {
+      				} else if ($bar->status == 0) {
         				$status = 'awaiting-approval';
-      				} else if ($bar->status === -1) {
+      				} else if ($bar->status == -1) {
         				$status = 'rejected';
       				}
       			?>
             <ul id="edit-bar-actions" class="list-inline edit-actions {{ $status }}">
+              @if ($admin)
               <li>
                 <a data-barid="{{ $bar->id }}" data-status="approved" href="#" class="dynamic-action action-approve-bar"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Approve" aria-hidden="true"></span><span class="sr-only">Approve Bar</span></a>
               </li>
               <li>
                 <a data-barid="{{ $bar->id }}" data-status="rejected" href="#" id="reject-bar" class="dynamic-action action-reject-bar"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Reject" aria-hidden="true"></span><span class="sr-only">Reject Bar</span></a>
               </li>
+              @endif
               <li>
                 <a data-barid="{{ $bar->id }}"  href="#" id="delete-bar"class="action-delete-bar"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" data-placement="top" title="Delete" aria-hidden="true"></span><span class="sr-only">Delete Bar</span></a>
               </li>

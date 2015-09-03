@@ -31,9 +31,9 @@ class BarController extends \BaseController {
 		}
 		$bars = $this->bars->getBars();
 		if ($bars){
-			return View::make('bars/bars')->with('bars', $bars);
+			return View::make('bars/bars')->with('bars', $bars, Auth::user()->username)->with('admin', $this->isAdmin());
 		}
-		return View::make('bars/addbar')->with('username',Auth::user()->username)->with('admin', $this->isAdmin());
+		return View::make('bars/addbar')->with('username', Auth::user()->username)->with('admin', $this->isAdmin());
 	}
 
 	public function approveBar()
@@ -41,8 +41,11 @@ class BarController extends \BaseController {
 		if ($this->isNotAuthorized()){
 			return View::make($this->isNotAuthorized());
 		}
+		if (Auth::user()->admin == 0){
+			return Redirect::to('bars')->with('error', 'You do not have privileges for this action.');
+		}
 		$bars = $this->bars->approveBar();
-		return 'The bar status has been updated';
+		return Redirect::to('bars')->with('message', 'Bar has been approved!');
 	}
 
 	public function bar()
@@ -81,14 +84,13 @@ class BarController extends \BaseController {
 					}
 					if (empty($em)){
 						$user = new User;
-						$user->createProfile($email);
+						$uid = $user->createProfile($email);
 
 					}else{
 						$userdata = User::where('username','=',$email)->get(array('id'));
 						foreach ($userdata as $usd){}
 						$uid = $usd->id;
 					}	
-
 
 					$Bar = new Bar();
 
@@ -106,12 +108,14 @@ class BarController extends \BaseController {
 
 			}
 
-	 
-		$bars = DB::select(DB::raw('select * from bars as b left join uploads as upl on b.id=upl.bid where b.id='.$id.' group by b.id'));
- 
-		if ($bars){
-			return View::make('bars/editbar')->with('bars', $bars)->with('username',Auth::user()->username)->with
-			('admin', $this->isAdmin());
+
+		$bar = Bar::where('id', '=', $id)->with('upload')->with('user')->first();
+		if ($bar){
+			if($bar->upload) {
+				$bar->filename = $bar->upload->filename;
+			}
+			return View::make('bars/editbar')->with('bar', $bar)->with('username', Auth::user()->username)->with
+			('admin', $this->isAdmin())->with('bar_owner', $bar->user);
 		}
 		return $bars;
 		return View::make('user/403');
@@ -183,6 +187,29 @@ class BarController extends \BaseController {
 			$Upload = new Upload();
 			return $Upload->addUploadedImage($link, $bid);
 			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public function uploadLogoApi($bid,$uid){
+		$output = null;
+		$file = Input::file('logo');
+		$daten = date('m').date('d').date('Y');
+		$path = $file->getRealPath();
+		$newFileName = time() . 'logo_'.$daten."_".$uid."_".$bid.".png";
+		$size = (int) $file->getSize();
+		list($width, $height) = getimagesize($file);
+	 	
+	 	$width = ($width>250)?250:$width;
+	 	$height = ($height>250)?250:$height;
+		
+		$link = $this->uploadToS3($newFileName, $path);
+
+		if($link) {
+			$Upload = new Upload();
+			return $Upload->addUploadedImage($link, $bid, $uid);
 		}
 		else {
 			return false;

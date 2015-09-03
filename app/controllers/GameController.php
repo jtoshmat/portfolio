@@ -12,9 +12,13 @@
 			$this->games = new Game();
 		}
 
+		protected function isAdmin(){
+			return Auth::user()->admin;
+		}
+
 		public function allgames(){
 			$games = $this->games->getAllGames();
-			return View::make('games/games')->with('games', $games);
+			return View::make('games/games')->with('games', $games)->with('admin', $this->isAdmin());
 		}
 
 		public function games(){
@@ -29,6 +33,12 @@
 		}
 
 		public function editGame(){
+			if (!$this->isAdmin()){
+				return Redirect::to('allgames/')->with('message', 'The following errors occurred')->withErrors
+					('You are not authorized to edit the game schedule')->withInput();
+			}
+
+
 			$gid = (int) Request::segment(2);
 			$method = Request::method();
 			if (Request::isMethod('post')) {

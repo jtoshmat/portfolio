@@ -31,6 +31,12 @@ class User
 
 	);
 
+	public static $userSelfUpdate = array(
+		'username'=>'required|email|min:4',
+		'password'=>'alpha_num|min:6,12|confirmed',
+		'password_confirmation'=>'required_with:password|same:password|alpha_num|between:6,12',
+	);
+
 	public static $deleteUser = array(
 		//'email'=>'required|email|min:4',
 
@@ -94,6 +100,20 @@ class User
 
 		return User::where('id', '=', Auth::user()->id)->get();
 
+	}
+
+	public function index() {
+		return User::all();
+	}
+
+	public function findById($id) {
+		try {
+			$user = $this->where('id', '=', $id)->firstOrFail();
+			return $user;
+		}
+		catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+			return false;
+		}
 	}
 
 	public function viewUser($id){
@@ -214,5 +234,47 @@ class User
 		$username = Request::get('username');
 		$output = User::where('username','=',$username)->get(array('username'));
 		return $output;
+	}
+
+	public function createProfile($email){
+		//Add a new user
+		$user = new \User;
+		$user->username = $email;
+		$user->email = $email;
+		$user->password = Hash::make('gopackgo');
+		$user->save();
+		$uid = $user->id;
+
+		//Add a new role
+		$role = new \Role;
+		$role->uid = $uid;
+		$role->pusertype = 6;
+		$role->privileges = 6;
+		$role->save();
+		return $uid;
+	}
+
+
+	public function verifyUsernameApi($email){
+		$output = User::where('username','=',$email)->get(array('username','id'));
+		return $output;
+	}
+
+	public function createUserApi($email){
+		//Add a new user
+		$user = new \User;
+		$user->username = $email;
+		$user->email = $email;
+		$user->password = Hash::make('gopackgo');
+		$user->save();
+		$uid = $user->id;
+
+		//Add a new role
+		$role = new \Role;
+		$role->uid = $uid;
+		$role->pusertype = 6;
+		$role->privileges = 6;
+		$role->save();
+		return $uid;
 	}
 }

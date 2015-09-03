@@ -49,7 +49,7 @@ $(document).ready(function(){
 
 
   var stateSelect = {
-    us: '<select name="state" class="form-control" required>' +
+    us: '<select name="state" class="form-control">' +
       '<option value=""></option><option value="AK">AK</option>' +
       '<option value="AL">AL</option><option value="AR">AR</option>' +
       '<option value="AZ">AZ</option><option value="CA">CA</option>' +
@@ -83,7 +83,7 @@ $(document).ready(function(){
       '<option value="MH">MH</option><option value="MP">MP</option>' +
       '<option value="PR">PR</option><option value="PW">PW</option>' +
       '<option value="VI">VI</option></select>',
-    ca: '<select name="state" class="form-control" required>' +
+    ca: '<select name="state" class="form-control">' +
       '<option value=""></option>' +
       '<option value="Alberta">Alberta</option>' +
       '<option value="British Columbia">British Columbia</option>' +
@@ -98,7 +98,7 @@ $(document).ready(function(){
       '<option value="Quebec">Quebec</option>' +
       '<option value="Saskatchewan">Saskatchewan</option>' +
       '<option value="Yukon">Yukon</option></select>',
-    generic: '<input type="text" class="form-control" name="state" required>'
+    generic: '<input type="text" class="form-control" name="state">'
   };
 
 
@@ -482,10 +482,45 @@ $(document).ready(function(){
 
 
   /**
+   * User list view handlers.
+   */
+  if ($('#user-listing-table').length > 0) {
+    var userTable = $('#user-listing-table').DataTable({
+      columnDefs: [
+        {
+          orderable: false,
+          targets: [0, 4]
+        },
+        {
+          searchable: false,
+          targets: [0, 4]
+        }
+      ],
+      order: [[ 0, 'asc' ]]
+    });
+
+    $('.delete-user').on('click', function(e) {
+      e.preventDefault();
+      var conf = confirm('Are you sure you want to delete this user?');
+
+      if (conf) {
+        $(e.currentTarget).closest('form.delete-user-form').submit();
+      }
+    });
+  }
+
+
+  /**
    * Initialize datetime pickers.
    */
-  $('.datetime-picker').datetimepicker({
-    sideBySide: true
+  $('.datetime-picker').each(function() {
+    var options = {
+      sideBySide: true
+    };
+    if ($(this).hasClass('limit-date')) {
+      options.enabledDates = [$(this).data('date')];
+    }
+    $(this).datetimepicker(options);
   });
 
   /**
