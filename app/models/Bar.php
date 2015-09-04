@@ -269,6 +269,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	public function findByGeo($ll, $ln, $radius){
 		$bars = $this->selectRaw(" *,
             (6371 * acos( cos( radians(".$ll.") ) * cos( radians( `latitude` ) ) * cos( radians( `longitude` ) - radians(".$ln.") ) + sin( radians(".$ll.") ) * sin( radians( `latitude` ) ) ) ) AS distance")
+			->where('status', '=', 1)
 			->having('distance', '<=', $radius)
 			->orderBy('distance', 'asc')
 			->with('upload')
@@ -299,6 +300,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		unset($this->owner_email, $this->updated_at, $this->barname);
 		$this->contactFirstName = null;
 		$this->contactLastName = null;
+		$this->promo = '';
 		$this->favorites = 0;
 		$this->hash = "";
 		$this->latlng = array(
