@@ -241,12 +241,11 @@
 			"uses" => "UserController@uploadcsv"
 		]);
 
-
 	});
 
 	Route::group(array('prefix' => 'api'), function () {
-		Route::get('venues', 'api\v1\BarController@show');
 		Route::get('venues/search', 'api\v1\BarController@search');
+		Route::get('venues/{name}', 'api\v1\BarController@show');
 		Route::post('venues/createbar', 'api\v1\BarController@createBar');
 		Route::get('venues/createbarform', 'api\v1\BarController@createBarForm');
 	});

@@ -21,7 +21,7 @@ class BarController extends \api\ApiController {
         else {
             $bar = $this->bar->findByName($name);
             if($bar) {
-                return $this->apiVenueResponse($bar);
+                return $this->apiResponseJSONP($bar);
             }
             else{
                 return $this->errorResponse('Bar not found', 404);
@@ -32,25 +32,25 @@ class BarController extends \api\ApiController {
     public function search() {
         $inputs = Input::all();
 
-        $parm = explode(',', $inputs['ll']);
-        $ll = $parm[0];
-        $ln = $parm[1];
-
-        if(!isset($ll) && !isset($inputs['radius']) && !isset($inputs['zipcode'])) {
+        if(!isset($inputs['ll']) && !isset($inputs['radius']) && !isset($inputs['zipcode'])) {
             return $this->errorResponse('Must provide search parameters', 400);
         }
 
-        if(isset($ll) && !isset($inputs['radius']) || !isset($ll) && isset($inputs['radius'])) {
+        if(isset($inputs['ll']) && !isset($inputs['radius']) || !isset($inputs['ll']) && isset($inputs['radius'])) {
             return $this->errorResponse('Must provde both ll and radius');
         }
 
-        if(isset($ll) && isset($inputs['radius'])) {
-            return $this->getBarsByGeoData($ll,$ln, $inputs['radius']);
+        if(isset($inputs['ll']) && isset($inputs['radius'])) {
+            $param = explode(',', $inputs['ll']);
+            $lat = $param[0];
+            $lng = $param[1];
+            $bars = $this->getBarsByGeoData($lat,$lng, $inputs['radius']);
+            return $this->apiResponseJSONP($bars);
         }
 
         if(isset($inputs['zipcode'])) {
             $bars = $this->bar->findAllByZip($inputs['zipcode']);
-                return $this->apiVenueResponse($bars);
+                return $this->apiResponseJSONP($bars);
             }
             else{
                 return $this->errorResponse('No bars found', 404);
@@ -60,10 +60,6 @@ class BarController extends \api\ApiController {
     private function getBarsByGeoData($ll, $ln, $radius) {
          $bar = $this->bar->findByGeo($ll, $ln, $radius);          
          return $bar;
-    }
-
-    private function getBarsByZip($zip){
-
     }
 
     private function transformUpload($object) {
@@ -79,39 +75,39 @@ class BarController extends \api\ApiController {
     }
 
     public function createBar(){
-            $method = \Request::method();
-            if (\Request::isMethod('post'))
-            {
-                $validator = \Validator::make(\Input::all(), \Bar::$addbarrulesapi);
-                    $User = new \User();
-                    $Bar = new \Bar();
-                    $BarController = new \BarController;
-                
-                if ($validator->passes()) {
-                    
-                    $email = \Input::get('email');
-                    $isUser = $User->verifyUsernameApi($email);
-                    $userExists = isset($isUser[0])?true:false;
+        $method = \Request::method();
+        if (\Request::isMethod('post'))
+        {
+            $validator = \Validator::make(\Input::all(), \Bar::$addbarrulesapi);
+                $User = new \User();
+                $Bar = new \Bar();
+                $BarController = new \BarController;
 
-                    if (!$userExists){
-                        $uid = $User->createUserApi($email);
-                    }else{
-                        $uid = $isUser[0]->id;
-                    }
-                    //create a new bar here
-                    $bid = $Bar->createBarApi($uid); 
+            if ($validator->passes()) {
 
-                    //Upload logo 
-                    $uploadedFileName = null;
-                    if (\Input::hasFile('logo')){
-                        $uploadedFileName = $BarController->uploadLogoApi($bid,$uid);
-                    }
-                    return $this->apiResponse(array('message' => 'success'), 200);
+                $email = \Input::get('email');
+                $isUser = $User->verifyUsernameApi($email);
+                $userExists = isset($isUser[0])?true:false;
 
+                if (!$userExists){
+                    $uid = $User->createUserApi($email);
+                }else{
+                    $uid = $isUser[0]->id;
                 }
-                return $this->errorResponse($validator->errors()->all(), 404);
+                //create a new bar here
+                $bid = $Bar->createBarApi($uid);
+
+                //Upload logo
+                $uploadedFileName = null;
+                if (\Input::hasFile('logo')){
+                    $uploadedFileName = $BarController->uploadLogoApi($bid,$uid);
+                }
+                return $this->apiResponse(array('message' => 'success'), 200);
+
             }
-            return $this->errorResponse('This is an invalid request', 404);
+            return $this->errorResponse($validator->errors()->all(), 404);
+        }
+        return $this->errorResponse('This is an invalid request', 404);
     }
 
     public function createBarForm(){

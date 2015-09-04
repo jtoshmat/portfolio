@@ -20,4 +20,12 @@ abstract class ApiController extends \BaseController
         return $response;
     }
 
+    public function apiResponseJSONP($data) {
+        $response = \Response::json(array(
+            'status' => 'OK',
+            'data' => $data
+        ), 200)->setCallback(\Input::get('callback'));
+        return $response;
+    }
+
 }
