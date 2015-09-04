@@ -21,7 +21,7 @@ class BarController extends \api\ApiController {
         else {
             $bar = $this->bar->findByName($name);
             if($bar) {
-                return $this->apiResponseJSONP($bar, 'locations');
+                return $this->apiResponseJSONP($bar, 'location');
             }
             else{
                 return $this->errorResponse('Bar not found', 404);
