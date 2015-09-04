@@ -297,6 +297,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		$this->timeAdded = (string) $this->created_at; unset($this->created_at);
 		$this->email = $this->owner_email;
 		$this->name = $this->barname;
+		$this->next_event = new stdClass();
 		unset($this->owner_email, $this->updated_at, $this->barname);
 		$this->contactFirstName = null;
 		$this->contactLastName = null;
