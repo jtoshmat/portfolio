@@ -303,6 +303,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		$this->contactLastName = null;
 		$this->promo = '';
 		$this->favorites = 0;
+		$this->logoBlob = null;
 		$this->hash = "";
 		$this->latlng = array(
 			'lat' => (float) $this->latitude,
