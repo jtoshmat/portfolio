@@ -21,7 +21,7 @@ class BarController extends \api\ApiController {
         else {
             $bar = $this->bar->findByName($name);
             if($bar) {
-                return $this->apiResponseJSONP($bar);
+                return $this->apiResponseJSONP($bar, 'locations');
             }
             else{
                 return $this->errorResponse('Bar not found', 404);
@@ -45,12 +45,12 @@ class BarController extends \api\ApiController {
             $lat = $param[0];
             $lng = $param[1];
             $bars = $this->getBarsByGeoData($lat,$lng, $inputs['radius']);
-            return $this->apiResponseJSONP($bars);
+            return $this->apiResponseJSONP($bars, 'locations');
         }
 
         if(isset($inputs['zipcode'])) {
             $bars = $this->bar->findAllByZip($inputs['zipcode']);
-                return $this->apiResponseJSONP($bars);
+                return $this->apiResponseJSONP($bars, 'locations');
             }
             else{
                 return $this->errorResponse('No bars found', 404);
