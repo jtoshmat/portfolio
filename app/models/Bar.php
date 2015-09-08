@@ -2,6 +2,7 @@
 
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
+use Packers\Services\Geocoder\Geocoder;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Packers\Services\Mailers\BarApprovalMailer;
 use Illuminate\Auth\Reminders\RemindableInterface;
@@ -62,7 +63,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'min:5',
 			'regex:/(^[0-9 ]{5,5}$)+/'
 		),
-		'email'=>'required|email|unique:user',
+		'email'=>'required|email',
 		'address'=>'required',
 		'city'=>'required|string',
 		'description'=>'required|string',
@@ -81,9 +82,13 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $mailer;
 
+	protected $geocoder;
+
 	public function __construct() {
 		$this->rzd = new RefZipDetails;
 		$this->mailer = new BarApprovalMailer;
+		$this->geocoder = new \Packers\Services\Geocoder\GoogleGeocoder;
+
 	}
 
 	public function upload() {
@@ -202,10 +207,10 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		'owner_email' => Input::get('owner_email')
 		);
 
-		$geoData = $this->geocodeBar($fillable['zipcode']);
-		if($geoData) {
-			$fillable['latitude'] = $geoData['latitude'];
-			$fillable['longitude'] = $geoData['longitude'];
+		$latLng = $this->getLatLng($fillable['address'], $fillable['zipcode']);
+		if($latLng) {
+			$fillable['latitude'] = $latLng['latitude'];
+			$fillable['longitude'] = $latLng['longitude'];
 		}
 
 		$output = Bar::where('id','=', $bid)->update($fillable);
@@ -221,6 +226,11 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	public function geocodeBar($zipcode) {
 		$geoData = $this->rzd->getGeoDataByZip($zipcode);
 		return !empty($geoData) ? $geoData->toArray() : false;
+	}
+
+	public function getLatLng($address, $zipcode) {
+		$latLng = $this->geocoder->geocode($address . ',' . $zipcode);
+		return $latLng;
 	}
 
 	public function findByName($name) {
@@ -332,7 +342,11 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			$bar->state = $geoData['state_cd'];
 			$bar->country = 'US';
 		}
-		//@todo add geocoding
+		$latLng = $this->getLatLng($bar->address, $bar->zipcode);
+		if($latLng) {
+			$bar->latitude = $latLng['latitude'];
+			$bar->longitude = $latLng['longitude'];
+		}
 
 		$bar->save();
 		$insertedId = $bar->id;

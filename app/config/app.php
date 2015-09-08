@@ -124,6 +124,7 @@ return array(
 		'Camroncade\Timezone\TimezoneServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
 		'Aws\Laravel\AwsServiceProvider',
+		'Packers\Services\Geocoder\GeocoderServiceProvider',
 
 
 	),
