@@ -66,8 +66,6 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		'address'=>'required',
 		'city'=>'required|string',
 		'description'=>'required|string',
-		'll'=>'required'
-
 		);
 
 	use UserTrait, RemindableTrait;
@@ -334,9 +332,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			$bar->state = $geoData['state_cd'];
 			$bar->country = 'US';
 		}
-		$latlng = explode(",", \Input::get('ll'));
-		$bar->latitude = $latlng[0];
-		$bar->longitude = $latlng[1];
+		//@todo add geocoding
 
 		$bar->save();
 		$insertedId = $bar->id;
