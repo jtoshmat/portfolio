@@ -84,7 +84,6 @@ class BarController extends \api\ApiController {
                 $BarController = new \BarController;
 
             if ($validator->passes()) {
-
                 $email = \Input::get('email');
                 $isUser = $User->verifyUsernameApi($email);
                 $userExists = isset($isUser[0])?true:false;
@@ -102,8 +101,7 @@ class BarController extends \api\ApiController {
                 if (\Input::hasFile('logo')){
                     $uploadedFileName = $BarController->uploadLogoApi($bid,$uid);
                 }
-                return $this->apiResponse(array('message' => 'success'), 200);
-
+                return $this->apiResponse(array('message' => 'success'), $cors=true);
             }
             return $this->errorResponse($validator->errors()->all(), 404);
         }

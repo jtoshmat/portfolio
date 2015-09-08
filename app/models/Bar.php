@@ -62,8 +62,11 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'min:5',
 			'regex:/(^[0-9 ]{5,5}$)+/'
 		),
-		'email'=>'required|email',
+		'email'=>'required|email|unique:user',
 		'address'=>'required',
+		'city'=>'required|string',
+		'description'=>'required|string',
+		'll'=>'required'
 
 		);
 
@@ -328,11 +331,12 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 		$geoData = $this->geocodeBar($bar->zipcode);
 		if($geoData) {
-			$bar->latitude = $geoData['latitude'];
-			$bar->longitude = $geoData['longitude'];
 			$bar->state = $geoData['state_cd'];
 			$bar->country = 'US';
 		}
+		$latlng = explode(",", \Input::get('ll'));
+		$bar->latitude = $latlng[0];
+		$bar->longitude = $latlng[1];
 
 		$bar->save();
 		$insertedId = $bar->id;

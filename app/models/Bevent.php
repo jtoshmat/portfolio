@@ -145,8 +145,6 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 		unset($this->game);
 		unset($this->bid);
 		unset($this->barid);
-
-
 	}
 
 	public function diffInDays($date1) {
