@@ -59,7 +59,7 @@ extends Controller
 	  }
 	}
 
-	return View::to(Config::get('app.url') . "user/login");
+	return View::make("user/login");
 	}
 
 	protected function isPostRequest()
