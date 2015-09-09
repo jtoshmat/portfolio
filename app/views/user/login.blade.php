@@ -6,7 +6,7 @@
       <div class="panel panel-default">
         <div class="panel-heading"><h2 class="panel-title">Login</h2></div>
         <div class="panel-body">
-        {{ Form::open(array('url' => '/users/login')) }}
+        {{ Form::open(array('url' => Config::get('app.url') . 'users/login')) }}
           <div class="form-group">
             {{ Form::label("username", "Email") }}
             {{ Form::email("username", Input::old("username"), ["class" => "form-control", "required"]) }}
