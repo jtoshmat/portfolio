@@ -122,7 +122,7 @@ return array(
 	|
 	*/
 
-	'domain' => 'http://bars.packerseverywhere.com/',
+	'domain' => '.packerseverywhere.com',
 
 	/*
 	|--------------------------------------------------------------------------
