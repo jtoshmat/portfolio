@@ -131,12 +131,11 @@ class User
 		$user->username = Input::get('username');
 		$user->password = Hash::make(Input::get('password'));
 		$user->email = Input::get('username');
-
 		$user->save();
 		$LastInsertId = $user->id;
 		$insertData = array('uid' => $LastInsertId,'pusertype' => $roles, 'privileges'=>$privileges);
 
-		return 'inserted';
+		return $LastInsertId;
 	}
 
 	public function deleteUser(){

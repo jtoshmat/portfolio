@@ -2,6 +2,7 @@
 
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
+use Packers\Services\Geocoder\Geocoder;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Packers\Services\Mailers\BarApprovalMailer;
 use Illuminate\Auth\Reminders\RemindableInterface;
@@ -64,7 +65,8 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		),
 		'email'=>'required|email',
 		'address'=>'required',
-
+		'city'=>'required|string',
+		'description'=>'required|string',
 		);
 
 	use UserTrait, RemindableTrait;
@@ -80,9 +82,13 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $mailer;
 
+	protected $geocoder;
+
 	public function __construct() {
 		$this->rzd = new RefZipDetails;
 		$this->mailer = new BarApprovalMailer;
+		$this->geocoder = new \Packers\Services\Geocoder\GoogleGeocoder;
+
 	}
 
 	public function upload() {
@@ -201,10 +207,10 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		'owner_email' => Input::get('owner_email')
 		);
 
-		$geoData = $this->geocodeBar($fillable['zipcode']);
-		if($geoData) {
-			$fillable['latitude'] = $geoData['latitude'];
-			$fillable['longitude'] = $geoData['longitude'];
+		$latLng = $this->getLatLng($fillable['address'], $fillable['zipcode']);
+		if($latLng) {
+			$fillable['latitude'] = $latLng['latitude'];
+			$fillable['longitude'] = $latLng['longitude'];
 		}
 
 		$output = Bar::where('id','=', $bid)->update($fillable);
@@ -220,6 +226,11 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	public function geocodeBar($zipcode) {
 		$geoData = $this->rzd->getGeoDataByZip($zipcode);
 		return !empty($geoData) ? $geoData->toArray() : false;
+	}
+
+	public function getLatLng($address, $zipcode) {
+		$latLng = $this->geocoder->geocode($address . ',' . $zipcode);
+		return $latLng;
 	}
 
 	public function findByName($name) {
@@ -269,6 +280,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 	public function findByGeo($ll, $ln, $radius){
 		$bars = $this->selectRaw(" *,
             (6371 * acos( cos( radians(".$ll.") ) * cos( radians( `latitude` ) ) * cos( radians( `longitude` ) - radians(".$ln.") ) + sin( radians(".$ll.") ) * sin( radians( `latitude` ) ) ) ) AS distance")
+			->where('status', '=', 1)
 			->having('distance', '<=', $radius)
 			->orderBy('distance', 'asc')
 			->with('upload')
@@ -296,10 +308,13 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		$this->timeAdded = (string) $this->created_at; unset($this->created_at);
 		$this->email = $this->owner_email;
 		$this->name = $this->barname;
+		$this->next_event = new stdClass();
 		unset($this->owner_email, $this->updated_at, $this->barname);
 		$this->contactFirstName = null;
 		$this->contactLastName = null;
+		$this->promo = '';
 		$this->favorites = 0;
+		$this->logoBlob = $this->logo; //this is stupid, but the other agency needs this
 		$this->hash = "";
 		$this->latlng = array(
 			'lat' => (float) $this->latitude,
@@ -324,10 +339,13 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 		$geoData = $this->geocodeBar($bar->zipcode);
 		if($geoData) {
-			$bar->latitude = $geoData['latitude'];
-			$bar->longitude = $geoData['longitude'];
 			$bar->state = $geoData['state_cd'];
 			$bar->country = 'US';
+		}
+		$latLng = $this->getLatLng($bar->address, $bar->zipcode);
+		if($latLng) {
+			$bar->latitude = $latLng['latitude'];
+			$bar->longitude = $latLng['longitude'];
 		}
 
 		$bar->save();

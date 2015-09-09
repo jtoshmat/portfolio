@@ -8,7 +8,7 @@ set :repo_url, 'git@github.com:bsd/packers-webapp-v2.git'
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/var/www/sites/packers.wpd.bsd.net'
+# set :deploy_to, '/var/www/sites/packers.wpd.bsd.net'
 
 set :scm, :git
 set :format, :pretty

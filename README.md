@@ -1,3 +1,88 @@
+# Packers Everywhere Bar Management App
+
+For local dev, Homestead is strongly encouraged. Documentation here: http://laravel.com/docs/4.2/homestead#installation-and-setup
+The simplest way is to follow the Manually Via Git (No Local PHP) instructions.
+
+To set up your virtualhost for this app, open up .homestead/Homestead.yaml and add another block in the sites: group. Something like:
+```
+    - map: packers.dev
+      to: /home/vagrant/Code/packers-webapp-v2/public
+```
+With whatever path to the app you used. ~/Code is the Homestead default.
+
+**Once you make this change, you will need to reprovision your vm. To do this:
+```sh
+$ cd /path/to/Homestead
+$ vagrant provision
+     #-OR-
+$ vagrant up --provision #(start w/ provision if vm isn't already running)
+```
+Once you have Homestead configured, check out this repo into your shared folder, and then ssh into your Homestead box, cd to the app root and run:
+```sh
+$ composer install
+```
+Once all the dependencies have been installed, you will need to configure your database.
+While sshed into the homestead box:
+
+```sh
+$ mysql -uhomested -psecret
+```
+and then create a database:
+```sh
+mysql> create database packers;
+```
+The next thing you will need to do is add a few local configuration files.
+```sh
+$ touch app/config/local/database.php
+$ touch app/config/local/cache.php
+$ touch app/config/local/app.php
+```
+Add this into the app/config/local/database.php you created (change if your db settings are different):
+```
+<?php
+return array(
+    'connections' => array(
+        'mysql' => array(
+            'driver'    => 'mysql',
+            'host'      => 'localhost',
+            'database'  => 'packers',
+            'username'  => 'homestead',
+            'password'  => 'secret',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+        ),
+    ),
+);
+```
+And then add this to the app/config/local/cache.php file you created:
+```
+<?php
+return array(
+    'driver' => 'file',
+    'path' => storage_path().'/cache',
+    'prefix' => 'laravel',
+);
+```
+
+And finally add this to your app/config/local/app.php:
+```
+<?php
+return array(
+	'debug' => true,
+);
+```
+
+## Database Migration/Seeding
+To get the initial data in run this from the app root:
+```sh
+$ php artisan migrate --seed
+```
+If you want to import the existing bars **(Careful! This app can send emails and there is real data in here!)**
+```sh
+$ php artisan db:seed --class=BarImportSeeder
+```
+
 ## Front-End Build Process
 Before running this site locally, you will need to install the necessary build dependencies. Do this by running
 
@@ -12,29 +97,3 @@ This will process and copy all the necessary files to the web serving /public di
     gulp --type production
     
 to build the site with minifed resources.
-
-## Laravel PHP Framework
-
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
-
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
-
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
-
-## Official Documentation
-
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
-
-### Contributing To Laravel
-
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
-
-### License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

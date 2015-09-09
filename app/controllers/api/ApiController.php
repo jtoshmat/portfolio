@@ -12,12 +12,23 @@ abstract class ApiController extends \BaseController
         return $response;
     }
 
-    public function apiResponse($data) {
+    public function apiResponse($data, $cors=false) {
         $response = \Response::json(array(
             'status' => 'OK',
             'data' => $data
         ), 200);
+        if($cors) {
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+        }
         return $response;
     }
 
+    public function apiResponseJSONP($data, $dataKey='data') {
+        $response = \Response::json(array(
+            'status' => 'OK',
+            'count'  => count($data),
+            $dataKey => $data
+        ), 200)->setCallback(\Input::get('callback'));
+        return $response;
+    }
 }
