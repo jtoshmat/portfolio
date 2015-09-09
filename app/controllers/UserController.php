@@ -46,7 +46,7 @@ extends Controller
 	        //\Session::put('privileges', $role->privileges);
 	        //\Session::put('pusertype', $role->pusertype);
 	        \Session::flash('mymessage','You are logged in');
-	      return Redirect::to(Config::get('app.url') . "bars");
+	      return Redirect::to("bars");
 	    }
 
 	    return Redirect::back()->withErrors([
@@ -446,7 +446,7 @@ extends Controller
 
 	Auth::logout();
 
-	return Redirect::to(Config::get('app.url') . "users/login");
+	return Redirect::to("users/login");
 	}
 
 	public function error()
