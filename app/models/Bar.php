@@ -316,7 +316,8 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		unset($this->owner_email, $this->updated_at, $this->barname);
 		$this->contactFirstName = null;
 		$this->contactLastName = null;
-		$this->promo = '';
+		$this->promo = $this->description;
+		unset($this->description);
 		$this->favorites = 0;
 		$this->logoBlob = $this->logo; //this is stupid, but the other agency needs this
 		$this->hash = "";
