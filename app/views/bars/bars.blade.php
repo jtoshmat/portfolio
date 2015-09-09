@@ -25,7 +25,7 @@
       </div>
     </div>
   </div>
-  <div class="table-responsive">
+  <div class="table-responsive loading">
     <table id="bars-listing-table" class="table table-hover bar-listings-table" cellspacing="0">
     	<thead>
       	<tr>

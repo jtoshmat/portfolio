@@ -1,9 +1,10 @@
 $(document).ready(function(){
 
+  // Remove loading status.
+  $('.loading').removeClass('loading');
+
   // Initialize tooltips.
   $('[data-toggle="tooltip"]').tooltip();
-
-
 
   // Sends a delete request with a passed ID. Returns a Promise.
   function deleteBar(id) {
