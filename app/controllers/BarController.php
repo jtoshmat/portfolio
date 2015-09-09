@@ -42,10 +42,10 @@ class BarController extends \BaseController {
 			return View::make($this->isNotAuthorized());
 		}
 		if (Auth::user()->admin == 0){
-			return Redirect::to(Config::get('app.url') . 'bars')->with('error', 'You do not have privileges for this action.');
+			return Redirect::to('bars')->with('error', 'You do not have privileges for this action.');
 		}
 		$bars = $this->bars->approveBar();
-		return Redirect::to(Config::get('app.url') . 'bars')->with('message', 'Bar has been approved!');
+		return Redirect::to('bars')->with('message', 'Bar has been approved!');
 	}
 
 	public function bar()
@@ -96,15 +96,15 @@ class BarController extends \BaseController {
 
 					$output = $Bar->updateBar($bid, $uid);
  
-					return Redirect::to(Config::get('app.url') . 'bars')->with('message', 'Thanks for updaing your bar');
+					return Redirect::to('bars')->with('message', 'Thanks for updaing your bar');
 
 				}else{
 
-					return Redirect::to(Config::get('app.url') . 'editbar/'.$bid)->with('message', 'The following errors occurred')->withErrors
+					return Redirect::to('editbar/'.$bid)->with('message', 'The following errors occurred')->withErrors
 					($validator)
 						->withInput();
 				}
-				return Redirect::to(Config::get('app.url') . 'bars')->with('message', 'Thanks for up!');
+				return Redirect::to('bars')->with('message', 'Thanks for up!');
 
 			}
 
@@ -159,10 +159,10 @@ class BarController extends \BaseController {
 				if (Input::hasFile('logo')){
 					$this->uploadLogo($lastInsertedBarId);
 				}
-				return Redirect::to(Config::get('app.url') . 'bars')->with('message', 'Thanks for registering your bar');
+				return Redirect::to('bars')->with('message', 'Thanks for registering your bar');
 
 			}else{
-				return Redirect::to(Config::get('app.url') . 'addbar')->with('message', 'The following errors occurred')->withErrors($validator)
+				return Redirect::to('addbar')->with('message', 'The following errors occurred')->withErrors($validator)
 					->withInput();
 			}
 		}

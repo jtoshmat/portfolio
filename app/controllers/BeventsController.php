@@ -31,7 +31,7 @@ class BeventsController extends \BaseController {
 		$bevents = $this->Bevent->getBevents();
 
 		if (empty($bevents)){
-			return Redirect::to(Config::get('app.url') . 'addbevent/'.$barid);
+			return Redirect::to('addbevent/'.$barid);
 		}
 
 
@@ -82,7 +82,7 @@ class BeventsController extends \BaseController {
 
 					 
 				 	if(date('Y-m-d', $game_time) != date('Y-m-d', $datetime)){
-						return Redirect::to(Config::get('app.url') . 'editbevent/'.$bid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
+						return Redirect::to('editbevent/'.$bid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
 						('The event date must match the game date');				
 				 	}
 				  
@@ -93,16 +93,16 @@ class BeventsController extends \BaseController {
 				$barid = Bevent::where('bid','=',$bid)->get(array('barid'));
 				$barid = json_decode($barid, true);
 				$barid = (int) $barid[0]['barid'];
-				return Redirect::to(Config::get('app.url') . 'bevents/'.$barid)->with('message', 'The following errors occurred')->withErrors
+				return Redirect::to('bevents/'.$barid)->with('message', 'The following errors occurred')->withErrors
 				('The event # '.$bid.' has been updated');
 
 			}else{
 				$id = Input::get('id');
-				return Redirect::to(Config::get('app.url') . 'editbevent/'.$bid)->with('message', 'The following errors occurred')->withErrors
+				return Redirect::to('editbevent/'.$bid)->with('message', 'The following errors occurred')->withErrors
 				($validator)
 					->withInput();
 			}
-			return Redirect::to(Config::get('app.url') . 'editbevent/'.$bid)->with('message', 'Thanks for up!');
+			return Redirect::to('editbevent/'.$bid)->with('message', 'Thanks for up!');
 
 		}
 
@@ -138,7 +138,7 @@ class BeventsController extends \BaseController {
 				$Input_dt = new DateTime($datetimeInput);
 
 			if ($Input_dt < $today_dt) { 
-					return Redirect::to(Config::get('app.url') . 'addbevent/'.$barid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
+					return Redirect::to('addbevent/'.$barid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
 					('Events can only be created in the future')->withInput();
 			}
 				
@@ -146,14 +146,14 @@ class BeventsController extends \BaseController {
 				$gametimeOutput = date('Y-m-d', strtotime($gametime));
 			 
 				if($datetimeInput != $gametimeOutput){
-					return Redirect::to(Config::get('app.url') . 'addbevent/'.$barid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
+					return Redirect::to('addbevent/'.$barid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
 					('The event date must match the game date')->withInput();			
 				}
 
 				$bevents = $this->Bevent->addBevent();
-				return Redirect::to(Config::get('app.url') . 'bevents/'.$barid);
+				return Redirect::to('bevents/'.$barid);
 			}else{
-				return Redirect::to(Config::get('app.url') . 'addbevent/'.$barid)->with('message', 'The following errors occurred')->withErrors
+				return Redirect::to('addbevent/'.$barid)->with('message', 'The following errors occurred')->withErrors
 				($validator)->withInput();
 			}
 		}
