@@ -11,6 +11,10 @@
 	|
 	*/
 
+	Route::get('info', function() {
+		echo phpinfo();
+	});
+
 	Route::any("error", [
 		"as"   => "errors/error",
 		"uses" => "UserController@error"
