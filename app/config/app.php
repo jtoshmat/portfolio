@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://bars.packerseverywhere.com',
+	'url' => 'http://bars.packerseverywhere.com/',
 
 	/*
 	|--------------------------------------------------------------------------
