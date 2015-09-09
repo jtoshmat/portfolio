@@ -5,9 +5,9 @@ class UserImportMailer extends PackersMailer
     public function run($user)
     {
         $view = 'emails.users.import';
-        $subject = 'You\'re a very imported person!';
+        $subject = 'Packers Everywhere Admin Portal Update';
         $data = array(
-            'username' => 'username',
+            'username' => $user->username,
             'password' => 'gopackgo',
         );
 
