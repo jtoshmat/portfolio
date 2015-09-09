@@ -69,3 +69,11 @@ img {
   font-size: 85%;
   text-align: right;
 }
+
+.table-responsive {
+  margin: 0 -15px;
+
+  .row {
+    margin: 0;
+  }
+}
