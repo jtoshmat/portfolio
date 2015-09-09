@@ -139,7 +139,8 @@ $(document).ready(function(){
         targets: [7]
       }
     ],
-    order: [[ 1, 'asc' ]]
+    order: [[ 1, 'asc' ]],
+    pageLength: 25
   });
   var statusColumn = barsTable.column(7);
 
@@ -299,7 +300,8 @@ $(document).ready(function(){
           targets: [0, 7]
         }
       ],
-      order: [[ 1, 'asc' ]]
+      order: [[ 1, 'asc' ]],
+      pageLength: 25
     });
     $.fn.dataTable.ext.search.push(
       function( settings, data, dataIndex ) {
@@ -360,7 +362,8 @@ $(document).ready(function(){
           targets: [0, 6]
         }
       ],
-      order: [[ 1, 'asc' ]]
+      order: [[ 1, 'asc' ]],
+      pageLength: 25
     });
     $.fn.dataTable.ext.search.push(
       function( settings, data, dataIndex ) {
@@ -496,7 +499,8 @@ $(document).ready(function(){
           targets: [0, 4]
         }
       ],
-      order: [[ 0, 'asc' ]]
+      order: [[ 0, 'asc' ]],
+      pageLength: 25
     });
 
     $('.delete-user').on('click', function(e) {
