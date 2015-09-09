@@ -233,6 +233,10 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		return $latLng;
 	}
 
+	public function getTimezone($latitude,$longitude) {
+		return $this->geocoder->getTimezone($latitude, $longitude);
+	}
+
 	public function findByName($name) {
 		try {
 			$bar = $this->where('barname', '=', $name)
@@ -346,6 +350,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		if($latLng) {
 			$bar->latitude = $latLng['latitude'];
 			$bar->longitude = $latLng['longitude'];
+			$bar->timezone = $this->getTimezone($bar->latitude,$bar->longitude);
 		}
 
 		$bar->save();

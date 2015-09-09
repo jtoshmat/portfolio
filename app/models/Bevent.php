@@ -152,7 +152,7 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 		$datetime2 = new DateTime($date1);
 		$interval = $datetime1->diff($datetime2);
 
-		return $interval->days;
+		return intval($interval->format("%r%a"));
 	}
 
 }
