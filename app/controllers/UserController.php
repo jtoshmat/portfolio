@@ -46,7 +46,7 @@ extends Controller
 	        //\Session::put('privileges', $role->privileges);
 	        //\Session::put('pusertype', $role->pusertype);
 	        \Session::flash('mymessage','You are logged in');
-	      return Redirect::to("bars");
+	      return Redirect::away("bars");
 	    }
 
 	    return Redirect::back()->withErrors([
@@ -139,7 +139,7 @@ extends Controller
 	  $response = $this->resetPassword($credentials);
 
 	  if ($response === Password::PASSWORD_RESET) {
-	    return Redirect::route("bars");
+	    return Redirect::away("bars");
 	  }
 
 	  return Redirect::back()
@@ -167,14 +167,14 @@ extends Controller
 		    if ($output){
 		    	  	$credentials = $this->getLoginCredentials();
 				   	if (Auth::attempt($credentials)) {
-				     return Redirect::route("bars");
+				     return Redirect::away("/bars");
 				   	}
 		    }
 
 
-	        return Redirect::to('users/login')->with('message', 'Thanks for registering!');
+	        return Redirect::away('/users/login')->with('message', 'Thanks for registering!');
 	    } else {
-	        return Redirect::to('register')->with('message', 'The following errors occurred')->withErrors($validator)->withInput();
+	        return Redirect::away('/register')->with('message', 'The following errors occurred')->withErrors($validator)->withInput();
 	    }
 
 	  }
@@ -268,10 +268,10 @@ extends Controller
 			  );
 			  $role = Role::where('uid', '=', $id)->update($fillable);
 
-			  return Redirect::to('user/'.$id)->withErrors('Updated');
+			  return Redirect::away('/user/'.$id)->withErrors('Updated');
 
 		  } else {
-			  return Redirect::to('user/'.$id)->with('message', 'The following errors occurred')->withErrors
+			  return Redirect::away('/user/'.$id)->with('message', 'The following errors occurred')->withErrors
 			  ($validator)
 				  ->withInput();
 		  }
@@ -286,13 +286,13 @@ extends Controller
 		}
 
 		if (Auth::user()->admin==0) {
-			return Redirect::to('/')->with('message', 'That page is restricted.');
+			return Redirect::away('/')->with('message', 'That page is restricted.');
 		}
 
 		$user = $this->User->findById($id);
 
 		if(!$user){
-			return Redirect::to('admin/users')->with('message', 'User not found');
+			return Redirect::away('/admin/users')->with('message', 'User not found');
 		}
 
 		$method = Request::method();
@@ -313,10 +313,10 @@ extends Controller
 				);
 				$user = User::where('id', '=', $id)->update($fillable);
 
-				return Redirect::to('user/edit')->withErrors('Updated');
+				return Redirect::away('/user/edit')->withErrors('Updated');
 
 			} else {
-				return Redirect::to('user/edit')->with('message', 'The following errors occurred')->withErrors
+				return Redirect::away('/user/edit')->with('message', 'The following errors occurred')->withErrors
 				($validator)
 					->withInput();
 			}
@@ -350,10 +350,10 @@ extends Controller
 				);
 				$user = User::where('id', '=', $id)->update($fillable);
 
-				return Redirect::to('user/edit')->withErrors('Updated');
+				return Redirect::away('/user/edit')->withErrors('Updated');
 
 			} else {
-				return Redirect::to('user/edit')->with('message', 'The following errors occurred')->withErrors
+				return Redirect::away('/user/edit')->with('message', 'The following errors occurred')->withErrors
 				($validator)
 					->withInput();
 			}
@@ -368,7 +368,7 @@ extends Controller
 		}
 
 		if (Auth::user()->admin==0) {
-			return Redirect::to('/')->with('message', 'That page is restricted.');
+			return Redirect::away('/')->with('message', 'That page is restricted.');
 		}
 
 		$users = $this->User->index();
@@ -381,7 +381,7 @@ extends Controller
 		  return 'Unauthorized Access';
 	  }
 	  if (Auth::user()->admin == 0){
-		  return Redirect::to('/')->with('message', 'That page is restricted.');
+		  return Redirect::away('/')->with('message', 'That page is restricted.');
 	  }
 	  $id = (int) Request::segment(3);
 
@@ -419,14 +419,14 @@ extends Controller
 				$this->User->updateUser();
 				return route('user', array('id' => $id))->with('message', 'Thanks for updating!');
 			} else {
-				return Redirect::to('user/'.$id)->with('message', 'The following errors occurred')->withErrors
+				return Redirect::away('user/'.$id)->with('message', 'The following errors occurred')->withErrors
 				($validator)
 					->withInput();
 			}
 
 			return route('user', array('id' => $id))->with('message', 'Thanks for updating!');
 		}
-		return Redirect::to('/profile');
+		return Redirect::away('/profile');
 	}
 
 	protected function resetPassword($credentials)
@@ -446,7 +446,7 @@ extends Controller
 
 	Auth::logout();
 
-	return Redirect::to(Config::get('app.url') . "users/login");
+	return Redirect::away("users/login");
 	}
 
 	public function error()
