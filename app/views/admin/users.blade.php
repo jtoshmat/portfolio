@@ -18,7 +18,7 @@
   <div class="page-header">
     <h2>Edit Users</h2>
   </div>
-  <div class="table-responsive">
+  <div class="table-responsive loading">
     <table id="user-listing-table" class="table table-hover user-listings-table" cellspacing="0">
       <thead>
         <tr>

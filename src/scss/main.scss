@@ -76,4 +76,13 @@ img {
   .row {
     margin: 0;
   }
+
+  &.loading {
+    background: url(/img/spinner.gif) center center no-repeat;
+    min-height: 150px;
+
+    table {
+      display: none;
+    }
+  }
 }
