@@ -307,7 +307,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		$this->key_name = $this->slug; unset($this->slug);
 		$this->telephone = $this->phone; unset($this->phone);
 		$this->county = null;
-		$this->logo = $this->upload ? $this->upload->logo : null;
+		$this->logo = $this->upload ? $this->upload->filename : null;
 		unset($this->upload);
 		$this->timeAdded = (string) $this->created_at; unset($this->created_at);
 		$this->email = $this->owner_email;
