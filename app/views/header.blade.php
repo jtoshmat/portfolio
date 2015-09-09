@@ -16,7 +16,7 @@
         <li role="presentation" class="visible-xs-block"><a href="{{ URL::route("bars") }}">Bar Index</a></li>
         <li role="presentation" class="visible-xs-block"><a href="{{ URL::route("games/allgames") }}">Season Schedule</a></li>
         <li>
-	        <a href="http://www.packerseverywhere.com/app" target="_blank">View App</a>
+	        <a href="http://www.packerseverywhere.com/app" target="_blank">View Website</a>
       	</li>
       	<li>
 	        <a href="{{ URL::route("user/logout") }}">Log Out</a>

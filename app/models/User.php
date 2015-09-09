@@ -15,8 +15,6 @@ class User
 	'username'=>'required|unique:user|min:2',
 	'password'=>'required|alpha_num|min:6,12|confirmed',
 	'password_confirmation'=>'required|alpha_num|between:6,12',
-	'secretquestion'=>'required',
-	'secretanswer'=>'required',
 	);
 
 	public static $forgotpasswordrules = array(
@@ -133,8 +131,6 @@ class User
 		$user->username = Input::get('username');
 		$user->password = Hash::make(Input::get('password'));
 		$user->email = Input::get('username');
-		$user->secretquestion = Input::get('secretquestion');
-		$user->secretanswer = Input::get('secretanswer');
 		$user->save();
 		$LastInsertId = $user->id;
 		$insertData = array('uid' => $LastInsertId,'pusertype' => $roles, 'privileges'=>$privileges);
@@ -202,9 +198,6 @@ class User
 
 			$output = array(
 				'username'=>$found[0]['username'],
-				'secretquestion'=>$found[0]['secretquestion'],
-				'secretanswer'=>$found[0]['secretanswer'],
-
 				);
 			$output['secrectanswer'] = null;
 
