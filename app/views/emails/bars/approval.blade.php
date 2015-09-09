@@ -18,7 +18,7 @@
     gold gameday experience.
 </p>
 <p>
-    <a href="{{ url('user/edit')}}">Set up your profile now, and get ready for some football!"</a>
+    <a href="{{ url('user/edit')}}">Set up your profile now, and get ready for some football!</a>
 </p>
 <p>
     Joan Malcheski
