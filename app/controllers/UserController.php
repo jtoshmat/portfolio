@@ -46,7 +46,7 @@ extends Controller
 	        //\Session::put('privileges', $role->privileges);
 	        //\Session::put('pusertype', $role->pusertype);
 	        \Session::flash('mymessage','You are logged in');
-	      return Redirect::to("bars");
+	      return Redirect::to(Config::get('app.url') . "bars");
 	    }
 
 	    return Redirect::back()->withErrors([
@@ -139,7 +139,7 @@ extends Controller
 	  $response = $this->resetPassword($credentials);
 
 	  if ($response === Password::PASSWORD_RESET) {
-	    return Redirect::route("bars");
+	    return Redirect::to(Config::get('app.url') . "bars");
 	  }
 
 	  return Redirect::back()
@@ -167,7 +167,7 @@ extends Controller
 		    if ($output){
 		    	  	$credentials = $this->getLoginCredentials();
 				   	if (Auth::attempt($credentials)) {
-				     return Redirect::route("bars");
+				     return Redirect::to(Config::get('app.url') . "bars");
 				   	}
 		    }
 
@@ -446,7 +446,7 @@ extends Controller
 
 	Auth::logout();
 
-	return Redirect::to("users/login");
+	return Redirect::to(Config::get('app.url') . "users/login");
 	}
 
 	public function error()
