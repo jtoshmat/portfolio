@@ -11,9 +11,9 @@
 	|
 	*/
 
-	Route::get('info', function() {
-		echo phpinfo();
-	});
+	//This forces the base url to respect the app/config/app.php value
+	URL::forceRootUrl(Config::get('app.url'));
+
 
 	Route::any("error", [
 		"as"   => "errors/error",
