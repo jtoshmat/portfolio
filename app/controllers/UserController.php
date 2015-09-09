@@ -446,7 +446,7 @@ extends Controller
 
 	Auth::logout();
 
-	return Redirect::route("user/login");
+	return Redirect::to(Config::get('app.url') . "users/login");
 	}
 
 	public function error()

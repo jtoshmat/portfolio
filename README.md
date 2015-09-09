@@ -70,6 +70,7 @@ And finally add this to your app/config/local/app.php:
 <?php
 return array(
 	'debug' => true,
+	'url'   => 'http://packers.dev/' //(or whatever url you are using)
 );
 ```
 

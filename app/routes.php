@@ -11,11 +11,6 @@
 	|
 	*/
 
-	Route::get('emailtest', function() {
-		$mailer = new Packers\Services\Mailers\UserWelcomeEmail;
-		$mailer->run();
-	});
-
 	Route::any("error", [
 		"as"   => "errors/error",
 		"uses" => "UserController@error"
