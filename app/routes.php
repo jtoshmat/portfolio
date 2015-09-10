@@ -204,7 +204,7 @@
 			return $id;
 		});
 
-		Route::get("admin/users/{id}", 'UserController@adminEditUser');
+		Route::any("admin/users/{id}", 'UserController@adminEditUser');
 		Route::get("admin/users", 'UserController@adminIndex');
 		Route::any("user/edit", array('as' => 'user.edit', 'uses' => 'UserController@editUser'));
 

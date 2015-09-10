@@ -308,12 +308,13 @@ extends Controller
 
 				$fillable = array(
 					'email' => Input::get('email'),
-					'password' => Hash::make(Input::get('password')),
 					'username' => Input::get('username')
 				);
+				if(!empty(Input::get('password'))) {
+					$fillable['password'] = Hash::make(Input::get('password'));
+				}
 				$user = User::where('id', '=', $id)->update($fillable);
-
-				return Redirect::to('user/edit')->withErrors('Updated');
+				return Redirect::to('admin/users/'.$id)->withErrors('Updated');
 
 			} else {
 				return Redirect::to('user/edit')->with('message', 'The following errors occurred')->withErrors
@@ -322,7 +323,7 @@ extends Controller
 			}
 		}
 
-		return View::make("user/user")->with('user', $user);
+		return View::make("admin/user")->with('user', $user);
 	}
 
 	public function editUser(){
@@ -345,9 +346,11 @@ extends Controller
 
 				$fillable = array(
 					'email' => Input::get('email'),
-					'password' => Hash::make(Input::get('password')),
 					'username' => Input::get('username')
 				);
+				if(!empty(Input::get('password'))) {
+					$fillable['password'] = Hash::make(Input::get('password'));
+				}
 				$user = User::where('id', '=', $id)->update($fillable);
 
 				return Redirect::to('user/edit')->withErrors('Updated');
