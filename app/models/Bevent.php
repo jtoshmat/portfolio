@@ -111,17 +111,16 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 		$eventtime = Input::get('datetime');
 		$eventtime = date_parse_from_format('m/d/Y g:i A', $eventtime);
         $gid = Input::get('gid');
+        $fillable = array();
         if($gid != 0) {
             if (!$this->isGameTime($gid, Input::get('datetime'))) {
                 $fillable['gid'] = 0;
             }
         }
 		$tz = Input::get('timezone');
-		$fillable = array(
-			'title' => Input::get('title'),
-			'description' => Input::get('description'),
-			'eventtime' => \Carbon\Carbon::create($eventtime['year'], $eventtime['month'], $eventtime['day'], $eventtime['hour'], $eventtime['minute'], 0, $tz),
-		);
+		$fillable['title'] = Input::get('title');
+        $fillable['description'] = Input::get('description');
+        $fillable['eventtime'] = \Carbon\Carbon::create($eventtime['year'], $eventtime['month'], $eventtime['day'], $eventtime['hour'], $eventtime['minute'], 0, $tz);
 		Bevent::where('bid', '=', $bid)->update($fillable);
 		return 1;
 	}

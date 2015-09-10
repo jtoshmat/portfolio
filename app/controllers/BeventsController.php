@@ -67,26 +67,6 @@ class BeventsController extends \BaseController {
 		{
 			$validator = Validator::make(Input::all(), Bevent::$editbevent);
 			if ($validator->passes()) {
-
-				$datetime = Input::get('datetime');
-				$game_time = null;
-				$gid = (int) Request::query('gid');
-				if ($gid && $gid != 0){
-					$game_time = DB::select(DB::raw('select game_time from games where gid='.$gid.''));
-
-					$game_time = strtotime($game_time[0]->game_time);
-					$datetime = strtotime($datetime);
-
-					$game_dt = new DateTime(date('Y-m-d', $game_time));
-					$input_dt = new DateTime(date('Y-m-d', $datetime));
-
-					 
-				 	if(date('Y-m-d', $game_time) != date('Y-m-d', $datetime)){
-						return Redirect::to('editbevent/'.$bid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
-						('The event date must match the game date');				
-				 	}
-				}
-
 				$this->Bevent->updateBevent();
 				$barid = Bevent::where('bid','=',$bid)->get(array('barid'));
 				$barid = json_decode($barid, true);
