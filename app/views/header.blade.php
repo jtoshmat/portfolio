@@ -40,7 +40,7 @@
       <li role="presentation"><a href="{{ URL::route("bars") }}">Bar Index</a></li>
       <li role="presentation"><a href="{{ URL::route("games/allgames") }}">Season Schedule</a></li>
       @if (Auth::user()->admin == 1)
-        <li role="presentation"><a href="{{ url("admin/users") }}">Edit Users</a></li>
+        <li role="presentation"><a href="{{ url("/admin/users") }}">Edit Users</a></li>
       @else
         <li role="presentation"><a href="{{ URL::route("user.edit") }}">Edit Profile</a></li>
       @endif
