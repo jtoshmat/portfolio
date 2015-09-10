@@ -71,7 +71,7 @@ class BeventsController extends \BaseController {
 				$datetime = Input::get('datetime');
 				$game_time = null;
 				$gid = (int) Request::query('gid');
-				if ($gid){
+				if ($gid && $gid != 0){
 					$game_time = DB::select(DB::raw('select game_time from games where gid='.$gid.''));
 
 					$game_time = strtotime($game_time[0]->game_time);
@@ -85,11 +85,9 @@ class BeventsController extends \BaseController {
 						return Redirect::to('editbevent/'.$bid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
 						('The event date must match the game date');				
 				 	}
-				  
 				}
 
-				$Bevent = new Bevent();
-				$Bevent->updateBevent();
+				$this->Bevent->updateBevent();
 				$barid = Bevent::where('bid','=',$bid)->get(array('barid'));
 				$barid = json_decode($barid, true);
 				$barid = (int) $barid[0]['barid'];
@@ -123,7 +121,7 @@ class BeventsController extends \BaseController {
 		$gid = (int) Request::query('gid');
 		$gamematchup = null;
 		$gametime = null;
-		if ($gid){
+		if ($gid && $gid != 0){
 			$gameData = Game::where('gid','=',$gid)->firstOrFail();
 			$gamematchup = $gameData['matchup'];
 			$gametime = $gameData['game_time'];
@@ -141,13 +139,14 @@ class BeventsController extends \BaseController {
 					return Redirect::to('addbevent/'.$barid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
 					('Events can only be created in the future')->withInput();
 			}
-				
-				$datetimeInput = date('Y-m-d', strtotime($datetimeInput));
-				$gametimeOutput = date('Y-m-d', strtotime($gametime));
-			 
-				if($datetimeInput != $gametimeOutput){
-					return Redirect::to('addbevent/'.$barid.'?gid='.$gid)->with('message', 'The following errors occurred')->withErrors
-					('The event date must match the game date')->withInput();			
+				if($gid && $gid != 0) {
+					$datetimeInput = date('Y-m-d', strtotime($datetimeInput));
+					$gametimeOutput = date('Y-m-d', strtotime($gametime));
+
+					if ($datetimeInput != $gametimeOutput) {
+						return Redirect::to('addbevent/' . $barid . '?gid=' . $gid)->with('message', 'The following errors occurred')->withErrors
+						('The event date must match the game date')->withInput();
+					}
 				}
 
 				$bevents = $this->Bevent->addBevent();

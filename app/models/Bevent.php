@@ -107,10 +107,15 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function updateBevent(){
-		$bid = (int) Request::segment(2);
 		$bid = Request::get('bid');
 		$eventtime = Input::get('datetime');
 		$eventtime = date_parse_from_format('m/d/Y g:i A', $eventtime);
+        $gid = Input::get('gid');
+        if($gid != 0) {
+            if (!$this->isGameTime($gid, Input::get('datetime'))) {
+                $fillable['gid'] = 0;
+            }
+        }
 		$tz = Input::get('timezone');
 		$fillable = array(
 			'title' => Input::get('title'),
@@ -154,5 +159,18 @@ class Bevent extends Eloquent implements UserInterface, RemindableInterface {
 
 		return intval($interval->format("%r%a"));
 	}
+
+    private function isGameTime($gid, $eventTime) {
+        $game = Game::where('gid', '=', $gid)->first();
+        $game_dt = new DateTime(date('Y-m-d', strtotime($game->game_time)));
+        $input_dt = new DateTime(date('Y-m-d', strtotime($eventTime)));
+
+        return $game_dt == $input_dt ? true : false;
+    }
+
+//    private function convertToDateTime($eventtime) {
+//        $ts = strtotime($eventtime);
+//        return date("Y-m-d H:i:s", $ts);
+//    }
 
 }
