@@ -310,7 +310,8 @@ extends Controller
 					'email' => Input::get('email'),
 					'username' => Input::get('username')
 				);
-				if(!empty(Input::get('password'))) {
+				$password = Input::get('password');
+				if(!empty($password)) {
 					$fillable['password'] = Hash::make(Input::get('password'));
 				}
 				$user = User::where('id', '=', $id)->update($fillable);
@@ -348,7 +349,8 @@ extends Controller
 					'email' => Input::get('email'),
 					'username' => Input::get('username')
 				);
-				if(!empty(Input::get('password'))) {
+				$password = Input::get('password');
+				if(!empty($password)) {
 					$fillable['password'] = Hash::make(Input::get('password'));
 				}
 				$user = User::where('id', '=', $id)->update($fillable);
