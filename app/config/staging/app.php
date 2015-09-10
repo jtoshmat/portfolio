@@ -13,5 +13,5 @@ return array(
     |
     */
 
-    'url'   => 'http://packers.dev.bsd.net/'
+    'url'   => 'http://packers.dev.bsd.net'
 );
