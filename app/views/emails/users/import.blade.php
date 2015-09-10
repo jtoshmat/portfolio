@@ -1,6 +1,6 @@
 <html>
 <body>
-<p>Thanks for being a part of the Packers Everywhere community</p>
+<p>Thanks for being a part of the Packers Everywhere community!</p>
 <p>
     The Packers Everywhere admin portal has changed.Use this link to edit your description,
     add gameday specials, and create events: {{ url('/bars') }}
