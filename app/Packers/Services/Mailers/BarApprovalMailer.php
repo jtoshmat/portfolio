@@ -69,7 +69,7 @@ class BarApprovalMailer extends PackersMailer
             'bar_slug' => $bar->slug,
             'bar_id' => $bar->id,
             'bar_city' => $bar->city,
-            'bar_name' => $bar->name
+            'bar_name' => $bar->barname
         );
 
         if ($this->sendTo($user, $subject, $view, $data)) {
