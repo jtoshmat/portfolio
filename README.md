@@ -7,6 +7,23 @@ Zend Certified profile - http://www.zend.com/en/yellow-pages/ZEND019221
 <br />
 My sample works, click on - View all of README.md 
 <br />
+
+
+*******
+<br />
+Company: <strong> Blue State Digital.</strong> <br />
+Project:  Packers Everywhere by NFL Green Packers team.<br />
+Technical details: LAMP, PHP 5x, MySQL, Laravel, Vagrant, Homestead, Javascript, CSS3, Jquery, Curl, API and more<br />
+URL: http://bars.packerseverywhere.com <br />
+Username: jontoshmatov Password: business
+URL for Javascript: PackersEverywhere branch <br />
+URL for CSS: PackersEverywhere branch<br />
+Visibility: Public<br />
+Role: Lead Developer<br />
+<br />
+*******
+
+
 *******
 <br />
 Company: <strong> American Family Insurance</strong> <br />
