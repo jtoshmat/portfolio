@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'noreply@packerseverywhere.com', 'name' => 'Packerseverywhere'),
+	'from' => array('address' => 'noreply@packerseverywhere.com', 'name' => 'Packers Everywhere'),
 
 	/*
 	|--------------------------------------------------------------------------
