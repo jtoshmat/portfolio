@@ -4,6 +4,16 @@ use Guzzle\Http\Client;
 
 class GoogleGeocoder implements Geocoder
 {
+
+    protected $timezoneMap = array(
+        'America/New_York'    => 'US/Eastern',
+        'America/Chicago'     => 'US/Central',
+        'America/Denver'      => 'US/Mountain',
+        'America/Los_Angeles' => 'America/Los_Angeles',
+        'America/Anchorage'   => 'US/Alaska',
+        'America/Adak'        => 'Pacific/Honolulu'
+    );
+
     public function __construct() {
         $this->client = new Client;
         $this->geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
@@ -34,11 +44,16 @@ class GoogleGeocoder implements Geocoder
         )->send();
         $resp = $req->json();
         if($resp['status'] == 'OK') {
-            $timezone = $resp['timeZoneId'];
+            $tz = $resp['timeZoneId'];
+            $timezone = $this->mapTimeZone($tz);
         }
         else {
             $timezone = null;
         }
         return $timezone;
+    }
+
+    private function mapTimeZone($tz) {
+        return isset($this->timezoneMap[$tz]) ? $this->timezoneMap[$tz] : null;
     }
 }
