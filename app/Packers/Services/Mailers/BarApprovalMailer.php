@@ -28,8 +28,7 @@ class BarApprovalMailer extends PackersMailer
 
     private function isFirstApiBarApproval($user, $bar) {
         $log = \EmailLog::where('user_id', '=', $user->id)
-                        ->where('type', '=', 'email.bar.approval')
-                        ->orWhere('type', '=', 'email.import.notification')->get();
+                        ->whereIn('type', array('email.bar.approval', 'email.import.notification', 'email.import.notification', 'email.bar.approval.first'))->get();
         if($bar->from_api == 1 && $log->count() == 0) {
             return true;
         }
@@ -86,7 +85,7 @@ class BarApprovalMailer extends PackersMailer
 
         if ($this->sendTo($user, $subject, $view, $data)) {
             $ext = array('ext_type' => 'bar_id', 'ext_id' => $bar->id);
-            $this->logEmail('email.bar.approval', $user, $ext);
+            $this->logEmail('email.bar.rejection', $user, $ext);
             return true;
         }
     }
