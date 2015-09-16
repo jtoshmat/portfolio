@@ -163,7 +163,6 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function addBar(){
 		$insertData = array(
-			'uid' => Auth::user()->id,
 			'barname' => Input::get('barname'),
 			'slug' => (\Illuminate\Support\Str::slug(Input::get('barname'))),
 			'address' => Input::get('address'),
@@ -182,6 +181,25 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 		if($geoData) {
 			$insertData['latitude'] = $geoData['latitude'];
 			$insertData['longitude'] = $geoData['longitude'];
+		}
+
+		//check for a different user if the user is an admin
+		if(Auth::user()->admin == 1) {
+			if(Auth::user()->email != Input::get('email')) {
+				$User = new User;
+				$isUser = $User->verifyUsernameApi(Input::get('email'));
+				$userExists = isset($isUser[0])?true:false;
+
+				if (!$userExists){
+					$uid = $User->createUserApi(Input::get('email'));
+				}else{
+					$uid = $isUser[0]->id;
+				}
+				$insertData['uid'] = $uid;
+			}
+		}
+		else {
+			$insertData['uid'] = Auth::user()->id;
 		}
 
 		$lastId = DB::table('bars')->insertGetId($insertData);
