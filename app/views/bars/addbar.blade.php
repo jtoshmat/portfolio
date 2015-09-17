@@ -278,7 +278,7 @@ if ($admin == 1){
                 "YE" => "Yemen",
                 "ZM" => "Zambia",
                 "ZW" => "Zimbabwe"
-              ), Input::old("country") ? Input::old("country") : "US", ["class" => "form-control", "required"]) }}
+              ), Input::old("country") ? Input::old("country") : "US", ["class" => "form-control", "placeholder" => "Select a country", "required"]) }}
             </div>
           </div>
           <div class="col-sm-6">

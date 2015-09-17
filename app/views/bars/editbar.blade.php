@@ -286,7 +286,7 @@ if ($admin == 1){
                 "YE" => "Yemen",
                 "ZM" => "Zambia",
                 "ZW" => "Zimbabwe"
-              ), $bar->country, ["class" => "form-control", "required"]) }}
+              ), $bar->country, ["class" => "form-control", "placeholder" => "Select a country", "required"]) }}
             </div>
           </div>
           <div class="col-sm-6">
