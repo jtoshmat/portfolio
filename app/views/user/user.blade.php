@@ -9,7 +9,7 @@
         {{ Form::open(array("url" => "user/edit", "class" => "form-edit-user")) }}
         <div class="form-group">
           {{ Form::label("username", "Username") }}
-          {{ Form::email("username", $user->username,  ["class" => "form-control", "placeholder" => "email used to login to admin tool", "required"]) }}
+          {{ Form::email("username", $user->username,  ["class" => "form-control", "readonly", "placeholder" => "email used to login to admin tool", "required"]) }}
         </div>
         <div class="form-group">
           {{ Form::label("email", "Email") }}
