@@ -12,4 +12,5 @@
 */
 
 Artisan::add(new NotifyImportedUsersCommand);
+Artisan::add(new ImportLogosCommand);
 

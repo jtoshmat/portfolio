@@ -47,7 +47,7 @@ class Upload extends Eloquent implements UserInterface, RemindableInterface {
             ->where('uploadid', $uploadid)
             ->update(array(
             	'filename' => $filename,
-            	'uid' =>Auth::user()->id,
+            	'uid' =>($uid)?$uid:Auth::user()->id,
             	'bid' =>$bid
             	));
             return $output;
