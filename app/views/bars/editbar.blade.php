@@ -59,6 +59,7 @@ if ($admin == 1){
             <div class="form-group">
               {{ Form::label("country", "Country") }}
               {{ Form::select("country", array(
+                null => "Select a country",
                 "AF" => "Afghanistan",
                 "AL" => "Albania",
                 "DZ" => "Algeria",
@@ -286,7 +287,7 @@ if ($admin == 1){
                 "YE" => "Yemen",
                 "ZM" => "Zambia",
                 "ZW" => "Zimbabwe"
-              ), $bar->country, ["class" => "form-control", "placeholder" => "Select a country", "required"]) }}
+              ), $bar->country, ["class" => "form-control", "required"]) }}
             </div>
           </div>
           <div class="col-sm-6">
