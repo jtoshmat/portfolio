@@ -1,10 +1,10 @@
 <html>
 <body>
-  Hi there,
+  Hi,
 <br><br>
   {{ $bar_name or "Your bar" }} has been approved — thanks for opening your doors to even more Packers fans every Sunday!
 <br><br>
-  Check out your bar's profile on Packers Everywhere now: http://www.packerseverhwere.com/app/venues/{{ $bar_slug }}
+  Check out your bar's profile on Packers Everywhere now: http://www.packerseverywhere.com/app/venues/{{ $bar_slug }}
 <br><br>
   Once you’re finished setting up your account, you can use this link to manage your profile: {{ url('user/edit') }}
 <br><br>

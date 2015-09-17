@@ -1,6 +1,6 @@
 <html>
 <body>
-  Hi there,
+  Hi,
 <br><br>
   Thank you for signing up your bar. Unfortunately, your bar was not registered as an official Packers Everywhere
   establishment for not adhering to our community guidelines.
