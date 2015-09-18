@@ -198,6 +198,9 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 				$insertData['uid'] = $uid;
 				$insertData['from_api'] = 1;
 			}
+			else {
+				$insertData['uid'] = Auth::user()->id;
+			}
 		}
 		else {
 			$insertData['uid'] = Auth::user()->id;
