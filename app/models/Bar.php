@@ -33,7 +33,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'min:5',
 			'regex:/([A-Z0-9 ]{5,10}$)+/'
 		),
-		'website'=>'active_url|min:7',
+		'website'=>'url|min:7',
 		'timezone'=>'required',
 	);
 
@@ -52,7 +52,7 @@ class Bar extends Eloquent implements UserInterface, RemindableInterface {
 			'min:5',
 			'regex:/([A-Z0-9 ]{5,10}$)+/'
 		),
-		'website'=>'active_url|min:7',
+		'website'=>'url|min:7',
 		'logo'=>'image',
 	);
 
