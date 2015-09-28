@@ -38,7 +38,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title">Change My World Now!!!!</div>
+                <p>changed by Jon Toshmatov</p>
             </div>
         </div>
     </body>
