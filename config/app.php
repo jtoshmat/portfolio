@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => 'http://jontoshmatov',
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/New_York',
 
     /*
     |--------------------------------------------------------------------------
@@ -136,14 +136,15 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+	    Collective\Html\HtmlServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
-        cmwn\Providers\AppServiceProvider::class,
-        cmwn\Providers\AuthServiceProvider::class,
-        cmwn\Providers\EventServiceProvider::class,
-        cmwn\Providers\RouteServiceProvider::class,
+        jontoshmatov\Providers\AppServiceProvider::class,
+        jontoshmatov\Providers\AuthServiceProvider::class,
+        jontoshmatov\Providers\EventServiceProvider::class,
+        jontoshmatov\Providers\RouteServiceProvider::class,
 
     ],
 
@@ -193,6 +194,8 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        'Form'      => Collective\Html\FormFacade::class,
+        'Html'      => Collective\Html\HtmlFacade::class,
 
     ],
 

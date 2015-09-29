@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'model' => cmwn\User::class,
+    'model' => jontoshmatov\User::class,
 
     /*
     |--------------------------------------------------------------------------

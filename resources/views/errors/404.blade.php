@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Laravel</title>
+        <title>404</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -14,10 +14,10 @@
                 margin: 0;
                 padding: 0;
                 width: 100%;
+                color: #B0BEC5;
                 display: table;
                 font-weight: 100;
                 font-family: 'Lato';
-				background: #FF6666;
             }
 
             .container {
@@ -29,23 +29,18 @@
             .content {
                 text-align: center;
                 display: inline-block;
-				background: #66512C;
             }
 
             .title {
-                font-size: 96px;
+                font-size: 72px;
+                margin-bottom: 40px;
             }
-
-
-
-
         </style>
     </head>
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Brooklyn</div>
-				<h1>Welcome to Shakhzoda's website!</h1>
+                <div class="title">Be right back.</div>
             </div>
         </div>
     </body>

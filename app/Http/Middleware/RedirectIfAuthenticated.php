@@ -1,6 +1,6 @@
 <?php
 
-namespace cmwn\Http\Middleware;
+namespace jontoshmatov\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
