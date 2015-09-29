@@ -10,6 +10,14 @@
 <body>
 <br/>
 
+
+
+	 <a href="/auth/login">Login</a> |
+	 <a href="/auth/register">Register</a> |
+	 <a href="/auth/logout">Logout</a> |
+
+
+
 <div class="container">
 	@yield('content')
 </div>
@@ -23,5 +31,7 @@
 	<!-- Latest compiled JavaScript -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 @show
+
+
 </body>
 </html>
