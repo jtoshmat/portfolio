@@ -1,6 +1,6 @@
 <?php
 
-namespace jontoshmatov\Http;
+namespace cmwn\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -13,11 +13,11 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        \jontoshmatov\Http\Middleware\EncryptCookies::class,
+        \cmwn\Http\Middleware\EncryptCookies::class,
         \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \jontoshmatov\Http\Middleware\VerifyCsrfToken::class,
+        \cmwn\Http\Middleware\VerifyCsrfToken::class,
     ];
 
     /**
@@ -26,8 +26,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \jontoshmatov\Http\Middleware\Authenticate::class,
+        'auth' => \cmwn\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'guest' => \jontoshmatov\Http\Middleware\RedirectIfAuthenticated::class,
+        'guest' => \cmwn\Http\Middleware\RedirectIfAuthenticated::class,
     ];
 }

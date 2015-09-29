@@ -1,6 +1,6 @@
 <?php
 
-namespace jontoshmatov\Providers;
+namespace cmwn\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'jontoshmatov\Events\SomeEvent' => [
-            'jontoshmatov\Listeners\EventListener',
+        'cmwn\Events\SomeEvent' => [
+            'cmwn\Listeners\EventListener',
         ],
     ];
 
