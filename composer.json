@@ -21,7 +21,7 @@
             "database"
         ],
         "psr-4": {
-            "jontoshmatov\\": "app/"
+            "cmwn\\": "app/"
         }
     },
     "autoload-dev": {

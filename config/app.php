@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://jontoshmatov',
+    'url' => 'http://cmwn',
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 'SomeRandomString'),
+    'key' => env('APP_KEY', 'CodRs6yBwZSS9U7qQJtK2Ps0YuvC2rP7'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -141,10 +141,10 @@ return [
         /*
          * Application Service Providers...
          */
-        jontoshmatov\Providers\AppServiceProvider::class,
-        jontoshmatov\Providers\AuthServiceProvider::class,
-        jontoshmatov\Providers\EventServiceProvider::class,
-        jontoshmatov\Providers\RouteServiceProvider::class,
+        cmwn\Providers\AppServiceProvider::class,
+        cmwn\Providers\AuthServiceProvider::class,
+        cmwn\Providers\EventServiceProvider::class,
+        cmwn\Providers\RouteServiceProvider::class,
 
     ],
 

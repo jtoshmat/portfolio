@@ -1,10 +1,10 @@
 <?php
-namespace jontoshmatov\Http\Controllers;
+namespace cmwn\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
-use jontoshmatov\Http\Requests;
-use jontoshmatov\Http\Controllers\Controller;
+use cmwn\Http\Requests;
+use cmwn\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
-use jontoshmatov\User;
+use cmwn\User;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;

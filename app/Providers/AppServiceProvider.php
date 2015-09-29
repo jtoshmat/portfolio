@@ -1,6 +1,6 @@
 <?php
 
-namespace jontoshmatov\Providers;
+namespace cmwn\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

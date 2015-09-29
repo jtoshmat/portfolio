@@ -1,10 +1,10 @@
 <?php
 
-namespace jontoshmatov\Http\Controllers;
+namespace cmwn\Http\Controllers;
 
 use Illuminate\Http\Request;
-use jontoshmatov\Http\Requests;
-use jontoshmatov\Http\Controllers\Controller;
+use cmwn\Http\Requests;
+use cmwn\Http\Controllers\Controller;
 
 class PublicController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace jontoshmatov\Providers;
+namespace cmwn\Providers;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'jontoshmatov\Model' => 'jontoshmatov\Policies\ModelPolicy',
+        'cmwn\Model' => 'cmwn\Policies\ModelPolicy',
     ];
 
     /**

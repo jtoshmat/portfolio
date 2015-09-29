@@ -1,6 +1,6 @@
 <?php
 
-namespace jontoshmatov\Jobs;
+namespace cmwn\Jobs;
 
 use Illuminate\Bus\Queueable;
 
