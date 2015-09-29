@@ -26,7 +26,9 @@ return [
     |
     */
 
-    'url' => 'http://jontoshmatov',
+
+    'url' => 'http://cmwn',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +80,9 @@ return [
     |
     */
 
+
     'key' => env('APP_KEY', 'cfegHPVhQPmCIIUsn8TrbL5qWFsTh8qz'),
+
 
     'cipher' => 'AES-256-CBC',
 
