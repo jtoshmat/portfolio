@@ -1,8 +1,8 @@
 <?php
 
-namespace cmwn\Http\Controllers\Auth;
+namespace jontoshmatov\Http\Controllers\Auth;
 
-use cmwn\Http\Controllers\Controller;
+use jontoshmatov\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends Controller

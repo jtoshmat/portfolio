@@ -1,6 +1,6 @@
 <?php
 
-namespace cmwn\Exceptions;
+namespace jontoshmatov\Exceptions;
 
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

@@ -1,6 +1,6 @@
 <?php
 
-namespace cmwn\Events;
+namespace jontoshmatov\Events;
 
 abstract class Event
 {
