@@ -2,5 +2,7 @@
 /node_modules
 Homestead.yaml
 Homestead.json
+.idea
+.idea/workspace.xml
 .env
 .DS_Store

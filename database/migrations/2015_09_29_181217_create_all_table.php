@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RunAllTables extends Migration
+class CreateAllTable extends Migration
 {
 
     /**
@@ -13,15 +13,14 @@ class RunAllTables extends Migration
      */
     public function up()
     {
-
-
-        Schema::dropIfExists("users");
         Schema::dropIfExists("roles");
-
+        Schema::dropIfExists("user_roles");
+        Schema::dropIfExists("users");
 
         Schema::create("users", function (Blueprint $table)
         {
             $table->increments('id');
+            $table->string('parent_id');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password', 60);
@@ -29,15 +28,22 @@ class RunAllTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('roles', function(Blueprint $table)
+        Schema::create('user_roles', function(Blueprint $table)
         {
-            $table->increments('rid');
-            $table->unsignedInteger('uid');
+            $table->increments('urid');
+            $table->unsignedInteger('uid')->unsigned();
+            $table->unsignedInteger('rid')->unsigned();
             $table->foreign('uid')->references('id')->on('users')->onDelete('cascade');
             $table->string('permissions');
             $table->timestamps();
         });
 
+        Schema::create('roles', function(Blueprint $table)
+        {
+            $table->increments('rid');
+            $table->string('permissions');
+            $table->timestamps();
+        });
 
     }
 
