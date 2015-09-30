@@ -2,6 +2,7 @@
 
 namespace cmwn\Http\Controllers;
 
+use cmwn\RolePermission;
 use cmwn\User;
 use Illuminate\Http\Request;
 use cmwn\Http\Requests;
@@ -18,18 +19,8 @@ class UsersController extends Controller
      */
     public function members()
     {
-        $roles = User::all();
-        if (!$roles){
-            return 'No record found';
-        }
-         foreach($roles as $role){
-             $data = $role->role;
-             return view('users/members')->with('members', $data);
-         }
-        return '';
-
-
-
+        $roles = RolePermission::all();
+        return $roles;
         return view('users/members')->with('members', $data);
 
     }
