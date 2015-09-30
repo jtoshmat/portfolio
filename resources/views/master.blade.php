@@ -13,7 +13,8 @@
     <a href="/auth/login">Login</a> |
     <a href="/auth/register">Register</a> |
     <a href="/users/members">Members</a> |
-    <a href="/auth/logout">Logout</a> |
+	<a href="/users/roles">Roles</a> |
+	<a href="/auth/logout">Logout</a> |
 </div>
 <div class="container">
 	@yield('content')

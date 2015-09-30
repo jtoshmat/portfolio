@@ -8,14 +8,13 @@
 	<div class="panel panel-info">
 
 		<div class="panel-body" style="padding-top:30px">
-			<h2>Users -> Roles</h2>
+			<h2>Roles -> Permissions</h2>
 			<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 				<thead>
 				<tr class="tr_head">
 
-					<th>Name</th>
-					<th>Email</th>
-					<th>Roles</th>
+					<th>Title</th>
+					<th>Permissions</th>
 					<th>Created</th>
 					<th>Last updated</th>
 				</tr>
@@ -23,34 +22,33 @@
 
 				<tfoot>
 				<tr>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Roles</th>
+					<th>Title</th>
+					<th>Permissions</th>
 					<th>Created</th>
-					<th>Last Updated</th>
+					<th>Last updated</th>
 				</tr>
 				</tfoot>
 
 				<tbody>
-				@foreach($members as $member)
+				@foreach($roles as $role)
 					<tr>
-						<td><a href="#">{{$member->name}}</a></td>
-						<td>{{$member->email}}</td>
+						<td><a href="#">{{$role->title}}</a></td>
+
 						<td>
-							@foreach($member->role as $role)
-								<a href="#">{{$role->title}}</a>,
+							@foreach($role->permission as $permission)
+								<a href="#">{{$permission->title}}</a>,
 							@endforeach
 
 
 						</td>
-						<td>{{$member->created_at}}</td>
-						<td>{{$member->updated_at}}</td>
+						<td>{{$role->created_at}}</td>
+						<td>{{$role->updated_at}}</td>
 
 					</tr>
 				@endforeach
 				</tbody>
 			</table>
-			<div class="pagination"><?php echo $members->render(); ?></div>
+			<div class="pagination"><?php echo $roles->render(); ?></div>
 
 		</div>
 	</div>

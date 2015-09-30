@@ -4,13 +4,13 @@ namespace cmwn;
 
 use Illuminate\Database\Eloquent\Model;
 
-class permission extends Model
+class Permission extends Model
 {
 	protected $table = 'permissions';
 
 
 	public function permission()
 	{
-		return $this->hasMany('cmwn\RolePermission');
+		return $this->hasMany('cmwn\Permission');
 	}
 }

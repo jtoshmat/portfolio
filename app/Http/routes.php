@@ -33,5 +33,6 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 	//Visible to authenticated users only
 Route::group(['middleware' => 'auth'], function($router) {
     Route::any('users/members', 'UsersController@members');
+    Route::any('users/roles', 'UsersController@roles');
 
 });
