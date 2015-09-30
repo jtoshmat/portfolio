@@ -2,9 +2,12 @@
 
 namespace cmwn\Http\Controllers;
 
+use cmwn\User;
 use Illuminate\Http\Request;
 use cmwn\Http\Requests;
 use cmwn\Http\Controllers\Controller;
+use cmwn\UserRole;
+use cmwn\Role;
 
 class UsersController extends Controller
 {
@@ -13,74 +16,22 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function members()
     {
-        //
+        $roles = User::all();
+        if (!$roles){
+            return 'No record found';
+        }
+         foreach($roles as $role){
+             $data = $role->role;
+             return view('users/members')->with('members', $data);
+         }
+        return '';
+
+
+
+        return view('users/members')->with('members', $data);
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

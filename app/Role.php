@@ -8,10 +8,11 @@ class Role extends Model
 {
     protected $table = 'roles';
 
-    /*
-    public function user() {
-        return $this->belongsTo('User', 'uid');
+
+    public function role()
+    {
+        return $this->hasMany('cmwn\UserRole');
     }
-    */
+
 
 }

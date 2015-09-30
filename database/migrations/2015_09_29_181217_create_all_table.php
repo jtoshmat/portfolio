@@ -16,11 +16,12 @@ class CreateAllTable extends Migration
         Schema::dropIfExists("roles");
         Schema::dropIfExists("user_roles");
         Schema::dropIfExists("users");
+        Schema::dropIfExists("role_permissions");
+        Schema::dropIfExists("permissions");
 
         Schema::create("users", function (Blueprint $table)
         {
             $table->increments('id');
-            $table->string('parent_id');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password', 60);
@@ -30,18 +31,33 @@ class CreateAllTable extends Migration
 
         Schema::create('user_roles', function(Blueprint $table)
         {
-            $table->increments('urid');
-            $table->unsignedInteger('uid')->unsigned();
-            $table->unsignedInteger('rid')->unsigned();
-            $table->foreign('uid')->references('id')->on('users')->onDelete('cascade');
-            $table->string('permissions');
+            $table->increments('id');
+            $table->unsignedInteger('user_id')->unsigned();
+            $table->unsignedInteger('role_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
 
         Schema::create('roles', function(Blueprint $table)
         {
-            $table->increments('rid');
-            $table->string('permissions');
+            $table->increments('id');
+            $table->string('title');
+            $table->timestamps();
+        });
+
+        Schema::create('role_permissions', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->unsignedInteger('role_id')->unsigned();
+            $table->unsignedInteger('permission_id')->unsigned();
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->timestamps();
+        });
+
+        Schema::create('permissions', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->string('title');
             $table->timestamps();
         });
 
@@ -56,6 +72,9 @@ class CreateAllTable extends Migration
     {
         Schema::dropIfExists("roles");
         Schema::dropIfExists("users");
+        Schema::dropIfExists("user_roles");
+        Schema::dropIfExists("permissions");
+        Schema::dropIfExists("role_permissions");
 
     }
 

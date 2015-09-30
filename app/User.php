@@ -11,6 +11,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Hash;
+use cmwn\UserRole;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
@@ -38,10 +39,11 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
-/*
-    public function roles() {
-        return $this->hasMany('Role', 'rid');
+
+    public function role()
+    {
+        return $this->hasMany('cmwn\UserRole');
     }
-*/
+
 
 }
