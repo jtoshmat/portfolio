@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RolePermission extends Model
 {
-	protected $table = 'role_permissions';
+	protected $table = 'permission_role';
 
 
 	public function role()
@@ -18,4 +18,5 @@ class RolePermission extends Model
 	{
 		return $this->belongsTo('cmwn\Permission');
 	}
+
 }

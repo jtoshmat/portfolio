@@ -42,7 +42,8 @@ class User extends Model implements AuthenticatableContract,
 
     public function role()
     {
-        return $this->hasMany('cmwn\UserRole');
+        //return $this->hasManyThrough('cmwn\Role', 'cmwn\UserRole', 'user_id', 'id');
+        return $this->belongsToMany('cmwn\Role');
     }
 
 

@@ -19,10 +19,12 @@ class UsersController extends Controller
      */
     public function members()
     {
-        $roles = RolePermission::all();
+        $roles = RolePermission::All();
         return $roles;
-        return view('users/members')->with('members', $data);
-
+        /*
+        $members = User::paginate(10);
+        return view('users/members', compact('members'));
+        */
     }
 
 }

@@ -13,11 +13,14 @@ class CreateAllTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists("roles");
-        Schema::dropIfExists("user_roles");
+	    Schema::dropIfExists("role_user");
+	    Schema::dropIfExists("role_permissions");
+	    Schema::dropIfExists("permissions");
+	    Schema::dropIfExists("roles");
+
         Schema::dropIfExists("users");
-        Schema::dropIfExists("role_permissions");
-        Schema::dropIfExists("permissions");
+
+
 
         Schema::create("users", function (Blueprint $table)
         {
@@ -29,7 +32,7 @@ class CreateAllTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('user_roles', function(Blueprint $table)
+        Schema::create('role_user', function(Blueprint $table)
         {
             $table->increments('id');
             $table->unsignedInteger('user_id')->unsigned();
@@ -72,7 +75,7 @@ class CreateAllTable extends Migration
     {
         Schema::dropIfExists("roles");
         Schema::dropIfExists("users");
-        Schema::dropIfExists("user_roles");
+        Schema::dropIfExists("role_user");
         Schema::dropIfExists("permissions");
         Schema::dropIfExists("role_permissions");
 

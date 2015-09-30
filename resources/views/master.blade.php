@@ -8,11 +8,13 @@
 	@show
 </head>
 <body>
-<br/>
+<div class="navbar-inverse">
+    <a href="/">Home</a> |
     <a href="/auth/login">Login</a> |
     <a href="/auth/register">Register</a> |
     <a href="/users/members">Members</a> |
     <a href="/auth/logout">Logout</a> |
+</div>
 <div class="container">
 	@yield('content')
 </div>
