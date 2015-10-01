@@ -12,6 +12,7 @@ use cmwn\Role;
             DB::table('users')->delete();
 
             User::create(array(
+                "name" => "Jon Toshmatov",
                 "email" => "jontoshmatov@yahoo.com",
                 "password" => Hash::make("business"),
             ));

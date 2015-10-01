@@ -46,5 +46,10 @@ class User extends Model implements AuthenticatableContract,
         return $this->belongsToMany('cmwn\Role');
     }
 
+    public function hasRole($role)
+    {
+        return $this->role->contains('title', $role);
+    }
+
 
 }

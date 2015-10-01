@@ -2,7 +2,8 @@
 @section('content')
 	<style type="text/css">
 		.tr_head{
-			background: #5bc0de;
+			background: #5bc0de !important;
+			font-weight: 600;
 		}
 	</style>
 	<div class="panel panel-info">
@@ -10,47 +11,40 @@
 		<div class="panel-body" style="padding-top:30px">
 			<h2>Users -> Roles</h2>
 			<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-				<thead>
-				<tr class="tr_head">
-
-					<th>Name</th>
-					<th>Email</th>
-					<th>Roles</th>
-					<th>Created</th>
-					<th>Last updated</th>
-				</tr>
-				</thead>
-
-				<tfoot>
 				<tr>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Roles</th>
-					<th>Created</th>
-					<th>Last Updated</th>
+			        <td class="tr_head">Name: </td>
+			        <td class="tr_head">{{$member->name}}</td>
+		        </tr>
+
+				<tr>
+			        <td>Email: </td>
+			        <td>{{$member->email}}</td>
+		        </tr>
+
+				<tr>
+			        <td>Roles: </td>
+			        <td>
+				        <ul>
+				        @foreach($member->role as $role)
+					        <li>{{$role->title}}</li>
+				        @endforeach
+				        </ul>
+			        </td>
+		        </tr>
+
+				<tr>
+					<td>Created: </td>
+					<td>{{$member->created_at}}</td>
 				</tr>
-				</tfoot>
 
-				<tbody>
-				@foreach($members as $member)
-					<tr>
-						<td><a href="member/1">{{$member->name}}</a></td>
-						<td><a href="member/1">{{$member->email}}</a></td>
-						<td>
-							@foreach($member->role as $role)
-								<a href="#">{{$role->title}}</a>,
-							@endforeach
+				<tr>
+					<td>Last Updated: </td>
+					<td>{{$member->updated_at}}</td>
+				</tr>
 
 
-						</td>
-						<td>{{$member->created_at}}</td>
-						<td>{{$member->updated_at}}</td>
-
-					</tr>
-				@endforeach
-				</tbody>
 			</table>
-			<div class="pagination"><?php echo $members->render(); ?></div>
+
 
 		</div>
 	</div>

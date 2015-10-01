@@ -34,8 +34,8 @@
 				<tbody>
 				@foreach($members as $member)
 					<tr>
-						<td><a href="#">{{$member->name}}</a></td>
-						<td>{{$member->email}}</td>
+						<td><a href="member/{{$member->id}}/view">{{$member->name}}</a></td>
+						<td><a href="member/{{$member->id}}/view">{{$member->email}}</a></td>
 						<td>
 							@foreach($member->role as $role)
 								<a href="#">{{$role->title}}</a>,

@@ -35,4 +35,21 @@ Route::group(['middleware' => 'auth'], function($router) {
     Route::any('users/members', 'UsersController@members');
     Route::any('users/roles', 'UsersController@roles');
 
+
+
+	Route::group(["middleware" => array("role:admin;student")   ], function($router) {
+
+		Route::get("users/member/{id}/{action}", [
+			"as"   => "users/member",
+			"uses" => "UsersController@member"
+		],function($id, $action){
+			return $id;
+		})->where('id', '[0-9]+')->where('action','view|update|delete');
+	});
+
+
+	
+
 });
+
+

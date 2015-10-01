@@ -13,4 +13,9 @@ class Permission extends Model
 	{
 		return $this->hasMany('cmwn\Permission');
 	}
+
+	public static function hasPermission($data='Permission 1'){
+		$output = $db->output = array('Permission 1', 'Permission 2');
+		in_array($data, $output);
+	}
 }
