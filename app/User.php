@@ -46,9 +46,15 @@ class User extends Model implements AuthenticatableContract,
         return $this->belongsToMany('cmwn\Role');
     }
 
-    public function hasRole($role)
+    public function hasRole(Array $roles)
     {
-        return $this->role->contains('title', $role);
+        foreach ($roles as $role) {
+            if($this->role->contains('title', $role)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

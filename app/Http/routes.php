@@ -29,15 +29,16 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
+$router->get("/awesome/sauce", ['middleware' => 'role:student,admin'], function () {
+	    echo('Awesome Sauce');
+	});
 
 	//Visible to authenticated users only
 Route::group(['middleware' => 'auth'], function($router) {
     Route::any('users/members', 'UsersController@members');
     Route::any('users/roles', 'UsersController@roles');
 
-
-
-	Route::group(["middleware" => array("role:admin;student")   ], function($router) {
+	Route::group(['middleware' => 'role:admin,student'], function ($router) {
 
 		Route::get("users/member/{id}/{action}", [
 			"as"   => "users/member",
@@ -46,10 +47,6 @@ Route::group(['middleware' => 'auth'], function($router) {
 			return $id;
 		})->where('id', '[0-9]+')->where('action','view|update|delete');
 	});
-
-
-	
-
 });
 
 

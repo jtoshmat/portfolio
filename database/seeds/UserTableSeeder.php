@@ -20,19 +20,19 @@ use cmwn\Role;
             DB::table('roles')->delete();
 
             Role::create(array(
-                "title" => "Admin",
+                "title" => "admin",
             ));
 
 			Role::create(array(
-				"title" => "Principal",
+				"title" => "principal",
 			));
 
 			Role::create(array(
-				"title" => "Teacher",
+				"title" => "teacher",
 			));
 
 			Role::create(array(
-				"title" => "Student",
+				"title" => "student",
 			));
 
 

@@ -20,13 +20,12 @@ class Role
      * @param  \Closure  $next
      * @return mixed
      */
-	public function handle($request, Closure $next, $role)
-	{
-		$role = array_values(explode(';',$role));
-		dd($role);
-		if (!$this->user->hasRole($role)) {
+	public function handle($request, Closure $next, ...$roles)
+	{				
+		if (!$this->user->hasRole($roles)) {
 			return Redirect::intended('/users/members');
 		}
+		
 		return $next($request);
 	}
 }
