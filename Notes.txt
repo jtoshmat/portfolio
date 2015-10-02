@@ -1,0 +1,11 @@
+#Company Name: Change My World Now
+#Team: Platform/Engineers
+#Engineers: Arron Kallenberg, Jon Toshmatov
+
+                          ########################## README NOTES #####################
+
+
+
+#All custom routes are located in config/myroutes.php  - 10/02 JT
+
+
