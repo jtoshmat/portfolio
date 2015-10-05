@@ -18,6 +18,7 @@
 					<th>Roles</th>
 					<th>Created</th>
 					<th>Last updated</th>
+					<th>Action</th>
 				</tr>
 				</thead>
 
@@ -28,6 +29,7 @@
 					<th>Roles</th>
 					<th>Created</th>
 					<th>Last Updated</th>
+					<th>Action</th>
 				</tr>
 				</tfoot>
 
@@ -38,13 +40,14 @@
 						<td><a href="member/{{$member->id}}/view">{{$member->email}}</a></td>
 						<td>
 							@foreach($member->role as $role)
-								<a href="#">{{$role->title}}</a>,
+								<a href="/users/roles">{{$role->title}}</a>,
 							@endforeach
 
 
 						</td>
 						<td>{{$member->created_at}}</td>
 						<td>{{$member->updated_at}}</td>
+						<td><a class="btn btn-primary" href="{{ URL::to("users/member/$member->id/update") }}">Update</a></td>
 
 					</tr>
 				@endforeach

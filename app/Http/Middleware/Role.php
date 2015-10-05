@@ -25,7 +25,6 @@ class Role
 		if (!$this->user->hasRole($roles)) {
 			return Redirect::intended('/users/members');
 		}
-		
 		return $next($request);
 	}
 }

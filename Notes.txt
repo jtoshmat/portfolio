@@ -7,5 +7,19 @@
 
 
 #All custom routes are located in config/myroutes.php  - 10/02 JT
+#Routes are in app/Http/routes.php
+#To register custom middlware add it to app/Http/Kernel.php
+#change the model path change the composer.json
+"autoload": {
+    "classmap": [
+        "database",
+        "app/Models" <---------------
+    ]
+}
 
+#To get list of glyphicon for Bootstrap form->inputs
+http://www.w3schools.com/bootstrap/bootstrap_ref_comp_glyphs.asp
 
+#declare vars in blade
+{{--*/  $myVar = 'my value' /*--}}
+display  {{$myVar}}

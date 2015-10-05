@@ -12,12 +12,13 @@ class Role extends Model
 
 
 
-
+/*
 	public function permission()
 	{
 		//return $this->hasManyThrough('cmwn\Role', 'cmwn\UserRole', 'user_id', 'id');
 		return $this->belongsToMany('cmwn\Permission');
 	}
+*/
 
 
 }

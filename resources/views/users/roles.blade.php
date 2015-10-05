@@ -14,7 +14,6 @@
 				<tr class="tr_head">
 
 					<th>Title</th>
-					<th>Permissions</th>
 					<th>Created</th>
 					<th>Last updated</th>
 				</tr>
@@ -23,7 +22,6 @@
 				<tfoot>
 				<tr>
 					<th>Title</th>
-					<th>Permissions</th>
 					<th>Created</th>
 					<th>Last updated</th>
 				</tr>
@@ -34,13 +32,6 @@
 					<tr>
 						<td><a href="#">{{$role->title}}</a></td>
 
-						<td>
-							@foreach($role->permission as $permission)
-								<a href="#">{{$permission->title}}</a>,
-							@endforeach
-
-
-						</td>
 						<td>{{$role->created_at}}</td>
 						<td>{{$role->updated_at}}</td>
 

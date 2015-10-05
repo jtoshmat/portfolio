@@ -14,8 +14,8 @@ class CreateAllTable extends Migration
     public function up()
     {
 	    Schema::dropIfExists("role_user");
-	    Schema::dropIfExists("role_permissions");
-	    Schema::dropIfExists("permissions");
+	    //Schema::dropIfExists("role_permissions");
+	    //Schema::dropIfExists("permissions");
 	    Schema::dropIfExists("roles");
 
         Schema::dropIfExists("users");
@@ -37,6 +37,7 @@ class CreateAllTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id')->unsigned();
             $table->unsignedInteger('role_id')->unsigned();
+	        $table->unique(array('user_id', 'role_id'));
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
@@ -47,10 +48,12 @@ class CreateAllTable extends Migration
             $table->string('title');
             $table->timestamps();
         });
-
+		/*
+		 * Commented out because permission table is not being used - 10/02 JT
         Schema::create('role_permissions', function(Blueprint $table)
         {
-            $table->increments('id');
+            return false;
+	        $table->increments('id');
             $table->unsignedInteger('role_id')->unsigned();
             $table->unsignedInteger('permission_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
@@ -59,10 +62,12 @@ class CreateAllTable extends Migration
 
         Schema::create('permissions', function(Blueprint $table)
         {
-            $table->increments('id');
+            return false;
+	        $table->increments('id');
             $table->string('title');
             $table->timestamps();
         });
+	    */
 
     }
 

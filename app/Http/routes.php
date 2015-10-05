@@ -33,19 +33,25 @@ $router->get("/awesome/sauce", ['middleware' => 'role:student,admin'], function 
 	    echo('Awesome Sauce');
 	});
 
-	//Visible to authenticated users only
 Route::group(['middleware' => 'auth'], function($router) {
+	/*
+	 * All authenticated routes are registered here inside of auth
+	 */
+
     Route::any('users/members', 'UsersController@members');
     Route::any('users/roles', 'UsersController@roles');
 
 	Route::group(['middleware' => 'role:'.Config::get('myroutes.routes.role')], function ($router) {
 		Route::get("users/member/{id}/{action}", [
 			"as"   => "users/member",
-			"uses" => "UsersController@member"
+			"uses" => "UsersController@member",
 		],function($id, $action){
 			return $id;
-		})->where('id', '[0-9]+')->where('action','view|update|delete');
+		})->where('id', '[0-9]+')->where('action','view');
 	});
+
+	Route::any('users/member/{id}/update', 'UsersController@memberUpdate')->where('id', '[0-9]+');
+	Route::any('users/member/{id}/delete', 'UsersController@memberDelete')->where('id', '[0-9]+');
 
 
 });

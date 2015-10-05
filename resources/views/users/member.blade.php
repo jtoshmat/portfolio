@@ -45,6 +45,7 @@
 
 			</table>
 
+			<a class="btn btn-primary" href="{{ URL::to("users/member/$member->id/update") }}">Update</a>
 
 		</div>
 	</div>

@@ -10,3 +10,5 @@ laravel/.idea/workspace.xml
 /**/.idea/workspace.xml
 .env
 .DS_Store
+/config/database.php
+config/database.php
