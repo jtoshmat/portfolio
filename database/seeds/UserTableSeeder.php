@@ -17,13 +17,14 @@ use cmwn\District;
 			DB::table('users')->delete();
 			DB::table('child_guardian')->delete();
 
-
-			$teacher = User::create(array(
-				"name" => "teacher",
-				"email" => "teacher@yahoo.com",
-				"password" => Hash::make("business"),
-				"slug" => 'teacher_slug',
-			));
+			for ($i=0; $i<4; $i++) {
+				$teacher = User::create(array(
+					"name" => "teacher".$i,
+					"email" => "teacher@yahoo.com".$i,
+					"password" => Hash::make("business"),
+					"slug" => 'teacher_slug'.$i,
+				));
+			}
 
 			$guardian = User::create(array(
                 "name" => "parent",

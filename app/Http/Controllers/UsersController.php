@@ -37,14 +37,6 @@ class UsersController extends Controller
         $id = (int)Request::segment(3);
         $action = Request::segment(4);
         $member = User::find($id);
-        
-        foreach ($member->children as $child){
-        	echo($child->first_name);
-        }
-
-
-
-        exit();
 
         if ($member){
             return view('users/member', compact('member'));
