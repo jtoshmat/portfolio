@@ -56,11 +56,46 @@ class User extends Model implements AuthenticatableContract,
 		//'id'=>'required|regex:/^[0-9]?$/',
 	);
 
+    public static function boot()
+    {
+        parent::boot();
+
+        User::creating(function ($user) {
+            echo('creating ');
+        });
+        
+        // Attach event handler, on deleting of the user
+        User::deleting(function($user)
+        {   
+            echo('deleting ');
+            $user->groups()->detach();
+            $user->organizations()->detach();
+        });
+    }
 
     public function role()
     {
-        //return $this->hasManyThrough('cmwn\Role', 'cmwn\UserRole', 'user_id', 'id');
         return $this->belongsToMany('cmwn\Role');
+    }
+
+    public function groups()
+    {
+         return $this->belongsToMany('cmwn\Group');
+    }
+
+    public function organizations()
+    {
+         return $this->belongsToMany('cmwn\Organization');
+    }
+
+    public function children()
+    {
+        return $this->belongsToMany('cmwn\User', 'child_guardian', 'child_id', 'user_id');
+    }
+
+    public function guardians()
+    {
+        return $this->belongsToMany('cmwn\User', 'child_guardian', 'guardian_id', 'user_id');
     }
 
     public function hasRole(Array $roles)
@@ -72,7 +107,6 @@ class User extends Model implements AuthenticatableContract,
         }
 	    return false;
     }
-
 
     public static function updateMember(Request $request, $id){
         $roles = $request::get('role');

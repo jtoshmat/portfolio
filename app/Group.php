@@ -10,4 +10,9 @@ class Group extends Model
 	use SoftDeletes;
 	protected $dates = ['deleted_at'];
 	protected $table = 'groups';
+
+	public function users()
+	{
+	    return $this->belongsToMany('cmwn\User');
+	}
 }

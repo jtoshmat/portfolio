@@ -14,8 +14,6 @@ use cmwn\District;
 		public function run()
 		{
 
-
-
 			DB::table('users')->delete();
 			DB::table('child_guardian')->delete();
 
@@ -112,13 +110,6 @@ use cmwn\District;
 			]);
 
 			$child->delete();
-
-
-
-
-
-
-
 
 		}
 
