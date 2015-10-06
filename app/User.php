@@ -12,13 +12,15 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
                                     CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword;
+    use Authenticatable, Authorizable, CanResetPassword, SoftDeletes;
+	protected $dates = ['deleted_at'];
 
     /**
      * The database table used by the model.
@@ -68,30 +70,14 @@ class User extends Model implements AuthenticatableContract,
                 return true;
             }
         }
-
-        return false;
+	    return false;
     }
 
 
     public static function updateMember(Request $request, $id){
         $roles = $request::get('role');
-
-		//Delete all the roles for this id
-        foreach($roles as $role_id){
-            $roleuser = UserRole::where('user_id','=',$id);
-	        if($roleuser) {
-		        $roleuser->delete();
-	        }
-        }
-	    //Create all the new requested roles for this id
-	    foreach($roles as $role_id){
-		    $UserRole = new UserRole();
-		    $UserRole->user_id = $id;
-		    $UserRole->role_id = $role_id;
-		    $UserRole->save();
-	    }
-		//Update the user's information
-        $user = User::find($id);
+	    $user = User::find($id);
+	    $user->role()->sync($roles);
         $user->name = $request::get('name');
         if($user->save()){
             return true;
@@ -101,7 +87,10 @@ class User extends Model implements AuthenticatableContract,
 
 	public static function deleteMember($id){
 		$user = User::find($id);
-		$user->delete();
+		if(!$user->role()->detach()){
+			$user->delete();
+		}
+
 		if($user){
 			return true;
 		}
