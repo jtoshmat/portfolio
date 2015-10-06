@@ -90,12 +90,12 @@ class User extends Model implements AuthenticatableContract,
 
     public function children()
     {
-        return $this->belongsToMany('cmwn\User', 'child_guardian', 'child_id', 'user_id');
+        return $this->belongsToMany('cmwn\User', 'child_guardian', 'guardian_id', 'child_id');
     }
 
     public function guardians()
     {
-        return $this->belongsToMany('cmwn\User', 'child_guardian', 'guardian_id', 'user_id');
+        return $this->belongsToMany('cmwn\User', 'child_guardian', 'child_id', 'guardian_id');
     }
 
     public function hasRole(Array $roles)

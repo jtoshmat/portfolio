@@ -109,7 +109,7 @@ use cmwn\District;
 				'role_id' => $role_student->id,
 			]);
 
-			$child->delete();
+			//$child->delete();
 
 		}
 
