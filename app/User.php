@@ -110,6 +110,7 @@ class User extends Model implements AuthenticatableContract,
 
     public static function updateMember(Request $request, $id){
         $roles = $request::get('role');
+	    $roles = ($roles)?$roles:array();
 	    $user = User::find($id);
 	    $user->role()->sync($roles);
         $user->name = $request::get('name');
