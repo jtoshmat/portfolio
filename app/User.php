@@ -39,6 +39,7 @@ class User extends Model implements AuthenticatableContract,
         'middle_name',
         'last_name',
         'email',
+        'slug',
         'password'
     ];
 
@@ -56,6 +57,8 @@ class User extends Model implements AuthenticatableContract,
         'first_name'=>'required|string|min:2',
         'middle_name'=>'required|string|min:2',
         'last_name'=>'required|string|min:2',
+        'email'=>'required|email|min:2',
+        'slug'=>'required|string|unique:users|min:2',
         //'role[]'=>'required',
         //'role[]'=>'required|regex:/^[0-9]?$/',
     );

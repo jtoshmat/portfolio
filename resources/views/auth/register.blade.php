@@ -1,6 +1,19 @@
 @extends('master')
 @section('content')
 
+    @if (count($errors) > 0)
+        <div class="alert alert-danger" role="alert">
+            @foreach($errors->all() as $error)
+                <p>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{ $error }}
+                </p>
+            @endforeach
+        </div>
+    @endif
+
+
 <form method="POST" action="/auth/register">
     {!! csrf_field() !!}
 
@@ -32,6 +45,10 @@
     <div>
         Confirm Password
         <input type="password" name="password_confirmation">
+    </div>
+    <div>
+        Confirm Password
+        <input type="text" name="slug" value="myslug">
     </div>
 
     <div>
