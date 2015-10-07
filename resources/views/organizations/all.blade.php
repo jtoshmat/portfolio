@@ -55,7 +55,19 @@
 
 						</td>
 						<td>
-							{{count($viewdata->organization)}}
+							{{--*/  $allusers = array() /*--}}
+							@foreach($users as $user)
+								{{--*/  $allusers[$orn->id] =  $orn->first_name /*--}}
+							@endforeach
+
+
+							{{--*/  $selected = '' /*--}}
+							@foreach($viewdata->organization as $organization)
+								{{--*/  $selected[$organization->id] =  $organization->id /*--}}
+
+							@endforeach
+
+							{!! Form::select('organizations['.$viewdata->id.'][]', $organizations, $selected, ['multiple']) !!}
 						</td>
 						<td>{{$viewdata->created_at}}</td>
 						<td>{{$viewdata->updated_at}}

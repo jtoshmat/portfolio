@@ -36,8 +36,9 @@ class District extends Model
 			foreach ($ids as $id) {
 				$group = District::find($id);
 				$group->title = $titles[ $i ];
-				$group->organization()->sync($organizations[$id]);
-
+				if (!empty($organizations[$id])) {
+					$group->organization()->sync($organizations[ $id ]);
+				}
 				if (isset($deleteId[ $i ]) && $deleteId[ $i ] == $id) {
 					$group->delete();
 				} else {
