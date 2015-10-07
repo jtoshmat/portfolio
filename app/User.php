@@ -34,7 +34,13 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = [
+        'first_name',
+        'middle_name',
+        'last_name',
+        'email',
+        'password'
+    ];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -47,7 +53,9 @@ class User extends Model implements AuthenticatableContract,
      * Register all the form validation rules here for User
      */
     public static $memberUpdaRules = array(
-        'name'=>'required|string|min:2',
+        'first_name'=>'required|string|min:2',
+        'middle_name'=>'required|string|min:2',
+        'last_name'=>'required|string|min:2',
         //'role[]'=>'required',
         //'role[]'=>'required|regex:/^[0-9]?$/',
     );

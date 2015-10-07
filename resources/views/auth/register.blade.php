@@ -5,8 +5,18 @@
     {!! csrf_field() !!}
 
     <div>
-        Name
-        <input type="text" name="name" value="{{ old('name') }}">
+       First Name
+        <input type="text" name="first_name" value="{{ old('first_name') }}">
+    </div>
+
+    <div>
+       Middle Name
+        <input type="text" name="middle_name" value="{{ old('middle_name') }}">
+    </div>
+
+    <div>
+       Last Name
+        <input type="text" name="last_name" value="{{ old('last_name') }}">
     </div>
 
     <div>
