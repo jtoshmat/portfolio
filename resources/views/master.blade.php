@@ -16,6 +16,15 @@
 	<a href="/users/roles">Roles</a> |
 	<a href="/auth/logout">Logout</a> |
 </div>
+<h2>Welcome to CMWN and Exciting Site!</h2>
+<hr />
+<ul>
+	<li><a href="/users/members">Users</a></li>
+	<li><a href="/users/roles">Users Roles</a></li>
+	<li><a href="/districts">Districts</a></li>
+	<li><a href="/organizations">Organizations</a></li>
+	<li><a href="/groups">Groups</a></li>
+</ul>
 <div class="container">
 	@yield('content')
 </div>

@@ -78,6 +78,7 @@ class User extends Model implements AuthenticatableContract,
         // Attach event handler, on deleting of the user
         User::deleting(function($user)
         {   
+            //@TODO Finish this up
             echo('deleting ');
             $user->groups()->detach();
             $user->organizations()->detach();

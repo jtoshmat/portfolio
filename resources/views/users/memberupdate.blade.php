@@ -25,15 +25,15 @@
 					</div>
 				@endif
 				<tr>
-			        <td class="tr_head">{{$member->name}}</td>
+			        <td class="tr_head">{{$member->first_name}}</td>
 		        </tr>
 
 				<tr>
 			        <td>
 				        <div class="input-group" style="margin-bottom: 25px">
 					        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					        {!! Form::text('name', null, array('class' => 'form-control', 'placeholder' => 'Full Name', 'id' =>
-						'profile-name', 'type' => 'text', 'required' => 'required')) !!}
+					        {!! Form::text('first_name', null, array('class' => 'form-control', 'placeholder' => 'First Name', 'id' =>
+						'profile-first-name', 'type' => 'text', 'required' => 'required')) !!}
 				        </div>
 			        </td>
 		        </tr>
@@ -41,12 +41,55 @@
 				<tr>
 					<td>
 						<div class="input-group" style="margin-bottom: 25px">
-							<span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
-							{!! Form::text('email', null, array('class' => 'form-control', 'placeholder' => 'username or email', 'id' =>
-						'profile-username', 'type' => 'email', 'required' => 'required','disabled' =>'disabled')) !!}
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+							{!! Form::text('middle_name', null, array('class' => 'form-control', 'placeholder' => 'Middle Name', 'id' =>
+						'profile-middle-name', 'type' => 'text', 'required' => 'required')) !!}
 						</div>
 					</td>
 				</tr>
+
+				<tr>
+					<td>
+						<div class="input-group" style="margin-bottom: 25px">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+							{!! Form::text('last_name', null, array('class' => 'form-control', 'placeholder' => 'Last Name', 'id' =>
+						'profile-last-name', 'type' => 'text', 'required' => 'required')) !!}
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="input-group" style="margin-bottom: 25px">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
+							{!! Form::text('email', null, array('class' => 'form-control', 'placeholder' => 'email', 'id' =>
+						'profile-email', 'type' => 'email')) !!}
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="input-group" style="margin-bottom: 25px">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+							{!! Form::text('slug', null, array('class' => 'form-control', 'placeholder' => 'username', 'id' =>
+						'profile-slug', 'type' => 'text', 'required' => 'required','disabled' =>'disabled')) !!}
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="input-group" style="margin-bottom: 25px">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+							{!! Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password', 'id' =>
+						'profile-password', 'type' => 'password', 'required' => 'required')) !!}
+						</div>
+					</td>
+				</tr>
+
+
+
 
 				<tr>
 					<td>

@@ -63,8 +63,8 @@ class AuthController extends Controller
 	    $data['slug'] = str_slug($data['first_name'].' '.$data['middle_name'].' '.$data['last_name'].' '.str_random(10), "-");
 	    return User::create([
             'first_name' => $data['first_name'],
-            'middle_name' => $data['first_name'],
-            'last_name' => $data['first_name'],
+            'middle_name' => $data['middle_name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
             'slug' => $data['slug'],
             'password' => bcrypt($data['password']),
