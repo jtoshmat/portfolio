@@ -19,6 +19,8 @@ class Organization extends Model
 	{
 	    return $this->belongsToMany('cmwn\User');
 	}
+
+
 	public static function updateGroups(Request $request){
 		$titles = $request::get('title');
 		$ids = $request::get('id');

@@ -21,6 +21,7 @@
 <ul>
 	<li><a href="/users/members">Users</a></li>
 	<li><a href="/users/roles">Users Roles</a></li>
+	<li><a href="/guardians">Guardian and Child</a></li>
 	<li><a href="/districts">Districts</a></li>
 	<li><a href="/organizations">Organizations</a></li>
 	<li><a href="/groups">Groups</a></li>

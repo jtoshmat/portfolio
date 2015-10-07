@@ -8,7 +8,7 @@
 	<div class="panel panel-info">
 
 		<div class="panel-body" style="padding-top:30px">
-			<h2>Organizations</h2>
+			<h2>Guardians and Children</h2>
 			{{--*/  $errorClass = (session('flag'))?session('flag'):'info' /*--}}
 			@if (count($errors) > 0)
 				<div class="alert alert-{{$errorClass}}" role="alert">
@@ -22,13 +22,13 @@
 				</div>
 			@endif
 
-			{!! Form::open(array('url' => '/organizations', 'class' => 'form-horizontal', 'role' =>
+			{!! Form::open(array('url' => '/guardians', 'class' => 'form-horizontal', 'role' =>
 		'form', 'id' =>'loginform'))	!!}
 			<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 				<thead>
 				<tr class="tr_head">
-					<th>Title</th>
-					<th>Users</th>
+					<th>Guardian</th>
+					<th>Childrens</th>
 					<th>Created</th>
 					<th>Last updated</th>
 					<th>Delete</th>
@@ -37,8 +37,8 @@
 
 				<tfoot>
 				<tr>
-					<th>Title</th>
-					<th>Users</th>
+					<th>Guardians</th>
+					<th>Children</th>
 					<th>Created</th>
 					<th>Last updated</th>
 					<th>Delete</th>
@@ -50,11 +50,17 @@
 					<tr>
 						<td>
 
-							{!! Form::text('title[]', $viewdata->title, array('class' => 'form-control', 'placeholder' => 'title', 'id' =>
+							{!! Form::text('name[]', $viewdata->name, array('class' => 'form-control', 'placeholder' => 'title', 'id' =>
 							'form-title', 'type' => 'text', 'required' => 'required')) !!}
 
 						</td>
-						<td>{{count($viewdata->users)}}</td>
+
+						<td>
+							@foreach($viewdata->children as $children)
+								{{$children->name}}
+							@endforeach
+
+						</td>
 						<td>{{$viewdata->created_at}}</td>
 						<td>{{$viewdata->updated_at}}
 							{!! Form::hidden('id[]', $viewdata->id) !!}
@@ -69,7 +75,7 @@
 						{!! Form::text('newtitle', null, array('class' => 'form-control', 'placeholder' => 'New title', 'id' =>
 						'form-title', 'type' => 'text')) !!}
 					</td>
-					<td>0</td>
+					<td></td>
 					<td> </td>
 					<td></td>
 					<td></td>

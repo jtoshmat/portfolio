@@ -103,6 +103,10 @@ class UsersController extends Controller
         return view('users/roles', compact('roles'));
     }
 
+	public function guardian(){
+		$data = User::with('role')->paginate(25);
+		return view('users/guardians',compact('data'));
+	}
 
 
 
