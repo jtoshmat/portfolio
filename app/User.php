@@ -110,6 +110,11 @@ class User extends Model implements AuthenticatableContract,
         return $this->belongsToMany('cmwn\User', 'child_guardian', 'child_id', 'guardian_id');
     }
 
+    public function siblings()
+    {
+        return $this->guardians->children->where('id','!=',$this->id);
+    }
+
     public function hasRole(Array $roles)
     {
         foreach ($roles as $role) {

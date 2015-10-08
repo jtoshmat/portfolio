@@ -77,14 +77,15 @@
 
 						<table class="table table-striped table-bordered" cellspacing="0" width="100%">
 							<tr class="tr_head2">
-								<td>Children Names</td>
-								<td>Usernames</td>
+								<td>Role</td>
+								<td>Description</td>
 							</tr>
-							<tr>
-									<td>Coming Soon</td>
-									<td>Work in progress</td>
+							@foreach($data->siblings as $sibling)
+								<tr>
+									<td>{{$sibling->name}}</td>
+									<td>{{$sibling->slug}}</td>
 								</tr>
-
+							@endforeach
 						</table>
 
 					</td></tr>
