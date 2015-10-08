@@ -30,3 +30,25 @@ http://laravel.com/docs/5.0/helpers
 
 @TODO:
 Organizations needs softdelete added - 10/07 JT
+
+				{{--*/  $organizations = array() /*--}}
+							@foreach($allorganizations as $orn)
+								{{--*/  $organizations[$orn->id] =  $orn->title /*--}}
+							@endforeach
+
+
+							{{--*/  $selected = '' /*--}}
+							@foreach($viewdata->organization as $organization)
+								{{--*/  $selected[$organization->id] =  $organization->id /*--}}
+
+							@endforeach
+
+							{!! Form::select('organizations['.$viewdata->id.'][]', $organizations, $selected, ['multiple']) !!}
+
+
+								<li><a href="/users/members">Users</a></li>
+                            	<li><a href="/users/roles">Users Roles</a></li>
+                            	<li><a href="/guardians">Guardian and Child</a></li>
+                            	<li><a href="/districts">Districts</a></li>
+                            	<li><a href="/organizations">Organizations</a></li>
+                            	<li><a href="/groups">Groups</a></li>

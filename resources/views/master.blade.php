@@ -15,17 +15,26 @@
     <a href="/users/members">Members</a> |
 	<a href="/users/roles">Roles</a> |
 	<a href="/auth/logout">Logout</a> |
+
 </div>
-<h2>Welcome to CMWN and Exciting Site!</h2>
-<hr />
-<ul>
-	<li><a href="/users/members">Users</a></li>
-	<li><a href="/users/roles">Users Roles</a></li>
-	<li><a href="/guardians">Guardian and Child</a></li>
-	<li><a href="/districts">Districts</a></li>
-	<li><a href="/organizations">Organizations</a></li>
-	<li><a href="/groups">Groups</a></li>
-</ul>
+<br />
+
+
+<style type="text/css">
+	.btn_add_new{
+		float: right;
+		color:#fff;
+		background: #737373;
+	}
+
+	.tr_head{
+		background: #5bc0de!important;
+	}
+	.tr_head2{
+		background: #a6e1ec!important;
+	}
+</style>
+
 <div class="container">
 	@yield('content')
 </div>

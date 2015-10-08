@@ -52,9 +52,13 @@ Route::group(['middleware' => 'auth'], function($router) {
 
 	Route::any('users/member/{id}/update', 'UsersController@memberUpdate')->where('id', '[0-9]+');
 	Route::any('users/member/{id}/delete', 'UsersController@memberDelete')->where('id', '[0-9]+');
+	Route::any('user/{id}/view', 'UsersController@user')->where('id', '[0-9]+');
 	Route::any('districts', 'DistrictsController@index');
+	Route::any('district/{id}/view', 'DistrictsController@district')->where('id', '[0-9]+');
 	Route::any('organizations', 'OrganizationsController@index')->where('id', '[0-9]+');
+	Route::any('organization/{id}/view', 'OrganizationsController@organization')->where('id', '[0-9]+');
 	Route::any('groups', 'GroupsController@index');
+	Route::any('group/{id}/view', 'GroupsController@group')->where('id', '[0-9]+');
 	Route::any('guardians', 'UsersController@guardian');
 
 

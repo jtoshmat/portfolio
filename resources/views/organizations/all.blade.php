@@ -22,8 +22,11 @@
 				</div>
 			@endif
 
-			{!! Form::open(array('url' => '/organizations', 'class' => 'form-horizontal', 'role' =>
-		'form', 'id' =>'loginform'))	!!}
+			<span class="breadcrumb">
+				<a href="/districts">Districts</a> | Organizations
+
+			</span><hr />
+
 			<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 				<thead>
 				<tr class="tr_head">
@@ -31,7 +34,8 @@
 					<th>Users</th>
 					<th>Created</th>
 					<th>Last updated</th>
-					<th>Delete</th>
+					<th>View</th>
+
 				</tr>
 				</thead>
 
@@ -41,7 +45,8 @@
 					<th>Users</th>
 					<th>Created</th>
 					<th>Last updated</th>
-					<th>Delete</th>
+					<th>View</th>
+
 				</tr>
 				</tfoot>
 
@@ -50,47 +55,26 @@
 					<tr>
 						<td>
 
-							{!! Form::text('title[]', $viewdata->title, array('class' => 'form-control', 'placeholder' => 'title', 'id' =>
-							'form-title', 'type' => 'text', 'required' => 'required')) !!}
+
+							<a href="/organization/{{$viewdata->id}}/view">{{$viewdata->title}}</a>
 
 						</td>
 						<td>
-							@if(!is_null($viewdata->groups))
-							classes
-							@endif
+							List of Users (teachers, students, guardian..)
 						</td>
 						<td>{{$viewdata->created_at}}</td>
 						<td>{{$viewdata->updated_at}}
 							{!! Form::hidden('id[]', $viewdata->id) !!}
 						</td>
 						<td>
-							{!! Form::checkbox('delete[]', $viewdata->id, false) !!}
+							<a class="btn btn-primary" href="/organization/{{$viewdata->id}}/view">View</a>
 						</td>
+
 					</tr>
 				@endforeach
-				<tr>
-					<td>
-						{!! Form::text('newtitle', null, array('class' => 'form-control', 'placeholder' => 'New title', 'id' =>
-						'form-title', 'type' => 'text')) !!}
-					</td>
-					<td>0</td>
-					<td> </td>
-					<td></td>
-					<td></td>
-				</tr>
+
 				</tbody>
 			</table>
-
-
-
-			<div class="form-group" style="margin-top:10px; text-align: center">
-				<!-- Button -->
-
-				<div class="col-sm-12 controls">
-					{!! Form::reset('Reset', array('class' => 'btn btn-default', 'id' => 'btn-reset')) !!}
-					{!! Form::submit('Update', array('class' => 'btn btn-success', 'id' => 'btn-update')) !!}
-				</div>
-			</div>
 
 
 			{!! Form::close() !!}

@@ -44,6 +44,12 @@ class GroupsController extends Controller
         return view('groups/all',compact('data'));
     }
 
+	public function group(){
+		$id = (int) \Request::segment(2);
+		$data = Group::find($id);
+		return view('groups/group',compact('data'));
+	}
+
     /**
      * Show the form for creating a new resource.
      *

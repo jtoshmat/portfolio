@@ -45,6 +45,13 @@ class DistrictsController extends Controller
         return view('districts/all',compact('data', 'allorganizations'));
     }
 
+	public function district(){
+		$id = (int) \Request::segment(2);
+		$data = District::with('organization')->find($id);
+
+		return view('districts/district',compact('data'));
+	}
+
     /**
      * Show the form for creating a new resource.
      *

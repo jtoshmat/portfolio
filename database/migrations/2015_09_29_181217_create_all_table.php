@@ -67,8 +67,8 @@ class CreateAllTable extends Migration
 	    Schema::create('districts', function(Blueprint $table)
 	    {
 		    $table->increments('id');
-
 		    $table->string('title');
+		    $table->string('description');
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });
@@ -77,6 +77,7 @@ class CreateAllTable extends Migration
 	    {
 		    $table->increments('id');
 		    $table->string('title');
+		    $table->string('description');
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });
@@ -96,6 +97,7 @@ class CreateAllTable extends Migration
 		    $table->increments('id');
 		    $table->unsignedInteger('organization_id')->unsigned();
 		    $table->string('title');
+		    $table->string('description');
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

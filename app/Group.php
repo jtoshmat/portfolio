@@ -23,6 +23,17 @@ class Group extends Model
 	    return $this->belongsToMany('cmwn\User');
 	}
 
+	public function students()
+	{
+		return $this->belongsToMany('cmwn\User')->wherePivot('role_id',4);
+	}
+
+	public function teachers()
+	{
+		return $this->belongsToMany('cmwn\User')->wherePivot('role_id',3);
+	}
+
+
 	public function organization()
 	{
 		return $this->belongsTo('cmwn\Organization');

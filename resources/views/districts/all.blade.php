@@ -22,6 +22,12 @@
 				</div>
 			@endif
 
+			<span class="breadcrumb">
+				<a href="/">Home</a> |
+				Districts
+
+			</span><hr />
+
 			{!! Form::open(array('url' => '/districts', 'class' => 'form-horizontal', 'role' =>
 		'form', 'id' =>'loginform'))	!!}
 			<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -31,7 +37,7 @@
 					<th>Organizations</th>
 					<th>Created</th>
 					<th>Last updated</th>
-					<th>Delete</th>
+					<th>View</th>
 				</tr>
 				</thead>
 
@@ -41,7 +47,7 @@
 					<th>Organizations</th>
 					<th>Created</th>
 					<th>Last updated</th>
-					<th>Delete</th>
+					<th>View</th>
 				</tr>
 				</tfoot>
 
@@ -49,58 +55,25 @@
 				@foreach($data as $viewdata)
 					<tr>
 						<td>
-							{!! Form::text('title[]', $viewdata->title, array('class' => 'form-control', 'placeholder' => 'title', 'id' =>
-							'form-title', 'type' => 'text', 'required' => 'required')) !!}
+							<a href="/district/{{$viewdata->id}}/view">{{$viewdata->title}}</a>
 						</td>
-						<td>
-
-							{{--*/  $organizations = array() /*--}}
-							@foreach($allorganizations as $orn)
-								{{--*/  $organizations[$orn->id] =  $orn->title /*--}}
-							@endforeach
-
-
-							{{--*/  $selected = '' /*--}}
-							@foreach($viewdata->organization as $organization)
-								{{--*/  $selected[$organization->id] =  $organization->id /*--}}
-
-							@endforeach
-
-							{!! Form::select('organizations['.$viewdata->id.'][]', $organizations, $selected, ['multiple']) !!}
-						</td>
+						<td>{{count($viewdata->organization)}}</td>
 						<td>{{$viewdata->created_at}}</td>
 						<td>{{$viewdata->updated_at}}
 							{!! Form::hidden('id[]', $viewdata->id) !!}
 						</td>
 
 						<td>
-							{!! Form::checkbox('delete[]', $viewdata->id, false) !!}
+							<a class="btn btn-primary" href="/district/{{$viewdata->id}}/view">View</a>
 						</td>
+
 					</tr>
 				@endforeach
-				<tr>
-					<td>
-						{!! Form::text('newtitle', null, array('class' => 'form-control', 'placeholder' => 'New title', 'id' =>
-						'form-title', 'type' => 'text')) !!}
-					</td>
-					<td>0</td>
-					<td> </td>
-					<td></td>
-					<td></td>
-				</tr>
+
 				</tbody>
 			</table>
 
 
-
-			<div class="form-group" style="margin-top:10px; text-align: center">
-				<!-- Button -->
-
-				<div class="col-sm-12 controls">
-					{!! Form::reset('Reset', array('class' => 'btn btn-default', 'id' => 'btn-reset')) !!}
-					{!! Form::submit('Update', array('class' => 'btn btn-success', 'id' => 'btn-update')) !!}
-				</div>
-			</div>
 
 
 			{!! Form::close() !!}

@@ -44,6 +44,15 @@ class UsersController extends Controller
         return view('errors/404');
     }
 
+	public function user(){
+		$id = (int)Request::segment(2);
+		$data = User::find($id);
+		if ($data){
+			return view('users/user', compact('data'));
+		}
+		return view('errors/404');
+	}
+
     public function memberUpdate(Request $request){
         $id = (int)Request::segment(3);
         $action = Request::segment(4);

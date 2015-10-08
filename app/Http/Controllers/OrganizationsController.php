@@ -42,6 +42,12 @@ class OrganizationsController extends Controller
         return view('organizations/all',compact('data'));
     }
 
+    public function organization(){
+        $id = (int) \Request::segment(2);
+        $data = Organization::with('groups')->with('users')->find($id);
+        return view('organizations/organization',compact('data'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

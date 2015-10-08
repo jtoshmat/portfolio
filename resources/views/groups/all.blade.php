@@ -22,17 +22,23 @@
 				</div>
 			@endif
 
-			{!! Form::open(array('url' => '/groups', 'class' => 'form-horizontal', 'role' =>
-		'form', 'id' =>'loginform'))	!!}
+			<span class="breadcrumb">
+				<a href="/districts">Districts</a> |
+				<a href="/organizations">Organizations</a> |
+				Groups
+
+			</span><hr />
+
 			<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 				<thead>
 				<tr class="tr_head">
 					<th>Organization</th>
 					<th>Title</th>
-					<th>Coming Soon</th>
+					<th>Number of Users</th>
 					<th>Created</th>
 					<th>Last updated</th>
-					<th>Delete</th>
+					<th>View</th>
+
 				</tr>
 				</thead>
 
@@ -40,10 +46,11 @@
 				<tr>
 					<th>Organization</th>
 					<th>Title</th>
-					<th>Coming Soon</th>
+					<th>Number of Users</th>
 					<th>Created</th>
 					<th>Last updated</th>
-					<th>Delete</th>
+					<th>View</th>
+
 				</tr>
 				</tfoot>
 
@@ -52,56 +59,25 @@
 					<tr>
 						<td>
 							@if(!is_null($viewdata->organization))
-								{{$viewdata->organization->title}}
+								<a href="/organization/{{$viewdata->organization->id}}/view">{{$viewdata->organization->title}}</a>
 							@endif
 						</td>
-						<td>{!! Form::text('title[]', $viewdata->title, array('class' => 'form-control', 'placeholder' => 'title', 'id' =>
-							'form-title', 'type' => 'text', 'required' => 'required')) !!}
-						</td>
-						<td>
-							{{--*/  $chidren = array() /*--}}
-							@foreach($viewdata->users as $user)
-								{{--*/  $children[] = $user->name /*--}}
-							@endforeach
-							{{--*/  $selected = '' /*--}}
-							{!! Form::select('children['.$viewdata->id.'][]', $children, $selected, ['multiple']) !!}
-						</td>
+						<td><a href="/group/{{$viewdata->id}}/view">{{$viewdata->title}}</a></td>
+						<td>{{count($viewdata->users)}}</td>
 						<td>{{$viewdata->created_at}}</td>
-						<td>{{$viewdata->updated_at}}
-							{!! Form::hidden('id[]', $viewdata->id) !!}
-						</td>
+						<td>{{$viewdata->updated_at}}</td>
+
 						<td>
-							{!! Form::checkbox('delete[]', $viewdata->id, false) !!}
+							<a class="btn btn-primary" href="/group/{{$viewdata->id}}/view">View</a>
 						</td>
+
 					</tr>
 				@endforeach
-				<tr>
-					<td></td>
-					<td>
-						{!! Form::text('newtitle', null, array('class' => 'form-control', 'placeholder' => 'New title', 'id' =>
-						'form-title', 'type' => 'text')) !!}
-					</td>
-					<td>0</td>
-					<td> </td>
-					<td></td>
-					<td></td>
-				</tr>
+
 				</tbody>
 			</table>
 
 
-
-					<div class="form-group" style="margin-top:10px; text-align: center">
-						<!-- Button -->
-
-						<div class="col-sm-12 controls">
-							{!! Form::reset('Reset', array('class' => 'btn btn-default', 'id' => 'btn-reset')) !!}
-							{!! Form::submit('Update', array('class' => 'btn btn-success', 'id' => 'btn-update')) !!}
-						</div>
-					</div>
-
-
-			{!! Form::close() !!}
 			<div class="pagination"><?php echo $data->render(); ?></div>
 
 		</div>
