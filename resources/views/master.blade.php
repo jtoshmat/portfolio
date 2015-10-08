@@ -4,7 +4,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" media="screen" type="text/css">
 		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/css/app.css">
 	@show
 </head>
 <body>
@@ -18,22 +18,6 @@
 
 </div>
 <br />
-
-
-<style type="text/css">
-	.btn_add_new{
-		float: right;
-		color:#fff;
-		background: #737373;
-	}
-
-	.tr_head{
-		background: #5bc0de!important;
-	}
-	.tr_head2{
-		background: #a6e1ec!important;
-	}
-</style>
 
 <div class="container">
 	@yield('content')

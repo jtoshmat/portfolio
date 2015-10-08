@@ -1,10 +1,6 @@
 @extends('master')
 @section('content')
-	<style type="text/css">
-		.tr_head{
-			background: #5bc0de!important;
-		}
-	</style>
+
 	<div class="panel panel-info">
 
 

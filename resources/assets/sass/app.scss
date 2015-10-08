@@ -1,2 +1,43 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+@font-face {
+	font-family:'CMWNJadeRegular';
+	src:url('../fonts/cmwn_ulc-webfont.eot');
+	src:url('../fonts/cmwn_ulc-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/cmwn_ulc-webfont.woff') format('woff'), url('../fonts/cmwn_ulc-webfont.ttf') format('truetype'), url('../fonts/cmwn_ulc-webfont.svg#CMWNJadeRegular') format('svg');
+	font-style:normal;
+	font-weight:normal;
+}
+
+$font-stack:    Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+}
+
+.tr_head {
+	background: #5bc0de;
+	background: url(../img/blue-header-bg.jpg) repeat center;
+
+	color: #ffffff;
+	font-family: 'CMWNJadeRegular';
+	font-weight: normal;
+	text-transform: uppercase;
+}
+
+.tr_head2{
+	background: #a6e1ec;
+
+	background: url(../img/blue-header-bg.jpg) repeat center;
+	color: #ffffff;
+	font-family: 'CMWNJadeRegular';
+	font-weight: normal;
+	text-transform: uppercase;
+}
+
+.btn_add_new{
+	float: right;
+	color:#fff;
+	background: #737373;
+}
