@@ -27,6 +27,7 @@
 			<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 				<thead>
 				<tr class="tr_head">
+					<th>Organization</th>
 					<th>Title</th>
 					<th>Coming Soon</th>
 					<th>Created</th>
@@ -37,6 +38,7 @@
 
 				<tfoot>
 				<tr>
+					<th>Organization</th>
 					<th>Title</th>
 					<th>Coming Soon</th>
 					<th>Created</th>
@@ -49,13 +51,20 @@
 				@foreach($data as $viewdata)
 					<tr>
 						<td>
-
-							{!! Form::text('title[]', $viewdata->title, array('class' => 'form-control', 'placeholder' => 'title', 'id' =>
+							@if(!is_null($viewdata->organization))
+								{{$viewdata->organization->title}}
+							@endif
+						</td>
+						<td>{!! Form::text('title[]', $viewdata->title, array('class' => 'form-control', 'placeholder' => 'title', 'id' =>
 							'form-title', 'type' => 'text', 'required' => 'required')) !!}
-
 						</td>
 						<td>
-							{{count($viewdata->users)}}
+							{{--*/  $chidren = array() /*--}}
+							@foreach($viewdata->users as $user)
+								{{--*/  $children[] = $user->name /*--}}
+							@endforeach
+							{{--*/  $selected = '' /*--}}
+							{!! Form::select('children['.$viewdata->id.'][]', $children, $selected, ['multiple']) !!}
 						</td>
 						<td>{{$viewdata->created_at}}</td>
 						<td>{{$viewdata->updated_at}}
@@ -67,6 +76,7 @@
 					</tr>
 				@endforeach
 				<tr>
+					<td></td>
 					<td>
 						{!! Form::text('newtitle', null, array('class' => 'form-control', 'placeholder' => 'New title', 'id' =>
 						'form-title', 'type' => 'text')) !!}

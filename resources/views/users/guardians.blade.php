@@ -28,7 +28,7 @@
 				<thead>
 				<tr class="tr_head">
 					<th>Guardian</th>
-					<th>Childrens</th>
+					<th>Children</th>
 					<th>Created</th>
 					<th>Last updated</th>
 					<th>Delete</th>
@@ -56,9 +56,16 @@
 						</td>
 
 						<td>
-							@foreach($viewdata->children as $children)
-								{{$children->name}}
-							@endforeach
+
+
+								{{--*/  $chidren_array = array() /*--}}
+								@foreach($viewdata->children as $children)
+									{{--*/  $chidren_array[] = $children->name /*--}}
+								@endforeach
+								{{--*/  $selected = '' /*--}}
+							@if(!empty($chidren_array))
+								{!! Form::select('children['.$viewdata->id.'][]', $chidren_array, $selected, ['multiple']) !!}
+							@endif
 
 						</td>
 						<td>{{$viewdata->created_at}}</td>

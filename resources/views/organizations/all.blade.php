@@ -54,7 +54,11 @@
 							'form-title', 'type' => 'text', 'required' => 'required')) !!}
 
 						</td>
-						<td>{{count($viewdata->users)}}</td>
+						<td>
+							@if(!is_null($viewdata->groups))
+							classes
+							@endif
+						</td>
 						<td>{{$viewdata->created_at}}</td>
 						<td>{{$viewdata->updated_at}}
 							{!! Form::hidden('id[]', $viewdata->id) !!}

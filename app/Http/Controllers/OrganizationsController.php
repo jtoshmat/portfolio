@@ -38,7 +38,7 @@ class OrganizationsController extends Controller
             ($validator)->withInput()->with('flag', 'danger');
         }
 
-        $data = Organization::with('users')->paginate(25);
+        $data = Organization::paginate(25);
         return view('organizations/all',compact('data'));
     }
 

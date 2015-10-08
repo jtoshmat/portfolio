@@ -23,6 +23,10 @@ class Group extends Model
 	    return $this->belongsToMany('cmwn\User');
 	}
 
+	public function organization()
+	{
+		return $this->belongsTo('cmwn\Organization');
+	}
 
 	public static function updateGroups(Request $request){
 		$titles = $request::get('title');

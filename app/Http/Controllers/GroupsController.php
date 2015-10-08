@@ -40,7 +40,7 @@ class GroupsController extends Controller
             ($validator)->withInput()->with('flag', 'danger');
         }
 
-        $data = Group::with('users')->paginate(25);
+        $data = Group::paginate(25);
         return view('groups/all',compact('data'));
     }
 

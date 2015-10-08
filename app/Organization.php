@@ -20,6 +20,10 @@ class Organization extends Model
 	    return $this->belongsToMany('cmwn\User');
 	}
 
+	public function groups()
+	{
+		return $this->hasMany('cmwn\Group');
+	}
 
 	public static function updateGroups(Request $request){
 		$titles = $request::get('title');
