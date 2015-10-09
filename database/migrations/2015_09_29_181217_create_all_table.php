@@ -64,6 +64,17 @@ class CreateAllTable extends Migration
 	        $table->softDeletes();
         });
 
+        Schema::create('roleable', function(Blueprint $table)
+        {
+    	    $table->increments('id');
+    	    $table->unsignedInteger('user_id')->unsigned();
+    	    $table->unsignedInteger('roleable_id')->unsigned();
+    	    $table->string('roleable_type')->unsigned();
+    	    $table->unsignedInteger('role_id')->unsigned();
+    	    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+    	    $table->timestamps();
+        });
+
 	    Schema::create('districts', function(Blueprint $table)
 	    {
 		    $table->increments('id');
