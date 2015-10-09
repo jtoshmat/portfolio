@@ -25,12 +25,14 @@ class Group extends Model
 
 	public function students()
 	{
-		return $this->belongsToMany('cmwn\User')->wherePivot('role_id',4);
+		$role_id = (int) \Config::get('mycustomvars.roles.student');
+		return $this->belongsToMany('cmwn\User')->wherePivot('role_id',$role_id);
 	}
 
 	public function teachers()
 	{
-		return $this->belongsToMany('cmwn\User')->wherePivot('role_id',3);
+		$role_id = (int) \Config::get('mycustomvars.roles.teacher');
+		return $this->belongsToMany('cmwn\User')->wherePivot('role_id',$role_id);
 	}
 
 
