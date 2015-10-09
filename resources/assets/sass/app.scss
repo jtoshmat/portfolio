@@ -17,6 +17,24 @@ body {
   color: $primary-color;
 }
 
+.header {
+	background: #54c2f2;
+	padding: 12px;
+	position: relative;
+	background: url(../img/blue-header-bg.jpg) repeat center;
+	background-size: cover;
+
+	color: #ffffff;
+    display: inline;
+    font-family: 'CMWNJadeRegular';
+    font-size: 24px;
+    font-weight: normal;
+    text-transform: uppercase;
+
+    width: 100%;
+    display: block;
+}
+
 .tr_head {
 	background: #5bc0de;
 	background: url(../img/blue-header-bg.jpg) repeat center;

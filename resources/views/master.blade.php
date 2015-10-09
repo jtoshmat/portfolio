@@ -16,13 +16,28 @@
 			<img src="/img/pt_logout_on.png">
 
 			<div class="row">
+
+			{{--*/  $errorClass = (session('flag'))?session('flag'):'info' /*--}}
+			@if (count($errors) > 0)
+				<div class="alert alert-{{$errorClass}}" role="alert">
+					@foreach($errors->all() as $error)
+						<p>
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							<span class="sr-only">Error:</span>
+							{{ $error }}
+						</p>
+					@endforeach
+				</div>
+			@endif
+
+			  <br />
 			  <div class="col-md-10 col-md-offset-1">
 				  <div class="row">
-				    <div class="col-md-2">
-				    	    <div class="list-group">
+				    <div class="col-md-3">
+							<img class="img-thumbnail" alt="350x350" src="http://placehold.it/350x350">
+							<br /><br />
+							<div class="list-group">
 				  	  	    <a class="list-group-item" href="/">Home</a>
-				  	  	    <a class="list-group-item" href="/auth/login">Login</a>
-				  	  	    <a class="list-group-item" href="/auth/register">Register</a>
 				  	  	    <a class="list-group-item" href="/users/members">Members</a>
 				  	  		<a class="list-group-item" href="/users/roles">Roles</a>
 				  	  		<a class="list-group-item" href="/districts">Districts</a>
@@ -31,7 +46,7 @@
 				  	  		<a class="list-group-item" href="/auth/logout">Logout</a>
 				    		</div>
 				    </div>
-				    <div class="col-md-10">
+				    <div class="col-md-9">
 				    	@yield('content')
 				    </div>
 				  </div>
