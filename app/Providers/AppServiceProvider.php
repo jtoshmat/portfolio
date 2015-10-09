@@ -24,8 +24,6 @@ class AppServiceProvider extends ServiceProvider
             $user->districts()->detach();
             $user->organizations()->detach();
             $user->groups()->detach();
-            $user->children()->detach();
-            $user->role()->detach();
         });
     }
 
