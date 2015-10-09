@@ -58,7 +58,7 @@ class User extends Model implements AuthenticatableContract,
         'middle_name'=>'required|string|min:2',
         'last_name'=>'required|string|min:2',
         'email'=>'required|email|min:2',
-        'slug'=>'required|string|unique:users|min:2',
+        //'slug'=>'required|string|unique:users|min:2',
         //'role[]'=>'required',
         //'role[]'=>'required|regex:/^[0-9]?$/',
     );
@@ -120,7 +120,10 @@ class User extends Model implements AuthenticatableContract,
 	    $roles = ($roles)?$roles:array();
 	    $user = User::find($id);
 	    $user->role()->sync($roles);
-        $user->name = $request::get('name');
+        $user->first_name = $request::get('first_name');
+        $user->middle_name = $request::get('middle_name');
+        $user->last_name = $request::get('last_name');
+	    $user->name = $user->first_name.' '. $user->last_name;
         if($user->save()){
             return true;
         }

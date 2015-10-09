@@ -31,6 +31,13 @@ http://laravel.com/docs/5.0/helpers
 User delte
 cmwn/users/member/3/delete
 
+LARAVEL logs -  Log::getMonolog();
+storage/logs/laravel.log
+		\Log::info('This is some useful information.');
+		\Log::warning('Something could be going wrong.');
+		\Log::error('Something is really going wrong.');
+
+
 
 @TODO:
 Organizations needs softdelete added - 10/07 JT
