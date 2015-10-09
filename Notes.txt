@@ -28,6 +28,10 @@ display  {{$myVar}}
 #Laravel helpers
 http://laravel.com/docs/5.0/helpers
 
+User delte
+cmwn/users/member/3/delete
+
+
 @TODO:
 Organizations needs softdelete added - 10/07 JT
 

@@ -13,7 +13,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \cmwn\User::creating(function ($user) {
+            echo('creating ');
+        });
+
+        // Attach event handler, on deleting of the user
+        \cmwn\User::deleting(function($user)
+        {
+            echo('deleting from AppServiceProvider ');
+            $user->districts()->detach();
+            $user->organizations()->detach();
+            $user->groups()->detach();
+            $user->children()->detach();
+            $user->role()->detach();
+        });
     }
 
     /**

@@ -3,10 +3,10 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Middlware custom routes list
+    | Custom vars list
     |--------------------------------------------------------------------------
     |
-    | This is where we store all the routes list
+    | This is where we store all the custom vars list
     | Jon Toshmatov
     | more to come
     |
@@ -14,7 +14,7 @@ return [
     'roles' => [
 
         /*
-         * All custom routes
+         * All custom roles
          */
         'admin' =>   1,
         'principal' =>   2,

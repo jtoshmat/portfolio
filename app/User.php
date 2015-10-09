@@ -67,23 +67,7 @@ class User extends Model implements AuthenticatableContract,
 		//'id'=>'required|regex:/^[0-9]?$/',
 	);
 
-    public static function boot()
-    {
-        parent::boot();
 
-        User::creating(function ($user) {
-            echo('creating ');
-        });
-        
-        // Attach event handler, on deleting of the user
-        User::deleting(function($user)
-        {   
-            //@TODO Finish this up
-            echo('deleting ');
-            $user->groups()->detach();
-            $user->organizations()->detach();
-        });
-    }
 
     public function role()
     {
