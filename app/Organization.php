@@ -17,7 +17,7 @@ class Organization extends Model
 
 	public function users()
 	{
-	    return $this->belongsToMany('cmwn\User');
+	    return $this->morphToMany('cmwn\User', 'roleable');
 	}
 
 	public function groups()

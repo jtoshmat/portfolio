@@ -62,7 +62,7 @@ class CreateAllTable extends Migration
 	        $table->softDeletes();
         });
 
-        Schema::create('roleable', function(Blueprint $table)
+        Schema::create('roleables', function(Blueprint $table)
         {
     	    $table->increments('id');
     	    $table->unsignedInteger('user_id')->unsigned();

@@ -20,7 +20,7 @@ class Group extends Model
 
 	public function users()
 	{
-	    return $this->belongsToMany('cmwn\User');
+	    return $this->morphToMany('cmwn\User', 'roleable');
 	}
 
 	public function students()
