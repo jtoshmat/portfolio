@@ -13,14 +13,12 @@ class CreateAllTable extends Migration
      */
     public function up()
     {
-	    Schema::dropIfExists("group_user");
 	    Schema::dropIfExists("child_guardian");
-	    Schema::dropIfExists("organization_user");
 	    Schema::dropIfExists("district_organization");
 	    Schema::dropIfExists("districts");
 	    Schema::dropIfExists("organizations");
-	    Schema::dropIfExists("group_user");
 	    Schema::dropIfExists("groups");
+	    Schema::dropIfExists("roleable");
 
 	    Schema::dropIfExists("role_user");
 	    //Schema::dropIfExists("role_permissions");
@@ -69,7 +67,7 @@ class CreateAllTable extends Migration
     	    $table->increments('id');
     	    $table->unsignedInteger('user_id')->unsigned();
     	    $table->unsignedInteger('roleable_id')->unsigned();
-    	    $table->string('roleable_type')->unsigned();
+    	    $table->string('roleable_type');
     	    $table->unsignedInteger('role_id')->unsigned();
     	    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
     	    $table->timestamps();
@@ -111,26 +109,6 @@ class CreateAllTable extends Migration
 		    $table->string('description');
 		    $table->timestamps();
 		    $table->softDeletes();
-	    });
-
-	    Schema::create('group_user', function(Blueprint $table)
-	    {
-		    $table->increments('id');
-		    $table->unsignedInteger('user_id')->unsigned();
-		    $table->unsignedInteger('group_id')->unsigned();
-		    $table->unsignedInteger('role_id')->unsigned();
-		    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-		    $table->timestamps();
-	    });
-
-	    Schema::create('organization_user', function(Blueprint $table)
-	    {
-		    $table->increments('id');
-		    $table->unsignedInteger('user_id')->unsigned();
-		    $table->unsignedInteger('organization_id')->unsigned();
-		    $table->unsignedInteger('role_id')->unsigned();
-		    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-		    $table->timestamps();
 	    });
 
 

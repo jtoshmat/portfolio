@@ -97,29 +97,7 @@ use cmwn\District;
 			}
 
 
-			DB::table('organization_user')->insert([
-				'user_id' => $teacher->id,
-				'organization_id' => $organization->id,
-				'role_id' => $role_teacher->id,
-			]);
 
-			DB::table('group_user')->insert([
-				'user_id' => $teacher->id,
-				'group_id' => $class->id,
-				'role_id' => $role_teacher->id,
-			]);
-
-			DB::table('organization_user')->insert([
-				'user_id' => $child->id,
-				'organization_id' => $organization->id,
-				'role_id' => $role_student->id,
-			]);
-
-			DB::table('group_user')->insert([
-				'user_id' => $child->id,
-				'group_id' => $class->id,
-				'role_id' => $role_student->id,
-			]);
 
 			//$child->delete();
 
