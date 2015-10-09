@@ -30,10 +30,7 @@
 
 			<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 				<tr class="tr_head"><td><h2>{{$data->name}}</h2></td></tr>
-
-
-
-
+				@if(count($data->guardians)>0)
 				<tr><td><h3>Guardians ({{count($data->guardians)}}):<a title="Add new" class="btn btn-success btn_add_new" href="#">+</a></h3><hr /></td></tr>
 				<tr><td>
 
@@ -52,7 +49,9 @@
 						</table>
 
 					</td></tr>
+				@endif
 
+				@if(count($data->children)>0)
 				<tr><td><h3>Children ({{count($data->children)}}):<a title="Add new" class="btn btn-success btn_add_new" href="#">+</a></h3><hr /></td></tr>
 				<tr><td>
 
@@ -71,26 +70,9 @@
 						</table>
 
 					</td></tr>
+				@endif
 
-				<tr><td><h3>Siblings ({{count($data->siblings)}}):<a title="Add new" class="btn btn-success btn_add_new" href="#">+</a></h3><hr /></td></tr>
-				<tr><td>
-
-						<table class="table table-striped table-bordered" cellspacing="0" width="100%">
-							<tr class="tr_head2">
-								<td>Siblings Names</td>
-								<td>Usernames</td>
-							</tr>
-							@foreach($data->siblings as $sibling)
-								<tr>
-									<td>{{$sibling->name}}</td>
-									<td>{{$sibling->slug}}</td>
-								</tr>
-							@endforeach
-						</table>
-
-					</td></tr>
-
-
+				@if(count($data->role)>0)
 				<tr><td><h3>Roles({{count($data->role)}}):<a title="Add new" class="btn btn-success btn_add_new" href="#">+</a></h3><hr /></td></tr>
 				<tr><td>
 
@@ -108,8 +90,47 @@
 						</table>
 
 					</td></tr>
+					@endif
 
+				@if(count($data->organizations)>0)
+					<tr><td><h3>Organizations({{count($data->organizations)}}):<a title="Add new" class="btn btn-success btn_add_new" href="#">+</a></h3><hr /></td></tr>
+					<tr><td>
 
+							<table class="table table-striped table-bordered" cellspacing="0" width="100%">
+								<tr class="tr_head2">
+									<td>Role</td>
+									<td>Description</td>
+								</tr>
+								@foreach($data->organizations as $organization)
+									<tr>
+										<td>{{$organization->title}}</td>
+										<td>{{$organization->description}}</td>
+									</tr>
+								@endforeach
+							</table>
+
+						</td></tr>
+				@endif
+
+					@if(count($data->groups)>0)
+					<tr><td><h3>Groups({{count($data->groups)}}):<a title="Add new" class="btn btn-success btn_add_new" href="#">+</a></h3><hr /></td></tr>
+					<tr><td>
+
+							<table class="table table-striped table-bordered" cellspacing="0" width="100%">
+								<tr class="tr_head2">
+									<td>Role</td>
+									<td>Description</td>
+								</tr>
+								@foreach($data->groups as $group)
+									<tr>
+										<td>{{$group->title}}</td>
+										<td>{{$group->description}}</td>
+									</tr>
+								@endforeach
+							</table>
+
+						</td></tr>
+					@endif
 
 			</table>
 
