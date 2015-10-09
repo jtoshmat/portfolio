@@ -27,7 +27,7 @@
 				  	  		<a class="list-group-item" href="/users/roles">Roles</a>
 				  	  		<a class="list-group-item" href="/districts">Districts</a>
 				  	  		<a class="list-group-item" href="/organizations">Organizations</a>
-				  	  		<a class="list-group-item" href="/gropus">Gropus</a>
+				  	  		<a class="list-group-item" href="/groups">Groups</a>
 				  	  		<a class="list-group-item" href="/auth/logout">Logout</a>
 				    		</div>
 				    </div>
