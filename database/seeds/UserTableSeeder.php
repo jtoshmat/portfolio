@@ -17,7 +17,7 @@ use cmwn\District;
 			DB::table('users')->delete();
 			DB::table('child_guardian')->delete();
 
-			for ($i=0; $i<4; $i++) {
+			for ($i=1; $i<5; $i++) {
 				$teacher = User::create(array(
 					"name" => "teacher".$i,
 					"email" => "teacher@yahoo.com".$i,
@@ -26,20 +26,23 @@ use cmwn\District;
 				));
 			}
 
-			$guardian = User::create(array(
-                "name" => "parent",
-                "email" => "jontoshmatov@yahoo.com",
-                "password" => Hash::make("business"),
-                "slug" => 'parent_slug',
-            ));
+			for ($i=1; $i<5; $i++) {
+				$guardian = User::create(array(
+					"name" => "parent".$i,
+					"email" => "jontoshmatov@yahoo.com".$i,
+					"password" => Hash::make("business"),
+					"slug" => 'parent_slug'.$i,
+				));
+			}
 
-
-			$child = User::create(array(
-				"name" => "child",
-				"email" => "child@child.com",
-				"password" => Hash::make("business"),
-				"slug" => 'child_slug',
-			));
+			for ($i=1; $i<5; $i++) {
+				$child = User::create(array(
+					"name" => "child".$i,
+					"email" => "child@child.com".$i,
+					"password" => Hash::make("business"),
+					"slug" => 'child_slug'.$i,
+				));
+			}
 
 
 			DB::table('roles')->delete();
@@ -67,23 +70,31 @@ use cmwn\District;
 				'child_id' => $child->id,
 			]);
 
-			$district = District::create(array(
-				"title" => "District 1",
-			));
-
-			$organization = Organization::create(array(
-				"title" => "Organization 1",
-			));
+			for ($i=1; $i<5; $i++) {
+				$district = District::create(array(
+					"title" => "District ".$i,
+					"description" => "District:".$i." Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy tex ",
+				));
+			}
+			for ($i=1; $i<5; $i++) {
+				$organization = Organization::create(array(
+					"title" => "Organization ".$i,
+					"description" => "School:".$i." Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy tex ",
+				));
+			}
 
 			DB::table('district_organization')->insert([
 				'district_id' => $district->id,
 				'organization_id' => $organization->id,
 			]);
 
-			$class = Group::create(array(
-				"organization_id" => $organization->id,
-				"title" => "Class 1",
-			));
+			for ($i=1; $i<5; $i++) {
+				$class = Group::create(array(
+					"organization_id" => $organization->id,
+					"title" => "Class ".$i,
+					"description" => "Class:".$i." Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy tex ",
+				));
+			}
 
 
 			DB::table('organization_user')->insert([
