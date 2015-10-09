@@ -81,6 +81,29 @@
 					</td></tr>
 					@endif
 
+
+				@if(count($data->districts)>0)
+					<tr><td><h3>districts({{count($data->districts)}}):<a title="Add new" class="btn btn-success btn_add_new" href="#">+</a></h3><hr /></td></tr>
+					<tr><td>
+
+							<table class="table table-striped table-bordered" cellspacing="0" width="100%">
+								<tr class="tr_head2">
+									<td>Title</td>
+									<td>Description</td>
+									<td>Role</td>
+								</tr>
+								@foreach($data->districts as $district)
+									<tr>
+										<td>{{$district->title}}</td>
+										<td>{{$district->description}}</td>
+										<td>{{$district->role_id}}</td>
+									</tr>
+								@endforeach
+							</table>
+
+						</td></tr>
+				@endif
+
 				@if(count($data->organizations)>0)
 					<tr><td><h3>Organizations({{count($data->organizations)}}):<a title="Add new" class="btn btn-success btn_add_new" href="#">+</a></h3><hr /></td></tr>
 					<tr><td>

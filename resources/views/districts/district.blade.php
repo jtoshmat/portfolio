@@ -8,6 +8,14 @@
 
 			</span><hr />
 			
+			{{var_dump($data->users)}}
+
+			<?php 
+
+			$queries = DB::getQueryLog();
+			var_dump($queries);
+
+			?>
 
 
 			<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">

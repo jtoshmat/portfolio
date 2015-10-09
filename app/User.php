@@ -90,15 +90,21 @@ class User extends Model implements AuthenticatableContract,
         return $this->belongsToMany('cmwn\Role');
     }
 
-    public function groups()
+    public function districts()
     {
-         return $this->belongsToMany('cmwn\Group');
+        return $this->morphedByMany('cmwn\District', 'roleable')->withPivot('role_id');
     }
 
     public function organizations()
     {
-         return $this->belongsToMany('cmwn\Organization');
+        return $this->morphedByMany('cmwn\Organization', 'roleable')->withPivot('role_id');
     }
+
+    public function groups()
+    {
+        return $this->morphedByMany('cmwn\Group', 'roleable')->withPivot('role_id');
+    }
+
 
     public function children()
     {

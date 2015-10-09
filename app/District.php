@@ -23,6 +23,11 @@ class District extends Model
 		return $this->belongsToMany('cmwn\Organization');
 	}
 
+	public function users()
+	{
+		return $this->morphToMany('cmwn\User', 'roleable');
+	}
+
 	public static function updateGroups(Request $request){
 		$titles = $request::get('title');
 		$ids = $request::get('id');

@@ -28,13 +28,13 @@ class Organization extends Model
 	public function principals()
 	{
 		$role_id = (int) \Config::get('mycustomvars.roles.principal');
-		return $this->belongsToMany('cmwn\User')->wherePivot('role_id',$role_id);
+		return $this->morphToMany('cmwn\User', 'roleable')->wherePivot('role_id',$role_id);
 	}
 
 	public function teachers()
 	{
 		$role_id = (int) \Config::get('mycustomvars.roles.teacher');
-		return $this->belongsToMany('cmwn\User')->wherePivot('role_id',$role_id);
+		return $this->morphToMany('cmwn\User', 'roleable')->wherePivot('role_id',$role_id);
 	}
 
 	public static function updateGroups(Request $request){
