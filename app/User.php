@@ -112,7 +112,7 @@ class User extends Model implements AuthenticatableContract,
 
     public function siblings()
     {
-        return $this->guardians->children->where('id','!=',$this->id);
+        return $this->children();
     }
 
     public function hasRole(Array $roles)
