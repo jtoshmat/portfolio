@@ -6000,6 +6000,7 @@ button.close {
 
 body {
   font: 100% Helvetica, sans-serif;
+  font-size: 12px;
   color: #333; }
 
 .tr_head {
