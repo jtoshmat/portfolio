@@ -11,6 +11,11 @@
 |
 */
 
+Event::listen('illuminate.query', function($query)
+{
+    var_dump($query);
+});
+
 Route::get('/', function () {
 	return view('welcome');
 });
