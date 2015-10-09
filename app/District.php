@@ -30,7 +30,7 @@ class District extends Model
 
 	public function role()
 	{
-		return Role::getRole($this->pivot->role_id);
+		return Role::getRole($this->pivot->role_id); 
 	}
 
 	public static function updateGroups(Request $request){

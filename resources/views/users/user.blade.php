@@ -96,7 +96,7 @@
 									<tr>
 										<td>{{$district->title}}</td>
 										<td>{{$district->description}}</td>
-										<td>{{$district->role()->title}}</td>
+										<td>{{$district->role()}}</td>
 									</tr>
 								@endforeach
 							</table>
