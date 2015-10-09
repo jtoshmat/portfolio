@@ -21,6 +21,7 @@
 				<tr><td><strong>Created:</strong> {{$data->created_at}}</td></tr>
 				<tr><td><strong>Updated:</strong> {{$data->updated_at}}</td></tr>
 
+				@if(count($data->teachers)>0)
 				<tr><td><h3>Teachers:<a title="Add new" class="btn btn-success btn_add_new" href="#">+</a></h3><hr /></td></tr>
 				<tr><td>
 
@@ -39,7 +40,9 @@
 						</table>
 
 					</td></tr>
+				@endif
 
+				@if(count($data->students)>0)
 				<tr><td><h3>Students:<a title="Add new" class="btn btn-success btn_add_new" href="#">+</a></h3><hr /></td></tr>
 				<tr><td>
 
@@ -58,6 +61,7 @@
 						</table>
 
 					</td></tr>
+				@endif
 
 
 
