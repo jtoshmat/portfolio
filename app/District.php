@@ -28,6 +28,11 @@ class District extends Model
 		return $this->morphToMany('cmwn\User', 'roleable');
 	}
 
+	public function role()
+	{
+		return Role::getRole($this->pivot->role_id);
+	}
+
 	public static function updateGroups(Request $request){
 		$titles = $request::get('title');
 		$ids = $request::get('id');
