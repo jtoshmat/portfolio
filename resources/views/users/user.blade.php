@@ -72,13 +72,13 @@
 
 					</td></tr>
 
-				<tr><td><h3>Siblings (0):<a title="Add new" class="btn btn-success btn_add_new" href="#">+</a></h3><hr /></td></tr>
+				<tr><td><h3>Siblings ({{count($data->siblings)}}):<a title="Add new" class="btn btn-success btn_add_new" href="#">+</a></h3><hr /></td></tr>
 				<tr><td>
 
 						<table class="table table-striped table-bordered" cellspacing="0" width="100%">
 							<tr class="tr_head2">
-								<td>Role</td>
-								<td>Description</td>
+								<td>Siblings Names</td>
+								<td>Usernames</td>
 							</tr>
 							@foreach($data->siblings as $sibling)
 								<tr>
