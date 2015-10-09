@@ -25,6 +25,16 @@ class Organization extends Model
 		return $this->hasMany('cmwn\Group');
 	}
 
+	public function principals()
+	{
+		return $this->belongsToMany('cmwn\User')->wherePivot('role_id',2);
+	}
+
+	public function teachers()
+	{
+		return $this->belongsToMany('cmwn\User')->wherePivot('role_id',3);
+	}
+
 	public static function updateGroups(Request $request){
 		$titles = $request::get('title');
 		$ids = $request::get('id');
