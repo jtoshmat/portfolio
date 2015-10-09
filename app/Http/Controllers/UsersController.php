@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
+use chmwn\Redis;
 
 
 
@@ -23,8 +24,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function members()
+	public function members()
     {
         //$roles = Role::All();
         //return view('users/members', compact('roles'));

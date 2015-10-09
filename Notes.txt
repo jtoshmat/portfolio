@@ -37,6 +37,9 @@ storage/logs/laravel.log
 		\Log::warning('Something could be going wrong.');
 		\Log::error('Something is really going wrong.');
 
+Redis cache
+		$user = Redis::set('name', 'Taylor');
+		var_dump(Redis::get('name'));
 
 
 @TODO:
