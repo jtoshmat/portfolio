@@ -66,3 +66,37 @@ Organizations needs softdelete added - 10/07 JT
                             	<li><a href="/districts">Districts</a></li>
                             	<li><a href="/organizations">Organizations</a></li>
                             	<li><a href="/groups">Groups</a></li>
+                            	
+                            	
+                            	
+                            	
+#Import csv file into MySQL
+#A sample code - Oct 11 Jon T
+
+    public function migratecsv()
+    {
+	    $file = base_path( 'public/countries.csv' );
+
+	    $sql = <<<END
+		load data local infile '%s' ignore
+		into table `countries`
+		character set utf8
+		fields terminated by ','
+		lines terminated by '\\n'
+		ignore 1 lines
+		(from_id,to_id,distance);
+END;
+
+	    $output = \DB::unprepared( sprintf( $sql, $file ) );
+	    dd($output);
+    }
+    
+    
+	    Schema::create('countries', function(Blueprint $table)
+	    {
+		    $table->increments('id');
+		    $table->string('from_id');
+		    $table->string('to_id');
+		    $table->string('distance');
+		    $table->timestamps();
+	    });
