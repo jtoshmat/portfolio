@@ -38,6 +38,7 @@ body {
 .tr_head {
 	background: #5bc0de;
 	background: url(../img/blue-header-bg.jpg) repeat center;
+	background-size: cover;
 
 	color: #ffffff;
 	font-family: 'CMWNJadeRegular';
@@ -47,8 +48,9 @@ body {
 
 .tr_head2{
 	background: #a6e1ec;
-
 	background: url(../img/blue-header-bg.jpg) repeat center;
+	background-size: cover;
+
 	color: #ffffff;
 	font-family: 'CMWNJadeRegular';
 	font-weight: normal;
