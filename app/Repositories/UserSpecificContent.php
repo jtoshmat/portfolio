@@ -1,15 +1,19 @@
 <?php
 
-namespace cmwn\Http\Controllers\Auth;
-use cmwn\Http\Controllers\Controller;
+namespace cmwn\Repositories;
+use cmwn\Repositories\FlatTagRepository;
 
-
-class UserSpecificContent extends Controller
+class UserSpecificContent
 {
 
-    public function getAll()
-    {
-        return array('guest', 'two','three');
-    }
+    public $tag;
+
+	public function __construct(FlatTagRepository $tag){
+		$this->tag = $tag;
+	}
+
+	public function compose($view){
+		$view->with('tags', $this->tag->getAll());
+	}
 
 }

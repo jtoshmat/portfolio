@@ -1,0 +1,10 @@
+
+
+                                       
+  [InvalidArgumentException]           
+  Command "schedule-" is not defined.  
+  Did you mean this?                   
+      schedule:run                     
+                                       
+
+

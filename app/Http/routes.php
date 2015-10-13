@@ -13,7 +13,7 @@
 
 if(env('APP_ENV')=='local') {
 	Event::listen('illuminate.query', function ($query) {
-		var_dump($query);
+		//var_dump($query);
 	});
 }
 
@@ -66,6 +66,10 @@ Route::group(['middleware' => 'auth'], function($router) {
 	Route::any('groups', 'GroupsController@index');
 	Route::any('group/{id}/view', 'GroupsController@group')->where('id', '[0-9]+');
 	Route::any('guardians', 'UsersController@guardian');
+
+	//Composer for sidebars and user specific contents
+	View::composer('partials.sidebar','cmwn\Repositories\UserSpecificContent');
+
 
 
 });

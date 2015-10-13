@@ -33,19 +33,7 @@
 			  <br />
 			  <div class="col-md-10 col-md-offset-1">
 				  <div class="row">
-				    <div class="col-md-3">
-							<img class="img-thumbnail" alt="350x350" src="http://placehold.it/350x350">
-							<br /><br />
-							<div class="list-group">
-				  	  	    <a class="list-group-item" href="/">Home</a>
-				  	  	    <a class="list-group-item" href="/users/members">Members</a>
-				  	  		<a class="list-group-item" href="/users/roles">Roles</a>
-				  	  		<a class="list-group-item" href="/districts">Districts</a>
-				  	  		<a class="list-group-item" href="/organizations">Organizations</a>
-				  	  		<a class="list-group-item" href="/groups">Groups</a>
-				  	  		<a class="list-group-item" href="/auth/logout">Logout</a>
-				    		</div>
-				    </div>
+					  @include('partials.sidebar')
 				    <div class="col-md-9">
 				    	@yield('content')
 				    </div>
