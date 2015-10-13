@@ -7,6 +7,9 @@ class FlatTagRepository
 {
     protected $role = null;
 	public function __construct(){
+		if (!Auth::check()){
+			return false;
+		}
 		if ($role = Auth::user()->role) {
 			foreach ($role as $rol) {
 				$this->role[] = $rol->title;
@@ -25,9 +28,7 @@ class FlatTagRepository
         );
 
 	    $tags['principal'] = array(
-		    'Members' => '/users/members',
-		    'Roles' => '/users/members',
-		    'Ditricts' => '/districts',
+		    'Principal' => '/users/principal',
 		    'Organizations' => '/organizations',
 		    'Groups' => '/groups',
 	    );
