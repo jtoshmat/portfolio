@@ -123,7 +123,15 @@ class CreateAllTable extends Migration
 	    });
 
 
-
+	    Schema::create('states', function(Blueprint $table)
+	    {
+		    $table->increments('id');
+		    $table->string('StateCode');
+		    $table->string('StateName');
+		    $table->string('IsRealState');
+		    $table->string('StateDate');
+		    $table->timestamps();
+	    });
 
 
 

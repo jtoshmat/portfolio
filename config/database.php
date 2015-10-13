@@ -58,6 +58,7 @@ return [
             'database'  => env('DB_DATABASE', 'homestead'),
             'username'  => env('DB_USERNAME', 'homestead'),
             'password'  => env('DB_PASSWORD', 'secret'),
+            'options'    => [PDO::MYSQL_ATTR_LOCAL_INFILE=>true],
             //'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',

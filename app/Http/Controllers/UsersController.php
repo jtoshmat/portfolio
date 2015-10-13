@@ -1,6 +1,7 @@
 <?php
 
 namespace cmwn\Http\Controllers;
+use cmwn\Jobs\ImportCSV;
 use Illuminate\Support\Facades\Request;
 use cmwn\RolePermission;
 use cmwn\User;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
-use chmwn\Redis;
+
 
 
 
@@ -24,12 +25,18 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-	public function members()
-    {
-        //$roles = Role::All();
-        //return view('users/members', compact('roles'));
 
-        $members = User::paginate(10);
+	public function __construct(){
+		$user = \Redis::set('name', 'Taylor');
+		//var_dump(\Redis::get('name'));
+		//@TODO: sample event triger for queue
+		//$job = (new ImportCSV());
+		//$this->dispatch($job);
+	}
+
+    public function members()
+    {
+	    $members = User::paginate(10);
         return view('users/members', compact('members'));
 
     }
