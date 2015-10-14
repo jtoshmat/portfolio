@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
-
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use cmwn\Http\Requests;
 use cmwn\Http\Controllers\Controller;
@@ -22,13 +22,14 @@ class BatchController implements SelfHandling, ShouldQueue
         return self::migratecsv();
     }
 
-
-
 	protected static function migratecsv(){
-		$file = base_path( 'public/states.csv' );
+		$file = base_path( 'storage/app/yourcsv.csv' );
 		$csv = self::csv_to_array($file);
 		$output = self::updateDB($csv);
-		dd($output);
+		if(!$output){
+			return Redirect::to('admin/uploadcsv')->with('message', 'The following errors occurred')->withErrors
+			('Something went wrong with your import. Please try again.');
+		}
 	}
 
 

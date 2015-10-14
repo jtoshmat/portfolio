@@ -34,10 +34,10 @@ class ImportCSV extends Job implements SelfHandling, ShouldQueue
 
 	   $job = new BatchController();
 	   if($job::run()){
-		   Log::info('Import has completed');
+		   Log::info('Import has been completed');
 
 	   }
-
+	    Log::info('We will trigger an email notification here. Coming soon');
     }
 
     public function failed()

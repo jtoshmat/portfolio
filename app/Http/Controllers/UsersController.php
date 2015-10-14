@@ -29,9 +29,6 @@ class UsersController extends Controller
 	public function __construct(){
 		$user = \Redis::set('name', 'Taylor');
 		//var_dump(\Redis::get('name'));
-		//@TODO: sample event triger for queue
-		//$job = (new ImportCSV());
-		//$this->dispatch($job);
 	}
 
     public function members()

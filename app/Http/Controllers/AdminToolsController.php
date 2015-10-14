@@ -2,6 +2,7 @@
 
 namespace cmwn\Http\Controllers;
 use cmwn\AdminTool;
+use cmwn\Jobs\ImportCSV;
 use Illuminate\Support\Facades\Hash;
 use cmwn\Http\Requests;
 use cmwn\Http\Controllers\Controller;
@@ -25,8 +26,10 @@ class AdminToolsController extends Controller
                 //the files are stored in storage/app/*files*
                 $output = Storage::put('yourcsv.csv', file_get_contents($file));
                     if($output){
+	                    $job = (new ImportCSV());
+	                    $this->dispatch($job);
                         return Redirect::to('admin/uploadcsv')->with('message', 'The following errors occurred')->withErrors
-                        ('Your file has been successfully upload. You will receive email notification once the import is completed.');
+                        ('Your file has been successfully uploaded. You will receive an email notification once the import is completed.');
                     }else {
                         return Redirect::to('admin/uploadcsv')->with('message', 'The following errors occurred')->withErrors
                         ('Something went wrong with your upload. Please try again.');
