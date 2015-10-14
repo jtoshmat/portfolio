@@ -18,7 +18,7 @@ class CreateAllTable extends Migration
 	    Schema::dropIfExists("districts");
 	    Schema::dropIfExists("organizations");
 	    Schema::dropIfExists("groups");
-	    Schema::dropIfExists("roleable");
+	    Schema::dropIfExists("roleables");
 
 	    Schema::dropIfExists("role_user");
 	    //Schema::dropIfExists("role_permissions");
@@ -32,12 +32,15 @@ class CreateAllTable extends Migration
         Schema::create("users", function (Blueprint $table)
         {
             $table->increments('id');
-            $table->string('name');
-            $table->string('first_name');
+	        $table->string('student_id')->unique();
+	        $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
+	        $table->string('name');
             $table->string('email');
-            $table->string('slug')->unique();
+            $table->string('slug');
+	        $table->char('sex', 4);
+	        $table->date('dob');
             $table->string('password', 60);
             $table->rememberToken();
             $table->timestamps();
@@ -121,42 +124,6 @@ class CreateAllTable extends Migration
 		    $table->foreign('guardian_id')->references('id')->on('users')->onDelete('cascade');
 		    $table->timestamps();
 	    });
-
-
-	    Schema::create('states', function(Blueprint $table)
-	    {
-		    $table->increments('id');
-		    $table->string('StateCode');
-		    $table->string('StateName');
-		    $table->string('IsRealState');
-		    $table->string('StateDate');
-		    $table->timestamps();
-	    });
-
-
-
-
-	    /*
-		 * Commented out because permission table is not being used - 10/02 JT
-		Schema::create('role_permissions', function(Blueprint $table)
-		{
-			return false;
-			$table->increments('id');
-			$table->unsignedInteger('role_id')->unsigned();
-			$table->unsignedInteger('permission_id')->unsigned();
-			$table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
-			$table->timestamps();
-		});
-
-		Schema::create('permissions', function(Blueprint $table)
-		{
-			return false;
-			$table->increments('id');
-			$table->string('title');
-			$table->timestamps();
-		});
-		*/
-
     }
 
     /**

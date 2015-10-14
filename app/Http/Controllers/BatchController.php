@@ -23,7 +23,9 @@ class BatchController implements SelfHandling, ShouldQueue
     }
 
 	protected static function migratecsv(){
+
 		$file = base_path( 'storage/app/yourcsv.csv' );
+
 		$csv = self::csv_to_array($file);
 		$output = self::updateDB($csv);
 		if(!$output){

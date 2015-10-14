@@ -23,6 +23,7 @@ use cmwn\District;
 					"email" => "teacher@yahoo.com".$i,
 					"password" => Hash::make("business"),
 					"slug" => 'teacher_slug'.$i,
+					"student_id" => 'teacher_id'.$i,
 				));
 			}
 
@@ -32,6 +33,7 @@ use cmwn\District;
 					"email" => "jontoshmatov@yahoo.com".$i,
 					"password" => Hash::make("business"),
 					"slug" => 'parent_slug'.$i,
+					"student_id" => 'guardian_id'.$i,
 				));
 			}
 
@@ -41,6 +43,7 @@ use cmwn\District;
 					"email" => "child@child.com".$i,
 					"password" => Hash::make("business"),
 					"slug" => 'child_slug'.$i,
+					"student_id" => 'child_id'.$i,
 				));
 			}
 
