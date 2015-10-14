@@ -3,7 +3,7 @@
 namespace cmwn\Repositories;
 use Illuminate\Support\Facades\Auth;
 
-class FlatTagRepository
+class SideBarItems
 {
     protected $role = null;
 	public function __construct(){
@@ -25,6 +25,7 @@ class FlatTagRepository
 		    'Ditricts' => '/districts',
 		    'Organizations' => '/organizations',
 		    'Groups' => '/groups',
+		    'Upload CSV' => '/admin/uploadcsv',
         );
 
 	    $tags['principal'] = array(

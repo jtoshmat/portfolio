@@ -48,12 +48,19 @@ Route::group(['middleware' => 'auth'], function($router) {
     Route::any('users/roles', 'UsersController@roles');
 
 	Route::group(['middleware' => 'role:'.Config::get('myroutes.routes.role')], function ($router) {
+
 		Route::get("users/member/{id}/{action}", [
 			"as"   => "users/member",
 			"uses" => "UsersController@member",
 		],function($id, $action){
 			return $id;
 		})->where('id', '[0-9]+')->where('action','view');
+	});
+
+
+	//All Admin Tools here in this group
+	Route::group(['middleware' => 'role:admin'], function ($router) {
+		Route::any('admin/uploadcsv', 'AdminToolsController@uploadcsv');
 	});
 
 	Route::any('users/member/{id}/update', 'UsersController@memberUpdate')->where('id', '[0-9]+');

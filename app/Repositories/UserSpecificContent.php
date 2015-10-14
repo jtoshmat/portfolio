@@ -1,14 +1,14 @@
 <?php
 
 namespace cmwn\Repositories;
-use cmwn\Repositories\FlatTagRepository;
+use cmwn\Repositories\SideBarItems;
 
 class UserSpecificContent
 {
 
     public $tag;
 
-	public function __construct(FlatTagRepository $tag){
+	public function __construct(SideBarItems $tag){
 		$this->tag = $tag;
 	}
 
