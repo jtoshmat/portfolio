@@ -8,8 +8,6 @@ use cmwn\User;
 use Illuminate\Support\Facades\Hash;
 use cmwn\Http\Requests;
 use cmwn\Http\Controllers\Controller;
-
-
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -24,13 +22,10 @@ class AdminToolsController extends Controller
             $validator = Validator::make(Input::all(), AdminTool::$uploadCsvRules);
 
             if ($validator->passes()) {
-                $file = Input::get('yourcsv');
-	            $content = \File::get($file);
-                //the files are stored in storage/app/*files*
-                $output = Storage::put('yourcsv.csv', $content);
-				dd($output);
-
-                    if($output){
+                $file = \Request::file('yourcsv');
+	            //the files are stored in storage/app/*files*
+                $output = Storage::put('yourcsv.csv', file_get_contents($file));
+	                if($output){
 	                    $job = (new ImportCSV());
 	                    $this->dispatch($job);
                         return Redirect::to('admin/uploadcsv')->with('message', 'The following errors occurred')->withErrors

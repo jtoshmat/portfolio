@@ -2,7 +2,7 @@
 @section('content')
 	<div class="panel panel-info">
 		<div class="panel-body" style="padding-top:30px">
-			{!! Form::open(array('url' => 'admin/uploadcsv', 'class' => 'form-horizontal', 'role' => 'form', 'id' =>
+			{!! Form::open(array('url' => 'admin/uploadcsv', 'files'=>true, 'class' => 'form-horizontal', 'role' => 'form', 'id' =>
 				'uploadcsvform'))	!!}
 			<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 				<tr class="tr_head">
