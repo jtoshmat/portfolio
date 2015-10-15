@@ -1,9 +1,9 @@
 <?php
 
-namespace app\cmwn\Users\Repositories;
+namespace app\cmwn\Users;
 use app\Repositories\SideBarItems;
 
-class UserSpecificContent
+class UserSpecificRepository
 {
 
     public $tag;
