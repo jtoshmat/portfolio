@@ -12,6 +12,10 @@ class District extends Model
 	protected $dates = ['deleted_at'];
 	protected $table = 'districts';
 
+	protected $fillable = [
+		'code'
+	];
+
 	public static $groupUpdateRules = array(
 		'title[]'=>'string',
 		//'role[]'=>'required',

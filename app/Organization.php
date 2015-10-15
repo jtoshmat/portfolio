@@ -9,6 +9,10 @@ class Organization extends Model
 {
 	protected $table = 'organizations';
 
+	protected $fillable = [
+		'code'
+	];
+
 	public static $groupUpdateRules = array(
 		'title[]'=>'string',
 		//'role[]'=>'required',
@@ -23,6 +27,11 @@ class Organization extends Model
 	public function groups()
 	{
 		return $this->hasMany('cmwn\Group');
+	}
+
+	public function districts()
+	{
+		return $this->belongsToMany('cmwn\District');
 	}
 
 	public function principals()

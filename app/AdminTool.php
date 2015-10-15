@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class AdminTool extends Model
 {
 	public static $uploadCsvRules = array(
-		'yourcsv'=>'mimes:csv,txt',
+		'yourcsv'=>'required|mimes:csv,txt',
 	);
 }
