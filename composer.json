@@ -20,10 +20,12 @@
     "autoload": {
         "classmap": [
             "database",
-            "app/Models"
+            "app/cmwn"
         ],
         "psr-4": {
-            "app\\": "app/"
+
+          "app\\": "app/",
+          "cmwn\\": "app/cmwn/"
         }
     },
     "autoload-dev": {
