@@ -1,10 +1,10 @@
 <?php
 
-namespace cmwn\Http\Controllers;
+namespace app\Http\Controllers;
 
 use Illuminate\Http\Request;
-use cmwn\Http\Requests;
-use cmwn\Http\Controllers\Controller;
+use app\Http\Requests;
+use app\Http\Controllers\Controller;
 
 class RolesController extends Controller
 {

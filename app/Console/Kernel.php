@@ -1,8 +1,8 @@
 <?php
 
-namespace cmwn\Console;
+namespace app\Console;
 
-use cmwn\Http\Controllers\BatchController;
+use app\Http\Controllers\BatchController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Log;
@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \cmwn\Console\Commands\Inspire::class,
+        \app\Console\Commands\Inspire::class,
     ];
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace cmwn\Providers;
+namespace app\Providers;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'cmwn\Model' => 'cmwn\Policies\ModelPolicy',
+        'app\Model' => 'app\Policies\ModelPolicy',
     ];
 
     /**

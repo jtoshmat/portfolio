@@ -1,6 +1,6 @@
 <?php
 
-namespace cmwn;
+namespace app;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
@@ -21,29 +21,29 @@ class Organization extends Model
 
 	public function users()
 	{
-	    return $this->morphToMany('cmwn\User', 'roleable');
+	    return $this->morphToMany('app\User', 'roleable');
 	}
 
 	public function groups()
 	{
-		return $this->hasMany('cmwn\Group');
+		return $this->hasMany('app\Group');
 	}
 
 	public function districts()
 	{
-		return $this->belongsToMany('cmwn\District');
+		return $this->belongsToMany('app\District');
 	}
 
 	public function principals()
 	{
 		$role_id = (int) \Config::get('mycustomvars.roles.principal');
-		return $this->morphToMany('cmwn\User', 'roleable')->wherePivot('role_id',$role_id);
+		return $this->morphToMany('app\User', 'roleable')->wherePivot('role_id',$role_id);
 	}
 
 	public function teachers()
 	{
 		$role_id = (int) \Config::get('mycustomvars.roles.teacher');
-		return $this->morphToMany('cmwn\User', 'roleable')->wherePivot('role_id',$role_id);
+		return $this->morphToMany('app\User', 'roleable')->wherePivot('role_id',$role_id);
 	}
 
 	public static function updateGroups(Request $request){

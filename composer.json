@@ -23,7 +23,7 @@
             "app/Models"
         ],
         "psr-4": {
-            "cmwn\\": "app/"
+            "app\\": "app/"
         }
     },
     "autoload-dev": {

@@ -1,11 +1,11 @@
 <?php
 
-namespace cmwn\Http\Controllers;
+namespace app\Http\Controllers;
 
-use cmwn\Organization;
+use app\Organization;
 use Illuminate\Http\Request;
-use cmwn\Http\Requests;
-use cmwn\Http\Controllers\Controller;
+use app\Http\Requests;
+use app\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;

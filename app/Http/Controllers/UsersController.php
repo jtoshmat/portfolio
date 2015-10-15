@@ -1,14 +1,14 @@
 <?php
 
-namespace cmwn\Http\Controllers;
-use cmwn\Jobs\ImportCSV;
+namespace app\Http\Controllers;
+use app\Jobs\ImportCSV;
 use Illuminate\Support\Facades\Request;
-use cmwn\RolePermission;
-use cmwn\User;
-use cmwn\Http\Requests;
-use cmwn\Http\Controllers\Controller;
-use cmwn\UserRole;
-use cmwn\Role;
+use app\RolePermission;
+use app\User;
+use app\Http\Requests;
+use app\Http\Controllers\Controller;
+use app\UserRole;
+use app\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;

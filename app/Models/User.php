@@ -1,8 +1,8 @@
 <?php
 
-namespace cmwn;
+namespace app;
 
-use cmwn\UserRole;
+use app\UserRole;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -71,33 +71,33 @@ class User extends Model implements AuthenticatableContract,
 
     public function role()
     {
-        return $this->belongsToMany('cmwn\Role');
+        return $this->belongsToMany('app\Role');
     }
 
     public function districts()
     {
-        return $this->morphedByMany('cmwn\District', 'roleable')->withPivot('role_id');
+        return $this->morphedByMany('app\District', 'roleable')->withPivot('role_id');
     }
 
     public function organizations()
     {
-        return $this->morphedByMany('cmwn\Organization', 'roleable')->withPivot('role_id');
+        return $this->morphedByMany('app\Organization', 'roleable')->withPivot('role_id');
     }
 
     public function groups()
     {
-        return $this->morphedByMany('cmwn\Group', 'roleable')->withPivot('role_id');
+        return $this->morphedByMany('app\Group', 'roleable')->withPivot('role_id');
     }
 
 
     public function children()
     {
-        return $this->belongsToMany('cmwn\User', 'child_guardian', 'guardian_id', 'child_id');
+        return $this->belongsToMany('app\User', 'child_guardian', 'guardian_id', 'child_id');
     }
 
     public function guardians()
     {
-        return $this->belongsToMany('cmwn\User', 'child_guardian', 'child_id', 'guardian_id');
+        return $this->belongsToMany('app\User', 'child_guardian', 'child_id', 'guardian_id');
     }
 
     public function siblings()

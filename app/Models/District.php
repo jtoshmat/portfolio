@@ -1,6 +1,6 @@
 <?php
 
-namespace cmwn;
+namespace app;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -24,12 +24,12 @@ class District extends Model
 
 	public function organization()
 	{
-		return $this->belongsToMany('cmwn\Organization');
+		return $this->belongsToMany('app\Organization');
 	}
 
 	public function users()
 	{
-		return $this->morphToMany('cmwn\User', 'roleable');
+		return $this->morphToMany('app\User', 'roleable');
 	}
 
 	public function role()

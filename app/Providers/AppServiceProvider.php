@@ -1,6 +1,6 @@
 <?php
 
-namespace cmwn\Providers;
+namespace app\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -13,12 +13,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \cmwn\User::creating(function ($user) {
+        \app\User::creating(function ($user) {
             echo('creating ');
         });
 
         // Attach event handler, on deleting of the user
-        \cmwn\User::deleting(function($user)
+        \app\User::deleting(function($user)
         {
             echo('deleting from AppServiceProvider ');
             $user->districts()->detach();

@@ -1,6 +1,6 @@
 <?php
 
-namespace cmwn;
+namespace app;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,11 +11,11 @@ class UserRole extends Model
 
     public function user()
     {
-        return $this->belongsTo('cmwn\User');
+        return $this->belongsTo('app\User');
     }
 
     public function Role()
     {
-        return $this->belongsTo('cmwn\Role');
+        return $this->belongsTo('app\Role');
     }
 }

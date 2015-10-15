@@ -1,11 +1,11 @@
 <?php
 
-namespace cmwn\Http\Controllers;
+namespace app\Http\Controllers;
 
 
-use cmwn\District;
-use cmwn\Organization;
-use cmwn\User;
+use app\District;
+use app\Organization;
+use app\User;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -13,8 +13,8 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
-use cmwn\Http\Requests;
-use cmwn\Http\Controllers\Controller;
+use app\Http\Requests;
+use app\Http\Controllers\Controller;
 
 class BatchController implements SelfHandling, ShouldQueue
 {

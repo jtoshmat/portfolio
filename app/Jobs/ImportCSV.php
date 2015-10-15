@@ -1,9 +1,9 @@
 <?php
 
-namespace cmwn\Jobs;
+namespace app\Jobs;
 
-use cmwn\Http\Controllers\BatchController;
-use cmwn\Jobs\Job;
+use app\Http\Controllers\BatchController;
+use app\Jobs\Job;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Bus\SelfHandling;

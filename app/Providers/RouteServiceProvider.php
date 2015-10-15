@@ -1,6 +1,6 @@
 <?php
 
-namespace cmwn\Providers;
+namespace app\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'cmwn\Http\Controllers';
+    protected $namespace = 'app\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.

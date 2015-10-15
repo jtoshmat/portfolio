@@ -1,6 +1,6 @@
 <?php
 
-namespace cmwn;
+namespace app;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +11,7 @@ class Permission extends Model
 
 	public function permission()
 	{
-		return $this->hasMany('cmwn\Permission');
+		return $this->hasMany('app\Permission');
 	}
 
 	public static function hasPermission($data='Permission 1'){

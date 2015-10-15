@@ -1,6 +1,6 @@
 <?php
 
-namespace cmwn;
+namespace app;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,26 +20,26 @@ class Group extends Model
 
 	public function users()
 	{
-	    return $this->morphToMany('cmwn\User', 'roleable');
+	    return $this->morphToMany('app\User', 'roleable');
 	}
 
 	public function students()
 	{
 		$role_id = (int) \Config::get('mycustomvars.roles.student');
-		return $this->morphToMany('cmwn\User', 'roleable')->wherePivot('role_id',$role_id);
+		return $this->morphToMany('app\User', 'roleable')->wherePivot('role_id',$role_id);
 
 	}
 
 	public function teachers()
 	{
 		$role_id = (int) \Config::get('mycustomvars.roles.teacher');
-		return $this->morphToMany('cmwn\User', 'roleable')->wherePivot('role_id',$role_id);
+		return $this->morphToMany('app\User', 'roleable')->wherePivot('role_id',$role_id);
 	}
 
 
 	public function organization()
 	{
-		return $this->belongsTo('cmwn\Organization');
+		return $this->belongsTo('app\Organization');
 	}
 
 	public static function updateGroups(Request $request){

@@ -1,13 +1,13 @@
 <?php
 
-namespace cmwn\Http\Controllers;
+namespace app\Http\Controllers;
 use Illuminate\Support\Facades\Request;
-use cmwn\AdminTool;
-use cmwn\Jobs\ImportCSV;
-use cmwn\User;
+use app\AdminTool;
+use app\Jobs\ImportCSV;
+use app\User;
 use Illuminate\Support\Facades\Hash;
-use cmwn\Http\Requests;
-use cmwn\Http\Controllers\Controller;
+use app\Http\Requests;
+use app\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;

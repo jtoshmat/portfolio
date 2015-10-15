@@ -1,6 +1,6 @@
 <?php
 
-namespace cmwn\Repositories;
+namespace app\Repositories;
 use Illuminate\Support\Facades\Auth;
 
 class SideBarItems

@@ -75,7 +75,7 @@ Route::group(['middleware' => 'auth'], function($router) {
 	Route::any('guardians', 'UsersController@guardian');
 
 	//Composer for sidebars and user specific contents
-	View::composer('partials.sidebar','cmwn\Repositories\UserSpecificContent');
+	View::composer('partials.sidebar','app\Repositories\UserSpecificContent');
 
 
 
