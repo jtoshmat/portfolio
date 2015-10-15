@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Repositories;
+namespace app\cmwn\Users\Repositories;
 use app\Repositories\SideBarItems;
 
 class UserSpecificContent
