@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
-
+use app\cmwn\ServiceProviders\Notifier;
 
 
 
@@ -27,8 +27,8 @@ class UsersController extends Controller
      */
 
 	public function __construct(){
-		$user = \Redis::set('name', 'Taylor');
-		//var_dump(\Redis::get('name'));
+		//$notifier = new Notifier();
+		//var_dump($notifier->send());
 	}
 
     public function members()

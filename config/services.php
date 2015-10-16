@@ -35,4 +35,6 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'postmark' => '<YOUR_SERVER_TOKEN>',
+
 ];
