@@ -26,10 +26,6 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-	public function __construct(){
-		//$notifier = new Notifier();
-		//var_dump($notifier->send());
-	}
 
     public function members()
     {

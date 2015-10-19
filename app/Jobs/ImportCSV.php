@@ -37,7 +37,7 @@ class ImportCSV extends Job implements SelfHandling, ShouldQueue
 		   Log::info('Import has been completed');
 
 	   }
-	    Log::info('We will trigger an email notification here. Coming soon');
+
     }
 
     public function failed()

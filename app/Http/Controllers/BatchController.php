@@ -3,6 +3,7 @@
 namespace app\Http\Controllers;
 
 
+use app\cmwn\ServiceProviders\Notifier;
 use app\District;
 use app\Organization;
 use app\User;
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use app\Http\Requests;
 use app\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 
 class BatchController implements SelfHandling, ShouldQueue
 {
@@ -95,8 +98,13 @@ class BatchController implements SelfHandling, ShouldQueue
 
 		    }
 	    }
-	    return true;
 
+	    $notifier = new Notifier();
+	    $notifier->to = Auth::user()->email;
+	    $notifier->subject = "Your import is completed at ". date('m-d-Y h:i:s A');
+	    $notifier->template = "emails.import";
+	    $notifier->attachData(['user'=>Auth::user()]);
+	    $notifier->send();
 
     }
 }
