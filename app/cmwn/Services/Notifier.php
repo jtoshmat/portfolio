@@ -12,15 +12,12 @@ class Notifier extends Controller
 	public $subject;
 	public $priority = 'High';
 
-
-
 	public function prepData(){
 		$this->data['to'] = $this->to;
 		$this->data['subject'] = $this->subject;
 		$this->data['priority'] = $this->priority;
 		$this->data['template'] = $this->template;
 	}
-
 
 	public function send(){
 		$this->prepData();

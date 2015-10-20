@@ -26,6 +26,7 @@ class SideBarItems
 		    'Organizations' => '/organizations',
 		    'Groups' => '/groups',
 		    'Upload CSV' => '/admin/uploadcsv',
+		    'Test Area' => '/admin/playground',
         );
 
 	    $tags['principal'] = array(

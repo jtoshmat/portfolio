@@ -15,7 +15,8 @@
         "phpspec/phpspec": "~2.1",
 	  "laravelcollective/html": "~5.0",
 	  "guzzlehttp/guzzle": "~5.0",
-        "predis/predis": "~1.1@dev"
+        "predis/predis": "~1.1@dev",
+        "cloudinary/cloudinary_php": "dev-master"
     },
     "autoload": {
         "classmap": [

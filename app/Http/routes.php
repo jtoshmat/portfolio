@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function($router) {
 	//All Admin Tools here in this group
 	Route::group(['middleware' => 'role:admin'], function ($router) {
 		Route::any('admin/uploadcsv', 'AdminToolsController@uploadcsv');
+		Route::any('admin/playground', 'AdminTestController@uploadImage');
 	});
 
 	Route::any('users/member/{id}/update', 'UsersController@memberUpdate')->where('id', '[0-9]+');

@@ -18,10 +18,43 @@
 }
 
 #send email
+http://developer.postmarkapp.com/developer-send-api.html
+
 $notifier = new Notifier();
 $notifier->data['email'] = 'jontoshmatov@yahoo.com';
 $notifier->data['subject'] = "This is my test email";
 var_dump($notifier->send());
+
+#Check mailtrap log
+login to
+https://mailtrap.io
+Your email: arron@ginasink.com
+Api Token: 2452bf346de14c7ff9ab612ec4a6656b
+pwd: Cmwn2015
+
+SMTP
+Host:    mailtrap.io
+Port:    25 or 465 or 2525
+Username:    4762743520af4a490
+Password:    eae97b45372def
+
+
+#Imaging Management
+http://cloudinary.com/
+
+ Cloud name: change-my-world-now
+API Key: 125692255259728
+API Secret: xTgojKXezGKFAd6v2aGQ_7mvmdM
+Environment variable: CLOUDINARY_URL=cloudinary://125692255259728:xTgojKXezGKFAd6v2aGQ_7mvmdM@change-my-world-now
+Base delivery URL:  http://res.cloudinary.com/change-my-world-now
+http://res.cloudinary.com/change-my-world-now ▼
+Secure delivery URL:  https://res.cloudinary.com/change-my-world-now
+https://res.cloudinary.com/change-my-world-now ▼
+API Base URL:  https://api.cloudinary.com/v1_1/change-my-world-now
+
+
+
+
 
 
 

@@ -36,7 +36,7 @@
 		    if ($this->data['mailType']=='sms'){
 			    return Sms::send($this->data);
 		    }
-		    //else send SMS
+		    //else send Mail
 		    return MyMail::send($this->data);
 	    }
 
