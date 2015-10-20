@@ -41,6 +41,9 @@ class AdminTestController extends Controller
                 //the files are stored in storage/app/*files*
                 $output = Storage::put('yourfile.png', file_get_contents($file));
 	            $cloudinary = ImageManagement::uploader($file);
+	            echo cl_image_tag($cloudinary['url'], array( "alt" => "Sample Image" ));
+	            echo "<hr />";
+	            dd($cloudinary);
 	            if($cloudinary){
 		            return Redirect::to('admin/playground')->with('data', $cloudinary)->with('message', 'The following errors occurred')->withErrors
                     ('Your image has uploaded by using Cloudinary.');

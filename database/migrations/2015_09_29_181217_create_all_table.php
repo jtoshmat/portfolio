@@ -19,6 +19,7 @@ class CreateAllTable extends Migration
 	    Schema::dropIfExists("organizations");
 	    Schema::dropIfExists("groups");
 	    Schema::dropIfExists("roleables");
+	    Schema::dropIfExists("imageables");
 
 	    Schema::dropIfExists("role_user");
 	    //Schema::dropIfExists("role_permissions");
@@ -75,6 +76,17 @@ class CreateAllTable extends Migration
     	    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
     	    $table->timestamps();
         });
+
+	    Schema::create('imageables', function(Blueprint $table)
+	    {
+		    $table->increments('id');
+		    $table->unsignedInteger('user_id')->unsigned();
+		    $table->unsignedInteger('roleable_id')->unsigned();
+		    $table->string('roleable_type');
+		    $table->unsignedInteger('role_id')->unsigned();
+		    //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+		    $table->timestamps();
+	    });
 
 	    Schema::create('districts', function(Blueprint $table)
 	    {

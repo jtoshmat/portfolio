@@ -2,11 +2,11 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use cmwn\User;
-use cmwn\Role;
-use cmwn\Group;
-use cmwn\Organization;
-use cmwn\District;
+use app\User;
+use app\Role;
+use app\Group;
+use app\Organization;
+use app\District;
 
 
 	class UserTableSeeder extends Seeder {
@@ -16,6 +16,16 @@ use cmwn\District;
 
 			DB::table('users')->delete();
 			DB::table('child_guardian')->delete();
+
+			$jon = User::create(array(
+				"name" => "Jon Toshmatov",
+				"first_name" => "Jon",
+				"last_name" => "Toshmatov",
+				"email" => "jontoshmatov@yahoo.com",
+				"password" => Hash::make("business"),
+				"slug" => 'jon_slug',
+				"student_id" => 'jontoshmatov@yahoo.com',
+			));
 
 			for ($i=1; $i<5; $i++) {
 				$teacher = User::create(array(
@@ -48,7 +58,7 @@ use cmwn\District;
 			}
 
 
-			DB::table('roles')->delete();
+			DB::table('roles')->truncate();
 
 			$admin = Role::create(array(
 				"title" => "admin",
@@ -65,6 +75,12 @@ use cmwn\District;
 			$role_student = Role::create(array(
 				"title" => "student",
 			));
+
+
+			$user = User::find($jon->id);
+			$roles=array(1);
+			$roles = ($roles)?$roles:array();
+			$user->role()->sync($roles);
 
 
 
