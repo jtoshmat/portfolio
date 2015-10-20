@@ -1,7 +1,7 @@
 <?php
 
-namespace app\cmwn\ServiceProviders;
-use app\cmwn\ServiceProviders\TriggerNotifierEvent;
+namespace app\cmwn\Services;
+use app\cmwn\Services\TriggerNotifierEvent;
 use app\Http\Controllers\Controller;
 
 class Notifier extends Controller

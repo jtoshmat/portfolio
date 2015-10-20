@@ -1,6 +1,6 @@
 <?php
 
-namespace app\cmwn\ServiceProviders;
+namespace app\cmwn\Services;
 
 
 class Sms

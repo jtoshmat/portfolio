@@ -3,7 +3,7 @@
 namespace app\Http\Controllers;
 
 
-use app\cmwn\ServiceProviders\Notifier;
+use app\cmwn\Services\Notifier;
 use app\District;
 use app\Organization;
 use app\User;
