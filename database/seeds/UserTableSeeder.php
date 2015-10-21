@@ -27,6 +27,17 @@ use app\District;
 				"student_id" => 'jontoshmatov@yahoo.com',
 			));
 
+			$arron = User::create(array(
+				"name" => "Arron Kallenberg",
+				"first_name" => "Arron",
+				"last_name" => "Kallenberg",
+				"email" => "arron.kallenberg@gmail.com",
+				"password" => Hash::make("business"),
+				"slug" => 'arron-kallenberg',
+				"student_id" => 'arron.kallenberg@gmail.com',
+			));
+
+			// Create 5 Teachers
 			for ($i=1; $i<5; $i++) {
 				$teacher = User::create(array(
 					"name" => "teacher".$i,
@@ -37,6 +48,7 @@ use app\District;
 				));
 			}
 
+			// Create 5 Guardians
 			for ($i=1; $i<5; $i++) {
 				$guardian = User::create(array(
 					"name" => "parent".$i,
@@ -47,6 +59,7 @@ use app\District;
 				));
 			}
 
+			// Create 5 Children
 			for ($i=1; $i<5; $i++) {
 				$child = User::create(array(
 					"name" => "child".$i,
@@ -57,14 +70,13 @@ use app\District;
 				));
 			}
 
-
 			DB::table('roles')->truncate();
 
 			$admin = Role::create(array(
 				"title" => "admin",
 			));
 
-			Role::create(array(
+			$principal = Role::create(array(
 				"title" => "principal",
 			));
 
@@ -76,13 +88,8 @@ use app\District;
 				"title" => "student",
 			));
 
-
-			$user = User::find($jon->id);
-			$roles=array(1);
-			$roles = ($roles)?$roles:array();
-			$user->role()->sync($roles);
-
-
+			$jon->role()->sync([$admin->id]);
+			$arron->role()->sync([$admin->id]);
 
 			DB::table('child_guardian')->insert([
 				'guardian_id' => $guardian->id,
@@ -114,11 +121,6 @@ use app\District;
 					"description" => "Class:".$i." Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy tex ",
 				));
 			}
-
-
-
-
-			//$child->delete();
 
 		}
 

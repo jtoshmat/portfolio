@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use app\cmwn\ServiceProviders\Notifier;
 
-
-
 class UsersController extends Controller
 {
     /**
