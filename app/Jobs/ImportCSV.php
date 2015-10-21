@@ -3,11 +3,15 @@
 namespace app\Jobs;
 
 use app\Jobs\Job;
-use app\cmwn\Services\BulkImporter;
+use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
+
+//use Illuminate\Support\Facades\Mail;
+
+use app\cmwn\Services\BulkImporter;
 
 class ImportCSV extends Job implements SelfHandling, ShouldQueue
 {
@@ -20,6 +24,7 @@ class ImportCSV extends Job implements SelfHandling, ShouldQueue
      */
     // public function __construct()
     // {
+        
     // }
 
     /**
@@ -29,7 +34,7 @@ class ImportCSV extends Job implements SelfHandling, ShouldQueue
      */
     public function handle()
     {
-	   BulkImporter::migratecsv();
+       BulkImporter::migratecsv();
     }
 
     public function failed()
