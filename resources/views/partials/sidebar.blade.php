@@ -28,12 +28,12 @@
 		@if(Auth::check())
 			<h4>Friends</h4>
 			@foreach($friends as $friend)
-				<a class="list-group-item" href="#"><img src="/img/online.gif"> {{ $friend->name }} </a>
+				<a class="list-group-item" href="#"><img src="/img/online.gif">ID: {{ $friend->id }}  {{ $friend->name }} </a>
 			@endforeach
 
 			<h5>Pending Friends</h5>
 			@foreach($pendingfriends as $pendingfriend)
-				<a class="list-group-item" href="#"> {{ $pendingfriend->name }} </a>
+				<a class="list-group-item" href="#">ID: {{ $pendingfriend->id }} {{ $pendingfriend->name }} </a>
 			@endforeach
 		@endif
 

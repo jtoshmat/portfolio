@@ -143,6 +143,7 @@ class CreateAllTable extends Migration
 		    $table->increments('id');
 		    $table->unsignedInteger('user_id')->unsigned();
 		    $table->unsignedInteger('friend_id')->unsigned();
+		    $table->unique(array('user_id', 'friend_id'));
 		    $table->foreign('friend_id')->references('id')->on('users')->onDelete('cascade');
 		    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 		    $table->integer('status');

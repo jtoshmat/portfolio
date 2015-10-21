@@ -28,8 +28,8 @@ class MasterController extends Controller
 	        return array();
         }
 
-	    $users = User::where('name','like', '%'.$keyword.'%')->get();
-	    return view('partials.results',compact('users'));
+	    $friends = User::where('name','like', '%'.$keyword.'%')->get();
+	    return view('partials.results',compact('friends'));
     }
 
 	public function friendship(Request $request){
@@ -37,7 +37,12 @@ class MasterController extends Controller
 		$friend_id = \Request::segment(3);
 		switch($action){
 			case 'add':
-				dd($this->addFriend($friend_id));
+				$this->addFriend($friend_id);
+				return redirect()->back()->with('keyword');
+				break;
+			case 'delete':
+				$this->deleteFriend($friend_id);
+				return redirect()->back()->with('keyword');
 				break;
 			default:
 				break;
@@ -52,7 +57,18 @@ class MasterController extends Controller
 		}
 		$ids=array($friend_id);
 		$ids = ($ids)?$ids:array();
+
 		return $user->friends()->sync($ids);
+	}
+
+	protected function deleteFriend($friend_id){
+		$user = User::find($this->myid);
+		if ($friend_id == $user->id){
+			return false;
+		}
+		$ids=array($friend_id);
+		$ids = ($ids)?$ids:array();
+		return $user->friends()->detach($ids);
 	}
 
 

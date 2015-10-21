@@ -102,7 +102,7 @@ class User extends Model implements AuthenticatableContract,
 
 	public function friends()
 	{
-		return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id');
+		return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status',1);
 	}
 
 	public function pendingfriends()

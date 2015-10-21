@@ -20,21 +20,15 @@
 				</tfoot>
 
 				<tbody>
-				@foreach($users as $user)
+				@foreach($friends as $friend)
 					<tr>
 						<td>
 							<img src="http://placehold.it/50x50" alt="50x50" class="img-thumbnail">
-
-
-							@if(Auth::user()->id == $user->id})
-							<a href="#"><h4>{{$user->name}}</h4></a>  <a href="/users/friendship/{{$user->id}}/add">Add Friend</a>  | <a href="/users/friendship/{{$user->id}}/message">Send Message</a>   | <a href="/users/friendship/{{$user->id}}/poke">Poke</a> </td>
-
-						Current id:  {{$user->id}}
-						@foreach($user->friends as $friend)
-						friends: {{$friend->id}}
-						@endforeach
-
-
+							<a href="#"><h4>ID: {{ $friend->id }} {{$friend->name}}</h4></a>
+							<a href="/users/friendship/{{$friend->id}}/add">Add Friend</a> |
+							<a href="/users/friendship/{{$friend->id}}/delete">Delete Friend</a>  |
+							<a href="/users/friendship/{{$friend->id}}/message">Send Message</a>   |
+							<a href="/users/friendship/{{$friend->id}}/poke">Poke</a> </td>
 					</tr>
 				@endforeach
 				</tbody>
