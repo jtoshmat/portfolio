@@ -91,6 +91,8 @@ class CreateAllTable extends Migration
 	    Schema::create('districts', function(Blueprint $table)
 	    {
 		    $table->increments('id');
+		    $table->integer('system_id');
+		    $table->string('code');
 		    $table->string('title');
 		    $table->string('description');
 		    $table->timestamps();
@@ -100,6 +102,7 @@ class CreateAllTable extends Migration
 	    Schema::create('organizations', function(Blueprint $table)
 	    {
 		    $table->increments('id');
+		    $table->string('code');
 		    $table->string('title');
 		    $table->string('description');
 		    $table->timestamps();
