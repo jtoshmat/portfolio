@@ -10,12 +10,21 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+##########################################################################
+##########################################################################
+##########################################################################
+######################### All Routes Lists ###############################
+##########################################################################
 
 if(env('APP_ENV')=='local') {
 	Event::listen('illuminate.query', function ($query) {
 		//var_dump($query);
 	});
 }
+
+##########################################################################
+######################### Public Routes ##################################
+##########################################################################
 
 Route::get('/', function () {
 	return view('welcome');
@@ -39,13 +48,14 @@ $router->get("/awesome/sauce", ['middleware' => 'role:student,admin'], function 
 	    echo('Awesome Sauce');
 	});
 
-Route::group(['middleware' => 'auth'], function($router) {
-	/*
-	 * All authenticated routes are registered here inside of auth
-	 */
+##########################################################################
+################### Authenticated Users Only #############################
+##########################################################################
 
-    Route::any('users/members', 'UsersController@members');
+Route::group(['middleware' => 'auth'], function($router) {
+	Route::any('users/members', 'UsersController@members');
     Route::any('users/roles', 'UsersController@roles');
+    Route::any('search', 'MasterController@search');
 
 	Route::group(['middleware' => 'role:'.Config::get('myroutes.routes.role')], function ($router) {
 
@@ -55,15 +65,22 @@ Route::group(['middleware' => 'auth'], function($router) {
 		],function($id, $action){
 			return $id;
 		})->where('id', '[0-9]+')->where('action','view');
+
+		Route::get("users/friendship/{friend_id}/{action}", [
+			"as"   => "users/friendhsip",
+			"uses" => "MasterController@friendship",
+		],function($id, $action){
+			return $id;
+		})->where('id', '[0-9]+')->where('action','add|block|reject|message|poke');
+
 	});
 
-
-	//All Admin Tools here in this group
+########################## Admins Only ####################################
 	Route::group(['middleware' => 'role:admin'], function ($router) {
 		Route::any('admin/uploadcsv', 'AdminToolsController@uploadcsv');
 		Route::any('admin/playground', 'AdminTestController@uploadImage');
 	});
-
+########################## Misc Auth users ################################
 	Route::any('users/member/{id}/update', 'UsersController@memberUpdate')->where('id', '[0-9]+');
 	Route::any('users/member/{id}/delete', 'UsersController@memberDelete')->where('id', '[0-9]+');
 	Route::any('user/{id}/view', 'UsersController@user')->where('id', '[0-9]+');
@@ -77,8 +94,6 @@ Route::group(['middleware' => 'auth'], function($router) {
 
 	//Composer for sidebars and user specific contents
 	View::composer('partials.sidebar','app\cmwn\Users\UserSpecificRepository');
-
-
 
 });
 

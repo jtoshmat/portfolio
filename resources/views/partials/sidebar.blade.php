@@ -24,5 +24,22 @@
 			<a class="list-group-item" href="/auth/logout">Logout</a>
 		@endif
 
+
+		@if(Auth::check())
+			<h4>Friends</h4>
+			@foreach($friends as $friend)
+				<a class="list-group-item" href="#"><img src="/img/online.gif"> {{ $friend->name }} </a>
+			@endforeach
+
+			<h5>Pending Friends</h5>
+			@foreach($pendingfriends as $pendingfriend)
+				<a class="list-group-item" href="#"> {{ $pendingfriend->name }} </a>
+			@endforeach
+		@endif
+
 	</div>
+
 </div>
+
+
+

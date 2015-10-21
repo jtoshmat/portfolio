@@ -82,7 +82,10 @@ use app\District;
 			$roles = ($roles)?$roles:array();
 			$user->role()->sync($roles);
 
-
+			DB::table('friends')->insert([
+				'user_id' => 1,
+				'friend_id' => 2,
+			]);
 
 			DB::table('child_guardian')->insert([
 				'guardian_id' => $guardian->id,

@@ -35,6 +35,7 @@
 				  <div class="row">
 					  @include('partials.sidebar')
 				    <div class="col-md-9">
+					    @include('partials.searchform')
 				    	@yield('content')
 				    </div>
 				  </div>
