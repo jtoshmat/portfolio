@@ -2,13 +2,12 @@
 
 namespace app\Jobs;
 
-use app\Http\Controllers\BatchController;
 use app\Jobs\Job;
+use app\cmwn\Services\BulkImporter;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Log;
 
 class ImportCSV extends Job implements SelfHandling, ShouldQueue
 {
@@ -19,10 +18,9 @@ class ImportCSV extends Job implements SelfHandling, ShouldQueue
      *
      * @return void
      */
-    public function __construct()
-    {
-        \Log::info('started the job');
-    }
+    // public function __construct()
+    // {
+    // }
 
     /**
      * Execute the job.
@@ -31,17 +29,10 @@ class ImportCSV extends Job implements SelfHandling, ShouldQueue
      */
     public function handle()
     {
-
-	   $job = new BatchController();
-	   if($job::run()){
-		   Log::info('Import has been completed');
-
-	   }
-
+	   BulkImporter::migratecsv();
     }
 
     public function failed()
     {
-        \Log::critical("Job failed");
     }
 }

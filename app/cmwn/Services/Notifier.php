@@ -1,11 +1,15 @@
 <?php
 
 namespace app\cmwn\Services;
-use app\cmwn\Services\TriggerNotifierEvent;
-use app\Http\Controllers\Controller;
 
-class Notifier extends Controller
+use app\Jobs\Notify;
+use app\cmwn\Services\TriggerNotifierEvent;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+
+class Notifier
 {
+	use DispatchesJobs;
+
 	public $data = [];
 	public $email;
 	public $template;
@@ -21,18 +25,10 @@ class Notifier extends Controller
 
 	public function send(){
 		$this->prepData();
-		$job = (new TriggerNotifierEvent($this->data));
-		if ($this->dispatch($job)){
-			return 'it failed';
-		}
-		return 'success';
+		$this->dispatch(new Notify($this->data));
 	}
-
 
 	public function attachData(array $data){
 		$this->data = array_merge($this->data, $data);
 	}
-
-
-
 }

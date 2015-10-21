@@ -1,46 +1,28 @@
 <?php
 
-namespace app\Http\Controllers;
+namespace app\cmwn\Services;
 
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 use app\cmwn\Services\Notifier;
 use app\District;
 use app\Organization;
 use app\User;
-use Illuminate\Contracts\Mail\Mailer;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Bus\SelfHandling;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Http\Request;
-use app\Http\Requests;
-use app\Http\Controllers\Controller;
+
 use Illuminate\Support\Facades\Auth;
 
-
-class BatchController implements SelfHandling, ShouldQueue
+class BulkImporter
 {
-	use InteractsWithQueue, SerializesModels;
+	use DispatchesJobs;
 
-    public static function run()
-    {
-        return self::migratecsv();
-    }
-
-	protected static function migratecsv(){
+	public static function migratecsv(){
 
 		$file = base_path( 'storage/app/yourcsv.csv' );
 
 		$csv = self::csv_to_array($file);
 
-		$output = self::updateDB($csv);
-		if(!$output){
-			return Redirect::to('admin/uploadcsv')->with('message', 'The following errors occurred')->withErrors
-			('Something went wrong with your import. Please try again.');
-		}
+		self::updateDB($csv);
 	}
-
 
 	public static function csv_to_array($filename='', $delimiter=',')
 	{
@@ -62,7 +44,6 @@ class BatchController implements SelfHandling, ShouldQueue
 		}
 		return $data;
 	}
-
 
     protected static function updateDB($data)
     {
@@ -86,8 +67,6 @@ class BatchController implements SelfHandling, ShouldQueue
 				    $organization->districts()->attach($district->id);
 			    }
 
-
-
 			    $user = User::firstOrCreate(['student_id' => $title['STUDENT ID']]);
 			    $user->student_id = $title['STUDENT ID'];
 			    $user->first_name = $title['FIRST NAME'];
@@ -105,7 +84,6 @@ class BatchController implements SelfHandling, ShouldQueue
 	    $notifier->template = "emails.import";
 	    $notifier->attachData(['user'=>Auth::user()]);
 	    $notifier->send();
-
     }
 }
 

@@ -25,15 +25,14 @@ class AdminToolsController extends Controller
                 $file = \Request::file('yourcsv');
 	            //the files are stored in storage/app/*files*
                 $output = Storage::put('yourcsv.csv', file_get_contents($file));
-	                if($output){
-	                    $job = (new ImportCSV());
-	                    $this->dispatch($job);
-                        return Redirect::to('admin/uploadcsv')->with('message', 'The following errors occurred')->withErrors
-                        ('Your file has been successfully uploaded. You will receive an email notification once the import is completed.');
-                    }else {
-                        return Redirect::to('admin/uploadcsv')->with('message', 'The following errors occurred')->withErrors
-                        ('Something went wrong with your upload. Please try again.');
-                    }
+                if($output){
+                    $this->dispatch(new ImportCSV());
+                    return Redirect::to('admin/uploadcsv')->with('message', 'The following errors occurred')->withErrors
+                    ('Your file has been successfully uploaded. You will receive an email notification once the import is completed.');
+                } else {
+                    return Redirect::to('admin/uploadcsv')->with('message', 'The following errors occurred')->withErrors
+                    ('Something went wrong with your upload. Please try again.');
+                }
             }else{
                 return Redirect::to('admin/uploadcsv')->with('message', 'The following errors occurred')->withErrors
                 ($validator)->withInput();

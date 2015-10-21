@@ -1,30 +1,22 @@
 <?php
 
 namespace app\cmwn\Services;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class MyMail
 {
-	protected static $data;
 	public static function send($mailData){
-        self::$data = $mailData;
-		$output = Mail::send(self::$data['template'], $mailData, function ($message) {
-			$message->from('admin@changemyworldnow.education', 'Jon Toshmatov');
-			//$message->cc('jon@ginasink.com', 'Jon at Ginasink');
-			$message->replyTo('admin@changemyworldnow.education', 'toshmatovus@gmail.com');
-			$message->subject(self::$data['subject']);
-			$message->priority(self::$data['priority']);
-			$message->to(self::$data['to']);
-		});
+		// Mail::send($mailData['template'], $mailData, function ($message) {
+		// 	$message->from('admin@changemyworldnow.education', 'Jon Toshmatov');
+		// 	//$message->cc('jon@ginasink.com', 'Jon at Ginasink');
+		// 	$message->replyTo('admin@changemyworldnow.education', 'toshmatovus@gmail.com');
+		// 	$message->subject($mailData['subject']);
+		// 	$message->priority($mailData['priority']);
+		// 	$message->to($mailData['to']);
+		// });
 
-
-		if($output>=1){
-			Log::info("Your import csv is done");
-			return true;
-		}
-
-		Log::info("Your import csv has failed");
-		return false;
+		// Mail::send('emails.email', ['user' => 'hi there'], function ($m) {
+  //           $m->to('arron.kallenberg@gmail.com', 'Arron Kallenberg')->subject('Your Reminder!');
+  //       });
 	}
 }

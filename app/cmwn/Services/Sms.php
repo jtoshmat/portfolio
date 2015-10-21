@@ -2,7 +2,6 @@
 
 namespace app\cmwn\Services;
 
-
 class Sms
 {
 	//this is where cloudinary class will be instantiated

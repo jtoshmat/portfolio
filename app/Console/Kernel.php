@@ -2,7 +2,6 @@
 
 namespace app\Console;
 
-use app\Http\Controllers\BatchController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Log;
@@ -30,7 +29,6 @@ class Kernel extends ConsoleKernel
                  ->hourly();
 
         $schedule->call(function () {
-            BatchController::run();
         })->everyMinute();
     }
 }
