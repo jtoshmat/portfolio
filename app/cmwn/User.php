@@ -118,7 +118,7 @@ class User extends Model implements AuthenticatableContract,
 
 	public function friendrequests()
 	{
-		return $this->belongsToMany('app\User', 'friends','friend_id')->wherePivot('friend_id',$this->id);
+		return $this->belongsToMany('app\User', 'friends','friend_id')->wherePivot('friend_id',$this->id)->wherePivot('status',0);
 	}
 
     public function siblings()

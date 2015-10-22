@@ -71,7 +71,7 @@ Route::group(['middleware' => 'auth'], function($router) {
 			"uses" => "MasterController@friendship",
 		],function($id, $action){
 			return $id;
-		})->where('id', '[0-9]+')->where('action','add|delete|block|reject|message|poke');
+		})->where('id', '[0-9]+')->where('action','add|delete|block|accept|reject|message|poke');
 
 	});
 

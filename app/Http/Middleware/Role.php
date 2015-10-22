@@ -23,7 +23,7 @@ class Role
 	public function handle($request, Closure $next, ...$roles)
 	{				
 		if (!$this->user->hasRole($roles)) {
-			return Redirect::intended('/users/members');
+			//return Redirect::intended('/users/members');
 		}
 		return $next($request);
 	}

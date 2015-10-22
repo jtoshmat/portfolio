@@ -40,6 +40,10 @@ class MasterController extends Controller
 				$this->addFriend($friend_id);
 				return redirect()->back()->with('keyword');
 				break;
+			case 'accept':
+				$this->acceptFriend($friend_id);
+				return redirect()->back()->with('keyword');
+				break;
 			case 'delete':
 				$this->deleteFriend($friend_id);
 				return redirect()->back()->with('keyword');
@@ -64,13 +68,41 @@ class MasterController extends Controller
 	}
 
 	protected function deleteFriend($friend_id){
+		$fid = $friend_id;
 		$user = User::find($this->myid);
 		if ($friend_id == $user->id){
 			return false;
 		}
 		$ids=array($friend_id);
 		$ids = ($ids)?$ids:array();
-		return $user->friends()->detach($ids);
+		$user->friends()->detach($ids);
+		$update1 = \DB::table('friends')
+			->where('user_id', $fid)
+			->where('friend_id',$this->myid)
+			->delete();
+	}
+
+	protected function acceptFriend($friend_id){
+		$fid = $friend_id;
+		$user = User::find($this->myid);
+		if ($friend_id == $user->id){
+			return false;
+		}
+		$ids=array($friend_id);
+		$ids = ($ids)?$ids:array();
+		$user->friends()->attach($ids);
+
+		$update1 = \DB::table('friends')
+			->where('user_id', $this->myid)
+			->where('friend_id',$fid)
+			->update(['status' => 1]);
+
+		$update2 = \DB::table('friends')
+			->where('user_id', $fid)
+			->where('friend_id',$this->myid)
+			->update(['status' => 1]);
+		return true;
+
 	}
 
 
