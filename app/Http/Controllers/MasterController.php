@@ -28,7 +28,21 @@ class MasterController extends Controller
 	        return array();
         }
 
-	    $friends = User::where('name','like', '%'.$keyword.'%')->get();
+	    //$friends = User::where('name','like', '%'.$keyword.'%')->get();
+	    $friends = \DB::select("
+
+								SELECT
+								users.id, users.name, users.email,
+								friends.user_id, friends.friend_id, friends.status
+								FROM users
+								LEFT JOIN friends
+								ON users.id = user_id
+								WHERE
+								(email like '%$keyword%' AND status >=-1)
+								OR
+								(email like '%$keyword%' OR user_id = $this->myid)
+								");
+
 	    return view('partials.results',compact('friends'));
     }
 
@@ -46,6 +60,10 @@ class MasterController extends Controller
 				break;
 			case 'delete':
 				$this->deleteFriend($friend_id);
+				return redirect()->back()->with('keyword');
+				break;
+			case 'block':
+				$this->blockFriend($friend_id);
 				return redirect()->back()->with('keyword');
 				break;
 			default:
@@ -90,7 +108,9 @@ class MasterController extends Controller
 		}
 		$ids=array($friend_id);
 		$ids = ($ids)?$ids:array();
-		$user->friends()->attach($ids);
+		if (!$user->friends->contains($fid)) {
+			$user->friends()->attach($ids);
+		}
 
 		$update1 = \DB::table('friends')
 			->where('user_id', $this->myid)
@@ -101,6 +121,25 @@ class MasterController extends Controller
 			->where('user_id', $fid)
 			->where('friend_id',$this->myid)
 			->update(['status' => 1]);
+		return true;
+
+	}
+
+	protected function blockFriend($friend_id){
+		if ($friend_id == $this->myid){
+			return false;
+		}
+
+
+		$update1 = \DB::table('friends')
+			->where('user_id', $this->myid)
+			->where('friend_id',$friend_id)
+			->update(['status' => -2]);
+
+		$update2 = \DB::table('friends')
+			->where('user_id', $friend_id)
+			->where('friend_id',$this->myid)
+			->update(['status' => -2]);
 		return true;
 
 	}

@@ -34,10 +34,10 @@
 			<h5>Friend Requests</h5>
 			@foreach($friendrequests as $friendrequest)
 				<a class="list-group-item" href="#">ID: {{ $friendrequest->id }} {{ $friendrequest->name }} </a>
-				<a href="/users/friendship/1/accept">Accept</a>
+				<a href="/users/friendship/{{$friendrequest->id}}/accept">Accept</a>
+				<a href="/users/friendship/{{$friendrequest->id}}/delete">Delete</a>
+				<a href="/users/friendship/{{$friendrequest->id}}/block">Block</a>
 				<a href="#">Reject</a>
-				<a href="#">Block</a>
-
 			@endforeach
 
 			<h5>Pending Friends</h5>
