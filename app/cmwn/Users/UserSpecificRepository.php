@@ -16,14 +16,18 @@ class UserSpecificRepository
 
 	public function compose($view){
 
-		$friends = array();
+		$acceptedfriends = array();
 		$pendingfriends = array();
+		$friendrequests = array();
 		if (Auth::check()) {
-			$friends = User::find(Auth::user()->id)->friends;
+			$acceptedfriends = User::find(Auth::user()->id)->acceptedfriends;
 			$pendingfriends = User::find(Auth::user()->id)->pendingfriends;
+			$friendrequests = User::find(Auth::user()->id)->friendrequests;
 		}
 
-		$view->with('tags', $this->tag->getAll())->with('friends', $friends)->with('pendingfriends', $pendingfriends);
+
+
+		$view->with('tags', $this->tag->getAll())->with('acceptedfriends', $acceptedfriends)->with('pendingfriends', $pendingfriends)->with('friendrequests', $friendrequests);
 	}
 
 }

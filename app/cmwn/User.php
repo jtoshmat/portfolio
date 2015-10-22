@@ -13,6 +13,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 
 class User extends Model implements AuthenticatableContract,
@@ -102,12 +103,22 @@ class User extends Model implements AuthenticatableContract,
 
 	public function friends()
 	{
+		return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id');
+	}
+
+	public function acceptedfriends()
+	{
 		return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status',1);
 	}
 
 	public function pendingfriends()
 	{
 		return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status',0);
+	}
+
+	public function friendrequests()
+	{
+		return $this->belongsToMany('app\User', 'friends','friend_id')->wherePivot('friend_id',$this->id);
 	}
 
     public function siblings()

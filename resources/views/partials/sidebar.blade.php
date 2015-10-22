@@ -27,8 +27,13 @@
 
 		@if(Auth::check())
 			<h4>Friends</h4>
-			@foreach($friends as $friend)
-				<a class="list-group-item" href="#"><img src="/img/online.gif">ID: {{ $friend->id }}  {{ $friend->name }} </a>
+			@foreach($acceptedfriends as $acceptedfriend)
+				<a class="list-group-item" href="#"><img src="/img/online.gif">ID: {{ $acceptedfriend->id }}  {{ $acceptedfriend->name }} </a>
+			@endforeach
+
+			<h5>Friend Requests</h5>
+			@foreach($friendrequests as $friendrequest)
+				<a class="list-group-item" href="#">ID: {{ $friendrequest->id }} {{ $friendrequest->name }} </a>
 			@endforeach
 
 			<h5>Pending Friends</h5>

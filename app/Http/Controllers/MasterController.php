@@ -57,8 +57,10 @@ class MasterController extends Controller
 		}
 		$ids=array($friend_id);
 		$ids = ($ids)?$ids:array();
-
-		return $user->friends()->sync($ids);
+		if (!$duplicate = $user->friends->contains($friend_id)){
+			return $user->friends()->attach($ids);
+		}
+		return false;
 	}
 
 	protected function deleteFriend($friend_id){
