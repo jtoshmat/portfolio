@@ -11,23 +11,50 @@
 				</tr>
 				</thead>
 
-				<tfoot>
-				<tr>
-					<th>Name</th>
-				</tr>
-				</tfoot>
 
 				<tbody>
 				@foreach($friends as $friend)
+
+
+					{{--*/  $isFriend = false /*--}}
+					@if($friend->friends->contains(Auth::user()->id))
+						{{--*/  $isFriend = true /*--}}
+					@endif
+
+
 					<tr>
 						<td>
 							<img src="http://placehold.it/50x50" alt="50x50" class="img-thumbnail">
-							<a href="#"><h4>ID: {{ $friend->id }} {{$friend->name}}</h4></a>
-							<a href="/users/friendship/{{ $friend->id }}/add">Add Friend</a> |
-							<a href="/users/friendship/{{ $friend->id }}/delete">Delete Friend</a>  |
-							<a href="/users/friendship/{{ $friend->id }}/block">Block Friend</a>  |
-							<a href="/users/friendship/{{ $friend->id }}/message">Send Message</a>   |
-							<a href="/users/friendship/{{ $friend->id }}/poke">Poke</a> </td>
+							<a href="/profile/{{ $friend->id }}/view"><h4>ID: {{ $friend->id }} {{$friend->name}}</h4></a>
+							@if($friend->id!=Auth::user()->id)
+								@if(!$isFriend)
+									<a href="/users/friendship/{{ $friend->id }}/add">Add Friend</a> |
+								@endif
+									<a href="/users/friendship/{{ $friend->id }}/delete">Delete Friend</a>  |
+									<a href="/users/friendship/{{ $friend->id }}/block">Block Friend</a>  |
+									<a href="/users/friendship/{{ $friend->id }}/message">Send Message</a>   |
+									<a href="/users/friendship/{{ $friend->id }}/poke">Poke</a>
+							@else
+								Your Profile
+							@endif
+							<hr />
+							All Friends ({{count($friend->friends)}})
+							<ul>
+								@foreach($friend->friends as $friends)
+									<li>{{$friends->name}}</li>
+								@endforeach
+							</ul>
+							<hr />
+							Mutual Friends (0)
+							<ul>
+								<li>Coming soon.</li>
+							</ul>
+
+						</td>
+
+
+
+
 					</tr>
 				@endforeach
 				</tbody>

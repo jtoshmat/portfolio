@@ -73,6 +73,13 @@ Route::group(['middleware' => 'auth'], function($router) {
 			return $id;
 		})->where('id', '[0-9]+')->where('action','add|delete|block|accept|reject|message|poke');
 
+		Route::get("profile/{id}/{action}", [
+			"as"   => "users/profile",
+			"uses" => "ProfileController@profile",
+		],function($id, $action){
+			return $id;
+		})->where('id', '[0-9]+')->where('action','view|edit|delete|deactivate');
+
 	});
 
 ########################## Admins Only ####################################

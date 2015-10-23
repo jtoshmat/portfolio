@@ -28,20 +28,8 @@ class MasterController extends Controller
 	        return array();
         }
 
-	    //$friends = User::where('name','like', '%'.$keyword.'%')->get();
-	    $friends = \DB::select("
+	    $friends = User::where('name','like', '%'.$keyword.'%')->get();
 
-								SELECT
-								users.id, users.name, users.email,
-								friends.user_id, friends.friend_id, friends.status
-								FROM users
-								LEFT JOIN friends
-								ON users.id = user_id
-								WHERE
-								(email like '%$keyword%' AND status >=-1)
-								OR
-								(email like '%$keyword%' OR user_id = $this->myid)
-								");
 
 	    return view('partials.results',compact('friends'));
     }
@@ -80,8 +68,10 @@ class MasterController extends Controller
 		$ids=array($friend_id);
 		$ids = ($ids)?$ids:array();
 		if (!$duplicate = $user->friends->contains($friend_id)){
-			return $user->friends()->attach($ids);
+			$user->friends()->attach($ids);
 		}
+
+
 		return false;
 	}
 
@@ -130,6 +120,11 @@ class MasterController extends Controller
 			return false;
 		}
 
+		$user = User::find($this->myid);
+
+		if (!$duplicate = $user->friends->contains($friend_id)){
+			$user->friends()->attach($friend_id);
+		}
 
 		$update1 = \DB::table('friends')
 			->where('user_id', $this->myid)

@@ -28,7 +28,7 @@
 		@if(Auth::check())
 			<h4>Friends</h4>
 			@foreach($acceptedfriends as $acceptedfriend)
-				<a class="list-group-item" href="#"><img src="/img/online.gif">ID: {{ $acceptedfriend->id }}  {{ $acceptedfriend->name }} </a>
+				<a class="list-group-item" href="/profile/{{ $acceptedfriend->id }}/view"><img src="/img/online.gif">ID: {{ $acceptedfriend->id }}  {{ $acceptedfriend->name }} </a>
 			@endforeach
 
 			<h5>Friend Requests</h5>
