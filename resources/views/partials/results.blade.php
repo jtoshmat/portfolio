@@ -21,6 +21,13 @@
 						{{--*/  $isFriend = true /*--}}
 					@endif
 
+					{{--*/  $fr_arryay = [] /*--}}
+					{{--*/  $isFriendRequested = false /*--}}
+					@foreach($friend->friendrequests as $fr)
+						{{--*/  $fr_arryay[] = $fr->id /*--}}
+					@endforeach
+					{{--*/  $isFriendRequested = in_array(Auth::user()->id,$fr_arryay) /*--}}
+
 
 					<tr>
 						<td>
@@ -28,7 +35,11 @@
 							<a href="/profile/{{ $friend->id }}/view"><h4>ID: {{ $friend->id }} {{$friend->name}}</h4></a>
 							@if($friend->id!=Auth::user()->id)
 								@if(!$isFriend)
-									<a href="/users/friendship/{{ $friend->id }}/add">Add Friend</a> |
+									@if($isFriendRequested)
+										Friend request sent |
+									@else
+										<a href="/users/friendship/{{ $friend->id }}/add">Add Friend</a> |
+									@endif
 								@endif
 									<a href="/users/friendship/{{ $friend->id }}/delete">Delete Friend</a>  |
 									<a href="/users/friendship/{{ $friend->id }}/block">Block Friend</a>  |

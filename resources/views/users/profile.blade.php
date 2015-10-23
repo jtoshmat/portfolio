@@ -58,6 +58,15 @@
 				@endforeach
 			</ul>
 
+
+			<p>Pending Friends ({{count($user->pendingfriends)}}):
+
+			<ul>
+				@foreach($user->pendingfriends as $pendingfriends)
+					<li><a href="/profile/{{ $pendingfriends->id }}/view"> {{$pendingfriends->name}}</a></li>
+				@endforeach
+			</ul>
+
 		</div>
 	</div>
 @stop
