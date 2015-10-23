@@ -11,21 +11,17 @@ use Illuminate\Support\Facades\Log;
     
 use app\cmwn\Services\Sms;
 use app\cmwn\Services\MyMail;
+use app\cmwn\Services\Notifier;
 
 class Notify extends Job implements SelfHandling, ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
-    protected $data;
+    protected $notifier;
     
-    public function __construct(array $data)
+    public function __construct(Notifier $notifier)
     {
-	    $this->data = $data;
-		$this->data['mailType'] = isset($this->data['mailType'])?$this->data['mailType']:'email';
-		$this->data['from']     = 'admin@changemyworldnow.education';
-		$this->data['subject']  = isset($this->data['subject'])?$this->data['subject']:'Default email template';
-		$this->data['priority'] = isset($this->data['priority'])?$this->data['priority']:'Normal';
-		$this->data['template'] = isset($this->data['template'])?$this->data['template']:'email';
+	    $this->notifier = $notifier;
     }
 
     /**
@@ -39,7 +35,7 @@ class Notify extends Job implements SelfHandling, ShouldQueue
 		   //  return Sms::send($this->data);
 	    // }
 
-	   	MyMail::send($this->data);
+	   	MyMail::send($this->notifier->data);
     }
 
     public function failed()

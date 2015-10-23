@@ -10,22 +10,23 @@ class Notifier
 {
 	use DispatchesJobs;
 
-	public $data = [];
-	public $email;
-	public $template;
-	public $subject;
-	public $priority = 'High';
+	public $data 	 = [];
+	public $from     = 'admin@changemyworldnow.education';
+	public $template = 'email';
+	public $subject  = 'Default email template';
+	public $priority = 'Normal';
+	public $mailType = 'email';
 
 	public function prepData(){
-		$this->data['to'] = $this->to;
-		$this->data['subject'] = $this->subject;
+		$this->data['to'] 		= $this->to;
+		$this->data['subject'] 	= $this->subject;
 		$this->data['priority'] = $this->priority;
 		$this->data['template'] = $this->template;
 	}
 
 	public function send(){
 		$this->prepData();
-		$this->dispatch(new Notify($this->data));
+		$this->dispatch(new Notify($this));
 	}
 
 	public function attachData(array $data){

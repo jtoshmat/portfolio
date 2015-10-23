@@ -68,11 +68,12 @@ class BulkImporter
 			    }
 
 			    $user = User::firstOrCreate(['student_id' => $title['STUDENT ID']]);
+			    
 			    $user->student_id = $title['STUDENT ID'];
 			    $user->first_name = $title['FIRST NAME'];
-			    $user->last_name = $title['LAST NAME'];
-			    $user->sex = $title['SEX'];
-			    $user->dob = $title['BIRTH DT'];
+			    $user->last_name  = $title['LAST NAME'];
+			    $user->sex        = $title['SEX'];
+			    $user->dob        = $title['BIRTH DT'];
 			    $user->save();
 
 		    }
