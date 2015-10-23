@@ -33,10 +33,14 @@
 			  <br />
 			  <div class="col-md-10 col-md-offset-1">
 				  <div class="row">
+					  @if (Auth::check())
+					  <p style="text-align: right">You are logged in as {{Auth::user()->name}}</p>
+					  @endif
+
 					  @include('partials.sidebar')
 				    <div class="col-md-9">
 					    @include('partials.searchform')
-				    	@yield('content')
+					    @yield('content')
 				    </div>
 				  </div>
 			  </div>

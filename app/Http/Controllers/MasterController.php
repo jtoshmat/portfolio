@@ -29,8 +29,6 @@ class MasterController extends Controller
         }
 
 	    $friends = User::where('name','like', '%'.$keyword.'%')->get();
-
-
 	    return view('partials.results',compact('friends'));
     }
 
@@ -53,6 +51,12 @@ class MasterController extends Controller
 			case 'block':
 				$this->blockFriend($friend_id);
 				return redirect()->back()->with('keyword');
+				break;
+			case 'message':
+                return "Sending a message feature is coming soon";
+				break;
+			case 'poke':
+				return "Poking another user feature is coming soon";
 				break;
 			default:
 				break;
