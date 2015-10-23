@@ -50,11 +50,11 @@
 			<p>First Name: {{$user->first_name}}</p>
 			<p>Middle Name: {{$user->middle_name}}</p>
 			<p>Last Name: {{$user->last_name}}</p>
-			<p>Friends ({{count($user->friends)}}):
+			<p>Friends ({{count($user->acceptedfriends)}}):
 
 			<ul>
-				@foreach($user->friends as $friends)
-					<li><a href="/profile/{{ $friends->id }}/view"> {{$friends->name}}</a></li>
+				@foreach($user->acceptedfriends as $acceptedfriends)
+					<li><a href="/profile/{{ $acceptedfriends->id }}/view"> {{$acceptedfriends->name}}</a></li>
 				@endforeach
 			</ul>
 
