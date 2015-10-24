@@ -51,15 +51,24 @@ class BulkImporter
 		    if ($title['STUDENT ID']!='') {
 
 			    //creating or updating districts
-			    $DDBNNN = preg_split('/(?<=[0-9])(?=[a-z]+)/i',$title['DDBNNN']);
-			    $district = District::firstOrCreate(['code' => $DDBNNN[0], 'system_id' => 1]);
-				$district->code = $DDBNNN[0];
-				$district->system_id= 1;
-				$district->title = 'District '. $DDBNNN[0];
+			    $DDBNNN              = preg_split('/(?<=[0-9])(?=[a-z]+)/i',$title['DDBNNN']);
+
+			    $district            = District::firstOrCreate(['code' => $DDBNNN[0], 'system_id' => 1]);
+				$district->code      = $DDBNNN[0];
+				$district->system_id = 1;
+				$district->title     = 'District '. $DDBNNN[0];
 			    $district->save();
 
-			    //@TODO find a way where from $organization
-			    $organization = Organization::firstOrCreate(['code' => $DDBNNN[1]]);
+			    $organization = Organization::where(['code' => $DDBNNN[1]])
+			    				->with(array('districts' => function($query) use ($district) {
+												    			$query->where('district_id', $district->id);
+												    		}))->first();
+
+			    if(is_null($organization)){ // TODO figure out if this can be replaced with a firstOrCreate;
+			    	$organization = new Organization;
+			    }
+
+			    $organization->code  = $DDBNNN[1];
 			    $organization->title = $DDBNNN[1];
 			    $organization->save();
 
@@ -83,7 +92,7 @@ class BulkImporter
 	    $notifier->to = Auth::user()->email;
 	    $notifier->subject = "Your import is completed at ". date('m-d-Y h:i:s A');
 	    $notifier->template = "emails.import";
-	    $notifier->attachData(['user'=>Auth::user()]);
+	    $notifier->attachData(['user' => Auth::user()]);
 	    $notifier->send();
     }
 }
