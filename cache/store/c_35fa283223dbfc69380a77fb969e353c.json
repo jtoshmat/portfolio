@@ -1,0 +1,88 @@
+{
+    "name": "app\\Http\\Controllers\\AdminTestController",
+    "line": 20,
+    "short_desc": "",
+    "long_desc": "",
+    "hint": null,
+    "tags": [],
+    "namespace": "app\\Http\\Controllers",
+    "file": "app\/Http\/Controllers\/AdminTestController.php",
+    "relative_file": null,
+    "hash": "3d1ca9322f05c3f9ec91b5bbb51acdf77f8a615c",
+    "parent": "app\\Http\\Controllers\\Controller",
+    "modifiers": "Stmt_Class",
+    "is_trait": false,
+    "is_interface": false,
+    "aliases": {
+        "ImageManagement": "app\\cmwn\\Services\\ImageManagement",
+        "Request": "Illuminate\\Support\\Facades\\Request",
+        "ImportCSV": "app\\Jobs\\ImportCSV",
+        "User": "app\\User",
+        "Hash": "Illuminate\\Support\\Facades\\Hash",
+        "Requests": "app\\Http\\Requests",
+        "Controller": "app\\Http\\Controllers\\Controller",
+        "Input": "Illuminate\\Support\\Facades\\Input",
+        "Storage": "Illuminate\\Support\\Facades\\Storage",
+        "Validator": "Illuminate\\Support\\Facades\\Validator",
+        "Redirect": "Illuminate\\Support\\Facades\\Redirect",
+        "Auth": "Illuminate\\Support\\Facades\\Auth",
+        "AdminTool": "app\\AdminTool"
+    },
+    "errors": [],
+    "interfaces": [],
+    "traits": [],
+    "properties": [],
+    "methods": {
+        "index": {
+            "name": "index",
+            "line": 27,
+            "short_desc": "Display a listing of the resource.",
+            "long_desc": "",
+            "hint": [
+                [
+                    "\\Illuminate\\Http\\Response",
+                    false
+                ]
+            ],
+            "hint_desc": "",
+            "tags": [],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [],
+            "errors": [],
+            "parameters": []
+        },
+        "uploadImage": {
+            "name": "uploadImage",
+            "line": 33,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [],
+            "errors": [],
+            "parameters": {
+                "request": {
+                    "name": "request",
+                    "line": 33,
+                    "short_desc": null,
+                    "long_desc": null,
+                    "hint": [
+                        [
+                            "app\\Http\\Controllers\\Illuminate\\Support\\Facades\\Request",
+                            false
+                        ]
+                    ],
+                    "tags": [],
+                    "modifiers": "Illuminate\\Support\\Facades\\Request",
+                    "default": null,
+                    "is_by_ref": false
+                }
+            }
+        }
+    },
+    "constants": []
+}

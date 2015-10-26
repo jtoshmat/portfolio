@@ -1,0 +1,68 @@
+{
+    "name": "app\\Http\\Controllers\\AdminToolsController",
+    "line": 17,
+    "short_desc": "",
+    "long_desc": "",
+    "hint": null,
+    "tags": [],
+    "namespace": "app\\Http\\Controllers",
+    "file": "app\/Http\/Controllers\/AdminToolsController.php",
+    "relative_file": null,
+    "hash": "801d64a771878715e01e7583aed60200d0f76b0e",
+    "parent": "app\\Http\\Controllers\\Controller",
+    "modifiers": "Stmt_Class",
+    "is_trait": false,
+    "is_interface": false,
+    "aliases": {
+        "Request": "Illuminate\\Support\\Facades\\Request",
+        "AdminTool": "app\\AdminTool",
+        "ImportCSV": "app\\Jobs\\ImportCSV",
+        "User": "app\\User",
+        "Hash": "Illuminate\\Support\\Facades\\Hash",
+        "Requests": "app\\Http\\Requests",
+        "Controller": "app\\Http\\Controllers\\Controller",
+        "Input": "Illuminate\\Support\\Facades\\Input",
+        "Storage": "Illuminate\\Support\\Facades\\Storage",
+        "Validator": "Illuminate\\Support\\Facades\\Validator",
+        "Redirect": "Illuminate\\Support\\Facades\\Redirect",
+        "Auth": "Illuminate\\Support\\Facades\\Auth"
+    },
+    "errors": [],
+    "interfaces": [],
+    "traits": [],
+    "properties": [],
+    "methods": {
+        "uploadCsv": {
+            "name": "uploadCsv",
+            "line": 19,
+            "short_desc": "",
+            "long_desc": "",
+            "hint": null,
+            "hint_desc": null,
+            "tags": [],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [],
+            "errors": [],
+            "parameters": {
+                "request": {
+                    "name": "request",
+                    "line": 19,
+                    "short_desc": null,
+                    "long_desc": null,
+                    "hint": [
+                        [
+                            "app\\Http\\Controllers\\Illuminate\\Support\\Facades\\Request",
+                            false
+                        ]
+                    ],
+                    "tags": [],
+                    "modifiers": "Illuminate\\Support\\Facades\\Request",
+                    "default": null,
+                    "is_by_ref": false
+                }
+            }
+        }
+    },
+    "constants": []
+}

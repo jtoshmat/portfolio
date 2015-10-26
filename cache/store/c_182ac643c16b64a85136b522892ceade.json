@@ -1,0 +1,65 @@
+{
+    "name": "app\\Http\\Controllers\\ProfileController",
+    "line": 10,
+    "short_desc": "",
+    "long_desc": "",
+    "hint": null,
+    "tags": [],
+    "namespace": "app\\Http\\Controllers",
+    "file": "app\/Http\/Controllers\/ProfileController.php",
+    "relative_file": null,
+    "hash": "efdf1fb1084f67ca8eff37a351032bafe923dd28",
+    "parent": "app\\Http\\Controllers\\Controller",
+    "modifiers": "Stmt_Class",
+    "is_trait": false,
+    "is_interface": false,
+    "aliases": {
+        "User": "app\\User",
+        "Request": "Illuminate\\Http\\Request",
+        "Requests": "app\\Http\\Requests",
+        "Controller": "app\\Http\\Controllers\\Controller"
+    },
+    "errors": [],
+    "interfaces": [],
+    "traits": [],
+    "properties": [],
+    "methods": {
+        "profile": {
+            "name": "profile",
+            "line": 17,
+            "short_desc": "Display a listing of the resource.",
+            "long_desc": "",
+            "hint": [
+                [
+                    "\\Illuminate\\Http\\Response",
+                    false
+                ]
+            ],
+            "hint_desc": "",
+            "tags": [],
+            "modifiers": "1",
+            "is_by_ref": "",
+            "exceptions": [],
+            "errors": [],
+            "parameters": {
+                "request": {
+                    "name": "request",
+                    "line": 17,
+                    "short_desc": null,
+                    "long_desc": null,
+                    "hint": [
+                        [
+                            "app\\Http\\Controllers\\Illuminate\\Http\\Request",
+                            false
+                        ]
+                    ],
+                    "tags": [],
+                    "modifiers": "Illuminate\\Http\\Request",
+                    "default": null,
+                    "is_by_ref": false
+                }
+            }
+        }
+    },
+    "constants": []
+}
