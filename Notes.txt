@@ -53,7 +53,8 @@ https://res.cloudinary.com/change-my-world-now ▼
 API Base URL:  https://api.cloudinary.com/v1_1/change-my-world-now
 
 
-
+#Declare a var in blade
+{{--*/  $chidren_array = array() /*--}}
 
 
 
@@ -141,3 +142,81 @@ END;
 		    $table->string('distance');
 		    $table->timestamps();
 	    });
+
+
+#Oct 26, 2015
+https://gist.github.com/irazasyed/5987693
+setting alias and update .profile
+
+#Important notes on creating and maintaining Apis
+
+Api response handling
+protected function respondWithArray(array $array, array $headers = [])
+
+	$mimeParts = (array) explode(';',
+	Input::server('HTTP_ACCEPT'));
+	$mimeType = strtolower($mimeParts[0]);
+
+	switch ($mimeType) {
+	case 'application/json':
+		$contentType = 'application/json'; $content = json_encode($array);
+	break;
+
+	case 'application/x-yaml':
+		$contentType = 'application/x-yaml';
+		$dumper = new YamlDumper();
+		$content = $dumper->dump($array, 2);
+	break;
+
+	default:
+		$contentType = 'application/json';
+		$content = json_encode([
+                'error' => [
+                    'code' => static::CODE_INVALID_MIME_TYPE,
+                    'http_code' => 406,
+                    'message' => sprintf('Content of type %s is not supported.', $mim\]
+        $response = Response::make($content, $this->statusCode, $headers);
+        $response->header('Content-Type', $contentType);
+		return $response;
+}
+
+
+
+Route::group(['prefix' => 'api', 'after' => 'allowOrigin'], function() {
+
+    Route::get('/users/{profile}', function ($page) {
+        return Response::json(['status' => 200,'polls' => User::find(1))
+                ->take(5)
+                ->get()->toArray()
+        ]);
+    });
+
+        Route::get('/profile/{id}', function ($id) {
+            $user = User::find($id);
+            $stats = $user->stats()
+                ->select(['column1', 'column2 as c2'])
+                ->get()->toArray();
+            return Response::json(['status' => 200, 'stats' => $stats]);
+        });
+
+
+        Route::filter('allowOrigin', function($route, $request, $response)
+        {
+            $response->header('access-control-allow-origin','*');
+        });
+
+        Sources:
+        http://www.codeheaps.com/php-programming/creating-restful-api-using-laravel-angularjs-frontend/
+        http://www.tutorials.kode-blog.com/laravel-5-rest-api
+
+
+    Best Practice # 1: Use HTTP VERBS to determine action to be taken
+    Best Practice # 2: API Versioning
+    Best Practice # 3: Use plurals to describe resources
+    Best Practice # 4: Use query strings to build relations
+    Best Practice # 5: Partial responses
+    Best Practice # 6: Response Codes and Error Handling
+    Best Practice # 7: Limit the number of request in a given time period from the same IP Address
+    Best Practice # 8: Use OAuth latest version for authentication
+    Best Practice # 9: use JSON as the default
+    Best Practice # 10: Cache GET results for less frequently changing data

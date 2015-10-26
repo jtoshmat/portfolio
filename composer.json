@@ -16,7 +16,8 @@
 	  "laravelcollective/html": "~5.0",
 	  "guzzlehttp/guzzle": "~5.0",
         "predis/predis": "~1.1@dev",
-        "cloudinary/cloudinary_php": "dev-master"
+        "cloudinary/cloudinary_php": "dev-master",
+      "cartalyst/sentry": "dev-feature/laravel-5"
     },
     "autoload": {
         "classmap": [

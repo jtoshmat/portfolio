@@ -88,8 +88,21 @@ use app\District;
 				"title" => "student",
 			));
 
+
 			$jon->role()->sync([$admin->id]);
 			$arron->role()->sync([$admin->id]);
+
+
+			$user = User::find($jon->id);
+			$roles=array(1);
+			$roles = ($roles)?$roles:array();
+			$user->role()->sync($roles);
+
+			DB::table('friends')->insert([
+				'user_id' => 1,
+				'friend_id' => 2,
+			]);
+
 
 			DB::table('child_guardian')->insert([
 				'guardian_id' => $guardian->id,

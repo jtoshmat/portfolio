@@ -28,7 +28,7 @@ class UsersController extends Controller
     public function members()
     {
 	    $members = User::paginate(10);
-        return view('users/members', compact('members'));
+	    return view('users/members', compact('members'));
 
     }
 
