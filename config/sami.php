@@ -1,3 +1,3 @@
 <?php
 
-    return new Sami\Sami('app/cmwn/');
+    //return new Sami\Sami('app/cmwn/');

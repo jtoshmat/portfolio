@@ -107,4 +107,15 @@ Route::group(['middleware' => 'auth'], function($router) {
 
 });
 
+##########################################################################
+######################## API Requests Only ###############################
+##########################################################################
+Route::group(['prefix' => 'api', 'after' => 'allowOrigin'], function() {
+    //All api routes are registered here
+});
+
+Route::filter('allowOrigin', function($route, $request, $response){
+    $response->header('access-control-allow-origin','*');
+});
+
 
