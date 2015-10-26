@@ -1,47 +1,44 @@
 {
-    "name": "app\\Http\\Controllers\\MasterController",
-    "line": 11,
+    "name": "app\\cmwn\\Users\\UserSpecificRepository",
+    "line": 8,
     "short_desc": "",
     "long_desc": "",
     "hint": null,
     "tags": [],
-    "namespace": "app\\Http\\Controllers",
-    "file": "app\/Http\/Controllers\/MasterController.php",
+    "namespace": "app\\cmwn\\Users",
+    "file": "app\/cmwn\/Users\/UserSpecificRepository.php",
     "relative_file": null,
-    "hash": "56b49f05c767884859803e0e89ab895ea6c84372",
-    "parent": "app\\Http\\Controllers\\Controller",
+    "hash": "7262d26b854f5ec8de9934c7281ced48a7f9b093",
+    "parent": null,
     "modifiers": "Stmt_Class",
     "is_trait": false,
     "is_interface": false,
     "aliases": {
+        "SideBarItems": "app\\Repositories\\SideBarItems",
         "User": "app\\User",
-        "Request": "Illuminate\\Http\\Request",
-        "Requests": "app\\Http\\Requests",
-        "Controller": "app\\Http\\Controllers\\Controller",
         "Auth": "Illuminate\\Support\\Facades\\Auth"
     },
     "errors": [],
     "interfaces": [],
     "traits": [],
-    "properties": [],
-    "methods": {
-        "__construct": {
-            "name": "__construct",
-            "line": 20,
+    "properties": {
+        "tag": {
+            "name": "tag",
+            "line": 11,
             "short_desc": "",
             "long_desc": "",
             "hint": null,
             "hint_desc": null,
             "tags": [],
-            "modifiers": "1",
-            "is_by_ref": "",
-            "exceptions": [],
-            "errors": [],
-            "parameters": []
-        },
-        "search": {
-            "name": "search",
-            "line": 24,
+            "modifiers": 1,
+            "default": null,
+            "errors": []
+        }
+    },
+    "methods": {
+        "__construct": {
+            "name": "__construct",
+            "line": 13,
             "short_desc": "",
             "long_desc": "",
             "hint": null,
@@ -52,27 +49,27 @@
             "exceptions": [],
             "errors": [],
             "parameters": {
-                "request": {
-                    "name": "request",
-                    "line": 24,
+                "tag": {
+                    "name": "tag",
+                    "line": 13,
                     "short_desc": null,
                     "long_desc": null,
                     "hint": [
                         [
-                            "app\\Http\\Controllers\\Illuminate\\Http\\Request",
+                            "app\\cmwn\\Users\\app\\Repositories\\SideBarItems",
                             false
                         ]
                     ],
                     "tags": [],
-                    "modifiers": "Illuminate\\Http\\Request",
+                    "modifiers": "app\\Repositories\\SideBarItems",
                     "default": null,
                     "is_by_ref": false
                 }
             }
         },
-        "friendship": {
-            "name": "friendship",
-            "line": 35,
+        "compose": {
+            "name": "compose",
+            "line": 17,
             "short_desc": "",
             "long_desc": "",
             "hint": null,
@@ -83,19 +80,14 @@
             "exceptions": [],
             "errors": [],
             "parameters": {
-                "request": {
-                    "name": "request",
-                    "line": 35,
+                "view": {
+                    "name": "view",
+                    "line": 17,
                     "short_desc": null,
                     "long_desc": null,
-                    "hint": [
-                        [
-                            "app\\Http\\Controllers\\Illuminate\\Http\\Request",
-                            false
-                        ]
-                    ],
+                    "hint": null,
                     "tags": [],
-                    "modifiers": "Illuminate\\Http\\Request",
+                    "modifiers": "",
                     "default": null,
                     "is_by_ref": false
                 }

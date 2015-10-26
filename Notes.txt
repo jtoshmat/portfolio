@@ -220,3 +220,11 @@ Route::group(['prefix' => 'api', 'after' => 'allowOrigin'], function() {
     Best Practice # 8: Use OAuth latest version for authentication
     Best Practice # 9: use JSON as the default
     Best Practice # 10: Cache GET results for less frequently changing data
+
+
+#Sami documentation
+to generate a report
+php sami.phar update Config/sami.php
+
+to view
+/code/laravel/build
