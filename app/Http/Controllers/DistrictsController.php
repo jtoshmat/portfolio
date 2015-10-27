@@ -42,6 +42,7 @@ class DistrictsController extends Controller
 	    $allorganizations = Organization::all();
 
         $data = District::with('organization')->paginate(25);
+        return $data;
         return view('districts/all',compact('data', 'allorganizations'));
     }
 
