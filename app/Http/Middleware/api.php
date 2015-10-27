@@ -28,8 +28,9 @@ class Api
         }
 
         $response = $next($request);
-        foreach($headers as $key => $value)
+        foreach($headers as $key => $value) {
             $response->header($key, $value);
+        }
         return $response;
     }
 }
