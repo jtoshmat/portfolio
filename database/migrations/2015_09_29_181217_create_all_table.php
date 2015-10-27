@@ -13,6 +13,7 @@ class CreateAllTable extends Migration
      */
     public function up()
     {
+	    Schema::dropIfExists("friends");
 	    Schema::dropIfExists("child_guardian");
 	    Schema::dropIfExists("district_organization");
 	    Schema::dropIfExists("districts");
@@ -137,6 +138,21 @@ class CreateAllTable extends Migration
 		    $table->unsignedInteger('child_id')->unsigned();
 		    $table->foreign('child_id')->references('id')->on('users')->onDelete('cascade');
 		    $table->foreign('guardian_id')->references('id')->on('users')->onDelete('cascade');
+		    $table->timestamps();
+	    });
+
+	    Schema::create('friends', function(Blueprint $table)
+	    {
+		    $table->increments('id');
+		    $table->unsignedInteger('user_id')->unsigned();
+		    $table->unsignedInteger('friend_id')->unsigned();
+		    $table->unique(array('user_id', 'friend_id'));
+		    $table->foreign('friend_id')->references('id')->on('users')->onDelete('cascade');
+		    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+		    $table->integer('status');
+		    $table->timestamp('accepted_date');
+		    $table->timestamp('rejected_date');
+		    $table->timestamp('blocked_date');
 		    $table->timestamps();
 	    });
     }

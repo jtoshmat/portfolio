@@ -19,7 +19,8 @@ return [
         'role' =>   'admin,student',
         'games' =>  'admin,student',
         'contactupdate' =>  'admin,principal,teacher',
-        'all' =>  'admin,principal,teacher,student'
+        'all' =>  'admin,principal,teacher,student',
+        'studentfriends' => 'guardian, student'
 
     ],
 ];

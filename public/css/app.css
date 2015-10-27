@@ -6041,4 +6041,16 @@ body {
   color: #fff;
   background: #737373; }
 
+
+.friends{
+  border: 1px solid #888a85;
+  width: 190px;
+  height: auto;
+  position: absolute;
+  right:-19%;
+  top:10px;
+  background: #a6e1ec;
+    z-index: 100;
+}
+
 /*# sourceMappingURL=app.css.map */

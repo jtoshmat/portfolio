@@ -1,12 +1,7 @@
 @extends('master')
 @section('content')
 	<div class="panel panel-info">
-
-
-
-
-
-		<div class="panel-body" style="padding-top:30px">
+	<div class="panel-body" style="padding-top:30px">
 			{!! Form::open(array('url' => 'admin/playground', 'files'=>true, 'class' => 'form-horizontal', 'role' => 'form', 'id' =>
 				'testuploadform'))	!!}
 			<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
