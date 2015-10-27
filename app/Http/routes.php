@@ -17,14 +17,9 @@ if(env('APP_ENV')=='local') {
 	});
 }
 
-Route::get('/', function () {
-	return view('welcome');
+Route::get('/home', function () {
+    return view('welcome');
 });
-
-	Route::get('/home', function () {
-	    return view('home');
-	});
-
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
@@ -78,8 +73,8 @@ Route::group(['middleware' => 'auth'], function($router) {
 	//Composer for sidebars and user specific contents
 	View::composer('partials.sidebar','app\cmwn\Users\UserSpecificRepository');
 
-
-
 });
 
-
+Route::any( '{catchall}', function ( $page ) {
+    return File::get(public_path() . '/index.html');
+} )->where('catchall', '(.*)');	
