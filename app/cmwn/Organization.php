@@ -13,12 +13,19 @@ class Organization extends Model
 		'code'
 	];
 
+	/**
+	 * [$groupUpdateRules description]
+	 * @var array
+	 */
 	public static $groupUpdateRules = array(
 		'title[]'=>'string',
 		//'role[]'=>'required',
 		//'role[]'=>'required|regex:/^[0-9]?$/',
 	);
 
+	/**
+	 * @return [type]
+	 */
 	public function users()
 	{
 	    return $this->morphToMany('app\User', 'roleable');

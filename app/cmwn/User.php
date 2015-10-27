@@ -2,7 +2,6 @@
 
 namespace app;
 
-use app\UserRole;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -11,17 +10,15 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 
-
-class User extends Model implements AuthenticatableContract,
-                                    AuthorizableContract,
-                                    CanResetPasswordContract
+class User extends Model implements
+    AuthenticatableContract,
+    AuthorizableContract,
+    CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword, SoftDeletes;
-	protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 
     /**
      * The database table used by the model.
@@ -41,7 +38,7 @@ class User extends Model implements AuthenticatableContract,
         'last_name',
         'email',
         'slug',
-        'password'
+        'password',
     ];
 
     /**
@@ -55,20 +52,18 @@ class User extends Model implements AuthenticatableContract,
      * Register all the form validation rules here for User
      */
     public static $memberUpdaRules = array(
-        'first_name'=>'required|string|min:2',
-        'middle_name'=>'required|string|min:2',
-        'last_name'=>'required|string|min:2',
-        'email'=>'required|email|min:2',
+        'first_name' => 'required|string|min:2',
+        'middle_name' => 'required|string|min:2',
+        'last_name' => 'required|string|min:2',
+        'email' => 'required|email|min:2',
         //'slug'=>'required|string|unique:users|min:2',
         //'role[]'=>'required',
         //'role[]'=>'required|regex:/^[0-9]?$/',
     );
 
-	public static $memberDeleteRules = array(
-		//'id'=>'required|regex:/^[0-9]?$/',
-	);
-
-
+    public static $memberDeleteRules = array(
+        //'id'=>'required|regex:/^[0-9]?$/',
+    );
 
     public function role()
     {
@@ -90,7 +85,6 @@ class User extends Model implements AuthenticatableContract,
         return $this->morphedByMany('app\Group', 'roleable')->withPivot('role_id');
     }
 
-
     public function children()
     {
         return $this->belongsToMany('app\User', 'child_guardian', 'guardian_id', 'child_id');
@@ -101,25 +95,25 @@ class User extends Model implements AuthenticatableContract,
         return $this->belongsToMany('app\User', 'child_guardian', 'child_id', 'guardian_id');
     }
 
-	public function friends()
-	{
-		return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id');
-	}
+    public function friends()
+    {
+        return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id');
+    }
 
-	public function acceptedfriends()
-	{
-		return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status',1);
-	}
+    public function acceptedfriends()
+    {
+        return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status', 1);
+    }
 
-	public function pendingfriends()
-	{
-		return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status',0);
-	}
+    public function pendingfriends()
+    {
+        return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status', 0);
+    }
 
-	public function friendrequests()
-	{
-		return $this->belongsToMany('app\User', 'friends','friend_id')->wherePivot('friend_id',$this->id)->wherePivot('status',0);
-	}
+    public function friendrequests()
+    {
+        return $this->belongsToMany('app\User', 'friends', 'friend_id')->wherePivot('friend_id', $this->id)->wherePivot('status', 0);
+    }
 
     public function siblings()
     {
@@ -129,40 +123,42 @@ class User extends Model implements AuthenticatableContract,
     public function hasRole(Array $roles)
     {
         foreach ($roles as $role) {
-            if($this->role->contains('title', $role)) {
+            if ($this->role->contains('title', $role)) {
                 return true;
             }
         }
-	    return false;
-    }
 
-    public static function updateMember(Request $request, $id){
-        $roles = $request::get('role');
-	    $roles = ($roles)?$roles:array();
-	    $user = User::find($id);
-	    $user->role()->sync($roles);
-        $user->first_name = $request::get('first_name');
-        $user->middle_name = $request::get('middle_name');
-        $user->last_name = $request::get('last_name');
-	    $user->name = $user->first_name.' '. $user->last_name;
-        if($user->save()){
-            return true;
-        }
         return false;
     }
 
-	public static function deleteMember($id){
-		$user = User::find($id);
-		if(!$user->role()->detach()){
-			$user->delete();
-		}
+    public static function updateMember(Request $request, $id)
+    {
+        $roles = $request::get('role');
+        $roles = ($roles) ? $roles : array();
+        $user = self::find($id);
+        $user->role()->sync($roles);
+        $user->first_name = $request::get('first_name');
+        $user->middle_name = $request::get('middle_name');
+        $user->last_name = $request::get('last_name');
+        $user->name = $user->first_name.' '.$user->last_name;
+        if ($user->save()) {
+            return true;
+        }
 
-		if($user){
-			return true;
-		}
-		return false;
+        return false;
+    }
 
-	}
+    public static function deleteMember($id)
+    {
+        $user = self::find($id);
+        if (!$user->role()->detach()) {
+            $user->delete();
+        }
 
+        if ($user) {
+            return true;
+        }
 
+        return false;
+    }
 }
