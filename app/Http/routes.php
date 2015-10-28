@@ -117,6 +117,10 @@ Route::group(['middleware' => 'auth'], function ($router) {
         Route::get('/groups', 'Api\GroupController@index');
         Route::get('/groups/{id}', 'Api\GroupController@show');
         Route::get('/groups/{id}/users', 'Api\GroupController@getUsers');
+
+        Route::get('/districts', 'Api\DistrictController@index');
+        Route::get('/districts/{id}', 'Api\DistrictController@show');
+        Route::get('/districts/{id}/organizations', 'Api\DistrictController@getOrganizations');
     });
 
     Route::any('{catchall}', function ($page) {
