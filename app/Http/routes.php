@@ -107,6 +107,14 @@ Route::group(['middleware' => 'auth'], function ($router) {
         Route::get('/test', function () {
             return 'If you see this message that means this is an API request.';
         });
+
+        Route::get('/users', 'Api\UserController@index');
+        Route::get('/users/{id}', 'Api\UserController@show');
+        Route::get('/users/{id}/groups', 'Api\UserController@getGroups');
+
+        Route::get('/groups', 'Api\GroupController@index');
+        Route::get('/groups/{id}', 'Api\GroupController@show');
+        Route::get('/groups/{id}/users', 'Api\GroupController@getUsers');
     });
 
     Route::any('{catchall}', function ($page) {

@@ -128,7 +128,7 @@ use app\District;
 			]);
 
 			for ($i=1; $i<5; $i++) {
-				$class = Group::create(array(
+				$group = Group::create(array(
 					"organization_id" => $organization->id,
 					"title" => "Class ".$i,
 					"description" => "Class:".$i." Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy tex ",
