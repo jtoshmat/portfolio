@@ -6,13 +6,19 @@ use app\Http\Controllers\Api\ApiController;
 use app\Transformer\UserTransformer;
 use app\Transformer\GroupTransformer;
 use app\User;
+use Illuminate\Http\Request;
 
 class UserController extends ApiController
 {
     public function index()
     {
-        $users = User::take(10)->get();
+        $query = \Request::get('name') or NULL;
 
+        if ( $query ) {
+            $users = User::name($query)->get();
+        }else{
+            $users = User::take(10)->get();
+        }
         return $this->respondWithCollection($users, new UserTransformer);
     }
 
