@@ -228,3 +228,6 @@ php sami.phar update Config/sami.php
 
 to view
 /code/laravel/build
+
+to run Python simple webserver
+python -m SimpleHTTPServer 8080
