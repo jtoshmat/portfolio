@@ -161,4 +161,19 @@ class User extends Model implements
 
         return false;
     }
+
+    /**
+     * Scope a query to only include users of a given type.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSlug($query, $val)
+    {
+        return $query->where('slug', $val);
+    }
+
+    public function scopeName($query, $val)
+    {
+        return $query->where('name', $val);
+    }
 }
