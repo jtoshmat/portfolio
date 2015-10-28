@@ -230,4 +230,5 @@ to view
 /code/laravel/build
 
 to run Python simple webserver
-python -m SimpleHTTPServer 8080
+cd the folder where your webserver files are and then run the comment
+>> python -m SimpleHTTPServer 8080
