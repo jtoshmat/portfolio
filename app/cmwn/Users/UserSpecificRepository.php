@@ -14,6 +14,10 @@ class UserSpecificRepository
 		$this->tag = $tag;
 	}
 
+	public function getApiSideBar(){
+		return $this->tag;
+	}
+
 	public function compose($view){
 
 		$acceptedfriends = array();
