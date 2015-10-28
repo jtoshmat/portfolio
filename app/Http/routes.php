@@ -121,6 +121,12 @@ Route::group(['middleware' => 'auth'], function ($router) {
         Route::get('/districts', 'Api\DistrictController@index');
         Route::get('/districts/{id}', 'Api\DistrictController@show');
         Route::get('/districts/{id}/organizations', 'Api\DistrictController@getOrganizations');
+
+        Route::get('/organizations', 'Api\OrganizationController@index');
+        Route::get('/organizations/{id}', 'Api\OrganizationController@show');
+
+        Route::get('/roles', 'Api\RoleController@index');
+        Route::get('/roles/{id}', 'Api\RoleController@show');
     });
 
     Route::any('{catchall}', function ($page) {
