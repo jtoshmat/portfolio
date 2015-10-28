@@ -102,13 +102,13 @@ Route::group(['middleware' => 'auth'], function ($router) {
 ##########################################################################
 ######################## API Requests Only ###############################
 ##########################################################################
-Route::group(['prefix' => 'api', 'middleware' => 'api', 'after' => 'allowOrigin'], function () {
-    //A test route for api
-    Route::get('/test', function () {
-        return 'If you see this message that means this is an API request.';
+    Route::group(['prefix' => 'api', 'middleware' => 'api', 'after' => 'allowOrigin'], function () {
+        //A test route for api
+        Route::get('/test', function () {
+            return 'If you see this message that means this is an API request.';
+        });
     });
-});
 
-Route::any('{catchall}', function ($page) {
-    return File::get(public_path().'/index.html');
-})->where('catchall', '(.*)');
+    Route::any('{catchall}', function ($page) {
+        return File::get(public_path().'/index.html');
+    })->where('catchall', '(.*)');
