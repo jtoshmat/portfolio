@@ -18,4 +18,14 @@ class Role extends Model
     	return array_search($role_id, $roles);
     }
 
+    /**
+     * Scope a query to only include users of a given type.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeName($query, $val)
+    {
+        return $query->where('title', $val);
+    }
+
 }
