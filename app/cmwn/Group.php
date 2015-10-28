@@ -11,6 +11,7 @@ class Group extends Model
 	use SoftDeletes;
 	protected $dates = ['deleted_at'];
 	protected $table = 'groups';
+	protected $fillable = array('organization_id', 'title');
 
 	public static $groupUpdateRules = array(
 		'title[]'=>'string',

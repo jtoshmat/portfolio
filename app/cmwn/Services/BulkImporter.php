@@ -2,6 +2,7 @@
 
 namespace app\cmwn\Services;
 
+use app\Group;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 use app\cmwn\Services\Notifier;
@@ -75,6 +76,13 @@ class BulkImporter
 			    if (!$organization->districts->contains($district->id)) {
 				    $organization->districts()->attach($district->id);
 			    }
+
+
+			    $group = Group::firstOrCreate(['organization_id' => $organization->id]);
+                $group->title = $title['OFF CLS'];
+                $group->save();
+
+
 
 			    $user = User::firstOrCreate(['student_id' => $title['STUDENT ID']]);
 			    

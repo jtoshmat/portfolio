@@ -102,12 +102,11 @@ Route::group(['middleware' => 'auth'], function ($router) {
 ##########################################################################
 ######################## API Requests Only ###############################
 ##########################################################################
-Route::group(['prefix' => 'api', 'after' => 'allowOrigin'], function () {
-    //All api routes are registered here
-});
-
-Route::filter('allowOrigin', function ($route, $request, $response) {
-    $response->header('access-control-allow-origin', '*');
+Route::group(['prefix' => 'api', 'middleware' => 'api', 'after' => 'allowOrigin'], function () {
+    //A test route for api
+    Route::get('/test', function () {
+        return 'If you see this message that means this is an API request.';
+    });
 });
 
 Route::any('{catchall}', function ($page) {

@@ -13,6 +13,7 @@ class CreateAllTable extends Migration
      */
     public function up()
     {
+	    Schema::dropIfExists("sessions");
 	    Schema::dropIfExists("friends");
 	    Schema::dropIfExists("child_guardian");
 	    Schema::dropIfExists("district_organization");
@@ -125,6 +126,7 @@ class CreateAllTable extends Migration
 		    $table->increments('id');
 		    $table->unsignedInteger('organization_id')->unsigned();
 		    $table->string('title');
+		    $table->unique(array('organization_id', 'title'));
 		    $table->string('description');
 		    $table->timestamps();
 		    $table->softDeletes();
