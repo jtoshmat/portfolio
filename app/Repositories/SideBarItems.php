@@ -48,12 +48,17 @@ class SideBarItems
 	    );
 
 		$combinedTags = array();
+
 	    if ($this->role) {
 		    foreach ($this->role as $role) {
 			    foreach ($tags[ $role ] as $title => $link) {
 				    $combinedTags[ $title ] = $link;
 			    }
 		    }
+	    }else{
+		    $combinedTags[ "home" ] = "/";
+		    $combinedTags[ "login" ] = "/auth/login";
+		    $combinedTags[ "register" ] = "/auth/register";
 	    }
 	    return $combinedTags;
 	}
