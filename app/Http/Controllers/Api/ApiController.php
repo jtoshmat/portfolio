@@ -3,9 +3,8 @@
 namespace app\Http\Controllers\Api;
 
 use app\Http\Controllers\Controller;
-use Input;
 use Response;
-
+use Input;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\Manager;
@@ -23,10 +22,14 @@ class ApiController extends Controller
     public function __construct(Manager $fractal)
     {
         $this->fractal = $fractal;
+
+        if (isset($_GET['include'])) {
+            $this->fractal->parseIncludes($_GET['include']);
+        }
     }
 
     /**
-     * Getter for statusCode
+     * Getter for statusCode.
      *
      * @return int
      */
@@ -36,7 +39,7 @@ class ApiController extends Controller
     }
 
     /**
-     * Setter for statusCode
+     * Setter for statusCode.
      *
      * @param int $statusCode Value to set
      *
@@ -45,6 +48,7 @@ class ApiController extends Controller
     public function setStatusCode($statusCode)
     {
         $this->statusCode = $statusCode;
+
         return $this;
     }
 
@@ -79,7 +83,7 @@ class ApiController extends Controller
     {
         if ($this->statusCode === 200) {
             trigger_error(
-                "You better have a really good reason for erroring on a 200...",
+                'You better have a really good reason for erroring on a 200...',
                 E_USER_WARNING
             );
         }
@@ -89,7 +93,7 @@ class ApiController extends Controller
                 'code' => $errorCode,
                 'http_code' => $this->statusCode,
                 'message' => $message,
-            ]
+            ],
         ]);
     }
 

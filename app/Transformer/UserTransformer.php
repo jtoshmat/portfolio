@@ -7,9 +7,15 @@ use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
 {
-    protected $availableEmbeds = [
-        'groups',
+    // protected $defaultIncludes = [
+    //     'friends'
+    // ];
+
+    protected $availableIncludes = [
+        'friends',
+        'groups'
     ];
+
     /**
      * Turn this item object into a generic array.
      *
@@ -28,11 +34,23 @@ class UserTransformer extends TransformerAbstract
         ];
     }
     /**
-     * Embed Checkins.
+     * Embed Friends.
      *
      * @return League\Fractal\Resource\Collection
      */
-    public function embedGroups(User $user)
+    public function includeFriends(User $user)
+    {
+        $friends = $user->friends;
+
+        return $this->collection($friends, new UserTransformer());
+    }
+
+    /**
+     * Embed Groups.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeGroups(User $user)
     {
         $groups = $user->groups;
 

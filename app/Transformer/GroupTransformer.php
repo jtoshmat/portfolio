@@ -7,7 +7,7 @@ use League\Fractal\TransformerAbstract;
 
 class GroupTransformer extends TransformerAbstract
 {
-    protected $availableEmbeds = [];
+    protected $availableIncludes = [ 'user' ];
 
     /**
      * Turn this item object into a generic array.
