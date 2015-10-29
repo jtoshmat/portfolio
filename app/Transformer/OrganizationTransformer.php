@@ -7,8 +7,10 @@ use League\Fractal\TransformerAbstract;
 
 class OrganizationTransformer extends TransformerAbstract
 {
-    protected $availableEmbeds = [];
 
+    protected $availableIncludes = [
+        'groups'
+    ];
     /**
      * Turn this item object into a generic array.
      *
@@ -23,5 +25,17 @@ class OrganizationTransformer extends TransformerAbstract
             'description'   => $organization->description,
             'created_at'    => (string) $organization->created_at,
         ];
+    }
+
+    /**
+     * Embed Groups.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeGroups(Organization $organization)
+    {
+        $groups = $organization->groups;
+
+        return $this->collection($groups, new GroupTransformer());
     }
 }

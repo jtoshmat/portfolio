@@ -13,7 +13,6 @@ class DistrictController extends ApiController
     public function index()
     {
         $districts = District::take(10)->get();
-
         return $this->respondWithCollection($districts, new DistrictTransformer);
     }
 
@@ -28,14 +27,5 @@ class DistrictController extends ApiController
         return $this->respondWithItem($district, new DistrictTransformer);
     }
 
-    public function getOrganizations($districtsId)
-    {
-        $district = District::find($districtsId);
 
-        if (! $district) {
-            return $this->errorNotFound('User not found');
-        }
-
-        return $this->respondWithCollection($district->organizations, new OrganizationTransformer);
-    }
 }

@@ -13,7 +13,8 @@ class UserTransformer extends TransformerAbstract
 
     protected $availableIncludes = [
         'friends',
-        'groups'
+        'groups',
+        'roles'
     ];
 
     /**
@@ -31,6 +32,7 @@ class UserTransformer extends TransformerAbstract
             'dob'        => $user->dob,
             'slug'       => $user->slug,
             'joined'     => (string) $user->created_at,
+            'role'      =>  isset($user->pivot->role_id)?$user->pivot->role_id:'',
         ];
     }
     /**
@@ -53,7 +55,17 @@ class UserTransformer extends TransformerAbstract
     public function includeGroups(User $user)
     {
         $groups = $user->groups;
-
         return $this->collection($groups, new GroupTransformer());
+    }
+
+    /**
+     * Embed Groups.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeRoles(User $user)
+    {
+        $roles = $user->role;
+        return $this->collection($roles, new RoleTransformer());
     }
 }

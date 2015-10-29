@@ -3,11 +3,18 @@
 namespace app\Transformer;
 
 use app\District;
+use app\Group;
+use app\Organization;
 use League\Fractal\TransformerAbstract;
 
 class DistrictTransformer extends TransformerAbstract
 {
     protected $availableEmbeds = [];
+
+    protected $availableIncludes = [
+        'organizations',
+
+    ];
 
     /**
      * Turn this item object into a generic array.
@@ -23,6 +30,21 @@ class DistrictTransformer extends TransformerAbstract
             'title'         => $district->title,
             'description'   => $district->description,
             'created_at'    => (string) $district->created_at,
+
         ];
     }
+
+    /**
+     * Embed Organizations.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeOrganizations(District $district)
+    {
+        $organizations = $district->organizations;
+
+        return $this->collection($organizations, new OrganizationTransformer());
+    }
+
+
 }

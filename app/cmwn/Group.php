@@ -21,7 +21,7 @@ class Group extends Model
 
 	public function users()
 	{
-	    return $this->morphToMany('app\User', 'roleable');
+	    return $this->morphToMany('app\User', 'roleable')->withPivot('role_id');
 	}
 
 	public function students()

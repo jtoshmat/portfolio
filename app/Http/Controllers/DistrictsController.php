@@ -41,14 +41,15 @@ class DistrictsController extends Controller
 
 	    $allorganizations = Organization::all();
 
-        $data = District::paginate(25);
+        $data = District::with('organizations')->paginate(25);
+
 
         return view('districts/all',compact('data', 'allorganizations'));
     }
 
 	public function district(){
 		$id = (int) \Request::segment(2);
-		$data = District::with('organization')->find($id);
+		$data = District::find($id);
 
 		return view('districts/district',compact('data'));
 	}
