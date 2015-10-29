@@ -10,11 +10,7 @@
 	<br /><br />
 	<div class="list-group">
 
-		<a class="list-group-item" href="/">Home</a>
 
-		@if(!Auth::check())
-			<a class="list-group-item" href="/auth/login">Login</a>
-		@endif
 
 		@foreach($tags as $title=>$link)
 		<a class="list-group-item" href="{{ $link }}">{{ $title }}</a>

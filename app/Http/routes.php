@@ -111,6 +111,7 @@ Route::group(['middleware' => 'auth'], function ($router) {
         });
 
         Route::get('/sidebar', 'Api\MasterController@sidebar');
+        Route::get('/friends', 'Api\MasterController@friends');
 
         Route::get('/users', 'Api\UserController@index');
         Route::get('/users/{id}', 'Api\UserController@show');

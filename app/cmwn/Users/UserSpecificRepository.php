@@ -34,4 +34,17 @@ class UserSpecificRepository
 		$view->with('tags', $this->tag->getAll())->with('acceptedfriends', $acceptedfriends)->with('pendingfriends', $pendingfriends)->with('friendrequests', $friendrequests);
 	}
 
+    public function friendsForApi(){
+        $friends = array();
+        if (Auth::check()) {
+            $friends['acceptedfriends'] = User::find(Auth::user()->id)->acceptedfriends;
+            $friends['pendingfriends'] = User::find(Auth::user()->id)->pendingfriends;
+            $friends['friendrequests'] = User::find(Auth::user()->id)->friendrequests;
+        }
+
+        return $friends;
+    }
+
+
+
 }
