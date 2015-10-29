@@ -3,7 +3,6 @@
 namespace app\Http\Controllers\Api;
 
 use app\Http\Controllers\Api\ApiController;
-use app\Transformer\DistrictTransformer;
 use app\Transformer\RoleTransformer;
 use app\Role;
 

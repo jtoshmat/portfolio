@@ -11,6 +11,7 @@ use Input;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\Manager;
+use Illuminate\Http\Request;
 
 class UserController extends ApiController
 {
@@ -35,8 +36,13 @@ class UserController extends ApiController
 
     public function index()
     {
-        $users = User::take(10)->get();
+        $query = \Request::get('name') or NULL;
 
+        if ( $query ) {
+            $users = User::name($query)->get();
+        }else{
+            $users = User::take(10)->get();
+        }
         return $this->respondWithCollection($users, new UserTransformer);
     }
 
