@@ -32,7 +32,10 @@ class GroupTransformer extends TransformerAbstract
     public function includeUsers(Group $group)
     {
         $users = $group->users;
-
         return $this->collection($users, new UserTransformer());
     }
+
+
+    //teachers
+    //students
 }

@@ -14,7 +14,12 @@ class UserTransformer extends TransformerAbstract
     protected $availableIncludes = [
         'friends',
         'groups',
-        'roles'
+        'roles',
+        'children',
+        'guardians',
+        'blockedfriends',
+        'pendingfriends',
+        'friendrequests'
     ];
 
     /**
@@ -48,6 +53,38 @@ class UserTransformer extends TransformerAbstract
     }
 
     /**
+     * Embed friendrequests.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeFriendRequests(User $user)
+    {
+        $friendrequests = $user->friendrequests;
+        return $this->collection($friendrequests, new UserTransformer());
+    }
+
+    /**
+     * Embed blockedfriends.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeBlockedFriends(User $user)
+    {
+        $blockedfriends = $user->blockedfriends;
+        return $this->collection($blockedfriends, new UserTransformer());
+    }
+
+    /**
+     * Embed pendingfriends.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includePendingFriends(User $user)
+    {
+        $pendingfriends = $user->pendingfriends;
+        return $this->collection($pendingfriends, new UserTransformer());
+    }
+    /**
      * Embed Groups.
      *
      * @return League\Fractal\Resource\Collection
@@ -59,7 +96,7 @@ class UserTransformer extends TransformerAbstract
     }
 
     /**
-     * Embed Groups.
+     * Embed Roles.
      *
      * @return League\Fractal\Resource\Collection
      */
@@ -67,5 +104,29 @@ class UserTransformer extends TransformerAbstract
     {
         $roles = $user->role;
         return $this->collection($roles, new RoleTransformer());
+    }
+
+
+
+    /**
+     * Embed Guardian.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeGuardians(User $user)
+    {
+        $guardians = $user->guardians;
+        return $this->collection($guardians, new UserTransformer());
+    }
+
+    /**
+     * Embed Children.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeChildren(User $user)
+    {
+        $children = $user->children;
+        return $this->collection($children, new UserTransformer());
     }
 }

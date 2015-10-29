@@ -90,6 +90,7 @@ class User extends Model implements
         return $this->belongsToMany('app\User', 'child_guardian', 'guardian_id', 'child_id');
     }
 
+
     public function guardians()
     {
         return $this->belongsToMany('app\User', 'child_guardian', 'child_id', 'guardian_id');
@@ -103,6 +104,11 @@ class User extends Model implements
     public function acceptedfriends()
     {
         return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status', 1);
+    }
+
+    public function blockedfriends()
+    {
+        return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status', -2);
     }
 
     public function pendingfriends()
