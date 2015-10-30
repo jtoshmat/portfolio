@@ -108,7 +108,7 @@ class User extends Model implements
 
     public function blockedfriends()
     {
-        return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status', -2);
+        return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status', 1);
     }
 
     public function pendingfriends()

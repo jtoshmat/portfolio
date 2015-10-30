@@ -7,7 +7,10 @@ use League\Fractal\TransformerAbstract;
 
 class GroupTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = [ 'users' ];
+    protected $availableIncludes = [
+        'users',
+        'teachers'
+    ];
 
     /**
      * Turn this item object into a generic array.
@@ -35,7 +38,26 @@ class GroupTransformer extends TransformerAbstract
         return $this->collection($users, new UserTransformer());
     }
 
+    /**
+     * Embed Teachers.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeTeachers(Group $group)
+    {
+        $teachers = $group->teachers;
+        return $this->collection($teachers, new UserTransformer());
+    }
 
-    //teachers
-    //students
+    /**
+     * Embed Students.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeStudents(Group $group)
+    {
+        $students = $group->students;
+        return $this->collection($students, new UserTransformer());
+    }
+
 }
