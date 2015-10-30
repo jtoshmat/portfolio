@@ -31,11 +31,7 @@ class DistrictController extends ApiController
 
     public function update(\Request $request){
 
-        if(\Request::ajax()){
-            return "AJAX";
-        }
 
-        dd($request::isMethod('get'));
 
             if ($request::isMethod('put')) {
             $validator = Validator::make(Input::all(), District::$groupUpdateRules);

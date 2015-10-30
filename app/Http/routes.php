@@ -125,7 +125,7 @@ Route::group(['middleware' => 'auth'], function ($router) {
         Route::get('/districts/{id}/organizations', 'Api\DistrictController@getOrganizations');
 
         //Put districts
-        Route::put('district/{id}', ['uses' => 'Api\DistrictController@update']);
+        Route::any('district/{id}', ['uses' => 'Api\DistrictController@update']);
 
         Route::get('/organizations', 'Api\OrganizationController@index');
         Route::get('/organizations/{id}', 'Api\OrganizationController@show');

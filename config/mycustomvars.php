@@ -25,9 +25,13 @@ return [
     ],
 
     'no_csrf' => [
-        'districts' =>   '/districts',
-        'organizations' =>   '/organizations',
-
-
+        /*
+         * All excluded pages from CSRF session token validation
+         */
+        '/api/',
+        '/api/districts/',
+        '/api/organizations/',
+        '/api/groups/',
+        '/api/users/',
     ],
 ];
