@@ -37,6 +37,12 @@ class Group extends Model
 		return $this->morphToMany('app\User', 'roleable')->wherePivot('role_id',$role_id);
 	}
 
+    public function principals()
+    {
+        $role_id = (int) \Config::get('mycustomvars.roles.principal');
+        return $this->morphToMany('app\User', 'roleable')->wherePivot('role_id',$role_id);
+    }
+
 
 	public function organization()
 	{

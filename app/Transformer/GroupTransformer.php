@@ -9,7 +9,9 @@ class GroupTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
         'users',
-        'teachers'
+        'teachers',
+        'students',
+        'principals'
     ];
 
     /**
@@ -60,4 +62,15 @@ class GroupTransformer extends TransformerAbstract
         return $this->collection($students, new UserTransformer());
     }
 
+
+    /**
+     * Embed Principal.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includePrincipals(Group $group)
+    {
+        $principals = $group->principals;
+        return $this->collection($principals, new UserTransformer());
+    }
 }
