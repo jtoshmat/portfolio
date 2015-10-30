@@ -13,9 +13,6 @@ class DistrictController extends ApiController
     public function index()
     {
         $query = \Request::query('name');
-        echo $query;
-        exit;
-
         if ( $query ) {
             $districts = District::name($query)->get();
         }else{
