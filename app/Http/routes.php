@@ -30,8 +30,6 @@ Route::get('/home', function () {
     return view('welcome');
 });
 
-    Route::any('districts', 'DistrictsController@index');
-
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
@@ -121,9 +119,13 @@ Route::group(['middleware' => 'auth'], function ($router) {
         Route::get('/groups/{id}', 'Api\GroupController@show');
         Route::get('/groups/{id}/users', 'Api\GroupController@getUsers');
 
+        //Get Districts
         Route::get('/districts', 'Api\DistrictController@index');
         Route::get('/districts/{id}', 'Api\DistrictController@show');
         Route::get('/districts/{id}/organizations', 'Api\DistrictController@getOrganizations');
+
+        //Put districts
+        Route::put('district/{id}', ['uses' => 'Api\DistrictController@update']);
 
         Route::get('/organizations', 'Api\OrganizationController@index');
         Route::get('/organizations/{id}', 'Api\OrganizationController@show');

@@ -64,7 +64,7 @@ class GroupTransformer extends TransformerAbstract
 
 
     /**
-     * Embed Principal.
+     * Embed Principals.
      *
      * @return League\Fractal\Resource\Collection
      */

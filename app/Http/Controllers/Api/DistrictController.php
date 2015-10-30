@@ -8,6 +8,14 @@ use app\Transformer\OrganizationTransformer;
 use app\District;
 use app\Organization;
 
+use Illuminate\Http\Request;
+use app\Http\Requests;
+use app\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+
 class DistrictController extends ApiController
 {
     public function index()
@@ -19,6 +27,25 @@ class DistrictController extends ApiController
             $districts = District::take(10)->get();
         }
         return $this->respondWithCollection($districts, new DistrictTransformer);
+    }
+
+    public function update(\Request $request){
+
+        if(\Request::ajax()){
+            return "AJAX";
+        }
+
+        dd($request::isMethod('get'));
+
+            if ($request::isMethod('put')) {
+            $validator = Validator::make(Input::all(), District::$groupUpdateRules);
+            if ($validator->passes()) {
+                return "PUT is being requested";
+            }else{
+                return "yaaay but it did not pass the validation";
+            }
+        }
+        return "ddddd";
     }
 
     public function show($districtsId)

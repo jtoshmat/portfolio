@@ -12,7 +12,7 @@ class GroupController extends ApiController
 {
     public function index()
     {
-        $users = Group::take(10)->get();
+        $groups = Group::take(10)->get();
 
         return $this->respondWithCollection($groups, new GroupTransformer);
     }

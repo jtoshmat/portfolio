@@ -23,4 +23,11 @@ return [
         'parent' =>   5,
 
     ],
+
+    'no_csrf' => [
+        'districts' =>   '/districts',
+        'organizations' =>   '/organizations',
+
+
+    ],
 ];
