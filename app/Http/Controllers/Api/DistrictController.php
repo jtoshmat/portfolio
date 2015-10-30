@@ -31,17 +31,18 @@ class DistrictController extends ApiController
 
     public function update(\Request $request){
 
-
-
-            if ($request::isMethod('put')) {
-            $validator = Validator::make(Input::all(), District::$groupUpdateRules);
+        if ($request::isMethod('put')) {
+            $validator = Validator::make(Input::all(), District::$apiDistrictUpdate);
             if ($validator->passes()) {
-                return "PUT is being requested";
+                //@TODO update the data
+                $id = $request::get('id');
+                return $this->respondWithArray(array('The district has been updated successfully.'));
             }else{
-                return "yaaay but it did not pass the validation";
+                $messages = print_r($validator->errors()->getMessages(),true);
+                return $this->errorInternalError("Input validation error: ".$messages);
             }
         }
-        return "ddddd";
+        return $this->errorInternalError("Invalid request");
     }
 
     public function show($districtsId)

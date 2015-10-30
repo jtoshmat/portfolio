@@ -16,8 +16,21 @@ class District extends Model
 		'code'
 	];
 
+
+    /*
+     * Api rules
+     */
+
+    public static $apiDistrictUpdate = array(
+        'title'=>'string',
+        //'role[]'=>'required',
+        //'role[]'=>'required|regex:/^[0-9]?$/',
+    );
+
+
+
 	public static $groupUpdateRules = array(
-		'title[]'=>'string',
+		'title'=>'string',
 		//'role[]'=>'required',
 		//'role[]'=>'required|regex:/^[0-9]?$/',
 	);
