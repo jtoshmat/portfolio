@@ -13,6 +13,7 @@ class DistrictTransformer extends TransformerAbstract
 
     protected $availableIncludes = [
         'organizations',
+        'DistrictByName'
 
     ];
 
@@ -45,6 +46,5 @@ class DistrictTransformer extends TransformerAbstract
 
         return $this->collection($organizations, new OrganizationTransformer());
     }
-
 
 }
