@@ -30,12 +30,13 @@ class DistrictController extends ApiController
     }
 
     public function update(\Request $request){
-
         if ($request::isMethod('put')) {
             $validator = Validator::make(Input::all(), District::$apiDistrictUpdate);
             if ($validator->passes()) {
-                //@TODO update the data
+                //@TODO test the district api update wth front end.
                 $id = $request::get('id');
+                $district = new District();
+                dd($district->updateApiDistrict($request));
                 return $this->respondWithArray(array('The district has been updated successfully.'));
             }else{
                 $messages = print_r($validator->errors()->getMessages(),true);

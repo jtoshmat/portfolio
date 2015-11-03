@@ -84,6 +84,15 @@ class District extends Model
 		return true;
 	}
 
+    public function updateApiDistrict(\Request $request){
+        //@TODO once the frontend sends request, get them and plug them in here  - JT 10/3
+        $district = District::firstOrCreate(array('id'=>1));
+        $district->title = 'Distict title';
+        $district->description = 'Distict description';
+        $district->organization()->sync(array(1));
+        return $district->save();
+    }
+
     /**
      * Scope a query to only include users of a given type.
      *
