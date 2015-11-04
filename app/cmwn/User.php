@@ -119,9 +119,11 @@ class User extends Model implements
     public function suggestedfriends()
     {
         $groups = $this->groups->lists('id');
+
         $suggested = self::whereHas('groups', function ($query) use ($groups) {
             $query->whereIn('roleable_id', $groups);
         })->get();
+
         return $suggested;
     }
 

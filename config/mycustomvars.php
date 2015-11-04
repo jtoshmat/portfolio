@@ -16,12 +16,9 @@ return [
         /*
          * All custom roles
          */
-        'admin' =>   1,
-        'superintendent' =>   2,
-        'principal' =>   3,
-        'teacher' =>   4,
-        'student' =>   5,
-        'parent' =>   6,
+        'super admin' =>   1,
+        'admin' =>   2,
+        'member' =>   3,
     ],
 
     'no_csrf' => [
