@@ -19,7 +19,7 @@ class DistrictTransformer extends TransformerAbstract
     public function transform(District $district)
     {
         return [
- 
+
             'id'            => (int) $district->id,
             'system_id'     => (int) $district->system_id,
             'code'          => $district->code,

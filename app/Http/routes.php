@@ -111,13 +111,10 @@ Route::group(['middleware' => 'auth'], function ($router) {
         Route::get('/sidebar', 'Api\MasterController@sidebar');
         Route::get('/friends', 'Api\MasterController@friends');
 
-        Route::get('/users/login', 'Auth\AuthController@getLogin');
-
-        Route::get('/users/login', function()
+        Route::get('/users/getToken', function()
         {
             return csrf_token();
         });
-
         Route::post('/users/login', 'Auth\AuthController@postLogin');
         Route::get('/users/logout', 'Auth\AuthController@getLogout');
 
