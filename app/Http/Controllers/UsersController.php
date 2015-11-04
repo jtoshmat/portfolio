@@ -25,10 +25,9 @@ class UsersController extends Controller
      */
 
 
+
     public function members()
     {
-	   return urldecode('http://tags.msnbc.com/nbc/embed/serverComponent.php?r=52040829.41622721&ClientID=254&PageID=http%3A%2F%2Fplayer.theplatform.com%2Fp%2F7wvmTC%2FMSNBCEmbeddedOffSite%3Fguid%3Dn_mj_billfull_151030');
-
 	      $members = User::paginate(10);
 	    return view('users/members', compact('members'));
 

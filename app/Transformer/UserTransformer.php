@@ -19,7 +19,8 @@ class UserTransformer extends TransformerAbstract
         'guardians',
         'blockedfriends',
         'pendingfriends',
-        'friendrequests'
+        'friendrequests',
+        'organizations'
     ];
 
     /**
@@ -128,5 +129,16 @@ class UserTransformer extends TransformerAbstract
     {
         $children = $user->children;
         return $this->collection($children, new UserTransformer());
+    }
+
+    /**
+     * Embed Organizations.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeOrganizations(User $user)
+    {
+        $organizations = $user->organizations;
+        return $this->collection($organizations, new OrganizationTransformer());
     }
 }

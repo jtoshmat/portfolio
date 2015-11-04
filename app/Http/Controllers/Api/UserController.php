@@ -67,4 +67,8 @@ class UserController extends ApiController
 
         return $this->respondWithCollection($user->groups, new GroupTransformer);
     }
+
+    public function login(){
+        return csrf_token();
+    }
 }
