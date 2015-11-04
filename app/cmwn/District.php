@@ -27,15 +27,13 @@ class District extends Model
         //'role[]'=>'required|regex:/^[0-9]?$/',
     );
 
-
-
 	public static $groupUpdateRules = array(
 		'title'=>'string',
 		//'role[]'=>'required',
 		//'role[]'=>'required|regex:/^[0-9]?$/',
 	);
 
-	public function organization()
+	public function organizations()
 	{
 		return $this->belongsToMany('app\Organization');
 	}

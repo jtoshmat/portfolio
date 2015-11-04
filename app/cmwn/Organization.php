@@ -87,10 +87,10 @@ class Organization extends Model
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeName($query, $val)
-    {
-        return $query->where('title', $val);
-    }
+    // public function scopeName($query, $val)
+    // {
+    //     return $query->where('title', $val);
+    // }
 
 
 }

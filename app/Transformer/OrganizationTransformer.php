@@ -11,6 +11,7 @@ class OrganizationTransformer extends TransformerAbstract
     protected $availableIncludes = [
         'groups'
     ];
+
     /**
      * Turn this item object into a generic array.
      *
