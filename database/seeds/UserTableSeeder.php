@@ -67,8 +67,8 @@ class UserTableSeeder extends Seeder
             ));
         }
 
-        $jon->role()->sync([$admin->id]);
-        $arron->role()->sync([$admin->id]);
+        $jon->role()->sync(1);
+        $arron->role()->sync(1);
 
         $user = User::find($jon->id);
         $roles = array(1);
