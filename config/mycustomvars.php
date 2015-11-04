@@ -16,7 +16,7 @@ return [
         /*
          * All custom roles
          */
-        'super admin' =>   1,
+        'super_admin' =>   1,
         'admin' =>   2,
         'member' =>   3,
     ],

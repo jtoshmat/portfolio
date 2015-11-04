@@ -10,7 +10,11 @@ class OrganizationTransformer extends TransformerAbstract
 
     protected $availableIncludes = [
         'districts',
-        'groups'
+        'groups',
+        'users',
+        'superAdmins',
+        'admins',
+        'members'
     ];
 
     /**
@@ -30,7 +34,7 @@ class OrganizationTransformer extends TransformerAbstract
     }
 
     /**
-     * Embed Districts.
+     * Include Districts.
      *
      * @return League\Fractal\Resource\Collection
      */
@@ -41,7 +45,7 @@ class OrganizationTransformer extends TransformerAbstract
     }
 
     /**
-     * Embed Groups.
+     * Include Groups.
      *
      * @return League\Fractal\Resource\Collection
      */
@@ -52,4 +56,48 @@ class OrganizationTransformer extends TransformerAbstract
         return $this->collection($groups, new GroupTransformer());
     }
 
+    /**
+     * Include Users.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeUsers(Organization $organization)
+    {
+        $users = $organization->users;
+        return $this->collection($users, new UserTransformer());
+    }
+
+    /**
+     * Include SuperAdmins.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeSuperAdmins(Organization $organization)
+    {
+        $superAdmins = $organization->superAdmins;
+        return $this->collection($superAdmins, new UserTransformer());
+    }
+
+    /**
+     * Include Admins.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeAdmins(Organization $organization)
+    {
+        $admins = $organization->admins;
+        return $this->collection($admins, new UserTransformer());
+    }
+
+    /**
+     * Include Members.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeMembers(Organization $organization)
+    {
+        $members = $organization->members;
+
+        return $this->collection($members, new UserTransformer());
+    }
 }

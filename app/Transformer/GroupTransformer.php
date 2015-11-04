@@ -9,9 +9,9 @@ class GroupTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
         'users',
-        'teachers',
-        'students',
-        'principals',
+        'superAdmins',
+        'admins',
+        'members',
         'suggestedfriends'
     ];
 
@@ -31,7 +31,7 @@ class GroupTransformer extends TransformerAbstract
     }
 
     /**
-     * Embed Friends.
+     * Include Users.
      *
      * @return League\Fractal\Resource\Collection
      */
@@ -42,37 +42,37 @@ class GroupTransformer extends TransformerAbstract
     }
 
     /**
-     * Embed Teachers.
+     * Include SuperAdmins.
      *
      * @return League\Fractal\Resource\Collection
      */
-    public function includeTeachers(Group $group)
+    public function includeSuperAdmins(Group $group)
     {
-        $teachers = $group->teachers;
-        return $this->collection($teachers, new UserTransformer());
+        $superAdmins = $group->superAdmins;
+        return $this->collection($superAdmins, new UserTransformer());
     }
 
     /**
-     * Embed Students.
+     * Include Admins.
      *
      * @return League\Fractal\Resource\Collection
      */
-    public function includeStudents(Group $group)
+    public function includeAdmins(Group $group)
     {
-        $students = $group->students;
-        return $this->collection($students, new UserTransformer());
+        $admins = $group->admins;
+        return $this->collection($admins, new UserTransformer());
     }
 
-
     /**
-     * Embed Principals.
+     * Include Members.
      *
      * @return League\Fractal\Resource\Collection
      */
-    public function includePrincipals(Group $group)
+    public function includeMembers(Group $group)
     {
-        $principals = $group->principals;
-        return $this->collection($principals, new UserTransformer());
+        $members = $group->members;
+
+        return $this->collection($members, new UserTransformer());
     }
 
     /**
