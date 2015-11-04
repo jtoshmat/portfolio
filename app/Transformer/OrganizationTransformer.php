@@ -12,6 +12,7 @@ class OrganizationTransformer extends TransformerAbstract
         'districts',
         'groups'
     ];
+
     /**
      * Turn this item object into a generic array.
      *

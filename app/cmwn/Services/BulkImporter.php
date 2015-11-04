@@ -4,109 +4,103 @@ namespace app\cmwn\Services;
 
 use app\Group;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-
-use app\cmwn\Services\Notifier;
 use app\District;
 use app\Organization;
 use app\User;
-
 use Illuminate\Support\Facades\Auth;
 
 class BulkImporter
 {
-	use DispatchesJobs;
+    use DispatchesJobs;
 
-	public static function migratecsv(){
+    public static function migratecsv()
+    {
+        $file = base_path('storage/app/yourcsv.csv');
 
-		$file = base_path( 'storage/app/yourcsv.csv' );
+        $csv = self::csv_to_array($file);
 
-		$csv = self::csv_to_array($file);
+        self::updateDB($csv);
+    }
 
-		self::updateDB($csv);
-	}
+    public static function csv_to_array($filename = '', $delimiter = ',')
+    {
+        if (!file_exists($filename) || !is_readable($filename)) {
+            return false;
+        }
 
-	public static function csv_to_array($filename='', $delimiter=',')
-	{
-		if(!file_exists($filename) || !is_readable($filename))
-			return FALSE;
+        $header = null;
+        $data = array();
+        if (($handle = fopen($filename, 'r')) !== false) {
+            while (($row = fgetcsv($handle, 1000, $delimiter)) !== false) {
+                if (!$header) {
+                    $header = $row;
+                } else {
+                    $data[] = array_combine($header, $row);
+                }
+            }
+            fclose($handle);
+        }
 
-		$header = NULL;
-		$data = array();
-		if (($handle = fopen($filename, 'r')) !== FALSE)
-		{
-			while (($row = fgetcsv($handle, 1000, $delimiter)) !== FALSE)
-			{
-				if(!$header)
-					$header = $row;
-				else
-					$data[] = array_combine($header, $row);
-			}
-			fclose($handle);
-		}
-		return $data;
-	}
+        return $data;
+    }
 
     protected static function updateDB($data)
     {
-	    foreach($data as $title){
-		    if ($title['STUDENT ID']!='') {
+        foreach ($data as $title) {
+            if ($title['STUDENT ID'] != '') {
 
-			    //creating or updating districts
-			    $DDBNNN              = preg_split('/(?<=[0-9])(?=[a-z]+)/i',$title['DDBNNN']);
+                //creating or updating districts
+                $DDBNNN = preg_split('/(?<=[0-9])(?=[a-z]+)/i', $title['DDBNNN']);
 
-			    $district            = District::firstOrCreate(['code' => $DDBNNN[0], 'system_id' => 1]);
-				$district->code      = $DDBNNN[0];
-				$district->system_id = 1;
-				$district->title     = 'District '. $DDBNNN[0];
-			    $district->save();
+                $district = District::firstOrCreate(['code' => $DDBNNN[0], 'system_id' => 1]);
+                $district->code = $DDBNNN[0];
+                $district->system_id = 1;
+                $district->title = 'District '.$DDBNNN[0];
+                $district->save();
 
-			    $organization = Organization::where(['code' => $DDBNNN[1]])
-			    				->with(array('districts' => function($query) use ($district) {
-												    			$query->where('district_id', $district->id);
-												    		}))->first();
+                $organization = Organization::where(['code' => $DDBNNN[1]])
+                                ->with(array('districts' => function ($query) use ($district) {
+                                                                $query->where('district_id', $district->id);
+                                                            }))->first();
 
-			    if(is_null($organization)){ // TODO figure out if this can be replaced with a firstOrCreate;
-			    	$organization = new Organization;
-			    }
+                if (is_null($organization)) { // TODO figure out if this can be replaced with a firstOrCreate;
+                    $organization = new Organization();
+                }
 
-			    $organization->code  = $DDBNNN[1];
-			    $organization->title = $DDBNNN[1];
-			    $organization->save();
+                $organization->code = $DDBNNN[1];
+                $organization->title = $DDBNNN[1];
+                $organization->save();
 
-			    if (!$organization->districts->contains($district->id)) {
-				    $organization->districts()->attach($district->id);
-			    }
+                if (!$organization->districts->contains($district->id)) {
+                    $organization->districts()->attach($district->id);
+                }
 
-
-			    $group = Group::firstOrCreate(['organization_id' => $organization->id]);
+                $group = Group::firstOrCreate(['organization_id' => $organization->id]);
                 $group->title = $title['OFF CLS'];
                 $group->save();
 
+                $user = User::firstOrCreate(['student_id' => $title['STUDENT ID']]);
 
+                $user->student_id = $title['STUDENT ID'];
+                $user->first_name = $title['FIRST NAME'];
+                $user->last_name = $title['LAST NAME'];
+                $user->sex = $title['SEX'];
+                $user->dob = $title['BIRTH DT'];
+                $user->save();
+            }
+        }
 
-			    $user = User::firstOrCreate(['student_id' => $title['STUDENT ID']]);
-			    
-			    $user->student_id = $title['STUDENT ID'];
-			    $user->first_name = $title['FIRST NAME'];
-			    $user->last_name  = $title['LAST NAME'];
-			    $user->sex        = $title['SEX'];
-			    $user->dob        = $title['BIRTH DT'];
-			    $user->save();
-
-		    }
-	    }
-
-	    $notifier = new Notifier();
-	    $notifier->to = Auth::user()->email;
-	    $notifier->subject = "Your import is completed at ". date('m-d-Y h:i:s A');
-	    $notifier->template = "emails.import";
-	    $notifier->attachData(['user' => Auth::user()]);
-	    $notifier->send();
+        $notifier = new Notifier();
+        $notifier->to = Auth::user()->email;
+        $notifier->subject = 'Your import is completed at '.date('m-d-Y h:i:s A');
+        $notifier->template = 'emails.import';
+        $notifier->attachData(['user' => Auth::user()]);
+        $notifier->send();
     }
 }
 
-	/*
-	 * "DDBNNN" => "14K120"
+    /*
+     * "DDBNNN" => "14K120"
     "LAST NAME" => "Smith"
     "FIRST NAME" => "Jim"
     "STUDENT ID" => "236199170"
@@ -135,4 +129,4 @@ class BulkImporter
     "MEAL CDE" => "1"
     "YTD ATTD PCT" => "100"
     "EMAIL" => ""
-	 */
+     */

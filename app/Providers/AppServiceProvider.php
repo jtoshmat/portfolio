@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \app\User::creating(function ($user) {
-            echo('creating ');
+            //echo('creating ');
         });
 
         // Attach event handler, on deleting of the user

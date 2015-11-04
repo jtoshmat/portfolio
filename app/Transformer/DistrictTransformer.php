@@ -3,18 +3,12 @@
 namespace app\Transformer;
 
 use app\District;
-use app\Group;
-use app\Organization;
 use League\Fractal\TransformerAbstract;
 
 class DistrictTransformer extends TransformerAbstract
 {
-    protected $availableEmbeds = [];
-
     protected $availableIncludes = [
-        'organizations',
-        'DistrictByName'
-
+        'organizations'
     ];
 
     /**
@@ -25,6 +19,7 @@ class DistrictTransformer extends TransformerAbstract
     public function transform(District $district)
     {
         return [
+ 
             'id'            => (int) $district->id,
             'system_id'     => (int) $district->system_id,
             'code'          => $district->code,
@@ -44,7 +39,6 @@ class DistrictTransformer extends TransformerAbstract
     {
         $organizations = $district->organizations;
 
-        return $this->collection($organizations, new OrganizationTransformer());
+        return $this->collection($organizations, new OrganizationTransformer);
     }
-
 }

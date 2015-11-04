@@ -5,82 +5,59 @@ namespace app;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Request;
+use app\cmwn\Traits\RoleTrait;
 
 class Group extends Model
 {
-	use SoftDeletes;
-	protected $dates = ['deleted_at'];
-	protected $table = 'groups';
-	protected $fillable = array('organization_id', 'title');
+    use RoleTrait;
+    use SoftDeletes;
 
-	public static $groupUpdateRules = array(
-		'title[]'=>'string',
-		//'role[]'=>'required',
-		//'role[]'=>'required|regex:/^[0-9]?$/',
-	);
+    protected $dates = ['deleted_at'];
+    protected $table = 'groups';
+    protected $fillable = array('organization_id', 'title');
 
-	public function users()
-	{
-	    return $this->morphToMany('app\User', 'roleable')->withPivot('role_id');
-	}
+    public static $groupUpdateRules = array(
+        'title[]' => 'string',
+        //'role[]'=>'required',
+        //'role[]'=>'required|regex:/^[0-9]?$/',
+    );
 
-	public function students()
-	{
-		$role_id = (int) \Config::get('mycustomvars.roles.student');
-		return $this->morphToMany('app\User', 'roleable')->wherePivot('role_id',$role_id);
-
-	}
-
-	public function teachers()
-	{
-		$role_id = (int) \Config::get('mycustomvars.roles.teacher');
-		return $this->morphToMany('app\User', 'roleable')->wherePivot('role_id',$role_id);
-	}
-
-    public function principals()
+    public function organization()
     {
-        $role_id = (int) \Config::get('mycustomvars.roles.principal');
-        return $this->morphToMany('app\User', 'roleable')->wherePivot('role_id',$role_id);
+        return $this->belongsTo('app\Organization');
     }
 
+    public static function updateGroups(Request $request)
+    {
+        $titles = $request::get('title');
+        $ids = $request::get('id');
 
-	public function organization()
-	{
-		return $this->belongsTo('app\Organization');
-	}
+        $deleteId = $request::get('delete');
+        $newtitle = $request::get('newtitle');
 
-	public static function updateGroups(Request $request){
-		$titles = $request::get('title');
-		$ids = $request::get('id');
+        $i = 0;
+        if ($ids) {
+            foreach ($ids as $id) {
+                $group = self::find($id);
+                $group->title = $titles[ $i ];
 
-		$deleteId = $request::get('delete');
-		$newtitle = $request::get('newtitle');
+                if (isset($deleteId[ $i ]) && $deleteId[ $i ] == $id) {
+                    $group->delete();
+                } else {
+                    $group->save();
+                }
+                ++$i;
+            }
+        }
 
-		$i=0;
-		if ($ids) {
-			foreach ($ids as $id) {
-				$group = Group::find($id);
-				$group->title = $titles[ $i ];
+        if ($newtitle) {
+            $group = new self();
+            $group->title = $newtitle;
+            $group->save();
+        }
 
-				if (isset($deleteId[ $i ]) && $deleteId[ $i ] == $id) {
-					$group->delete();
-				} else {
-
-					$group->save();
-				}
-				$i++;
-			}
-		}
-
-		if ($newtitle){
-			$group = new Group();
-			$group->title = $newtitle;
-			$group->save();
-		}
-
-		return true;
-	}
-
+        return true;
+    }
 
     /**
      * Scope a query to only include users of a given type.
