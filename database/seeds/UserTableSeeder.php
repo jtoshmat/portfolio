@@ -34,60 +34,38 @@ class UserTableSeeder extends Seeder
                 'student_id' => 'arron.kallenberg@gmail.com',
             ));
 
-            // Create 5 Teachers
-            for ($i = 1; $i < 5; ++$i) {
-                $teacher = User::create(array(
-                    'name' => 'teacher'.$i,
-                    'email' => 'teacher@yahoo.com'.$i,
-                    'password' => Hash::make('business'),
-                    'slug' => 'teacher_slug'.$i,
-                    'student_id' => 'teacher_id'.$i,
-                ));
-            }
-
-            // Create 5 Guardians
-            for ($i = 1; $i < 5; ++$i) {
-                $guardian = User::create(array(
-                    'name' => 'parent'.$i,
-                    'email' => 'jontoshmatov@yahoo.com'.$i,
-                    'password' => Hash::make('business'),
-                    'slug' => 'parent_slug'.$i,
-                    'student_id' => 'guardian_id'.$i,
-                ));
-            }
-
-            // Create 5 Children
-            for ($i = 1; $i < 5; ++$i) {
-                $child = User::create(array(
-                    'name' => 'child'.$i,
-                    'email' => 'child@child.com'.$i,
-                    'password' => Hash::make('business'),
-                    'slug' => 'child_slug'.$i,
-                    'student_id' => 'child_id'.$i,
-                ));
-            }
-
-        DB::table('roles')->truncate();
-
-        $admin = Role::create(array(
-                'title' => 'admin',
+        // Create 5 Teachers
+        for ($i = 1; $i < 5; ++$i) {
+            $teacher = User::create(array(
+                'name' => 'teacher'.$i,
+                'email' => 'teacher@yahoo.com'.$i,
+                'password' => Hash::make('business'),
+                'slug' => 'teacher_slug'.$i,
+                'student_id' => 'teacher_id'.$i,
             ));
+        }
 
-        $Superintendent = Role::create(array(
-                'title' => 'Superintendent',
+        // Create 5 Guardians
+        for ($i = 1; $i < 5; ++$i) {
+            $guardian = User::create(array(
+                'name' => 'parent'.$i,
+                'email' => 'jontoshmatov@yahoo.com'.$i,
+                'password' => Hash::make('business'),
+                'slug' => 'parent_slug'.$i,
+                'student_id' => 'guardian_id'.$i,
             ));
+        }
 
-        $principal = Role::create(array(
-                'title' => 'principal',
+        // Create 5 Children
+        for ($i = 1; $i < 5; ++$i) {
+            $child = User::create(array(
+                'name' => 'child'.$i,
+                'email' => 'child@child.com'.$i,
+                'password' => Hash::make('business'),
+                'slug' => 'child_slug'.$i,
+                'student_id' => 'child_id'.$i,
             ));
-
-        $role_teacher = Role::create(array(
-                'title' => 'teacher',
-            ));
-
-        $role_student = Role::create(array(
-                'title' => 'student',
-            ));
+        }
 
         $jon->role()->sync([$admin->id]);
         $arron->role()->sync([$admin->id]);
