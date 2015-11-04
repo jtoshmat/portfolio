@@ -114,6 +114,7 @@ Route::group(['middleware' => 'auth'], function ($router) {
         Route::get('/users', 'Api\UserController@index');
         Route::get('/users/{id}', 'Api\UserController@show');
         Route::get('/users/{id}/groups', 'Api\UserController@getGroups');
+        Route::get('/suggestedfriends', 'Api\SuggestedController@show');
 
         Route::get('/groups', 'Api\GroupController@index');
         Route::get('/groups/{id}', 'Api\GroupController@show');

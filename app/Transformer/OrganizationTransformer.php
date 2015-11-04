@@ -9,6 +9,7 @@ class OrganizationTransformer extends TransformerAbstract
 {
 
     protected $availableIncludes = [
+        'districts',
         'groups'
     ];
 
@@ -29,6 +30,17 @@ class OrganizationTransformer extends TransformerAbstract
     }
 
     /**
+     * Embed Districts.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeDistricts(Organization $organization)
+    {
+        $districts = $organization->districts;
+        return $this->collection($districts, new DistrictTransformer());
+    }
+
+    /**
      * Embed Groups.
      *
      * @return League\Fractal\Resource\Collection
@@ -39,4 +51,5 @@ class OrganizationTransformer extends TransformerAbstract
 
         return $this->collection($groups, new GroupTransformer());
     }
+
 }
