@@ -106,11 +106,6 @@ class User extends Model implements
         return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status', 1);
     }
 
-    public function blockedfriends()
-    {
-        return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status', 1);
-    }
-
     public function pendingfriends()
     {
         return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status', 0);
@@ -119,6 +114,15 @@ class User extends Model implements
     public function friendrequests()
     {
         return $this->belongsToMany('app\User', 'friends', 'friend_id')->wherePivot('friend_id', $this->id)->wherePivot('status', 0);
+    }
+
+    public function suggestedfriends()
+    {
+        $groups = $this->groups->lists('id');
+        $suggested = self::whereHas('groups', function ($query) use ($groups) {
+            $query->whereIn('roleable_id', $groups);
+        })->get();
+        return $suggested;
     }
 
     public function siblings()

@@ -11,7 +11,8 @@ class GroupTransformer extends TransformerAbstract
         'users',
         'teachers',
         'students',
-        'principals'
+        'principals',
+        'suggestedfriends'
     ];
 
     /**
@@ -72,5 +73,16 @@ class GroupTransformer extends TransformerAbstract
     {
         $principals = $group->principals;
         return $this->collection($principals, new UserTransformer());
+    }
+
+    /**
+     * Embed Suggested Friends.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeSuggestedFriends(Group $group)
+    {
+        $suggestedfriends = $group->suggestedfriends();
+        return $this->collection($suggestedfriends, new UserTransformer());
     }
 }
