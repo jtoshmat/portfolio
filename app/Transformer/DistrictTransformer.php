@@ -31,7 +31,6 @@ class DistrictTransformer extends TransformerAbstract
             'title'         => $district->title,
             'description'   => $district->description,
             'created_at'    => (string) $district->created_at,
-            'csrf_token'    => csrf_token()
 
         ];
     }
