@@ -10,7 +10,12 @@ global:
     - CACHE_DRIVER: file
     - SESSION_DRIVER: redis
     - QUEUE_DRIVER: redis
-    - MAIL_DRIVER: mail
+    - MAIL_DRIVER=smtp
+    - MAIL_HOST=mailtrap.io
+    - MAIL_PORT=2525
+    - MAIL_USERNAME=4762712fd34d91aa0
+    - MAIL_PASSWORD=af48fe96f32502
+    - MAIL_ENCRYPTION=null
 
 build:
   exec:
