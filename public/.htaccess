@@ -1,9 +1,9 @@
-AuthType Basic
+
 AuthName "Password Protected Area"
 AuthUserFile /var/www/.htpasswd
 Require valid-user
 Satisfy any
-Deny from env=APP_NAME
+Allow from env=!APP_NAME
 
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
