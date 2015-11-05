@@ -1,7 +1,9 @@
-AuthType Basic
-AuthName "Password Protected Area"
-AuthUserFile /var/www/.htpasswd
-Require valid-user
+<IfDefine production>
+    AuthType Basic
+    AuthName "Password Protected Area"
+    AuthUserFile /var/www/.htpasswd
+    Require valid-user
+</IfDefine>
 
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
