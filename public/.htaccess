@@ -3,10 +3,6 @@
     AuthName "Password Protected Area"
     AuthUserFile /var/www/.htpasswd
     Require valid-user
-
-    Order allow,deny
-    Allow from env=APP_ENV
-    Satisfy all
 </IfDefine>
 
 <IfModule mod_rewrite.c>
