@@ -12,7 +12,7 @@ class DistrictTransformer extends TransformerAbstract
         'users',
         'superAdmins',
         'admins',
-        'members'
+        'members',
     ];
 
     /**
@@ -23,14 +23,12 @@ class DistrictTransformer extends TransformerAbstract
     public function transform(District $district)
     {
         return [
-
-            'id'            => (int) $district->id,
-            'system_id'     => (int) $district->system_id,
-            'code'          => $district->code,
-            'title'         => $district->title,
-            'description'   => $district->description,
-            'created_at'    => (string) $district->created_at,
-
+            'id' => (int) $district->id,
+            'system_id' => (int) $district->system_id,
+            'code' => $district->code,
+            'title' => $district->title,
+            'description' => $district->description,
+            'created_at' => (string) $district->created_at,
         ];
     }
 
@@ -43,7 +41,7 @@ class DistrictTransformer extends TransformerAbstract
     {
         $organizations = $district->organizations;
 
-        return $this->collection($organizations, new OrganizationTransformer);
+        return $this->collection($organizations, new OrganizationTransformer());
     }
 
     /**
@@ -54,6 +52,7 @@ class DistrictTransformer extends TransformerAbstract
     public function includeUsers(District $district)
     {
         $users = $district->users;
+
         return $this->collection($users, new UserTransformer());
     }
 
@@ -65,6 +64,7 @@ class DistrictTransformer extends TransformerAbstract
     public function includeSuperAdmins(District $district)
     {
         $superAdmins = $district->superAdmins;
+
         return $this->collection($superAdmins, new UserTransformer());
     }
 
@@ -76,6 +76,7 @@ class DistrictTransformer extends TransformerAbstract
     public function includeAdmins(District $district)
     {
         $admins = $district->admins;
+
         return $this->collection($admins, new UserTransformer());
     }
 

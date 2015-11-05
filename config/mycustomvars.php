@@ -17,8 +17,8 @@ return [
          * All custom roles
          */
         'super_admin' =>   1,
-        'admin' =>   2,
-        'member' =>   3,
+        'admin'       =>   2,
+        'member'      =>   3,
     ],
 
     'no_csrf' => [
