@@ -1,7 +1,7 @@
 global:
   env:
     - APP_ENV: production
-    - APP_DEBUG: false
+    - APP_DEBUG: true
     - APP_KEY: SomeRandomStringWith32Characters
     - DB_HOST: 'MAP:DATABASE1_HOST'
     - DB_DATABASE: 'MAP:DATABASE1_NAME'
