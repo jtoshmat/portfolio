@@ -1,4 +1,4 @@
-<If "%{APP_ENV} == 'production'">
+<If "%{ENV:APP_ENV} == 'production'">
     AuthType Basic
     AuthName "Password Protected Area"
     AuthUserFile /var/www/.htpasswd
