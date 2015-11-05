@@ -18,6 +18,9 @@ global:
     - MAIL_ENCRYPTION: null
 
 build:
+  before_exec:
+    - "rm public/.htaccess"
+    - "mv public/.htaccess-prod public/.htaccess"
   exec:
     - 'composer install --no-interaction --prefer-source'
     # - 'npm install'
