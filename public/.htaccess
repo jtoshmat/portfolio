@@ -1,9 +1,9 @@
-<IfDefine production>
+<If "%{APP_ENV} == 'production'">
     AuthType Basic
     AuthName "Password Protected Area"
     AuthUserFile /var/www/.htpasswd
     Require valid-user
-</IfDefine>
+</If>
 
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
