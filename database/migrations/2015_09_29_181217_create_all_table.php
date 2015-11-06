@@ -140,6 +140,7 @@ class CreateAllTable extends Migration
 		    $table->unsignedInteger('child_id')->unsigned();
 		    $table->foreign('child_id')->references('id')->on('users')->onDelete('cascade');
 		    $table->foreign('guardian_id')->references('id')->on('users')->onDelete('cascade');
+            //$table->unique(array('guardian_id', 'child_id'));
 		    $table->timestamps();
 	    });
 

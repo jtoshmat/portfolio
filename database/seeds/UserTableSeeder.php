@@ -14,6 +14,20 @@ class UserTableSeeder extends Seeder
         DB::table('users')->delete();
         DB::table('child_guardian')->delete();
 
+        DB::table('roles')->truncate();
+
+        $super_admin = Role::create(array(
+            'title' => 'super_admin',
+        ));
+
+        $admin = Role::create(array(
+            'title' => 'admin',
+        ));
+
+        $member = Role::create(array(
+            'title' => 'member',
+        ));
+
         $jon = User::create(array(
                 'name' => 'Jon Toshmatov',
                 'first_name' => 'Jon',
@@ -67,23 +81,21 @@ class UserTableSeeder extends Seeder
             ));
         }
 
-        $jon->role()->sync(1);
-        $arron->role()->sync(1);
+        //$jon->role()->sync(1);
+        //$arron->role()->sync(1);
 
-        $user = User::find($jon->id);
-        $roles = array(1);
-        $roles = ($roles) ? $roles : array();
-        $user->role()->sync($roles);
 
-        DB::table('friends')->insert([
-                'user_id' => 1,
-                'friend_id' => 2,
-            ]);
 
-        DB::table('child_guardian')->insert([
-                'guardian_id' => $guardian->id,
-                'child_id' => $child->id,
-            ]);
+//        DB::table('friends')->insert([
+//                'user_id' => 1,
+//                'friend_id' => 2,
+//            ]);
+//
+//        DB::table('child_guardian')->insert([
+//                'guardian_id' => $guardian->id,
+//                'child_id' => $child->id,
+//            ]);
+
 
         for ($i = 1; $i < 5; ++$i) {
             $district = District::create(array(
