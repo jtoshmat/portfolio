@@ -1,7 +1,0 @@
-AuthType Basic
-AuthName "Password Protected Area"
-AuthUserFile /var/www/done/.htpasswd
-Require valid-user
-
-Options +Indexes
-IndexOptions FancyIndexing FoldersFirst SuppressIcon

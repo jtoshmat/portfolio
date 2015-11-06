@@ -10,17 +10,14 @@ global:
     - CACHE_DRIVER: file
     - SESSION_DRIVER: redis
     - QUEUE_DRIVER: redis
-    - MAIL_DRIVER=smtp
-    - MAIL_HOST=mailtrap.io
-    - MAIL_PORT=2525
-    - MAIL_USERNAME=4762712fd34d91aa0
-    - MAIL_PASSWORD=af48fe96f32502
-    - MAIL_ENCRYPTION=null
+    - MAIL_DRIVER: smtp
+    - MAIL_HOST: mailtrap.io
+    - MAIL_PORT: 2525
+    - MAIL_USERNAME: 4762712fd34d91aa0
+    - MAIL_PASSWORD: af48fe96f32502
+    - MAIL_ENCRYPTION: null
 
 build:
-  before_exec:
-    - "rm .htaccess"
-    - "mv .htaccess-prod .htaccess"
   exec:
     - 'composer install --no-interaction --prefer-source'
     # - 'npm install'
