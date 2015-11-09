@@ -1,5 +1,7 @@
 <?php
 
+//dd(Request::root());
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -105,19 +107,24 @@ Route::group(['middleware' => 'auth'], function ($router) {
 ##########################################################################
 ######################## API Requests Only ###############################
 ##########################################################################
-    Route::group(['prefix' => 'api', 'middleware' => 'api', 'after' => 'allowOrigin'], function () {
-        //A test route for api
-        Route::get('/test', function () {
-            return 'If you see this message that means this is an API request.';
-        });
+
+
+
+
+Route::group(['prefix' => 'api', 'middleware' => 'api'], function () {
+
+    Route::get('/test', function () {
+        return 'If you see this message that means this is an API request.';
+    });
+
+    Route::get('/csrf_token', function () {
+        return csrf_token();
+    });
+
+    Route::group(['middleware' => 'auth'], function ($router) {
 
         Route::get('/sidebar', 'Api\MasterController@sidebar');
         Route::get('/friends', 'Api\MasterController@friends');
-
-        Route::get('/users/getToken', function()
-        {
-            return csrf_token();
-        });
 
         Route::post('/users/login', 'Auth\AuthController@postLogin');
         Route::get('/users/logout', 'Auth\AuthController@getLogout');
@@ -144,8 +151,10 @@ Route::group(['middleware' => 'auth'], function ($router) {
 
         Route::get('/roles', 'Api\RoleController@index');
         Route::get('/roles/{id}', 'Api\RoleController@show');
-    });
 
-    Route::any('{catchall}', function ($page) {
-        return File::get(public_path().'/index.html');
-    })->where('catchall', '(.*)');
+    });
+});
+
+Route::any('{catchall}', function ($page) {
+    return File::get(public_path().'/index.html');
+})->where('catchall', '(.*)');
