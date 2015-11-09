@@ -30,6 +30,8 @@ Route::get('/home', function () {
     return view('welcome');
 });
 
+    Route::any('admin/importfiles', 'AdminToolsController@importfiles');
+
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
@@ -80,6 +82,7 @@ Route::group(['middleware' => 'auth'], function ($router) {
 ########################## Admins Only ####################################
     Route::group(['middleware' => 'role:admin'], function ($router) {
         Route::any('admin/uploadcsv', 'AdminToolsController@uploadcsv');
+
         Route::any('admin/playground', 'AdminTestController@uploadImage');
     });
 ########################## Misc Auth users ################################

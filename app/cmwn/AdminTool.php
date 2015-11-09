@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class AdminTool extends Model
 {
 	public static $uploadCsvRules = array(
-		'yourcsv'=>'required|mimes:csv,txt',
+		//'yourcsv'=>'required|mimes:csv,txt',
+		//'importype'=>'required',
 	);
 
 	public static $uploadImageRules = array(

@@ -1,0 +1,46 @@
+@extends('master')
+@section('content')
+	<div class="panel panel-info">
+		<div class="panel-body" style="padding-top:30px">
+			{!! Form::open(array('url' => 'admin/importfiles', 'files'=>true, 'class' => 'form-horizontal', 'role' => 'form', 'id' =>
+				'uploadcsvform'))	!!}
+			<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+				<tr class="tr_head">
+					<td colspan="2"><h4>Import Files</h4></td>
+				</tr>
+				<tr>
+					<td>Select your file: </td>
+					<td>
+						<div class="input-group" style="margin-bottom: 25px">
+							{!! Form::file('yourcsv') !!}
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Select the import type:  </td>
+					<td>
+						<div class="input-group" style="margin-bottom: 25px">
+							{!! Form::select('importType', array(
+							''=>'Select',
+							'allusers' => 'All Users',
+							'guardians' => 'Guardians',
+							'teachers' => 'Teachers',
+							'classes' => 'Classes'),'') !!}
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div class="form-group" style="margin-top:10px">
+							<div class="col-sm-12 controls" style="text-align: center">
+								{!! Form::reset('Reset', array('class' => 'btn btn-default', 'id' => 'btn-reset')) !!}
+								{!! Form::submit('Upload', array('class' => 'btn btn-success', 'id' => 'btn-upload')) !!}
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+			{!! Form::close() !!}
+		</div>
+	</div>
+@stop

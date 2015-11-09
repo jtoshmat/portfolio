@@ -16,9 +16,7 @@ class BulkImporter
     public static function migratecsv()
     {
         $file = base_path('storage/app/yourcsv.csv');
-
         $csv = self::csv_to_array($file);
-
         self::updateDB($csv);
     }
 
@@ -52,12 +50,14 @@ class BulkImporter
                 //creating or updating districts
                 $DDBNNN = preg_split('/(?<=[0-9])(?=[a-z]+)/i', $title['DDBNNN']);
 
+                //Adding Districts
                 $district = District::firstOrCreate(['code' => $DDBNNN[0], 'system_id' => 1]);
                 $district->code = $DDBNNN[0];
                 $district->system_id = 1;
                 $district->title = 'District '.$DDBNNN[0];
                 $district->save();
 
+                //Adding Organizations
                 $organization = Organization::where(['code' => $DDBNNN[1]])
                                 ->with(array('districts' => function ($query) use ($district) {
                                                                 $query->where('district_id', $district->id);
@@ -75,18 +75,38 @@ class BulkImporter
                     $organization->districts()->attach($district->id);
                 }
 
+                //Adding groups
                 $group = Group::firstOrCreate(['organization_id' => $organization->id]);
                 $group->title = $title['OFF CLS'];
                 $group->save();
 
+                //Adding students
                 $user = User::firstOrCreate(['student_id' => $title['STUDENT ID']]);
-
                 $user->student_id = $title['STUDENT ID'];
                 $user->first_name = $title['FIRST NAME'];
                 $user->last_name = $title['LAST NAME'];
                 $user->sex = $title['SEX'];
                 $user->dob = $title['BIRTH DT'];
                 $user->save();
+                $child_id = $user->id;
+
+
+
+                //Adding guardians
+                if ($title['email']!='') {
+                    $guardian = User::firstOrCreate(['email' => $title['ADULT LAST 1']]);
+                    $guardian->student_id = 'student_id';
+                    $guardian->first_name = $title['FIRST NAME'] . '\'s ' . $title['ADULT FIRST 1'];
+                    $guardian->last_name = $title['ADULT LAST 1'];
+                    $guardian->save();
+                    $guardian_id = $guardian->id;
+                    $guardian->children()->sync( array(
+                        $guardian_id => $child_id,
+                    ));
+
+
+                }
+
             }
         }
 
@@ -97,6 +117,7 @@ class BulkImporter
         $notifier->attachData(['user' => Auth::user()]);
         $notifier->send();
     }
+
 }
 
     /*

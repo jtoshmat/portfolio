@@ -16,25 +16,27 @@ use app\cmwn\Services\BulkImporter;
 class ImportCSV extends Job implements SelfHandling, ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
-
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    // public function __construct()
-    // {
-        
-    // }
-
     /**
      * Execute the job.
      *
      * @return void
      */
+    protected $importType;
+
+    public function __construct($importType='allusers'){
+        $this->importType = $importType;
+    }
+
     public function handle()
     {
-       BulkImporter::migratecsv();
+
+        return BulkImporter::migratecsv();
+        if ($this->importType == 'allusers'){
+           return BulkImporter::migratecsv();
+       }elseif($this->importType == 'guardians'){
+           //return BulkImporter::migrateguardianscsv();
+       }
+           return false;
     }
 
     public function failed()

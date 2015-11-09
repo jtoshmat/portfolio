@@ -26,7 +26,8 @@ class AdminToolsController extends Controller
 	            //the files are stored in storage/app/*files*
                 $output = Storage::put('yourcsv.csv', file_get_contents($file));
                 if($output){
-                    $this->dispatch(new ImportCSV());
+                    $importType = \Request::get('importType');
+                    $this->dispatch(new ImportCSV($importType));
                     return Redirect::to('admin/uploadcsv')->with('message', 'The following errors occurred')->withErrors
                     ('Your file has been successfully uploaded. You will receive an email notification once the import is completed.');
                 } else {
@@ -40,5 +41,33 @@ class AdminToolsController extends Controller
 
         }
         return view('admin/uploadcsv');
+    }
+
+
+    public function importfiles(Request $request){
+
+        if (Request::isMethod('post')) {
+            $validator = Validator::make(Input::all(), AdminTool::$uploadCsvRules);
+
+            if ($validator->passes()) {
+                $file = \Request::file('yourcsv');
+                //the files are stored in storage/app/*files*
+                $output = Storage::put('yourcsvfile.csv', file_get_contents($file));
+                if($output){
+                    $importType = \Request::get('importType');
+                    $this->dispatch(new ImportCSV($importType));
+                    return Redirect::to('admin/importfiles')->with('message', 'The following errors occurred')->withErrors
+                    ('Your file has been successfully uploaded. You will receive an email notification once the import is completed.');
+                } else {
+                    return Redirect::to('admin/importfiles')->with('message', 'The following errors occurred')->withErrors
+                    ('Something went wrong with your upload. Please try again.');
+                }
+            }else{
+                return Redirect::to('admin/importfiles')->with('message', 'The following errors occurred')->withErrors
+                ($validator)->withInput();
+            }
+
+        }
+        return view('admin/importfiles');
     }
 }
