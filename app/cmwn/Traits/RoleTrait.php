@@ -29,4 +29,24 @@ trait RoleTrait
 
         return $this->morphToMany('app\User', 'roleable')->wherePivot('role_id', $role_id);
     }
+
+    public function isUser($user_id)
+    {
+        return ($this->users()->where('id', $user_id)->count() > 0);
+    }
+
+    public function isSuperAdmin(User $user)
+    {
+        return ($this->superAdmins()->where('id', $user_id)->count() > 0);
+    }
+
+    public function isAdmin(User $user)
+    {
+        return ($this->admin()->where('id', $user_id)->count() > 0);
+    }
+
+    public function isMember(User $user)
+    {
+        return ($this->members()->where('id', $user->id)->count() > 0);
+    }
 }

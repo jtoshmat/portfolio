@@ -115,6 +115,7 @@ Route::group(['middleware' => 'auth'], function ($router) {
         {
             return csrf_token();
         });
+
         Route::post('/users/login', 'Auth\AuthController@postLogin');
         Route::get('/users/logout', 'Auth\AuthController@getLogout');
 
