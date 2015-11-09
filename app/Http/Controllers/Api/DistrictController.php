@@ -22,6 +22,21 @@ class DistrictController extends ApiController
         return $this->respondWithCollection($districts, new DistrictTransformer());
     }
 
+    public function show($districtsId)
+    {
+        $district = District::find($districtsId);
+
+        if (!$district) {
+            return $this->errorNotFound('District not found');
+        }
+
+        if ($district->isUser(Auth::user()->id)) {
+            return $this->respondWithItem($district, new DistrictTransformer());
+        } else {
+            return $this->errorInternalError('Access Denied');
+        }
+    }
+
     public function update(\Request $request)
     {
         if ($request::isMethod('put')) {
@@ -41,22 +56,5 @@ class DistrictController extends ApiController
         }
 
         return $this->errorInternalError('Invalid request');
-    }
-
-    public function show($districtsId)
-    {
-        $district = District::find($districtsId);
-
-        if (!$district) {
-            return $this->errorNotFound('District not found');
-        }
-
-        dd(Auth::user());
-
-        if ($district->isUser(Auth::user()->id)) {
-            return $this->respondWithItem($district, new DistrictTransformer());
-        } else {
-            return $this->errorInternalError('Access Denied');
-        }
     }
 }
