@@ -23,7 +23,6 @@
 							{!! Form::select('importType', array(
 							''=>'Select',
 							'allusers' => 'All Users',
-							'guardians' => 'Guardians',
 							'teachers' => 'Teachers',
 							'classes' => 'Classes'),'') !!}
 						</div>

@@ -13,6 +13,7 @@ class CreateAllTable extends Migration
      */
     public function up()
     {
+	    Schema::dropIfExists("guardian_validation");
 	    Schema::dropIfExists("sessions");
 	    Schema::dropIfExists("friends");
 	    Schema::dropIfExists("child_guardian");
@@ -158,6 +159,20 @@ class CreateAllTable extends Migration
 		    $table->timestamp('blocked_date');
 		    $table->timestamps();
 	    });
+
+        Schema::create('guardian_validation', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->string('student_id');
+            $table->string('first_name');
+            $table->string('middle_name');
+            $table->string('last_name');
+            $table->string('phone');
+            $table->foreign('student_id')->references('student_id')->on('users')->onDelete('cascade');
+            $table->unique(array('student_id', 'first_name','last_name','phone'));
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**

@@ -24,7 +24,7 @@ class AdminToolsController extends Controller
             if ($validator->passes()) {
                 $file = \Request::file('yourcsv');
 	            //the files are stored in storage/app/*files*
-                $output = Storage::put('yourcsv.csv', file_get_contents($file));
+                $output = Storage::put('yourcsvfile.csv', file_get_contents($file));
                 if($output){
                     $importType = \Request::get('importType');
                     $this->dispatch(new ImportCSV($importType));
@@ -52,6 +52,7 @@ class AdminToolsController extends Controller
             if ($validator->passes()) {
                 $file = \Request::file('yourcsv');
                 //the files are stored in storage/app/*files*
+
                 $output = Storage::put('yourcsvfile.csv', file_get_contents($file));
                 if($output){
                     $importType = \Request::get('importType');

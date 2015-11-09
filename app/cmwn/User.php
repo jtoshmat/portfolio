@@ -70,6 +70,15 @@ class User extends Model implements
         return $this->belongsToMany('app\Role');
     }
 
+    public function guardianValidation(){
+        return $this->belongsToMany('app\User', 'guardian_validation', 'student_id');
+    }
+
+    public function assignRoles()
+    {
+        return $this->morphedByMany('app\Role', 'roleable');
+    }
+
     public function districts()
     {
         return $this->morphedByMany('app\District', 'roleable')->withPivot('role_id');
