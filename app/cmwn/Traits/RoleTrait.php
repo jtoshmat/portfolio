@@ -35,18 +35,18 @@ trait RoleTrait
         return ($this->users()->where('user_id', $user_id)->count() > 0);
     }
 
-    public function isSuperAdmin(User $user)
+    public function isSuperAdmin($user_id)
     {
         return ($this->superAdmins()->where('user_id', $user_id)->count() > 0);
     }
 
-    public function isAdmin(User $user)
+    public function isAdmin($user_id)
     {
         return ($this->admin()->where('user_id', $user_id)->count() > 0);
     }
 
-    public function isMember(User $user)
+    public function isMember($user_id)
     {
-        return ($this->members()->where('user_id', $user->id)->count() > 0);
+        return ($this->members()->where('user_id', $user_id)->count() > 0);
     }
 }
