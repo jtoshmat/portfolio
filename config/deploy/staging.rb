@@ -1,7 +1,7 @@
 role :app, %w{}
 role :web, %w{
-  web-wpdsvc-001.dev.bsd.net
   web-wpdsvc-002.dev.bsd.net
+  web-wpdsvc-003.dev.bsd.net
 }
 role :db,  %w{}
 
