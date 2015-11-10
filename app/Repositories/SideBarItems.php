@@ -25,7 +25,7 @@ class SideBarItems
 		    'Ditricts' => '/districts',
 		    'Organizations' => '/organizations',
 		    'Groups' => '/groups',
-		    'Upload CSV' => '/admin/uploadcsv',
+		    'Upload CSV' => '/admin/importfiles',
 		    'Cloudinary Image' => '/admin/playground',
         );
 
