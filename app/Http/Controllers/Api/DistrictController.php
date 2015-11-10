@@ -4,7 +4,6 @@ namespace app\Http\Controllers\Api;
 
 use app\Transformer\DistrictTransformer;
 use app\District;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -26,31 +25,35 @@ class DistrictController extends ApiController
             return $this->errorNotFound('District not found');
         }
 
-        if ($district->isUser(Auth::user()->id)) {
-            return $this->respondWithItem($district, new DistrictTransformer());
-        } else {
+        if (!$district->isUser(Auth::user()->id)) {
             return $this->errorUnauthorized();
         }
+
+        return $this->respondWithItem($district, new DistrictTransformer());
     }
 
-    public function update(\Request $request)
+    public function update($districtsId)
     {
-        if ($request::isMethod('put')) {
-            $validator = Validator::make(Input::all(), District::$apiDistrictUpdate);
-            if ($validator->passes()) {
-                //@TODO test the district api update wth front end.
-                $id = $request::get('id');
-                $district = new District();
-                dd($district->updateApiDistrict($request));
+        $district = District::find($districtsId);
 
-                return $this->respondWithArray(array('The district has been updated successfully.'));
-            } else {
-                $messages = print_r($validator->errors()->getMessages(), true);
-
-                return $this->errorInternalError('Input validation error: '.$messages);
-            }
+        if (!$district) {
+            return $this->errorNotFound('District not found');
         }
 
-        return $this->errorInternalError('Invalid request');
+        if (!$district->isUser(Auth::user()->id)) {
+            return $this->errorUnauthorized();
+        }
+
+        $validator = Validator::make(Input::all(), District::$apiDistrictUpdate);
+
+        if ($validator->passes()) {
+            $district->update(Input::all());
+
+            return $this->respondWithArray(array('message' => 'The district has been updated successfully.'));
+        } else {
+            $messages = print_r($validator->errors()->getMessages(), true);
+
+            return $this->errorInternalError('Input validation error: '.$messages);
+        }
     }
 }

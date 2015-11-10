@@ -74,15 +74,19 @@ class District extends Model
         return true;
     }
 
-    public function updateApiDistrict(\Request $request)
+    public function update()
     {
-        //@TODO once the frontend sends request, get them and plug them in here  - JT 10/3
-        $district = self::firstOrCreate(array('id' => 1));
-        $district->title = 'Distict title';
-        $district->description = 'Distict description';
-        $district->organization()->sync(array(1));
+        if (isset($request['title'])) {
+            $this->title = $request['title'];
+        }
 
-        return $district->save();
+        if (isset($request['description'])) {
+            $this->description = $request['description'];
+        }
+
+        //$district->organization()->sync(array(1));
+
+        return $this->save();
     }
 
     /**

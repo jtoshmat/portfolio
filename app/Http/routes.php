@@ -134,20 +134,28 @@ Route::group(['prefix' => 'api', 'middleware' => 'api'], function () {
         Route::get('/users/{id}/groups', 'Api\UserController@getGroups');
         Route::get('/suggestedfriends', 'Api\SuggestedController@show');
 
+        //Get Groups
         Route::get('/groups', 'Api\GroupController@index');
         Route::get('/groups/{id}', 'Api\GroupController@show');
         Route::get('/groups/{id}/users', 'Api\GroupController@getUsers');
+
+        //Put Groups
+        Route::post('/groups/{id}', ['uses' => 'Api\GroupController@update']);
 
         //Get Districts
         Route::get('/districts', 'Api\DistrictController@index');
         Route::get('/districts/{id}', 'Api\DistrictController@show');
         Route::get('/districts/{id}/organizations', 'Api\DistrictController@getOrganizations');
 
-        //Put districts
-        Route::put('district/{id}', ['uses' => 'Api\DistrictController@update']);
+        //Put Districts
+        Route::post('/districts/{id}', ['uses' => 'Api\DistrictController@update']);
 
+        //Get Organizations
         Route::get('/organizations', 'Api\OrganizationController@index');
         Route::get('/organizations/{id}', 'Api\OrganizationController@show');
+
+        //Put Organizations
+        Route::post('/organizations/{id}', ['uses' => 'Api\OrganizationController@update']);
 
         Route::get('/roles', 'Api\RoleController@index');
         Route::get('/roles/{id}', 'Api\RoleController@show');
