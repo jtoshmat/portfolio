@@ -17,11 +17,11 @@ class Organization extends Model
     ];
 
     /**
-     * [$groupUpdateRules description].
+     * [$organizationUpdateRules description].
      *
      * @var array
      */
-    public static $groupUpdateRules = array(
+    public static $organizationUpdateRules = array(
         'title[]' => 'string',
         //'role[]'=>'required',
         //'role[]'=>'required|regex:/^[0-9]?$/',
@@ -35,6 +35,19 @@ class Organization extends Model
     public function districts()
     {
         return $this->belongsToMany('app\District');
+    }
+
+    public function updateParameters($parameters)
+    {
+        if (isset($parameters['title'])) {
+            $this->title = $parameters['title'];
+        }
+
+        if (isset($parameters['description'])) {
+            $this->description = $parameters['description'];
+        }
+
+        return $this->save();
     }
 
     public static function updateGroups(Request $request)
@@ -78,4 +91,3 @@ class Organization extends Model
     // }
 }
 //@TODO needs softdele added
-
