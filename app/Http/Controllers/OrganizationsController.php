@@ -26,10 +26,6 @@ class OrganizationsController extends Controller
             //if ($validator->passes()) { @TODO fix this to accept array in Group::$groupUpdateRules
 
             if ($validator->passes()) {
-                if (Organization::updateGroups($request)) {
-                    return Redirect::to('/organizations')->with('message', 'The following errors occurred')->withErrors
-                    ('Update success')->with('flag', 'success');
-                }
                 return Redirect::to('/organizations')->with('message', 'The following errors occurred')->withErrors
                 ('Update failed')->with('flag', 'danger');
             }

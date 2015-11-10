@@ -27,10 +27,6 @@ class DistrictsController extends Controller
             //if ($validator->passes()) { @TODO fix this to accept array in Group::$groupUpdateRules
 
             if ($validator->passes()) {
-                if (District::updateGroups($request)) {
-                    return Redirect::to('/districts')->with('message', 'The following errors occurred')->withErrors
-                    ('Update success')->with('flag', 'success');
-                }
                 return Redirect::to('/districts')->with('message', 'The following errors occurred')->withErrors
                 ('Update failed')->with('flag', 'danger');
             }

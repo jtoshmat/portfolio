@@ -28,10 +28,6 @@ class GroupsController extends Controller
 	        //if ($validator->passes()) { @TODO fix this to accept array in Group::$groupUpdateRules
 
 	        if ($validator->passes()) {
-				if (Group::updateGroups($request)) {
-					return Redirect::to('/groups')->with('message', 'The following errors occurred')->withErrors
-					('Update success')->with('flag', 'success');
-				}
 		        return Redirect::to('/groups')->with('message', 'The following errors occurred')->withErrors
 		        ('Update failed')->with('flag', 'danger');
             }

@@ -30,40 +30,6 @@ class District extends Model
         return $this->belongsToMany('app\Organization');
     }
 
-    public static function updateGroups(Request $request)
-    {
-        $titles = $request::get('title');
-        $ids = $request::get('id');
-        $deleteId = $request::get('delete');
-        $newtitle = $request::get('newtitle');
-        $organizations = $request::get('organizations');
-
-        $i = 0;
-        if ($ids) {
-            foreach ($ids as $id) {
-                $group = self::find($id);
-                $group->title = $titles[ $i ];
-                if (!empty($organizations[$id])) {
-                    $group->organization()->sync($organizations[ $id ]);
-                }
-                if (isset($deleteId[ $i ]) && $deleteId[ $i ] == $id) {
-                    $group->delete();
-                } else {
-                    $group->save();
-                }
-                ++$i;
-            }
-        }
-
-        if ($newtitle) {
-            $group = new self();
-            $group->title = $newtitle;
-            $group->save();
-        }
-
-        return true;
-    }
-
     public function updateParameters($parameters)
     {
         if (isset($parameters['title'])) {
