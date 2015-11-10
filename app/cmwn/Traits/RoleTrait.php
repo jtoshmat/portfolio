@@ -4,6 +4,13 @@ namespace app\cmwn\Traits;
 
 trait RoleTrait
 {
+    public static function limitToUser($user_id)
+    {
+        return self::whereHas('users', function ($query) use ($user_id) {
+            $query->where('user_id', $user_id);
+        });
+    }
+
     public function users()
     {
         return $this->morphToMany('app\User', 'roleable');

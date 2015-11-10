@@ -2,7 +2,6 @@
 
 namespace app\Http\Controllers\Api;
 
-
 use app\Transformer\OrganizationTransformer;
 use app\Organization;
 
@@ -10,7 +9,7 @@ class OrganizationController extends ApiController
 {
     public function index()
     {
-        $organizations = Organization::take(10)->get();
+        $organizations = Organization::limitToUser(Auth::user()->id)->get();
 
         return $this->respondWithCollection($organizations, new OrganizationTransformer());
     }

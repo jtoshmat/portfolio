@@ -11,7 +11,7 @@ class GroupController extends ApiController
 {
     public function index()
     {
-        $groups = Group::take(10)->get();
+        $groups = Group::limitToUser(Auth::user()->id)->get();
 
         return $this->respondWithCollection($groups, new GroupTransformer());
     }

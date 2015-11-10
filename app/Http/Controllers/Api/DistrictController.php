@@ -13,15 +13,8 @@ class DistrictController extends ApiController
 {
     public function index()
     {
-        // $query = \Request::query('name');
-        // if ( $query ) {
-        //     $districts = District::name($query)->get();
-        // }else{
+        $districts = District::limitToUser(Auth::user()->id)->get();
 
-        $districts = Auth::user()->districts;
-
-        //  $districts = District::take(10)->get();
-        // // }
         return $this->respondWithCollection($districts, new DistrictTransformer());
     }
 
