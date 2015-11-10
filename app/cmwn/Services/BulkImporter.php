@@ -15,9 +15,21 @@ class BulkImporter
 
     public static function migratecsv()
     {
-        $file = base_path('storage/app/yourcsv.csv');
+        $file = base_path('storage/app/yourcsvfile.csv');
         $csv = self::csv_to_array($file);
-        self::updateDB($csv);
+        return self::updateDB($csv);
+    }
+
+    public static function migrateTeachers(){
+        $file = base_path('storage/app/yourcsvfile.csv');
+        $csv = self::csv_to_array($file);
+        return self::updateTeachers($csv);
+    }
+
+    public static function migrateClasses(){
+        $file = base_path('storage/app/yourcsvfile.csv');
+        $csv = self::csv_to_array($file);
+        return self::updateClasses($csv);
     }
 
     public static function csv_to_array($filename = '', $delimiter = ',')
@@ -90,22 +102,42 @@ class BulkImporter
                 $user->save();
                 $child_id = $user->id;
 
-
-
                 //Adding guardians
-                if ($title['email']!='') {
-                    $guardian = User::firstOrCreate(['email' => $title['ADULT LAST 1']]);
-                    $guardian->student_id = 'student_id';
-                    $guardian->first_name = $title['FIRST NAME'] . '\'s ' . $title['ADULT FIRST 1'];
-                    $guardian->last_name = $title['ADULT LAST 1'];
-                    $guardian->save();
-                    $guardian_id = $guardian->id;
-                    $guardian->children()->sync( array(
-                        $guardian_id => $child_id,
-                    ));
+//                if ($title['EMAIL']!='') {
+//                    $guardian = User::firstOrCreate(['email' => $title['EMAIL']]);
+//                    $guardian->student_id = $title['EMAIL'];
+//                    $guardian->first_name = $title['FIRST NAME'] . '\'s ' . $title['ADULT FIRST 1'];
+//                    $guardian->last_name = $title['ADULT LAST 1'];
+//                    $guardian->save();
+//                    $guardian->children()->sync( array(
+//                        $guardian->id => $child_id,
+//                    ));
+//                }
+
+                $guardian = \DB::table('guardian_validation')
+                    ->where('student_id','=', $title['STUDENT ID'])
+                    ->where('first_name','=', $title['ADULT FIRST 1'])
+                    ->where('last_name','=', $title['ADULT LAST 1'])
+                    ->get();
+
+               if (isset($guardian[0]->id)){
+                   $output = \DB::table('guardian_validation')->where('student_id', $guardian[0]->student_id)
+                       ->update(array(
+                           'student_id' => $title['STUDENT ID'],
+                           'first_name' => $title['ADULT FIRST 1'],
+                           'last_name' => $title['ADULT LAST 1'],
+                           'phone' => $title['ADULT PHONE 1'],
+                       ));
+               }else{
+                    $output = \DB::table('guardian_validation')->insert(array(
+                        'student_id' => $title['STUDENT ID'],
+                        'first_name' => $title['ADULT FIRST 1'],
+                        'last_name' => $title['ADULT LAST 1'],
+                        'phone' => $title['ADULT PHONE 1'],
+                   ));
+               }
 
 
-                }
 
             }
         }
@@ -116,6 +148,49 @@ class BulkImporter
         $notifier->template = 'emails.import';
         $notifier->attachData(['user' => Auth::user()]);
         $notifier->send();
+    }
+
+
+
+    protected static function updateTeachers($data){
+
+        foreach ($data as $title) {
+            $id = $title['Person Type'].' '.$title['First Name']." ".$title['Last Name'];
+            $id = str_slug($id);
+            $techers = User::firstOrCreate(['student_id' => $id]);
+            $techers->student_id = $id;
+            $techers->first_name = $title['First Name'];
+            $techers->last_name = $title['Last Name'];
+            $techers->sex = $title['Gender'];
+            $techers->save();
+            $teacher_id = $techers->id;
+            echo $teacher_id."<br />";
+
+            $techers->assignRoles()->attach(array(
+                'user_id' => $teacher_id,
+                'roleable_id' => 99, //@TODO need a discussion on how to convert the Person Type into role_id 11/09 JT
+                'role_id' => 1
+            ));
+
+        }
+        return true;
+    }
+
+    protected static function updateClasses($data){
+        //@TODO I will need a organization id here 11/09 JT
+        foreach ($data as $title) {
+            if (isset($title['Offical Class #']) && $title['Offical Class #']!='') {
+                $group = Group::firstOrCreate(['organization_id' => 1, 'title' => $title['Offical Class #']]);
+                $group->organization_id = 1;
+                $group->title = $title['Offical Class #'];
+                $group->description = $title['Class Number'];
+                $group->save();
+                $group_id = $group->id;
+                return $group_id;
+            }
+            return false;
+        }
+        return true;
     }
 
 }

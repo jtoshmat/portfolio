@@ -25,17 +25,23 @@ class ImportCSV extends Job implements SelfHandling, ShouldQueue
 
     public function __construct($importType='allusers'){
         $this->importType = $importType;
+
     }
 
     public function handle()
     {
 
-        return BulkImporter::migratecsv();
+
+
         if ($this->importType == 'allusers'){
            return BulkImporter::migratecsv();
-       }elseif($this->importType == 'guardians'){
-           //return BulkImporter::migrateguardianscsv();
        }
+        if($this->importType == 'teachers'){
+           return BulkImporter::migrateTeachers();
+       }
+        if($this->importType == 'classes'){
+            return BulkImporter::migrateClasses();
+        }
            return false;
     }
 
