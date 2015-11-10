@@ -1,6 +1,8 @@
 <?php
 
 namespace app\Http\Controllers;
+use app\District;
+use app\Organization;
 use Illuminate\Support\Facades\Request;
 use app\AdminTool;
 use app\Jobs\ImportCSV;
@@ -27,7 +29,11 @@ class AdminToolsController extends Controller
                 $output = Storage::put('yourcsvfile.csv', file_get_contents($file));
                 if($output){
                     $importType = \Request::get('importType');
-                    $this->dispatch(new ImportCSV($importType));
+                    $data = array(
+                        'importType' => $importType,
+                        'parms' => array()
+                    );
+                    $this->dispatch(new ImportCSV($data));
                     return Redirect::to('admin/uploadcsv')->with('message', 'The following errors occurred')->withErrors
                     ('Your file has been successfully uploaded. You will receive an email notification once the import is completed.');
                 } else {
@@ -48,15 +54,29 @@ class AdminToolsController extends Controller
 
         if (Request::isMethod('post')) {
             $validator = Validator::make(Input::all(), AdminTool::$uploadCsvRules);
-
             if ($validator->passes()) {
                 $file = \Request::file('yourcsv');
+                $organization_id = (int) \Request::get('organizations');
+                $importType = \Request::get('importType');
+                if ($importType==''){
+                    return Redirect::to('admin/importfiles')->with('message', 'The following errors occurred')->withErrors
+                    ('Please select the import type.');
+                }
+                if ($file==''){
+                    return Redirect::to('admin/importfiles')->with('message', 'The following errors occurred')->withErrors
+                    ('Please upload your csv file.');
+                }
                 //the files are stored in storage/app/*files*
-
                 $output = Storage::put('yourcsvfile.csv', file_get_contents($file));
                 if($output){
-                    $importType = \Request::get('importType');
-                    $this->dispatch(new ImportCSV($importType));
+                    $data = array(
+                        'importType' => $importType,
+                        'parms' => array(
+                            'organization_id' => $organization_id
+                        )
+                    );
+
+                    $this->dispatch(new ImportCSV($data));
                     return Redirect::to('admin/importfiles')->with('message', 'The following errors occurred')->withErrors
                     ('Your file has been successfully uploaded. You will receive an email notification once the import is completed.');
                 } else {
@@ -69,6 +89,14 @@ class AdminToolsController extends Controller
             }
 
         }
-        return view('admin/importfiles');
+        $district_id = (int) Request::query('district');
+        $districts = District::All();
+        $selected_district = 0;
+        $organizations = array();
+        if ($district_id) {
+            $selected_district = District::where('id', '=', $district_id)->get(array('id'));
+            $organizations = District::with('organizations')->where('id', '=', $district_id)->get();
+        }
+        return view('admin/importfiles',compact('districts','selected_district','organizations'));
     }
 }

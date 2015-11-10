@@ -13,6 +13,8 @@ class BulkImporter
 {
     use DispatchesJobs;
 
+    public static $data;
+
     public static function migratecsv()
     {
         $file = base_path('storage/app/yourcsvfile.csv');
@@ -137,8 +139,6 @@ class BulkImporter
                    ));
                }
 
-
-
             }
         }
 
@@ -177,52 +177,17 @@ class BulkImporter
     }
 
     protected static function updateClasses($data){
-        //@TODO I will need a organization id here 11/09 JT
+        $organization_id = self::$data['parms']['organization_id'];
         foreach ($data as $title) {
             if (isset($title['Offical Class #']) && $title['Offical Class #']!='') {
-                $group = Group::firstOrCreate(['organization_id' => 1, 'title' => $title['Offical Class #']]);
-                $group->organization_id = 1;
+                $group = Group::firstOrCreate(['organization_id' => $organization_id, 'title' => $title['Offical Class #']]);
+                $group->organization_id = $organization_id;
                 $group->title = $title['Offical Class #'];
                 $group->description = $title['Class Number'];
                 $group->save();
-                $group_id = $group->id;
-                return $group_id;
             }
-            return false;
         }
         return true;
     }
 
 }
-
-    /*
-     * "DDBNNN" => "14K120"
-    "LAST NAME" => "Smith"
-    "FIRST NAME" => "Jim"
-    "STUDENT ID" => "236199170"
-    "SEX" => "M"
-    "BIRTH DT" => "20100612"
-    "OFF CLS" => "013"
-    "GRD CD" => "310"
-    "GRD LVL" => "0K"
-    "STREET NUM" => "574"
-    "STREET" => "Q STREET"
-    "APT" => "1"
-    "CITY" => "BROOKLYN"
-    "ST" => "NY"
-    "ZIP" => "11221"
-    "HOME PHONE" => "(555)555-1378"
-    "ADULT LAST 1" => "Smith"
-    "ADULT FIRST 1" => "Mommy"
-    "ADULT PHONE 1" => "(555)555-3398"
-    "ADULT LAST 2" => ""
-    "ADULT FIRST 2" => ""
-    "ADULT PHONE 2" => ""
-    "ADULT LAST 3" => ""
-    "ADULT FIRST 3" => ""
-    "ADULT PHONE 3" => ""
-    "STUDENT PHONE" => ""
-    "MEAL CDE" => "1"
-    "YTD ATTD PCT" => "100"
-    "EMAIL" => ""
-     */
