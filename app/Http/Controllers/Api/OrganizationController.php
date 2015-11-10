@@ -12,7 +12,7 @@ class OrganizationController extends ApiController
 {
     public function index()
     {
-        $organizations =Organization::take(10)->get();
+        $organizations = Organization::take(10)->get();
 
         return $this->respondWithCollection($organizations, new OrganizationTransformer);
     }
@@ -25,7 +25,12 @@ class OrganizationController extends ApiController
             return $this->errorNotFound('Organization not found');
         }
 
-        return $this->respondWithItem($organization, new OrganizationTransformer);
+        if ($organization->isUser(Auth::user()->id)) {
+            return $this->respondWithItem($organization, new OrganizationTransformer);
+        } else {
+            return $this->errorUnauthorized();
+        }
+
     }
 
 }

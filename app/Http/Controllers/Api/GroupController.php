@@ -25,7 +25,11 @@ class GroupController extends ApiController
             return $this->errorNotFound('Group not found');
         }
 
-        return $this->respondWithItem($group, new GroupTransformer);
+        if ($group->isUser(Auth::user()->id)) {
+            return $this->respondWithItem($group, new GroupTransformer);
+        } else {
+            return $this->errorUnauthorized();
+        }
     }
 
     public function getUsers($groupId)
