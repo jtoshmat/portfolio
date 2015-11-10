@@ -2,7 +2,6 @@
 
 namespace app\Http\Controllers\Api;
 
-use app\Http\Controllers\Api\ApiController;
 use app\Transformer\UserTransformer;
 use app\Transformer\GroupTransformer;
 use app\User;
@@ -14,19 +13,19 @@ class GroupController extends ApiController
     {
         $groups = Group::take(10)->get();
 
-        return $this->respondWithCollection($groups, new GroupTransformer);
+        return $this->respondWithCollection($groups, new GroupTransformer());
     }
 
     public function show($groupId)
     {
         $group = Group::find($groupId);
 
-        if (! $group) {
+        if (!$group) {
             return $this->errorNotFound('Group not found');
         }
 
         if ($group->isUser(Auth::user()->id)) {
-            return $this->respondWithItem($group, new GroupTransformer);
+            return $this->respondWithItem($group, new GroupTransformer());
         } else {
             return $this->errorUnauthorized();
         }
@@ -36,10 +35,10 @@ class GroupController extends ApiController
     {
         $group = Group::find($groupId);
 
-        if (! $group) {
+        if (!$group) {
             return $this->errorNotFound('User not found');
         }
 
-        return $this->respondWithCollection($group->users, new UserTransformer);
+        return $this->respondWithCollection($group->users, new UserTransformer());
     }
 }
