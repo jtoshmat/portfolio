@@ -55,7 +55,7 @@ class DistrictController extends ApiController
         } else {
             $messages = print_r($validator->errors()->getMessages(), true);
 
-            return $this->errorInternalError('Input validation error: '.$messages);
+            return $this->errorInternalError('Input validation error: '. $messages);
         }
     }
 }
