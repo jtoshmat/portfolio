@@ -25,6 +25,7 @@ class DistrictController extends ApiController
             return $this->errorNotFound('District not found');
         }
 
+        // make sure that the user is authorized to view this district.
         if (!$district->isUser(Auth::user()->id)) {
             return $this->errorUnauthorized();
         }
@@ -40,6 +41,7 @@ class DistrictController extends ApiController
             return $this->errorNotFound('District not found');
         }
 
+        // make sure that the user is authorized to update this district.
         if (!$district->canUpdate(Auth::user()->id)) {
             return $this->errorUnauthorized();
         }

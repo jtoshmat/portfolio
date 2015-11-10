@@ -27,11 +27,12 @@ class GroupController extends ApiController
             return $this->errorNotFound('Group not found');
         }
 
-        if ($group->isUser(Auth::user()->id)) {
-            return $this->respondWithItem($group, new GroupTransformer());
-        } else {
+        // make sure that the user is authorized to view this group.
+        if (!$group->isUser(Auth::user()->id)) {
             return $this->errorUnauthorized();
         }
+
+        return $this->respondWithItem($group, new GroupTransformer());
     }
 
     public function update($groupId)
@@ -42,6 +43,7 @@ class GroupController extends ApiController
             return $this->errorNotFound('Group not found');
         }
 
+        // make sure that the user is authorized to update this group.
         if (!$group->canUpdate(Auth::user()->id)) {
             return $this->errorUnauthorized();
         }
