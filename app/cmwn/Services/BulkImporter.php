@@ -162,16 +162,28 @@ class BulkImporter
             $techers->first_name = $title['First Name'];
             $techers->last_name = $title['Last Name'];
             $techers->sex = $title['Gender'];
-            $techers->save();
+            $saved = $techers->save();
             $teacher_id = $techers->id;
             echo $teacher_id."<br />";
+            $role_id = 0;
+            switch($title['Person Type']){
+                case 'Principal':
+                    $role_id=1;
+                    break;
+                case 'Assistant Principal':
+                    $role_id = 2;
+                    break;
+                case 'Teacher':
+                    $role_id = 3;
+                    break;
+                default:
+                    $role_id = 3;
+                    break;
+            }
 
             $techers->assignRoles()->attach(array(
-                'user_id' => $teacher_id,
-                'roleable_id' => 99, //@TODO need a discussion on how to convert the Person Type into role_id 11/09 JT
-                'role_id' => 1
+                $teacher_id => $role_id
             ));
-
         }
         return true;
     }
