@@ -4,7 +4,6 @@ namespace app\Http\Controllers\Api;
 
 use app\Http\Controllers\Controller;
 use Response;
-use Input;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\Manager;
