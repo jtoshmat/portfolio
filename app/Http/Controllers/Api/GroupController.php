@@ -6,6 +6,9 @@ use app\Transformer\UserTransformer;
 use app\Transformer\GroupTransformer;
 use app\User;
 use app\Group;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class GroupController extends ApiController
 {
@@ -28,6 +31,31 @@ class GroupController extends ApiController
             return $this->respondWithItem($group, new GroupTransformer());
         } else {
             return $this->errorUnauthorized();
+        }
+    }
+
+    public function update($groupId)
+    {
+        $group = Group::find($groupId);
+
+        if (!$group) {
+            return $this->errorNotFound('Group not found');
+        }
+
+        if (!$group->canUpdate(Auth::user()->id)) {
+            return $this->errorUnauthorized();
+        }
+
+        $validator = Validator::make(Input::all(), Group::$groupUpdateRules);
+
+        if ($validator->passes()) {
+            $group->updateParameters(Input::all());
+
+            return $this->respondWithArray(array('message' => 'The group has been updated successfully.'));
+        } else {
+            $messages = print_r($validator->errors()->getMessages(), true);
+
+            return $this->errorInternalError('Input validation error: '.$messages);
         }
     }
 

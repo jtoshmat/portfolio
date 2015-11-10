@@ -56,4 +56,9 @@ trait RoleTrait
     {
         return ($this->members()->where('user_id', $user_id)->count() > 0);
     }
+
+    public function canUpdate($user_id)
+    {
+        return ($this->users()->where('user_id', $user_id)->where('role_id', '>', 1)->count() > 0);
+    }
 }

@@ -27,6 +27,19 @@ class Group extends Model
         return $this->belongsTo('app\Organization');
     }
 
+    public function updateParameters($parameters)
+    {
+        if (isset($parameters['title'])) {
+            $this->title = $parameters['title'];
+        }
+
+        if (isset($parameters['description'])) {
+            $this->description = $parameters['description'];
+        }
+
+        return $this->save();
+    }
+
     public static function updateGroups(Request $request)
     {
         $titles = $request::get('title');

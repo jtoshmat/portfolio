@@ -19,17 +19,7 @@ class District extends Model
         'code',
     ];
 
-    /*
-     * Api rules
-     */
-
-    public static $apiDistrictUpdate = array(
-        'title' => 'string',
-        //'role[]'=>'required',
-        //'role[]'=>'required|regex:/^[0-9]?$/',
-    );
-
-    public static $groupUpdateRules = array(
+    public static $districtUpdateRules = array(
         'title' => 'string',
         //'role[]'=>'required',
         //'role[]'=>'required|regex:/^[0-9]?$/',
@@ -74,17 +64,15 @@ class District extends Model
         return true;
     }
 
-    public function update()
+    public function updateParameters($parameters)
     {
-        if (isset($request['title'])) {
-            $this->title = $request['title'];
+        if (isset($parameters['title'])) {
+            $this->title = $parameters['title'];
         }
 
-        if (isset($request['description'])) {
-            $this->description = $request['description'];
+        if (isset($parameters['description'])) {
+            $this->description = $parameters['description'];
         }
-
-        //$district->organization()->sync(array(1));
 
         return $this->save();
     }

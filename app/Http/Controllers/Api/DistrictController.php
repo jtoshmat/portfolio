@@ -40,14 +40,14 @@ class DistrictController extends ApiController
             return $this->errorNotFound('District not found');
         }
 
-        if (!$district->isUser(Auth::user()->id)) {
+        if (!$district->canUpdate(Auth::user()->id)) {
             return $this->errorUnauthorized();
         }
 
-        $validator = Validator::make(Input::all(), District::$apiDistrictUpdate);
+        $validator = Validator::make(Input::all(), District::$districtUpdateRules);
 
         if ($validator->passes()) {
-            $district->update(Input::all());
+            $district->updateParameters(Input::all());
 
             return $this->respondWithArray(array('message' => 'The district has been updated successfully.'));
         } else {
