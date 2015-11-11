@@ -3,7 +3,6 @@
 namespace app;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Request;
 use app\cmwn\Traits\RoleTrait;
 
 class Organization extends Model

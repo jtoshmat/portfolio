@@ -40,7 +40,6 @@ class Group extends Model
         return $this->save();
     }
 
-
     /**
      * Scope a query to only include users of a given type.
      *
