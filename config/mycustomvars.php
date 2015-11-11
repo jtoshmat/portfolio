@@ -31,4 +31,21 @@ return [
         '/api/groups/',
         '/api/users/',
     ],
+
+    'cloudinary' => [
+        /*
+         * Cloudinary API parms
+         */
+        'cloud_name' => 'change-my-world-now',
+        'api_key' => '125692255259728',
+        'api_secret' => 'xTgojKXezGKFAd6v2aGQ_7mvmdM',
+    ],
+
+    'somethingelse' => [
+        /*
+         * More to come
+         */
+        'somethingelse' => 'wohoooo',
+    ],
+
 ];

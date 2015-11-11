@@ -1,10 +1,5 @@
 <?php
 
-//dd(Request::root());
-
-Auth::basic();
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -111,14 +106,7 @@ Route::group(['middleware' => 'auth'], function ($router) {
 ######################## API Requests Only ###############################
 ##########################################################################
 
-
-
-
 Route::group(['prefix' => 'api', 'middleware' => 'api'], function () {
-
-    Route::get('/test', function () {
-        return 'If you see this message that means this is an API request.';
-    });
 
     Route::get('/csrf_token', function () {
         return csrf_token();
@@ -127,6 +115,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'api'], function () {
     Route::post('/auth/login', 'Api\AuthController@authenticate');
 
     Route::group(['middleware' => 'auth'], function ($router) {
+
+        Route::get('/parms/{parm_name}', function ($parm_name) {
+            return \Config::get('mycustomvars.'.$parm_name);
+        })->where('parm_name', '[a-z]+');
 
         Route::get('/sidebar', 'Api\MasterController@sidebar');
         Route::get('/friends', 'Api\MasterController@friends');

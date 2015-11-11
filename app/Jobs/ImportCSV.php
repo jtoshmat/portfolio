@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 //use Illuminate\Support\Facades\Mail;
 
 use app\cmwn\Services\BulkImporter;
+use Illuminate\Support\Facades\Log;
 
 class ImportCSV extends Job implements SelfHandling, ShouldQueue
 {
@@ -30,19 +31,11 @@ class ImportCSV extends Job implements SelfHandling, ShouldQueue
     public function handle()
     {
         BulkImporter::$data = $this->data;
-        if ($this->data['importType'] == 'allusers'){
-           return BulkImporter::migratecsv();
-       }
-        if($this->data['importType'] == 'teachers'){
-           return BulkImporter::migrateTeachers();
-       }
-        if($this->data['importType'] == 'classes'){
-            return BulkImporter::migrateClasses();
-        }
-           return false;
+        return BulkImporter::migratecsv();
     }
 
     public function failed()
     {
+        Log::info(__CLASS__." has failed with handling the queue request.");
     }
 }

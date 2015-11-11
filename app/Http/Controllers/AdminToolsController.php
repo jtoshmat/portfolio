@@ -30,7 +30,6 @@ class AdminToolsController extends Controller
                 if($output){
                     $importType = \Request::get('importType');
                     $data = array(
-                        'importType' => $importType,
                         'parms' => array()
                     );
                     $this->dispatch(new ImportCSV($data));
@@ -51,31 +50,29 @@ class AdminToolsController extends Controller
 
 
     public function importfiles(Request $request){
-
         if (Request::isMethod('post')) {
             $validator = Validator::make(Input::all(), AdminTool::$uploadCsvRules);
             if ($validator->passes()) {
                 $file = \Request::file('yourcsv');
                 $organization_id = (int) \Request::get('organizations');
-                $importType = \Request::get('importType');
-                if ($importType==''){
-                    return Redirect::to('admin/importfiles')->with('message', 'The following errors occurred')->withErrors
-                    ('Please select the import type.');
-                }
+
                 if ($file==''){
                     return Redirect::to('admin/importfiles')->with('message', 'The following errors occurred')->withErrors
                     ('Please upload your csv file.');
                 }
+
                 //the files are stored in storage/app/*files*
-                $output = Storage::put('yourcsvfile.csv', file_get_contents($file));
+                $user_id = Auth::user()->id;
+                $file_name = $file->getFilename()."_userid".$user_id."_time".time();
+                $extension = $file->getClientOriginalExtension();
+                $full_file_name = $file_name.".".$extension;
+                $output = Storage::disk('local')->put($file_name.'.'.$extension,  \File::get($file));
+
                 if($output){
                     $data = array(
-                        'importType' => $importType,
-                        'parms' => array(
-                            'organization_id' => $organization_id
-                        )
+                        'file' =>$full_file_name,
+                        'parms' => array('organization_id' => $organization_id)
                     );
-
                     $this->dispatch(new ImportCSV($data));
                     return Redirect::to('admin/importfiles')->with('message', 'The following errors occurred')->withErrors
                     ('Your file has been successfully uploaded. You will receive an email notification once the import is completed.');

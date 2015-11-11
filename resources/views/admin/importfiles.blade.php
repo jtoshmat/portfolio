@@ -53,19 +53,6 @@
 
 
 				<tr>
-					<td>Select the import type:  </td>
-					<td>
-						<div class="input-group" style="margin-bottom: 25px">
-							{!! Form::select('importType', array(
-							''=>'Select',
-							'allusers' => 'All Users',
-							'teachers' => 'Teachers',
-							'classes' => 'Classes'),'') !!}
-						</div>
-					</td>
-				</tr>
-
-				<tr>
 					<td>Select your file: </td>
 					<td>
 						<div class="input-group" style="margin-bottom: 25px">

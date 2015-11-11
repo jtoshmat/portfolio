@@ -8,30 +8,52 @@ use app\District;
 use app\Organization;
 use app\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class BulkImporter
 {
     use DispatchesJobs;
-
     public static $data;
+    protected static $sheetname;
+    protected static $file;
 
     public static function migratecsv()
     {
-        $file = base_path('storage/app/yourcsvfile.csv');
-        $csv = self::csv_to_array($file);
-        return self::updateDB($csv);
-    }
+        self::$file = base_path('storage/app/'.self::$data['file']);
+        try {
+            self::$sheetname = \Excel::load(self::$file)->getSheetNames();
 
-    public static function migrateTeachers(){
-        $file = base_path('storage/app/yourcsvfile.csv');
-        $csv = self::csv_to_array($file);
-        return self::updateTeachers($csv);
-    }
+            \Excel::load(self::$file, function($reader) {
+                $sheet = '';
+                foreach ($reader->toArray() as $sheet=>$row) {
+                    $data[$sheet] = $row;
+                    //Saving the Classes into groups
+                    if (self::$sheetname[$sheet]=='Classes'){
+                        foreach($data[$sheet] as $row){
+                            self::updateClasses($row);
+                        }
+                    }
+                    //Saving the teachers into users
+                    if (self::$sheetname[$sheet]=='Teachers'){
+                        foreach($data[$sheet] as $row){
+                            self::updateTeachers($row);
+                        }
+                    }
+                    //Saving the Students into users
+                    if (self::$sheetname[$sheet]=='Students'){
+                        foreach($data[$sheet] as $row){
+                            self::updateDB($row);
+                        }
+                    }
 
-    public static function migrateClasses(){
-        $file = base_path('storage/app/yourcsvfile.csv');
-        $csv = self::csv_to_array($file);
-        return self::updateClasses($csv);
+                }
+
+            });
+
+        } catch (\Exception $e) {
+            dd("Houston, we have a problem: ".$e->getMessage());
+        }
+
     }
 
     public static function csv_to_array($filename = '', $delimiter = ',')
@@ -58,11 +80,11 @@ class BulkImporter
 
     protected static function updateDB($data)
     {
-        foreach ($data as $title) {
-            if ($title['STUDENT ID'] != '') {
+        foreach ($data as $title=>$val) {
+            if ($data['student_id'] != '') {
 
                 //creating or updating districts
-                $DDBNNN = preg_split('/(?<=[0-9])(?=[a-z]+)/i', $title['DDBNNN']);
+                $DDBNNN = preg_split('/(?<=[0-9])(?=[a-z]+)/i', $data['ddbnnn']);
 
                 //Adding Districts
                 $district = District::firstOrCreate(['code' => $DDBNNN[0], 'system_id' => 1]);
@@ -77,7 +99,7 @@ class BulkImporter
                                                                 $query->where('district_id', $district->id);
                                                             }))->first();
 
-                if (is_null($organization)) { // TODO figure out if this can be replaced with a firstOrCreate;
+                if (is_null($organization)) {
                     $organization = new Organization();
                 }
 
@@ -91,57 +113,50 @@ class BulkImporter
 
                 //Adding groups
                 $group = Group::firstOrCreate(['organization_id' => $organization->id]);
-                $group->title = $title['OFF CLS'];
+                $group->title = $data['off_cls'];
                 $group->save();
 
                 //Adding students
-                $user = User::firstOrCreate(['student_id' => $title['STUDENT ID']]);
-                $user->student_id = $title['STUDENT ID'];
-                $user->first_name = $title['FIRST NAME'];
-                $user->last_name = $title['LAST NAME'];
-                $user->sex = $title['SEX'];
-                $user->dob = $title['BIRTH DT'];
+                $user = User::firstOrCreate(['student_id' => $data['student_id']]);
+                $user->student_id = $data['student_id'];
+                $user->first_name = $data['first_name'];
+                $user->last_name = $data['last_name'];
+                $user->sex = $data['sex'];
+                $user->dob = $data['birth_dt'];
                 $user->save();
                 $child_id = $user->id;
 
-                //Adding guardians
-//                if ($title['EMAIL']!='') {
-//                    $guardian = User::firstOrCreate(['email' => $title['EMAIL']]);
-//                    $guardian->student_id = $title['EMAIL'];
-//                    $guardian->first_name = $title['FIRST NAME'] . '\'s ' . $title['ADULT FIRST 1'];
-//                    $guardian->last_name = $title['ADULT LAST 1'];
-//                    $guardian->save();
-//                    $guardian->children()->sync( array(
-//                        $guardian->id => $child_id,
-//                    ));
-//                }
-
                 $guardian = \DB::table('guardian_validation')
-                    ->where('student_id','=', $title['STUDENT ID'])
-                    ->where('first_name','=', $title['ADULT FIRST 1'])
-                    ->where('last_name','=', $title['ADULT LAST 1'])
+                    ->where('student_id','=', $data['student_id'])
+                    ->where('first_name','=', $data['adult_first_1'])
+                    ->where('last_name','=', $data['adult_last_1'])
                     ->get();
 
+
+
+
                if (isset($guardian[0]->id)){
-                   $output = \DB::table('guardian_validation')->where('student_id', $guardian[0]->student_id)
+                   $output = \DB::table('guardian_validation')->where('id', $guardian[0]->id)
                        ->update(array(
-                           'student_id' => $title['STUDENT ID'],
-                           'first_name' => $title['ADULT FIRST 1'],
-                           'last_name' => $title['ADULT LAST 1'],
-                           'phone' => $title['ADULT PHONE 1'],
+                           'student_id' => $data['student_id'],
+                           'first_name' => $data['adult_first_1'],
+                           'last_name' => $data['adult_last_1'],
+                           'phone' => $data['adult_phone_1'],
                        ));
                }else{
                     $output = \DB::table('guardian_validation')->insert(array(
-                        'student_id' => $title['STUDENT ID'],
-                        'first_name' => $title['ADULT FIRST 1'],
-                        'last_name' => $title['ADULT LAST 1'],
-                        'phone' => $title['ADULT PHONE 1'],
+                        'student_id' => $data['student_id'],
+                        'first_name' => $data['adult_first_1'],
+                        'last_name' => $data['adult_last_1'],
+                        'phone' => $data['adult_phone_1'],
                    ));
                }
 
             }
         }
 
+        //@TODO email notification has been temporarily disabled. JT 10/11
+        return false;
         $notifier = new Notifier();
         $notifier->to = Auth::user()->email;
         $notifier->subject = 'Your import is completed at '.date('m-d-Y h:i:s A');
@@ -153,20 +168,18 @@ class BulkImporter
 
 
     protected static function updateTeachers($data){
-
-        foreach ($data as $title) {
-            $id = $title['Person Type'].' '.$title['First Name']." ".$title['Last Name'];
+        foreach ($data as $title=>$val) {
+            $id = $data['person_type'].' '.$data['first_name']." ".$data['last_name'];
             $id = str_slug($id);
             $techers = User::firstOrCreate(['student_id' => $id]);
             $techers->student_id = $id;
-            $techers->first_name = $title['First Name'];
-            $techers->last_name = $title['Last Name'];
-            $techers->sex = $title['Gender'];
+            $techers->first_name = $data['first_name'];
+            $techers->last_name = $data['last_name'];
+            $techers->sex = $data['gender'];
             $saved = $techers->save();
             $teacher_id = $techers->id;
-            echo $teacher_id."<br />";
             $role_id = 0;
-            switch($title['Person Type']){
+            switch($data['person_type']){
                 case 'Principal':
                     $role_id=1;
                     break;
@@ -190,14 +203,12 @@ class BulkImporter
 
     protected static function updateClasses($data){
         $organization_id = self::$data['parms']['organization_id'];
-        foreach ($data as $title) {
-            if (isset($title['Offical Class #']) && $title['Offical Class #']!='') {
-                $group = Group::firstOrCreate(['organization_id' => $organization_id, 'title' => $title['Offical Class #']]);
+        foreach ($data as $title=>$val) {
+                $group = Group::firstOrCreate(['organization_id' => $organization_id, 'title' => $data['offical_class']]);
                 $group->organization_id = $organization_id;
-                $group->title = $title['Offical Class #'];
-                $group->description = $title['Class Number'];
+                $group->title = $data['offical_class'];
+                $group->description = $data['class_number'];
                 $group->save();
-            }
         }
         return true;
     }
