@@ -132,8 +132,11 @@ class BulkImporter
                     ->where('last_name','=', $data['adult_last_1'])
                     ->get();
 
+
+
+
                if (isset($guardian[0]->id)){
-                   $output = \DB::table('guardian_validation')->where('student_id', $guardian[0]->student_id)
+                   $output = \DB::table('guardian_validation')->where('id', $guardian[0]->id)
                        ->update(array(
                            'student_id' => $data['student_id'],
                            'first_name' => $data['adult_first_1'],
@@ -151,6 +154,7 @@ class BulkImporter
 
             }
         }
+
         //@TODO email notification has been temporarily disabled. JT 10/11
         return false;
         $notifier = new Notifier();
