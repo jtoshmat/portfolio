@@ -18,7 +18,8 @@
 	    "guzzlehttp/guzzle": "~5.0",
         "predis/predis": "~1.1@dev",
         "cloudinary/cloudinary_php": "dev-master",
-        "cartalyst/sentry": "dev-feature/laravel-5"
+        "cartalyst/sentry": "dev-feature/laravel-5",
+        "maatwebsite/excel": "~2.0"
     },
     "autoload": {
         "classmap": [
