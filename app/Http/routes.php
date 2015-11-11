@@ -121,6 +121,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'api'], function () {
         return csrf_token();
     });
 
+    Route::get('/parms/{parm_name}', function ($parm_name) {
+        return \Config::get('mycustomvars.'.$parm_name);
+    })->where('parm_name', '[a-z]+');
+
     Route::group(['middleware' => 'auth'], function ($router) {
 
         Route::get('/sidebar', 'Api\MasterController@sidebar');
