@@ -51,9 +51,7 @@ Route::group(['prefix' => 'admin'], function ($router) {
 
         //Composer for sidebars and user specific contents
         View::composer('partials.sidebar', 'app\cmwn\Users\UserSpecificRepository');
-
     });
-
 });
 
 ##########################################################################
