@@ -11,23 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends ApiController
 {
-    // public function __construct(Manager $fractal)
-    // {
-
-    //     parent::__construct($fractal);
-    // //
-    //     $requestedEmbeds = Input::get('include');
-
-    //     $possibleRelationships = [
-    //         'groups' => 'groups',
-    //     ];
-
-    //     // Check for potential ORM relationships, and convert from generic "include" names
-    //     $this->eagerLoad = array_keys(array_intersect($possibleRelationships, $requestedEmbeds));
-
-    // }
-
-
     public function index()
     {
         $query = \Request::get('name') or null;
