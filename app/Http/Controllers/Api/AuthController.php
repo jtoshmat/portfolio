@@ -18,7 +18,6 @@ class AuthController extends ApiController
         $email = $header['email'];
         $password = $header['password'];
 
-
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             return $this->respondWithArray(array('session_id' => Session::getId()));
         } else {
