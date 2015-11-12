@@ -111,4 +111,17 @@
 
 		</div>
 	</div>
+<h3 style="text-align: center">Upload Excel file</h3>
+		{!! Form::open(array('url' => 'api/admin/importexcel', 'files'=>true, 'class' => 'form-horizontal', 'role' => 'form', 'id' =>
+		'uploadcsvform'))	!!}
+		<div class="input-group" style="text-align: center">
+			{!! Form::file('yourcsv') !!}
+		</div>
+		<div class="col-sm-12 controls" style="text-align: center">
+			{!! Form::hidden('organization_id',$data->id) !!}
+			{!! Form::reset('Reset', array('class' => 'btn btn-default', 'id' => 'btn-reset')) !!}
+			{!! Form::submit('Upload', array('class' => 'btn btn-success', 'id' => 'btn-upload')) !!}
+		</div>
+	{!! Form::close() !!}
+
 @stop

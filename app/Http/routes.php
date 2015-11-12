@@ -107,7 +107,6 @@ Route::group(['middleware' => 'auth'], function ($router) {
 ##########################################################################
 
 Route::group(['prefix' => 'api', 'middleware' => 'api'], function () {
-
     Route::get('/csrf_token', function () {
         return csrf_token();
     });
@@ -155,6 +154,9 @@ Route::group(['prefix' => 'api', 'middleware' => 'api'], function () {
 
         Route::get('/roles', 'Api\RoleController@index');
         Route::get('/roles/{id}', 'Api\RoleController@show');
+
+        //Admin tasks: Import Excel files and update the DB.
+        Route::post('/admin/importexcel', ['uses' => 'Api\MasterController@importExcel']);
 
     });
 });

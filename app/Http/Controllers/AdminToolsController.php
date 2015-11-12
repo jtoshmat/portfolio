@@ -86,6 +86,11 @@ class AdminToolsController extends Controller
             }
 
         }
+
+
+
+
+
         $district_id = (int) Request::query('district');
         $districts = District::All();
         $selected_district = 0;
