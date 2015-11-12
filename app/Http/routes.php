@@ -30,8 +30,6 @@ Route::get('/home', function () {
     return view('welcome');
 });
 
-    Route::any('admin/importfiles', 'AdminToolsController@importfiles');
-
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
