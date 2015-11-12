@@ -150,4 +150,13 @@ class ApiController extends Controller
         return $this->setStatusCode(400)
           ->respondWithError($message, self::CODE_WRONG_ARGS);
     }
+
+    public function getCredentialsFromHeader(){
+        $ha = base64_decode(substr(\Request::header('Authorization'), 6));
+        list($email, $password) = explode(':', $ha);
+        return array(
+            'email' => $email,
+            'password' => $password
+        );
+    }
 }

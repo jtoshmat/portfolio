@@ -14,8 +14,9 @@ class AuthController extends ApiController
     public function authenticate()
     {
 
-        $ha = base64_decode(substr(\Request::header('Authorization'), 6));
-        list($email, $password) = explode(':', $ha);
+        $header = $this->getCredentialsFromHeader();
+        $email = $header['email'];
+        $password = $header['password'];
 
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             return $this->respondWithArray(array('message' => 'Login successful.'));
