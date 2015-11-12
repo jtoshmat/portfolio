@@ -19,6 +19,16 @@ class SideBarItems
 
 	public function getAll()
     {
+	    $tags['super_admin'] = array(
+		    'Members' => '/users/members',
+		    'Roles' => '/users/members',
+		    'Ditricts' => '/districts',
+		    'Organizations' => '/organizations',
+		    'Groups' => '/groups',
+		    'Upload CSV' => '/admin/importfiles',
+		    'Cloudinary Image' => '/admin/playground',
+	    );
+
 	    $tags['admin'] = array(
 		    'Members' => '/users/members',
 		    'Roles' => '/users/members',
