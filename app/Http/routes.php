@@ -23,7 +23,6 @@ Route::get('/home', function () {
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
-Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 Route::group(['prefix' => 'admin'], function ($router) {
 
