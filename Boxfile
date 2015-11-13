@@ -16,7 +16,7 @@ global:
     - MAIL_USERNAME: 4762712fd34d91aa0
     - MAIL_PASSWORD: af48fe96f32502
     - MAIL_ENCRYPTION: null
-    - SESSION_DOMAIN" 'changemyworldnow.com'
+    - SESSION_DOMAIN: 'changemyworldnow.com'
     - ACCESS_CONTROL_ALLOW_ORIGIN: 'http://dev.changemyworldnow.com'
 
 build:
