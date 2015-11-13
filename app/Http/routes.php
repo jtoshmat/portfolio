@@ -11,6 +11,10 @@
 |
 */
 
+// Route::option('{all}', function(){
+//     return response('',204);
+// })->where('all', '.*');
+
 if (env('APP_ENV') == 'local') {
     Event::listen('illuminate.query', function ($query) {
     //var_dump($query);
@@ -63,51 +67,55 @@ Route::get('/csrf_token', function () {
     return csrf_token();
 });
 
-Route::post('/auth/login', 'Api\AuthController@authenticate');
+Route::group(['middleware' => 'api'], function ($router) {
 
-Route::group(['middleware' => 'auth'], function ($router) {
+    Route::post('/auth/login', 'Api\AuthController@authenticate');
 
-    Route::get('/parms/{parm_name}', function ($parm_name) {
-        return \Config::get('mycustomvars.'.$parm_name);
-    })->where('parm_name', '[a-z]+');
+    Route::group(['middleware' => 'auth'], function ($router) {
 
-    Route::get('/sidebar', 'Api\MasterController@sidebar');
-    Route::get('/friends', 'Api\MasterController@friends');
+        Route::get('/parms/{parm_name}', function ($parm_name) {
+            return \Config::get('mycustomvars.'.$parm_name);
+        })->where('parm_name', '[a-z]+');
 
-    Route::get('/auth/logout', 'Api\AuthController@logout');
+        Route::get('/sidebar', 'Api\MasterController@sidebar');
+        Route::get('/friends', 'Api\MasterController@friends');
 
-    Route::get('/users', 'Api\UserController@index');
-    Route::get('/users/{id}', 'Api\UserController@show');
-    Route::get('/users/{id}/groups', 'Api\UserController@getGroups');
-    Route::get('/suggestedfriends', 'Api\SuggestedController@show');
+        Route::get('/auth/logout', 'Api\AuthController@logout');
 
-    //Get Groups
-    Route::get('/groups', 'Api\GroupController@index');
-    Route::get('/groups/{id}', 'Api\GroupController@show');
-    Route::get('/groups/{id}/users', 'Api\GroupController@getUsers');
+        Route::get('/users', 'Api\UserController@index');
+        Route::get('/users/{id}', 'Api\UserController@show');
+        Route::get('/users/{id}/groups', 'Api\UserController@getGroups');
+        Route::get('/suggestedfriends', 'Api\SuggestedController@show');
 
-    //Put Groups
-    Route::post('/groups/{id}', ['uses' => 'Api\GroupController@update']);
+        //Get Groups
+        Route::get('/groups', 'Api\GroupController@index');
+        Route::get('/groups/{id}', 'Api\GroupController@show');
+        Route::get('/groups/{id}/users', 'Api\GroupController@getUsers');
 
-    //Get Districts
-    Route::get('/districts', 'Api\DistrictController@index');
-    Route::get('/districts/{id}', 'Api\DistrictController@show');
-    Route::get('/districts/{id}/organizations', 'Api\DistrictController@getOrganizations');
+        //Put Groups
+        Route::post('/groups/{id}', ['uses' => 'Api\GroupController@update']);
 
-    //Put Districts
-    Route::post('/districts/{id}', ['uses' => 'Api\DistrictController@update']);
+        //Get Districts
+        Route::get('/districts', 'Api\DistrictController@index');
+        Route::get('/districts/{id}', 'Api\DistrictController@show');
+        Route::get('/districts/{id}/organizations', 'Api\DistrictController@getOrganizations');
 
-    //Get Organizations
-    Route::get('/organizations', 'Api\OrganizationController@index');
-    Route::get('/organizations/{id}', 'Api\OrganizationController@show');
+        //Put Districts
+        Route::post('/districts/{id}', ['uses' => 'Api\DistrictController@update']);
 
-    //Put Organizations
-    Route::post('/organizations/{id}', ['uses' => 'Api\OrganizationController@update']);
+        //Get Organizations
+        Route::get('/organizations', 'Api\OrganizationController@index');
+        Route::get('/organizations/{id}', 'Api\OrganizationController@show');
 
-    Route::get('/roles', 'Api\RoleController@index');
-    Route::get('/roles/{id}', 'Api\RoleController@show');
+        //Put Organizations
+        Route::post('/organizations/{id}', ['uses' => 'Api\OrganizationController@update']);
 
-    //Admin tasks: Import Excel files and update the DB.
-    Route::post('/admin/importexcel', ['uses' => 'Api\MasterController@importExcel']);
+        Route::get('/roles', 'Api\RoleController@index');
+        Route::get('/roles/{id}', 'Api\RoleController@show');
+
+        //Admin tasks: Import Excel files and update the DB.
+        Route::post('/admin/importexcel', ['uses' => 'Api\MasterController@importExcel']);
+
+    });
 
 });
