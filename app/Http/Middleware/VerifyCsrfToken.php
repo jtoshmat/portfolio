@@ -1,9 +1,9 @@
 <?php
 
 namespace app\Http\Middleware;
-use Closure;
+
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
-use Illuminate\Support\Facades\Config;
+
 class VerifyCsrfToken extends BaseVerifier
 {
     /**
@@ -12,6 +12,6 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        //
+        '*',
     ];
 }
