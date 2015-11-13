@@ -17,7 +17,7 @@ class Api
      */
     public function handle($request, Closure $next)
     {
-        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Origin: http://dev.changemyworldnow.com');
 
         // ALLOW OPTIONS METHOD
         $headers = [
