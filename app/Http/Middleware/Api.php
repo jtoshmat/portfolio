@@ -22,7 +22,7 @@ class Api
         $response->headers->set('Access-Control-Allow-Origin', '*');
         $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, PUT, OPTIONS, DELETE');
         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Origin, Authorization, X-Csrf-Token');
-        $response->headers->set('Access-Control-Allow-Credentials', 'true');
+        //$response->headers->set('Access-Control-Allow-Credentials', 'true');
 
         // Set the allowed methods for the specific uri if the request method is OPTION
         if ($request->isMethod('options')) {
