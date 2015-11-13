@@ -17,24 +17,17 @@ class Api
      */
     public function handle($request, Closure $next)
     {
-        header('Access-Control-Allow-Origin: http://dev.changemyworldnow.com');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Credentials: true');
 
-        // ALLOW OPTIONS METHOD
-        $headers = [
-               'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS, PUT, DELETE',
-               'Access-Control-Allow-Headers' => 'Content-Type, X-Auth-Token, Origin, X-Csrf-Token, Authorization',
-           ];
-
-        if ($request->getMethod() == 'OPTIONS') {
+        if (Request::getMethod() == 'OPTIONS') {
             // The client-side application can set only headers allowed in Access-Control-Allow-Headers
-               return Response::make('OK', 200, $headers);
-        }
+            $headers = [
+                'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS, PUT, DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With, Content-Type, X-Auth-Token, Origin, Authorization',
+            ];
 
-        $response = $next($request);
-        foreach ($headers as $key => $value) {
-            $response->header($key, $value);
+            return Response::make('You are connected to the API', 200, $headers);
         }
-
-        return $response;
     }
 }
