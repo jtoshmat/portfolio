@@ -20,7 +20,7 @@ class Api
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Allow-Credentials: true');
 
-        if (Request::getMethod() == 'OPTIONS') {
+        if ($request->getMethod() == 'OPTIONS') {
             // The client-side application can set only headers allowed in Access-Control-Allow-Headers
             $headers = [
                 'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS, PUT, DELETE',
