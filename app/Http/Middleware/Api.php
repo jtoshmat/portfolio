@@ -18,10 +18,10 @@ class Api
     {
         $ACCESS_CONTROL_ALLOW_ORIGIN = env('ACCESS_CONTROL_ALLOW_ORIGIN') ? env('ACCESS_CONTROL_ALLOW_ORIGIN') : '*';
 
-        return $next($request); //->header('Access-Control-Allow-Origin', $ACCESS_CONTROL_ALLOW_ORIGIN)
-            // ->header('Access-Control-Allow-Credentials', 'true')
-            // ->header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE')
-            // ->header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With')
-            // ->header('Access-Control-Max-Age', '28800');
+        return $next($request)->header('Access-Control-Allow-Origin', $ACCESS_CONTROL_ALLOW_ORIGIN)
+            ->header('Access-Control-Allow-Credentials', 'true')
+            ->header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE')
+            ->header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With, X-Csrf-Token')
+            ->header('Access-Control-Max-Age', '28800');
     }
 }
