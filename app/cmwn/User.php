@@ -133,9 +133,10 @@ class User extends Model implements
     public function suggestedfriends()
     {
         $groups = $this->groups->lists('id');
+        $roles = $this->role->lists('id');
         $suggested = self::whereHas('groups', function ($query) use ($groups) {
-            $query->whereIn('roleable_id', $groups);
-        })->get();
+            $query->whereIn('roleable_id', $groups)->whereIn('role_id', array(3)); //@TODO: revisit this and come up with a better solution for getting user roles in array (3) - JT 11/12
+        })->where('id','!=', $this->id)->get();
 
         return $suggested;
     }
