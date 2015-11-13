@@ -16,21 +16,25 @@ class Api
      */
     public function handle($request, Closure $next)
     {
+        $headers = [
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS, PUT, DELETE',
+            'Access-Control-Allow-Headers' => 'Content-Type, X-Auth-Token, Origin, Authorization, X-Csrf-Token',
+        ];
+
+        if ($request->getMethod() == 'OPTIONS') {
+            $response = new Response();
+            foreach ($headers as $key => $value) {
+                $response->headers->set($key, $value);
+            }
+
+            return $response;
+        }
+
         $response = $next($request);
 
-        // Set the default headers for cors If you only want this for OPTION method put this in the if below
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, PUT, OPTIONS, DELETE');
-        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Origin, Authorization, X-Csrf-Token');
-        //$response->headers->set('Access-Control-Allow-Credentials', 'true');
-
-        // Set the allowed methods for the specific uri if the request method is OPTION
-        if ($request->isMethod('options')) {
-            $response->headers->set('Access-Control-Allow-Origin', '*');
-
-            $response->headers->set('Access-Control-Allow-Methods', $response->headers->get('Allow'));
-            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Origin, Authorization, X-Csrf-Token');
-
+        foreach ($headers as $key => $value) {
+            $response->headers->set($key, $value);
         }
 
         return $response;
