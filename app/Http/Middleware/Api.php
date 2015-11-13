@@ -16,6 +16,9 @@ class Api
      */
     public function handle($request, Closure $next)
     {
+
+        return $next($request);
+
         $ACCESS_CONTROL_ALLOW_ORIGIN = env('ACCESS_CONTROL_ALLOW_ORIGIN') ? env('ACCESS_CONTROL_ALLOW_ORIGIN') : '*';
 
         return $next($request)->header('Access-Control-Allow-Origin', $ACCESS_CONTROL_ALLOW_ORIGIN)
