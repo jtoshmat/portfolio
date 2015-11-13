@@ -27,6 +27,8 @@ class Api
         // Set the allowed methods for the specific uri if the request method is OPTION
         if ($request->isMethod('options')) {
             $response->headers->set('Access-Control-Allow-Methods', $response->headers->get('Allow'));
+            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Origin, Authorization');
+
         }
 
         return $response;
