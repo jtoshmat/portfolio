@@ -77,6 +77,7 @@ Route::get('/csrf_token', function () {
             return \Config::get('mycustomvars.'.$parm_name);
         })->where('parm_name', '[a-z]+');
 
+        Route::post('/updateimage', 'Api\MasterController@updateProfileImage');
         Route::get('/sidebar', 'Api\MasterController@sidebar');
         Route::get('/friends', 'Api\MasterController@friends');
 

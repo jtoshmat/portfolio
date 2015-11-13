@@ -19,8 +19,7 @@ class FriendshipController extends ApiController
     }
 
     public function show(){
-        $user_id = $this->userID;
-        return User::find($user_id)->friendrequests->lists('id');
+        return User::find($this->userID)->friendrequests->lists('id');
     }
 
     public function accept(){
@@ -31,6 +30,11 @@ class FriendshipController extends ApiController
     public function reject(){
         $friend_id = \Request::segment(3);
         return $this->executeRequest($friend_id, -1);
+    }
+
+    public function ignore(){
+        $friend_id = \Request::segment(3);
+        return $this->executeRequest($friend_id, -2);
     }
 
 
@@ -58,6 +62,12 @@ class FriendshipController extends ApiController
         $areWeInTheSameClass = self::areWeInSameClass($this->userID, $friend_id);
         if ($areWeInTheSameClass->count()==0){
             return $this->errorInternalError('Sorry you are not in the same class as a student.');
+        }
+
+        if ($requestedFunction == 'ignore'){
+            //@TODO: maybe schedule it so it will send a reminder in certain days to the user.
+            //status is set to -2 and in certain days we will set back to status = 0
+            return $this->respondWithArray(array('message' => 'ignore option has not been discussed.'));
         }
 
         User::find($friend_id)->friends()->sync(array($this->userID));
