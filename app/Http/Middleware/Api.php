@@ -3,6 +3,7 @@
 namespace app\Http\Middleware;
 
 use Closure;
+use Response;
 
 class Api
 {
