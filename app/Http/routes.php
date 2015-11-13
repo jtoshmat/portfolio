@@ -87,6 +87,11 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::get('/users/{id}/groups', 'Api\UserController@getGroups');
         Route::get('/suggestedfriends', 'Api\SuggestedController@show');
 
+        Route::get('/users/friendrequest/{id}', 'Api\FriendshipController@show');
+        Route::post('/users/acceptfriendrequest/{id}', 'Api\FriendshipController@accept');
+        Route::post('/users/rejectfriendrequest/{id}', 'Api\FriendshipController@reject');
+
+
         //Get Groups
         Route::get('/groups', 'Api\GroupController@index');
         Route::get('/groups/{id}', 'Api\GroupController@show');

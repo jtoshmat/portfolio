@@ -247,3 +247,11 @@ git update-index --assume-unchanged path/to/file
 
 When you want to start keeping track again
 git update-index --no-assume-unchanged path/to/file
+
+#routes with some parms and validations
+ Route::get('users/friendship/{friend_id}/{action}', [
+        'as' => 'users/friendhsip',
+        'uses' => 'Api\FriendshipController@add',
+    ], function ($id, $action) {
+        return $id;
+    })->where('id', '[0-9]+')->where('action', 'add|delete|block|accept|reject|message|poke');
