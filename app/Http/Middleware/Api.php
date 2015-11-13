@@ -19,7 +19,7 @@ class Api
         $response = $next($request);
 
         // Set the default headers for cors If you only want this for OPTION method put this in the if below
-        $response->headers->set('Access-Control-Allow-Origin', 'http://dev.changemyworldnow.com');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
         $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, PUT, OPTIONS, DELETE');
         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Origin, Authorization, X-Csrf-Token');
         $response->headers->set('Access-Control-Allow-Credentials', 'true');
