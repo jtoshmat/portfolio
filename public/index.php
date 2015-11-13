@@ -13,6 +13,11 @@
  * @author   Taylor Otwell <taylorotwell@gmail.com>
  */
 
+// TEMPORARY CORS FIX
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, X-Csrf-Token'); // allow certain headers
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
