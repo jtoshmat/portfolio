@@ -13,6 +13,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \app\Http\Middleware\Api::class,
         \app\Http\Middleware\EncryptCookies::class,
         \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
         \Illuminate\Session\Middleware\StartSession::class,
@@ -30,6 +31,5 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \app\Http\Middleware\RedirectIfAuthenticated::class,
         'role' => \app\Http\Middleware\Role::class,
-        'api' => \app\Http\Middleware\Api::class,
     ];
 }

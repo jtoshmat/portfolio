@@ -66,7 +66,7 @@ Route::group(['prefix' => 'admin'], function ($router) {
 ############################# API Requests ###############################
 ##########################################################################
 
-Route::group(['middleware' => 'api'], function ($router) {
+// Route::group(['middleware' => 'api'], function ($router) {
 
     Route::get('/csrf_token', function () {
         return csrf_token();
@@ -121,4 +121,4 @@ Route::group(['middleware' => 'api'], function ($router) {
 
     });
 
-});
+// });
