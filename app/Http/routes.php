@@ -64,10 +64,10 @@ Route::group(['prefix' => 'admin'], function ($router) {
 ##########################################################################
 
 Route::get('/csrf_token', function () {
-    return csrf_token();
+    //return csrf_token();
 });
 
-Route::group(['middleware' => 'api'], function ($router) {
+//Route::group(['middleware' => 'api'], function ($router) {
 
     Route::post('/auth/login', 'Api\AuthController@authenticate');
 
@@ -123,4 +123,4 @@ Route::group(['middleware' => 'api'], function ($router) {
 
     });
 
-});
+//});
