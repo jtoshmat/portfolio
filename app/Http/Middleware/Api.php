@@ -3,22 +3,35 @@
 namespace app\Http\Middleware;
 
 use Closure;
+use Request;
 
 class Api
 {
     /**
-      * Handle an incoming request.
-      *
-      * @param \Illuminate\Http\Request $request
-      * @param \Closure                 $next
-      *
-      * @return mixed
-      */
+     * Handle an incoming request.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        $response = $next($request);
 
-     public function handle($request, Closure $next)
-     {
-         return $next($request)->header('Access-Control-Allow-Origin', '*')
-              ->header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE')
-              ->header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With');
-     }
+        // Set the default headers for cors If you only want this for OPTION method put this in the if below
+        $response->headers->set('Access-Control-Allow-Origin', 'http://dev.changemyworldnow.com');
+        $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, PUT, OPTIONS, DELETE');
+        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Origin, Authorization');
+
+        // Set the allowed methods for the specific uri if the request method is OPTION
+        if ($request->isMethod('options')) {
+            $response->headers->set(
+                'Access-Control-Allow-Methods',
+                $response->headers->get('Allow')
+            );
+        }
+
+        return $response;
+    }
 }
