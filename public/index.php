@@ -17,7 +17,7 @@
 header('Access-Control-Allow-Origin: http://dev.changemyworldnow.com');
 header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, X-Csrf-Token'); // allow certain headers
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, X-Csrf-Token, Authorization'); // allow certain headers
 
 /*
 |--------------------------------------------------------------------------
