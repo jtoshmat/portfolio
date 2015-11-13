@@ -1,5 +1,8 @@
 <?php
 
+// echo(env('SESSION_DOMAIN'));
+// echo(env('ACCESS_CONTROL_ALLOW_ORIGIN'));
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -123,5 +126,4 @@ Route::get('/csrf_token', function () {
         Route::post('/admin/importexcel', ['uses' => 'Api\MasterController@importExcel']);
 
     });
-
 //});

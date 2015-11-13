@@ -16,6 +16,7 @@ global:
     - MAIL_USERNAME: 4762712fd34d91aa0
     - MAIL_PASSWORD: af48fe96f32502
     - MAIL_ENCRYPTION: null
+    - ACCESS_CONTROL_ALLOW_ORIGIN: 'http://dev.changemyworldnow.com'
 
 build:
   before_exec:
@@ -52,8 +53,8 @@ web1:
   log_watch:
     laravel[error]: 'storage/logs/laravel.log'
   before_deploy:
-    - 'mkdir storage/framework/views'
-    - 'mkdir storage/framework/sessions'
+    # - 'mkdir storage/framework/views'
+    # - 'mkdir storage/framework/sessions'
     - 'php artisan migrate --no-interaction'
 
 database1:
