@@ -3,6 +3,7 @@
 namespace app\Http\Middleware;
 
 use Closure;
+use Response;
 
 class Api
 {
@@ -16,21 +17,10 @@ class Api
      */
     public function handle($request, Closure $next)
     {
-        $response = $next($request);
-
-        // Set the default headers for cors If you only want this for OPTION method put this in the if below
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, PUT, OPTIONS, DELETE');
-        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Origin, Authorization, X-Csrf-Token');
-        $response->headers->set('Access-Control-Allow-Credentials', 'true');
-
-        // Set the allowed methods for the specific uri if the request method is OPTION
-        if ($request->isMethod('options')) {
-            $response->headers->set('Access-Control-Allow-Methods', $response->headers->get('Allow'));
-            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Origin, Authorization, X-Csrf-Token');
-
-        }
-
-        return $response;
+        return $next($request)->header('Access-Control-Allow-Origin' , 'http://dev.changemyworldnow.com')
+            ->header('Access-Control-Allow-Credentials', 'true')
+            ->header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE')
+            ->header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With')
+            ->header('Access-Control-Max-Age', '28800');
     }
 }
