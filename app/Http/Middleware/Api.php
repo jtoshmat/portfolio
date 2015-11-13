@@ -3,7 +3,6 @@
 namespace app\Http\Middleware;
 
 use Closure;
-use Response;
 
 class Api
 {
@@ -17,25 +16,22 @@ class Api
      */
     public function handle($request, Closure $next)
     {
+        header('Access-Control-Allow-Origin: *');
+
+        // ALLOW OPTIONS METHOD
         $headers = [
-            'Access-Control-Allow-Origin' => 'http://dev.changemyworldnow.com',
-            'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS, PUT, DELETE',
-            'Access-Control-Allow-Headers' => 'Content-Type, X-Auth-Token, Origin, Authorization, X-Csrf-Token',
-        ];
+               'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS, PUT, DELETE',
+               'Access-Control-Allow-Headers' => 'Content-Type, X-Auth-Token, Origin, X-Csrf-Token, Authorization',
+           ];
 
         if ($request->getMethod() == 'OPTIONS') {
-            $response = new Response();
-            foreach ($headers as $key => $value) {
-                $response->headers->set($key, $value);
-            }
-
-            return $response;
+            // The client-side application can set only headers allowed in Access-Control-Allow-Headers
+               return Response::make('OK', 200, $headers);
         }
 
         $response = $next($request);
-
         foreach ($headers as $key => $value) {
-            $response->headers->set($key, $value);
+            $response->header($key, $value);
         }
 
         return $response;
