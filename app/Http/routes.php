@@ -11,6 +11,10 @@
 |
 */
 
+// Route::option('{all}', function(){
+//     return response('',204);
+// })->where('all', '.*');
+
 if (env('APP_ENV') == 'local') {
     Event::listen('illuminate.query', function ($query) {
     //var_dump($query);
@@ -64,10 +68,6 @@ Route::get('/csrf_token', function () {
 });
 
 Route::group(['middleware' => 'api'], function ($router) {
-
-    Route::option('{all}', function(){
-        return response('',204);
-    })->where('all', '.*');
 
     Route::post('/auth/login', 'Api\AuthController@authenticate');
 
