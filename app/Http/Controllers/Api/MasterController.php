@@ -73,4 +73,8 @@ class MasterController extends ApiController
         }
         return false;
     }
+
+    public function updateProfileImage(){
+        return "CORE-94 will be implemented here";
+    }
 }

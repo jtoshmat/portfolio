@@ -66,6 +66,7 @@ class FriendshipController extends ApiController
 
         if ($requestedFunction == 'ignore'){
             //@TODO: maybe schedule it so it will send a reminder in certain days to the user.
+            //status is set to -2 and in certain days we will set back to status = 0
             return $this->respondWithArray(array('message' => 'ignore option has not been discussed.'));
         }
 
