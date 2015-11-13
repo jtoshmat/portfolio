@@ -19,6 +19,10 @@ header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, X-Csrf-Token, Authorization');
 
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    echo 'Hello';
+}
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader

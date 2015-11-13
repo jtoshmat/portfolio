@@ -135,7 +135,7 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN') ? env('SESSION_DOMAIN') : '.changemyworldnow.com',
+    'domain' => '.changemyworldnow.com',
 
     /*
     |--------------------------------------------------------------------------
