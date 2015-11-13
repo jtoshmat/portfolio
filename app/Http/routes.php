@@ -65,6 +65,10 @@ Route::get('/csrf_token', function () {
 
 Route::group(['middleware' => 'api'], function ($router) {
 
+    Route::option('{all}', function(){
+        return response('',204);
+    })->where('all', '.*');
+
     Route::post('/auth/login', 'Api\AuthController@authenticate');
 
     Route::group(['middleware' => 'auth'], function ($router) {
