@@ -3,6 +3,7 @@
 namespace app\Http\Controllers\Api;
 
 use app\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Response;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
@@ -149,6 +150,11 @@ class ApiController extends Controller
     {
         return $this->setStatusCode(400)
           ->respondWithError($message, self::CODE_WRONG_ARGS);
+    }
+
+    public function getToken(Request $request)
+    {
+        return response()->json(['token' => csrf_token()]);
     }
 
     public function getCredentialsFromHeader(){
