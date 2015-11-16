@@ -17,11 +17,11 @@ class Api
     public function handle($request, Closure $next)
     {
 
-        // TEMPORARY CORS FIX
-        header('Access-Control-Allow-Origin: http://cmwn.localhost');
-        header('Access-Control-Allow-Credentials: true');
-        header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
-        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, X-XSRF-TOKEN, Authorization');
+        // // TEMPORARY CORS FIX
+        // header('Access-Control-Allow-Origin: http://cmwn.localhost');
+        // header('Access-Control-Allow-Credentials: true');
+        // header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+        // header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, X-XSRF-TOKEN, Authorization');
 
         $ACCESS_CONTROL_ALLOW_ORIGIN = 'http://'.$this->giveHost($request->root());
 
