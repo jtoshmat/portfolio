@@ -17,9 +17,9 @@ class Api
     public function handle($request, Closure $next)
     {
 
-        $ACCESS_CONTROL_ALLOW_ORIGIN = 'http://'.$this->giveHost($request->root());
+        //$ACCESS_CONTROL_ALLOW_ORIGIN = 'http://'.$this->giveHost($request->root());
 
-        return $next($request)->header('Access-Control-Allow-Origin', $ACCESS_CONTROL_ALLOW_ORIGIN)
+        return $next($request)->header('Access-Control-Allow-Origin', 'http://dev.changemyworldnow.com')
             ->header('Access-Control-Allow-Credentials', 'true')
             ->header('Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS, PUT, DELETE')
             ->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Authorization, X-Auth-Token, X-CSRF-TOKEN')
