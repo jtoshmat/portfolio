@@ -135,7 +135,7 @@ return [
     |
     */
 
-    'domain' => 'cmwn.localhost',
+    'domain' => '.chanagemyworldnow.com',
 
     /*
     |--------------------------------------------------------------------------

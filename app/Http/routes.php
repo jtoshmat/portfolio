@@ -1,8 +1,5 @@
 <?php
 
-// echo(env('SESSION_DOMAIN'));
-// echo(env('ACCESS_CONTROL_ALLOW_ORIGIN'));
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
