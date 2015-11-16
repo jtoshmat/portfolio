@@ -11,11 +11,11 @@
 |
 */
 
-if (env('APP_ENV') == 'local') {
-    Event::listen('illuminate.query', function ($query) {
-    //var_dump($query);
-    });
-}
+// if (env('APP_ENV') == 'local') {
+//     Event::listen('illuminate.query', function ($query) {
+//     //var_dump($query);
+//     });
+// }
 
 Route::get('/home', function () {
     return view('welcome');
@@ -60,6 +60,11 @@ Route::group(['prefix' => 'admin'], function ($router) {
 ##########################################################################
 
 Route::get('/csrf_token', 'Api\ApiController@getToken');
+
+// Route::get('/parms/{parm_name}', function ($parm_name) {
+//     return \Config::get('mycustomvars.'.$parm_name);
+// })
+
 Route::post('/auth/login', 'Api\AuthController@authenticate');
 
 Route::group(['middleware' => 'auth'], function ($router) {

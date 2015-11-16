@@ -157,7 +157,11 @@ class ApiController extends Controller
         return response()->json(['token' => csrf_token()]);
     }
 
-    public function getCredentialsFromHeader(){
+    public function getCredentialsFromHeader()
+    {
+
+        return response()->json(['hi there' => 'hi there']);
+
         $ha = base64_decode(substr(\Request::header('Authorization'), 6));
         list($email, $password) = explode(':', $ha);
 
