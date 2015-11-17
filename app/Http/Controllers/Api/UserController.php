@@ -93,14 +93,13 @@ class UserController extends ApiController
 
     public function updateImage($user_id){
         $validator = Validator::make(Input::all(), Image::$imageUpdateRules);
+
         if ($validator->passes()) {
-            $user = User::find($user_id);
-            $image = new Image();
-            $image->url = "http://www.atilaminates.com/wp-content/uploads/2015/05/nature-wlk.jpeg"; //get the image_url from Frontend
-            $image->cloudinary_id = 1;
-            if ($user->images()->save($image)){
+            $user = new User();
+            if($user->updateImage($user_id, Input::all())){
                 return $this->respondWithArray(array('message' => 'The image has been updated sucessfully.'));
             }
+                return $this->errorInternalError('The image failed to update');
         }
             $messages = print_r($validator->errors()->getMessages(), true);
             return $this->errorInternalError('Input validation error: '. $messages);
@@ -110,11 +109,11 @@ class UserController extends ApiController
     public function deleteImage($user_id){
         $validator = Validator::make(Input::all(), Image::$imageUpdateRules);
         if ($validator->passes()) {
-            $user = User::find($user_id);
-            $image = new Image();
-            if ($user->images()->delete()){
-                return $this->respondWithArray(array('message' => 'The image has been deleted sucessfully.'));
+            $user = new User();
+            if($user->deleteImage($user_id)){
+                return $this->respondWithArray(array('message' => 'The image has been updated sucessfully.'));
             }
+                return $this->errorInternalError('The image failed to delete');
         }
         $messages = print_r($validator->errors()->getMessages(), true);
         return $this->errorInternalError('Input validation error: '. $messages);
