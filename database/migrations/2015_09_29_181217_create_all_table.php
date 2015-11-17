@@ -88,7 +88,7 @@ class CreateAllTable extends Migration
 		    $table->increments('id');
 		    $table->unsignedInteger('imageable_id')->unsigned();
 		    $table->string('imageable_type');
-		    $table->string('image_url');
+		    $table->string('url');
             $table->unsignedInteger('cloudinary_id')->unsigned();
 		    $table->timestamps();
 	    });

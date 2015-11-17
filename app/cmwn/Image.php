@@ -9,8 +9,17 @@ use app\cmwn\Traits\RoleTrait;
 
 class Image extends Model
 {
+    use RoleTrait;
 
-    public function imageable()
+    protected $table = 'images';
+
+    public static $imageUpdateRules = array(
+        'url' => 'url',
+        //'role[]'=>'required',
+        //'role[]'=>'required|regex:/^[0-9]?$/',
+    );
+
+    public function imageabless()
     {
         return $this->morphTo();
     }
