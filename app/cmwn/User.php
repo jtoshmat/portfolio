@@ -9,7 +9,6 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Model implements
@@ -70,7 +69,8 @@ class User extends Model implements
         return $this->belongsToMany('app\Role');
     }
 
-    public function guardianValidation(){
+    public function guardianValidation()
+    {
         return $this->belongsToMany('app\User', 'guardian_validation', 'student_id');
     }
 
@@ -98,7 +98,6 @@ class User extends Model implements
     {
         return $this->belongsToMany('app\User', 'child_guardian', 'guardian_id', 'child_id');
     }
-
 
     public function guardians()
     {
@@ -136,7 +135,7 @@ class User extends Model implements
         $roles = $this->role->lists('id');
         $suggested = self::whereHas('groups', function ($query) use ($groups) {
             $query->whereIn('roleable_id', $groups)->whereIn('role_id', array(3)); //@TODO: revisit this and come up with a better solution for getting user roles in array (3) - JT 11/12
-        })->where('id','!=', $this->id)->get();
+        })->where('id', '!=', $this->id)->get();
 
         return $suggested;
     }
@@ -162,17 +161,29 @@ class User extends Model implements
         return false;
     }
 
-    public static function updateMember(Request $request, $id)
+    public function updateMember($params)
     {
-        $roles = $request::get('role');
-        $roles = ($roles) ? $roles : array();
-        $user = self::find($id);
-        $user->role()->sync($roles);
-        $user->first_name = $request::get('first_name');
-        $user->middle_name = $request::get('middle_name');
-        $user->last_name = $request::get('last_name');
-        $user->name = $user->first_name.' '.$user->last_name;
-        if ($user->save()) {
+        if (isset($params['first_name'])) {
+            $this->first_name = $params['first_name'];
+        }
+
+        if (isset($params['middle_name'])) {
+            $this->middle_name = $params['middle_name'];
+        }
+
+        if (isset($params['last_name'])) {
+            $this->last_name = $params['last_name'];
+        }
+
+        if (isset($params['gender'])) {
+            $this->gender = $params['gender'];
+        }
+
+        if (isset($params['dob'])) {
+            $this->dob = $params['dob'];
+        }
+
+        if ($this->save()) {
             return true;
         }
 

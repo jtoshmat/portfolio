@@ -7,13 +7,13 @@
 
 		<div class="panel-body" style="padding-top:30px">
 			<span class="breadcrumb">
-				<a href="/districts">District</a> |
-				<a href="/organization/{{$data->organization_id}}/view">Organization</a> |
-				<a href="/groups">Groups</a> |
+				<a href="/admin/districts">District</a> |
+				<a href="/admin/organization/{{$data->organization_id}}/view">Organization</a> |
+				<a href="/admin/groups">Groups</a> |
 				{{$data->title}}
 
 			</span><hr />
-			
+
 
 			<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 				<tr class="tr_head"><td><h2>{{$data->title}}</h2></td></tr>
@@ -33,7 +33,7 @@
 
 							@foreach($data->teachers as $user)
 								<tr>
-									<td><a href="/user/{{$user->id}}/view">{{$user->name}}</a> </td>
+									<td><a href="/admin/user/{{$user->id}}/view">{{$user->name}}</a> </td>
 									<td>{{$user->slug}}</td>
 								</tr>
 							@endforeach
@@ -54,7 +54,7 @@
 
 							@foreach($data->students as $student)
 								<tr>
-									<td><a href="/user/{{$student->id}}/view">{{$student->name}}</a> </td>
+									<td><a href="/admin/user/{{$student->id}}/view">{{$student->name}}</a> </td>
 									<td>{{$student->slug}}</td>
 								</tr>
 							@endforeach

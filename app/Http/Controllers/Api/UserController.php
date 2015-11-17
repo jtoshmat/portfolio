@@ -6,9 +6,7 @@ use app\Transformer\UserTransformer;
 use app\Transformer\GroupTransformer;
 use app\User;
 use Input;
-use League\Fractal\Manager;
 use Illuminate\Support\Facades\Auth;
-
 use app\Transformer\ImageTransformer;
 
 class UserController extends ApiController
@@ -41,6 +39,32 @@ class UserController extends ApiController
         return $this->respondWithItem($user, new UserTransformer());
     }
 
+    public function update($userId)
+    {
+        if ($userId ==  'me') {
+            $user = Auth::user();
+        } else {
+            $user = User::find($userId);
+        }
+
+        if ($user->updateMember(Input::all())) {
+            return $this->respondWithItem($user, new UserTransformer());
+        } else {
+            return $this->errorInternalError('Could not save user.');
+        }
+
+        // $validator = Validator::make(Input::all(), User::$memberUpdaRules);
+        // if ($validator->passes()) {
+        //     if (User::updateMember($request, $id)) {
+        //         return Redirect::to('users/member/'.$id.'/update')->with('message', 'The following errors occurred')->withErrors('Updated successfully')->with('flag', 'success');
+        //     } else {
+        //         return Redirect::to('users/member/'.$id.'/update')->with('message', 'The following errors occurred')->withErrors('Update failed')->with('flag', 'danger');
+        //     }
+        // } else {
+        //     return Redirect::to('users/member/'.$id.'/update')->with('message', 'The following errors occurred')->withErrors($validator)->withInput()->with('flag', 'danger');
+        // }
+    }
+
     public function getGroups($userId)
     {
         $user = User::with('groups')->find($userId);
@@ -57,19 +81,20 @@ class UserController extends ApiController
         return csrf_token();
     }
 
-
-    public function showImage($user_id){
+    public function showImage($user_id)
+    {
         $image = User::find(1)->images;
+
         return $this->respondWithCollection($image, new ImageTransformer());
-
     }
 
-    public function updateImage(){
-        return "updating image";
-
+    public function updateImage()
+    {
+        return 'updating image';
     }
 
-    public function deleteImage(){
-        return "deleting image";
+    public function deleteImage()
+    {
+        return 'deleting image';
     }
 }

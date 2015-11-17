@@ -1,14 +1,14 @@
 @extends('master')
 @section('content')
-	
+
 	<div class="panel panel-info">
 
 		<div class="panel-body" style="padding-top:30px">
 			<div class="header">Organizations</div>
-			
+
 
 			<span class="breadcrumb">
-				<a href="/districts">Districts</a> | Organizations
+				<a href="/admin/districts">Districts</a> | Organizations
 
 			</span><hr />
 
@@ -41,7 +41,7 @@
 						<td>
 
 
-							<a href="/organization/{{$viewdata->id}}/view">{{$viewdata->title}}</a>
+							<a href="/admin/organization/{{$viewdata->id}}/view">{{$viewdata->title}}</a>
 
 						</td>
 						<td>
@@ -52,7 +52,7 @@
 							{!! Form::hidden('id[]', $viewdata->id) !!}
 						</td>
 						<td>
-							<a class="btn btn-primary" href="/organization/{{$viewdata->id}}/view">View</a>
+							<a class="btn btn-primary" href="/admin/organization/{{$viewdata->id}}/view">View</a>
 						</td>
 
 					</tr>

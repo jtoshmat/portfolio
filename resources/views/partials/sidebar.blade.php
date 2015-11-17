@@ -17,22 +17,22 @@
 		@endforeach
 
 		@if(Auth::check())
-			<a class="list-group-item" href="/auth/logout">Logout</a>
+			<a class="list-group-item" href="/admin/auth/logout">Logout</a>
 		@endif
 
 
 		@if(Auth::check())
 			<h4>Friends</h4>
 			@foreach($acceptedfriends as $acceptedfriend)
-				<a class="list-group-item" href="/profile/{{ $acceptedfriend->id }}/view"><img src="/img/online.gif">ID: {{ $acceptedfriend->id }}  {{ $acceptedfriend->name }} </a>
+				<a class="list-group-item" href="/admin/profile/{{ $acceptedfriend->id }}/view"><img src="/img/online.gif">ID: {{ $acceptedfriend->id }}  {{ $acceptedfriend->name }} </a>
 			@endforeach
 
 			<h5>Friend Requests</h5>
 			@foreach($friendrequests as $friendrequest)
 				<a class="list-group-item" href="#">ID: {{ $friendrequest->id }} {{ $friendrequest->name }} </a>
-				<a href="/users/friendship/{{$friendrequest->id}}/accept">Accept</a>
-				<a href="/users/friendship/{{$friendrequest->id}}/delete">Delete</a>
-				<a href="/users/friendship/{{$friendrequest->id}}/block">Block</a>
+				<a href="/admin/users/friendship/{{$friendrequest->id}}/accept">Accept</a>
+				<a href="/admin/users/friendship/{{$friendrequest->id}}/delete">Delete</a>
+				<a href="/admin/users/friendship/{{$friendrequest->id}}/block">Block</a>
 				<a href="#">Reject</a>
 			@endforeach
 
