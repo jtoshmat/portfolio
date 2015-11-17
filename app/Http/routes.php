@@ -75,7 +75,6 @@ Route::group(['middleware' => 'auth'], function ($router) {
 
     Route::post('/updateimage', 'Api\MasterController@updateProfileImage');
 
-
     Route::get('/sidebar', 'Api\MasterController@sidebar');
     Route::get('/friends', 'Api\MasterController@friends');
 
@@ -85,7 +84,7 @@ Route::group(['middleware' => 'auth'], function ($router) {
     Route::get('/users/{id}', 'Api\UserController@show');
     Route::get('/users/{id}/groups', 'Api\UserController@getGroups');
 
-    //User Image
+    //User Images
     Route::get('/users/{id}/image', 'Api\UserController@showImage');
     Route::put('/users/{id}/image', 'Api\UserController@updateImage');
     Route::delete('/users/{id}/image', 'Api\UserController@deleteImage');
@@ -101,7 +100,7 @@ Route::group(['middleware' => 'auth'], function ($router) {
     Route::get('/groups/{id}', 'Api\GroupController@show');
     Route::get('/groups/{id}/users', 'Api\GroupController@getUsers');
 
-    //Put Groups
+    //Post Groups
     Route::post('/groups/{id}', ['uses' => 'Api\GroupController@update']);
 
     //Get Districts
