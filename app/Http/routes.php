@@ -74,6 +74,8 @@ Route::group(['middleware' => 'auth'], function ($router) {
     })->where('parm_name', '[a-z]+');
 
     Route::post('/updateimage', 'Api\MasterController@updateProfileImage');
+
+
     Route::get('/sidebar', 'Api\MasterController@sidebar');
     Route::get('/friends', 'Api\MasterController@friends');
 
@@ -82,6 +84,12 @@ Route::group(['middleware' => 'auth'], function ($router) {
     Route::get('/users', 'Api\UserController@index');
     Route::get('/users/{id}', 'Api\UserController@show');
     Route::get('/users/{id}/groups', 'Api\UserController@getGroups');
+
+    //User Image
+    Route::get('/users/{id}/image', 'Api\UserController@showImage');
+    Route::put('/users/{id}/image', 'Api\UserController@updateImage');
+    Route::delete('/users/{id}/image', 'Api\UserController@deleteImage');
+
     Route::get('/suggestedfriends', 'Api\SuggestedController@show');
 
     Route::get('/users/friendrequest/{id}', 'Api\FriendshipController@show');
