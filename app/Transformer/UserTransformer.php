@@ -141,4 +141,15 @@ class UserTransformer extends TransformerAbstract
         $organizations = $user->organizations;
         return $this->collection($organizations, new OrganizationTransformer());
     }
+
+    /**
+     * Embed Image.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeImages(User $user)
+    {
+        $image = $user->image;
+        return $this->item($image, new ImageTransformer());
+    }
 }
