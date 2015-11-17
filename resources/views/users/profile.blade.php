@@ -29,14 +29,14 @@
 									@if($isFriendRequested)
 										Friend request sent |
 									@else
-										<a href="/users/friendship/{{ $user->id }}/add">Add Friend</a> |
+										<a href="/admin/users/friendship/{{ $user->id }}/add">Add Friend</a> |
 									@endif
 								@endif
 
-								<a href="/users/friendship/{{ $user->id }}/delete">Delete Friend</a>  |
-								<a href="/users/friendship/{{ $user->id }}/block">Block Friend</a>  |
-								<a href="/users/friendship/{{ $user->id }}/message">Send Message</a>   |
-								<a href="/users/friendship/{{ $user->id }}/poke">Poke</a> </td>
+								<a href="/admin/users/friendship/{{ $user->id }}/delete">Delete Friend</a>  |
+								<a href="/admin/users/friendship/{{ $user->id }}/block">Block Friend</a>  |
+								<a href="/admin/users/friendship/{{ $user->id }}/message">Send Message</a>   |
+								<a href="/admin/users/friendship/{{ $user->id }}/poke">Poke</a> </td>
 						@endif
 					</tr>
 
@@ -54,7 +54,7 @@
 
 			<ul>
 				@foreach($user->acceptedfriends as $acceptedfriends)
-					<li><a href="/profile/{{ $acceptedfriends->id }}/view"> {{$acceptedfriends->name}}</a></li>
+					<li><a href="/admin/profile/{{ $acceptedfriends->id }}/view"> {{$acceptedfriends->name}}</a></li>
 				@endforeach
 			</ul>
 
@@ -63,7 +63,7 @@
 
 			<ul>
 				@foreach($user->pendingfriends as $pendingfriends)
-					<li><a href="/profile/{{ $pendingfriends->id }}/view"> {{$pendingfriends->name}}</a></li>
+					<li><a href="/admin/profile/{{ $pendingfriends->id }}/view"> {{$pendingfriends->name}}</a></li>
 				@endforeach
 			</ul>
 

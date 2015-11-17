@@ -9,13 +9,13 @@
 
 		<div class="panel-body" style="padding-top:30px">
 			<span class="breadcrumb">
-				<a href="/districts">District</a> |
-				<a href="/organizations">Organizations</a> |
-				<a href="/groups">Groups</a> |
+				<a href="/admin/districts">District</a> |
+				<a href="/admin/organizations">Organizations</a> |
+				<a href="/admin/groups">Groups</a> |
 
 
 			</span><hr />
-			
+
 
 			<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 				<tr class="tr_head"><td><h2>{{$data->name}}</h2></td></tr>
@@ -31,7 +31,7 @@
 
 							@foreach($data->guardians as $guardian)
 								<tr>
-									<td><a href="/user/{{$guardian->id}}/view">{{$guardian->name}}</a> </td>
+									<td><a href="/admin/user/{{$guardian->id}}/view">{{$guardian->name}}</a> </td>
 									<td>{{$guardian->slug}}</td>
 								</tr>
 							@endforeach
@@ -52,7 +52,7 @@
 
 							@foreach($data->children as $children)
 								<tr>
-									<td><a href="/user/{{$children->id}}/view">{{$children->name}}</a> </td>
+									<td><a href="/admin/user/{{$children->id}}/view">{{$children->name}}</a> </td>
 									<td>{{$children->slug}}</td>
 								</tr>
 							@endforeach

@@ -11,25 +11,40 @@ class UserTableSeeder extends Seeder
 {
     public function run()
     {
+        $faker = Faker\Factory::create();
+
         DB::table('users')->delete();
         DB::table('child_guardian')->delete();
 
-        DB::table('roles')->truncate();
+        for ($i = 1; $i < 5; ++$i) {
+            $districts[] = District::create(array(
+                    'title' => $faker->company,
+                    'description' => 'District:'.$i.$faker->paragraph(1),
+                ));
+        }
+        for ($i = 1; $i < 20; ++$i) {
+            $organizations[$i] = Organization::create(array(
+                    'title' => $faker->company,
+                    'description' => 'Group:'.$i.$faker->paragraph(1),
+                ));
+        }
 
-        $super_admin = Role::create(array(
-            'title' => 'super_admin',
-        ));
+        // DB::table('district_organization')->insert([
+        //         'district_id' => $district->id,
+        //         'organization_id' => $organization->id,
+        //     ]);
 
-        $admin = Role::create(array(
-            'title' => 'admin',
-        ));
+        for ($i = 1; $i < 100; ++$i) {
+            $groups[$i] = Group::create(array(
+                    'organization_id' => $organizations[rand(1, 19)]->id,
+                    'title' => $faker->company,
+                    'description' => 'Class:'.$i.$faker->paragraph(1),
+                ));
+        }
 
-        $member = Role::create(array(
-            'title' => 'member',
-        ));
+        // Create Users
 
-        $jon = User::create(array(
-                'name' => 'Jon Toshmatov',
+        $users[] = User::create(array(
                 'first_name' => 'Jon',
                 'last_name' => 'Toshmatov',
                 'email' => 'jontoshmatov@yahoo.com',
@@ -38,8 +53,7 @@ class UserTableSeeder extends Seeder
                 'student_id' => 'jontoshmatov@yahoo.com',
             ));
 
-        $arron = User::create(array(
-                'name' => 'Arron Kallenberg',
+        $users[] = User::create(array(
                 'first_name' => 'Arron',
                 'last_name' => 'Kallenberg',
                 'email' => 'arron.kallenberg@gmail.com',
@@ -48,42 +62,49 @@ class UserTableSeeder extends Seeder
                 'student_id' => 'arron.kallenberg@gmail.com',
             ));
 
-        // Create 5 Teachers
-        for ($i = 1; $i < 5; ++$i) {
-            $teacher = User::create(array(
-                'name' => 'teacher'.$i,
-                'email' => 'teacher@yahoo.com'.$i,
-                'password' => Hash::make('business'),
-                'slug' => 'teacher_slug'.$i,
-                'student_id' => 'teacher_id'.$i,
-            ));
+        for ($i = 0; $i < 500; ++$i) {
+            $frist_name = $faker->firstName;
+            $last_name = $faker->lastName;
+
+            $email = strtolower($frist_name.'.'.$last_name.'@'.$faker->safeEmailDomain);
+
+            $users[$i] = User::create(array(
+                    'first_name' => $frist_name,
+                    'last_name' => $last_name,
+                    'gender' => rand(0, 1) ? 'male' : 'female',
+                    'birthdate' => $faker->dateTimeBetween('-40 years', '-8 years'),
+                    'email' => $email,
+                    'password' => Hash::make('business'),
+                    'slug' => $faker->uuid,
+                    'student_id' => $faker->uuid,
+                ));
+
+            $users[$i]->groups()->save($groups[rand(1, 99)]);
         }
 
-        // Create 5 Guardians
-        for ($i = 1; $i < 5; ++$i) {
-            $guardian = User::create(array(
-                'name' => 'parent'.$i,
-                'email' => 'jontoshmatov@yahoo.com'.$i,
-                'password' => Hash::make('business'),
-                'slug' => 'parent_slug'.$i,
-                'student_id' => 'guardian_id'.$i,
-            ));
-        }
+        // // Create 5 Guardians
+        // for ($i = 1; $i < 5; ++$i) {
+        //     $guardian = User::create(array(
+        //         'email' => 'jontoshmatov@yahoo.com'.$i,
+        //         'password' => Hash::make('business'),
+        //         'slug' => 'parent_slug'.$i,
+        //         'student_id' => 'guardian_id'.$i,
+        //     ));
+        // }
 
-        // Create 5 Children
-        for ($i = 1; $i < 5; ++$i) {
-            $child = User::create(array(
-                'name' => 'child'.$i,
-                'email' => 'child@child.com'.$i,
-                'password' => Hash::make('business'),
-                'slug' => 'child_slug'.$i,
-                'student_id' => 'child_id'.$i,
-            ));
-        }
+        // // Create 5 Children
+        // for ($i = 1; $i < 5; ++$i) {
+        //     $child = User::create(array(
+        //         'name' => 'child'.$i,
+        //         'email' => 'child@child.com'.$i,
+        //         'password' => Hash::make('business'),
+        //         'slug' => 'child_slug'.$i,
+        //         'student_id' => 'child_id'.$i,
+        //     ));
+        // }
 
         //$jon->role()->sync(1);
         //$arron->role()->sync(1);
-
 
 
 //        DB::table('friends')->insert([
@@ -95,32 +116,5 @@ class UserTableSeeder extends Seeder
 //                'guardian_id' => $guardian->id,
 //                'child_id' => $child->id,
 //            ]);
-
-
-        for ($i = 1; $i < 5; ++$i) {
-            $district = District::create(array(
-                    'title' => 'District '.$i,
-                    'description' => 'District:'.$i." Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy tex ",
-                ));
-        }
-        for ($i = 1; $i < 5; ++$i) {
-            $organization = Organization::create(array(
-                    'title' => 'Organization '.$i,
-                    'description' => 'School:'.$i." Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy tex ",
-                ));
-        }
-
-        DB::table('district_organization')->insert([
-                'district_id' => $district->id,
-                'organization_id' => $organization->id,
-            ]);
-
-        for ($i = 1; $i < 5; ++$i) {
-            $group = Group::create(array(
-                    'organization_id' => $organization->id,
-                    'title' => 'Class '.$i,
-                    'description' => 'Class:'.$i." Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy tex ",
-                ));
-        }
     }
 }

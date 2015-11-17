@@ -4,7 +4,7 @@
 
 		<div class="panel-body" style="padding-top:30px">
 			<span class="breadcrumb">
-				<a href="/districts">District</a> | {{$data->title}}
+				<a href="/admin/districts">District</a> | {{$data->title}}
 
 			</span><hr />
 
@@ -24,7 +24,7 @@
 							</tr>
 						@foreach($data->organization as $organization)
 						<tr>
-						<td><a href="/organization/{{$organization->id}}/view">{{$organization->title}}</a> </td>
+						<td><a href="/admin/organization/{{$organization->id}}/view">{{$organization->title}}</a> </td>
 						<td>{{$organization->description}}</td>
 						</tr>
 						@endforeach

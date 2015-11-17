@@ -32,19 +32,19 @@
 					<tr>
 						<td>
 							<img src="http://placehold.it/50x50" alt="50x50" class="img-thumbnail">
-							<a href="/profile/{{ $friend->id }}/view"><h4>ID: {{ $friend->id }} {{$friend->name}}</h4></a>
+							<a href="/admin/profile/{{ $friend->id }}/view"><h4>ID: {{ $friend->id }} {{$friend->name}}</h4></a>
 							@if($friend->id!=Auth::user()->id)
 								@if(!$isFriend)
 									@if($isFriendRequested)
 										Friend request sent |
 									@else
-										<a href="/users/friendship/{{ $friend->id }}/add">Add Friend</a> |
+										<a href="/admin/users/friendship/{{ $friend->id }}/add">Add Friend</a> |
 									@endif
 								@endif
-									<a href="/users/friendship/{{ $friend->id }}/delete">Delete Friend</a>  |
-									<a href="/users/friendship/{{ $friend->id }}/block">Block Friend</a>  |
-									<a href="/users/friendship/{{ $friend->id }}/message">Send Message</a>   |
-									<a href="/users/friendship/{{ $friend->id }}/poke">Poke</a>
+									<a href="/admin/users/friendship/{{ $friend->id }}/delete">Delete Friend</a>  |
+									<a href="/admin/users/friendship/{{ $friend->id }}/block">Block Friend</a>  |
+									<a href="/admin/users/friendship/{{ $friend->id }}/message">Send Message</a>   |
+									<a href="/admin/users/friendship/{{ $friend->id }}/poke">Poke</a>
 							@else
 								Your Profile
 							@endif

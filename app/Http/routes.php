@@ -23,6 +23,7 @@ Route::get('/home', function () {
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('admin/auth/login', 'AuthController@getLogin');
 
 // Admin Routes
 Route::group(['prefix' => 'admin'], function ($router) {
@@ -45,9 +46,9 @@ Route::group(['prefix' => 'admin'], function ($router) {
         Route::any('user/{id}/view', 'UsersController@user')->where('id', '[0-9]+');
         Route::any('district/{id}/view', 'DistrictsController@district')->where('id', '[0-9]+');
         Route::any('organizations', 'OrganizationsController@index')->where('id', '[0-9]+');
-        Route::any('organization/{id}/view', 'OrganizationsController@organization')->where('id', '[0-9]+');
+        Route::get('organization/{id}/view', 'OrganizationsController@organization');
         Route::any('groups', 'GroupsController@index');
-        Route::any('group/{id}/view', 'GroupsController@group')->where('id', '[0-9]+');
+        Route::get('group/{id}/view', 'GroupsController@group');
         Route::any('guardians', 'UsersController@guardian');
 
         //Composer for sidebars and user specific contents
@@ -75,7 +76,6 @@ Route::group(['middleware' => 'auth'], function ($router) {
 
     Route::post('/updateimage', 'Api\MasterController@updateProfileImage');
 
-
     Route::get('/sidebar', 'Api\MasterController@sidebar');
     Route::get('/friends', 'Api\MasterController@friends');
 
@@ -83,9 +83,11 @@ Route::group(['middleware' => 'auth'], function ($router) {
 
     Route::get('/users', 'Api\UserController@index');
     Route::get('/users/{id}', 'Api\UserController@show');
+    Route::post('/users/{id}', 'Api\UserController@update');
+
     Route::get('/users/{id}/groups', 'Api\UserController@getGroups');
 
-    //User Image
+    //User Images
     Route::get('/users/{id}/image', 'Api\UserController@showImage');
     Route::put('/users/{id}/image', 'Api\UserController@updateImage');
     Route::delete('/users/{id}/image', 'Api\UserController@deleteImage');
@@ -101,7 +103,7 @@ Route::group(['middleware' => 'auth'], function ($router) {
     Route::get('/groups/{id}', 'Api\GroupController@show');
     Route::get('/groups/{id}/users', 'Api\GroupController@getUsers');
 
-    //Put Groups
+    //Post Groups
     Route::post('/groups/{id}', ['uses' => 'Api\GroupController@update']);
 
     //Get Districts

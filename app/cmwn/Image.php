@@ -14,7 +14,7 @@ class Image extends Model
     protected $table = 'images';
 
     public static $imageUpdateRules = array(
-        'url' => 'url',
+        'url' => 'string',
         //'role[]'=>'required',
         //'role[]'=>'required|regex:/^[0-9]?$/',
     );

@@ -1,6 +1,6 @@
 @extends('master')
 @section('content')
-	
+
 	<div class="panel panel-info">
 
 		<div class="panel-body" style="padding-top:30px">
@@ -36,7 +36,7 @@
 						<td><a href="member/{{$member->id}}/view">{{$member->email}}</a></td>
 						<td>
 							@foreach($member->role as $role)
-								<a href="/users/roles">{{$role->title}}</a>,
+								<a href="/admin/users/roles">{{$role->title}}</a>,
 							@endforeach
 
 

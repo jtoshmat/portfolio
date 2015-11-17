@@ -1,15 +1,15 @@
 @extends('master')
 @section('content')
-	
+
 	<div class="panel panel-info">
 
 		<div class="panel-body" style="padding-top:30px">
 			<h2>Groups</h2>
-			
+
 
 			<span class="breadcrumb">
-				<a href="/districts">Districts</a> |
-				<a href="/organizations">Organizations</a> |
+				<a href="/admin/districts">Districts</a> |
+				<a href="/admin/organizations">Organizations</a> |
 				Groups
 
 			</span><hr />
@@ -44,16 +44,16 @@
 					<tr>
 						<td>
 							@if(!is_null($viewdata->organization))
-								<a href="/organization/{{$viewdata->organization->id}}/view">{{$viewdata->organization->title}}</a>
+								<a href="/admin/organization/{{$viewdata->organization->id}}/view">{{$viewdata->organization->title}}</a>
 							@endif
 						</td>
-						<td><a href="/group/{{$viewdata->id}}/view">{{$viewdata->title}}</a></td>
+						<td><a href="/admin/group/{{$viewdata->id}}/view">{{$viewdata->title}}</a></td>
 						<td>{{count($viewdata->users)}}</td>
 						<td>{{$viewdata->created_at}}</td>
 						<td>{{$viewdata->updated_at}}</td>
 
 						<td>
-							<a class="btn btn-primary" href="/group/{{$viewdata->id}}/view">View</a>
+							<a class="btn btn-primary" href="/admin/group/{{$viewdata->id}}/view">View</a>
 						</td>
 
 					</tr>

@@ -1,14 +1,14 @@
 @extends('master')
 @section('content')
-	
+
 	<div class="panel panel-info">
 
 		<div class="panel-body" style="padding-top:30px">
 			<h2>Districts</h2>
-			
+
 
 			<span class="breadcrumb">
-				<a href="/">Home</a> |
+				<a href="/admin/">Home</a> |
 				Districts
 
 			</span><hr />
@@ -40,7 +40,7 @@
 				@foreach($data as $viewdata)
 					<tr>
 						<td>
-							<a href="/district/{{$viewdata->id}}/view">{{$viewdata->title}}</a>
+							<a href="/admin/district/{{$viewdata->id}}/view">{{$viewdata->title}}</a>
 						</td>
 						<td>{{count($viewdata->organization)}}</td>
 						<td>{{$viewdata->created_at}}</td>
@@ -49,7 +49,7 @@
 						</td>
 
 						<td>
-							<a class="btn btn-primary" href="/district/{{$viewdata->id}}/view">View</a>
+							<a class="btn btn-primary" href="/admin/district/{{$viewdata->id}}/view">View</a>
 						</td>
 
 					</tr>
