@@ -61,9 +61,9 @@ Route::group(['prefix' => 'admin'], function ($router) {
 
 Route::get('/csrf_token', 'Api\ApiController@getToken');
 
-// Route::get('/parms/{parm_name}', function ($parm_name) {
-//     return \Config::get('mycustomvars.'.$parm_name);
-// })
+Route::get('/parms/{parm_name}', function ($parm_name) {
+    return \Config::get('mycustomvars.'.$parm_name);
+});
 
 Route::post('/auth/login', 'Api\AuthController@authenticate');
 

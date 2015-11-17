@@ -135,8 +135,7 @@ return [
     |
     */
 
-    //'domain' => '.cmwn.localhost',
-    'domain' => '.changemyworldnow.com',
+    'domain' => env('SESSION_DOMAIN') ? env('SESSION_DOMAIN') : '.changemyworldnow.com',
 
     /*
     |--------------------------------------------------------------------------

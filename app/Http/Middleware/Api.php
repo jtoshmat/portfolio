@@ -16,20 +16,32 @@ class Api
      */
     public function handle($request, Closure $next)
     {
+        $origin = $request->header('origin');
 
-        //$ACCESS_CONTROL_ALLOW_ORIGIN = 'http://'.$this->giveHost($request->root());
-
-        return $next($request)->header('Access-Control-Allow-Origin', 'http://dev.changemyworldnow.com')
-            ->header('Access-Control-Allow-Credentials', 'true')
-            ->header('Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS, PUT, DELETE')
-            ->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Authorization, X-Auth-Token, X-CSRF-TOKEN')
-            ->header('Access-Control-Max-Age', '28800');
+        if ($this->endsWith($origin, 'changemyworldnow.com') || $this->endsWith($origin, 'front.cmwn.localhost')) {
+            return $next($request)->header('Access-Control-Allow-Origin', $origin)
+                ->header('Access-Control-Allow-Credentials', 'true')
+                ->header('Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS, PUT, DELETE')
+                ->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Authorization, X-Auth-Token, X-CSRF-TOKEN')
+                ->header('Access-Control-Max-Age', '28800');
+        } else {
+            if (env('APP_ENV') == 'local') {
+                return $next($request);
+            } else {
+                return response('You are not supposed to be here!', 401);
+            }
+        }
     }
 
-    private function giveHost($host_with_subdomain)
+    private function endsWith($string, $test)
     {
-        $array = explode('.', $host_with_subdomain);
+        $strlen = strlen($string);
+        $testlen = strlen($test);
 
-        return (array_key_exists(count($array) - 2, $array) ? $array[count($array) - 2] : '').'.'.$array[count($array) - 1];
+        if ($testlen > $strlen) {
+            return false;
+        }
+
+        return substr_compare($string, $test, strlen($string) - strlen($test), strlen($test)) === 0;
     }
 }
