@@ -146,6 +146,11 @@ class User extends Model implements
         return false;
     }
 
+    public function images()
+    {
+        return $this->morphMany('app\cmwn\Image', 'imageable');
+    }
+
     public function hasRole(Array $roles)
     {
         foreach ($roles as $role) {

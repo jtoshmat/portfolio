@@ -13,6 +13,8 @@ class CreateAllTable extends Migration
      */
     public function up()
     {
+	    Schema::dropIfExists("imageables");
+        Schema::dropIfExists("images");
 	    Schema::dropIfExists("guardian_validation");
 	    Schema::dropIfExists("sessions");
 	    Schema::dropIfExists("friends");
@@ -22,7 +24,7 @@ class CreateAllTable extends Migration
 	    Schema::dropIfExists("organizations");
 	    Schema::dropIfExists("groups");
 	    Schema::dropIfExists("roleables");
-	    Schema::dropIfExists("imageables");
+
 
 	    Schema::dropIfExists("role_user");
 	    //Schema::dropIfExists("role_permissions");
@@ -80,16 +82,18 @@ class CreateAllTable extends Migration
     	    $table->timestamps();
         });
 
-	    Schema::create('imageables', function(Blueprint $table)
+
+	    Schema::create('images', function(Blueprint $table)
 	    {
 		    $table->increments('id');
-		    $table->unsignedInteger('user_id')->unsigned();
-		    $table->unsignedInteger('roleable_id')->unsigned();
-		    $table->string('roleable_type');
-		    $table->unsignedInteger('role_id')->unsigned();
-		    //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+		    $table->unsignedInteger('imageable_id')->unsigned();
+		    $table->string('imageable_type');
+		    $table->string('image_url');
+            $table->unsignedInteger('cloudinary_id')->unsigned();
 		    $table->timestamps();
 	    });
+
+
 
 	    Schema::create('districts', function(Blueprint $table)
 	    {

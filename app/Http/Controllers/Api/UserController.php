@@ -9,6 +9,8 @@ use Input;
 use League\Fractal\Manager;
 use Illuminate\Support\Facades\Auth;
 
+use app\Transformer\ImageTransformer;
+
 class UserController extends ApiController
 {
     public function index()
@@ -53,5 +55,21 @@ class UserController extends ApiController
     public function login()
     {
         return csrf_token();
+    }
+
+
+    public function showImage($user_id){
+        $image = User::find(1)->images;
+        return $this->respondWithCollection($image, new ImageTransformer());
+
+    }
+
+    public function updateImage(){
+        return "updating image";
+
+    }
+
+    public function deleteImage(){
+        return "deleting image";
     }
 }

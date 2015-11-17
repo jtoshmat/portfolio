@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use cmwn\UserImage;
 
 class MasterController extends ApiController
 {
@@ -72,9 +73,5 @@ class MasterController extends ApiController
             }
         }
         return false;
-    }
-
-    public function updateProfileImage(){
-        return "CORE-94 will be implemented here";
     }
 }

@@ -18,7 +18,7 @@ class Api
     {
         $origin = $request->header('origin');
 
-        if ($this->endsWith($origin, 'changemyworldnow.com') || $this->endsWith($origin, 'front.cmwn.localhost')) {
+        if ($this->endsWith($origin, 'changemyworldnow.com') || $this->endsWith($origin, 'front.cmwn.localhost') || $this->endsWith($origin, 'api.cmwn.localhost')) {
             return $next($request)->header('Access-Control-Allow-Origin', $origin)
                 ->header('Access-Control-Allow-Credentials', 'true')
                 ->header('Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS, PUT, DELETE')
