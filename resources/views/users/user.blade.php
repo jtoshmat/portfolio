@@ -32,7 +32,7 @@
 							@foreach($data->guardians as $guardian)
 								<tr>
 									<td><a href="/admin/user/{{$guardian->id}}/view">{{$guardian->name}}</a> </td>
-									<td>{{$guardian->slug}}</td>
+									<td>{{$guardian->uuid}}</td>
 								</tr>
 							@endforeach
 						</table>
@@ -53,7 +53,7 @@
 							@foreach($data->children as $children)
 								<tr>
 									<td><a href="/admin/user/{{$children->id}}/view">{{$children->name}}</a> </td>
-									<td>{{$children->slug}}</td>
+									<td>{{$children->uuid}}</td>
 								</tr>
 							@endforeach
 						</table>

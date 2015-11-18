@@ -42,8 +42,8 @@
             "errors": [],
             "parameters": []
         },
-        "csv_to_array": {
-            "name": "csv_to_array",
+        "csvToArray": {
+            "name": "csvToArray",
             "line": 27,
             "short_desc": "",
             "long_desc": "",

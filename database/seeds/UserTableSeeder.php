@@ -57,18 +57,22 @@ class UserTableSeeder extends Seeder
         $users[] = User::create(array(
                 'first_name' => 'Jon',
                 'last_name' => 'Toshmatov',
+                'type' => 1,
+                'username' => 'toshmatov',
+                'gender' => 'male',
                 'email' => 'jontoshmatov@yahoo.com',
                 'password' => Hash::make('business'),
-                'slug' => 'jon_slug',
                 'student_id' => 'jontoshmatov@yahoo.com',
             ));
 
         $users[] = User::create(array(
                 'first_name' => 'Arron',
                 'last_name' => 'Kallenberg',
+                'type' => 1,
+                'username' => 'kallena',
+                'gender' => 'male',
                 'email' => 'arron.kallenberg@gmail.com',
                 'password' => Hash::make('business'),
-                'slug' => 'arron-kallenberg',
                 'student_id' => 'arron.kallenberg@gmail.com',
             ));
 
@@ -104,19 +108,19 @@ class UserTableSeeder extends Seeder
     private function createUsers($count, $faker)
     {
         for ($i = 1; $i <= $count; ++$i) {
-            $frist_name = $faker->firstName;
+            $first_name = $faker->firstName;
             $last_name = $faker->lastName;
 
-            $email = strtolower($frist_name.'.'.$last_name.'@'.$faker->safeEmailDomain);
+            $email = strtolower($first_name.'.'.$last_name.'@'.$faker->safeEmailDomain);
 
             $users[$i] = User::create(array(
-                    'first_name' => $frist_name,
+                    'first_name' => $first_name,
                     'last_name' => $last_name,
+                    'username' => str_slug($first_name . '_' . $last_name),
                     'gender' => rand(0, 1) ? 'male' : 'female',
                     'birthdate' => $faker->dateTimeBetween('-40 years', '-8 years'),
                     'email' => $email,
                     'password' => Hash::make('business'),
-                    'slug' => $faker->uuid,
                     'student_id' => $faker->uuid,
                 ));
 

@@ -3,24 +3,21 @@
 namespace app\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot()
     {
         \app\User::creating(function ($user) {
-            //echo('creating ');
+            $user->uuid = Uuid::uuid1();
         });
 
         // Attach event handler, on deleting of the user
-        \app\User::deleting(function($user)
-        {
+        \app\User::deleting(function ($user) {
             echo('deleting from AppServiceProvider ');
             $user->districts()->detach();
             $user->organizations()->detach();
@@ -30,8 +27,6 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register()
     {

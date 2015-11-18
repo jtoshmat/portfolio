@@ -37,7 +37,7 @@ class User extends Model implements
         'middle_name',
         'last_name',
         'email',
-        'slug',
+        'uuid',
         'password',
     ];
 
@@ -55,24 +55,17 @@ class User extends Model implements
         'first_name' => 'string|min:2',
         'middle_name' => 'string|min:2',
         'last_name' => 'string|min:2',
-        'email' => 'required|email|min:2',
-        //'slug'=>'required|string|unique:users|min:2',
-        //'role[]'=>'required',
-        //'role[]'=>'required|regex:/^[0-9]?$/',
+        'email' => 'email|min:2',
+        'uuid' => 'string|unique:users|min:2',
     );
 
     public static $memberDeleteRules = array(
         //'id'=>'required|regex:/^[0-9]?$/',
     );
 
-    public function role()
+    public function guardianReference()
     {
-        return $this->belongsToMany('app\Role');
-    }
-
-    public function guardianValidation()
-    {
-        return $this->belongsToMany('app\User', 'guardian_validation', 'student_id');
+        return $this->belongsToMany('app\User', 'guardian_reference', 'student_id');
     }
 
     public function assignRoles()
@@ -180,8 +173,8 @@ class User extends Model implements
             $this->gender = $params['gender'];
         }
 
-        if (isset($params['dob'])) {
-            $this->dob = $params['dob'];
+        if (isset($params['birthdate'])) {
+            $this->dob = $params['birthdate'];
         }
 
         if ($this->save()) {
@@ -210,9 +203,9 @@ class User extends Model implements
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeSlug($query, $val)
+    public function scopeUuid($query, $val)
     {
-        return $query->where('slug', $val);
+        return $query->where('uuid', $val);
     }
 
     public function scopeName($query, $val)
@@ -220,8 +213,9 @@ class User extends Model implements
         return $query->where('name', $val);
     }
 
-    public function updateImage($user_id, $params){
-        $user = User::find($user_id);
+    public function updateImage($user_id, $params)
+    {
+        $user = self::find($user_id);
         $image = new Image();
 
         if (isset($params['url'])) {
@@ -232,19 +226,21 @@ class User extends Model implements
             $image->cloudinary_id = $params['cloudinary_id'];
         }
 
-        if ($user->images()->save($image)){
+        if ($user->images()->save($image)) {
             return true;
         }
+
         return false;
     }
 
-    public function deleteImage($user_id){
-        $user = User::find($user_id);
+    public function deleteImage($user_id)
+    {
+        $user = self::find($user_id);
         $image = new Image();
-        if ($user->images()->delete()){
+        if ($user->images()->delete()) {
             return true;
         }
+
         return false;
     }
-
 }

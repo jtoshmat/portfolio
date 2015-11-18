@@ -51,7 +51,7 @@
 								@foreach($data->principals as $principal)
 									<tr>
 										<td><a href="/admin/user/{{$principal->id}}/view">{{$principal->name}}</a> </td>
-										<td>{{$principal->slug}}</td>
+										<td>{{$principal->uuid}}</td>
 									</tr>
 								@endforeach
 							</table>
@@ -72,7 +72,7 @@
 								@foreach($data->teachers as $teacher)
 									<tr>
 										<td><a href="/admin/user/{{$teacher->id}}/view">{{$teacher->name}}</a> </td>
-										<td>{{$teacher->slug}}</td>
+										<td>{{$teacher->uuid}}</td>
 									</tr>
 								@endforeach
 							</table>
@@ -89,13 +89,13 @@
 										<table class="table table-striped table-bordered" cellspacing="0" width="100%">
 											<tr class="tr_head2">
 												<td>User</td>
-												<td>Slug</td>
+												<td>uuid</td>
 											</tr>
 
 											@foreach($data->users as $user)
 												<tr>
 													<td><a href="/admin/user/{{$user->id}}/view">{{$user->name}}</a> </td>
-													<td>{{$user->slug}}</td>
+													<td>{{$user->uuid}}</td>
 												</tr>
 											@endforeach
 											</table>

@@ -72,8 +72,8 @@
 					<td>
 						<div class="input-group" style="margin-bottom: 25px">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-							{!! Form::text('slug', null, array('class' => 'form-control', 'placeholder' => 'username', 'id' =>
-						'profile-slug', 'type' => 'text', 'required' => 'required','disabled' =>'disabled')) !!}
+							{!! Form::text('uuid', null, array('class' => 'form-control', 'placeholder' => 'username', 'id' =>
+						'profile-uuid', 'type' => 'text', 'required' => 'required','disabled' =>'disabled')) !!}
 						</div>
 					</td>
 				</tr>

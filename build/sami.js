@@ -15,24 +15,24 @@
     };
 
     var searchIndex = [
-                    
+
             {"type": "Namespace", "link": "app.html", "name": "app", "doc": "Namespace app"},{"type": "Namespace", "link": "app/Http.html", "name": "app\\Http", "doc": "Namespace app\\Http"},{"type": "Namespace", "link": "app/Http/Controllers.html", "name": "app\\Http\\Controllers", "doc": "Namespace app\\Http\\Controllers"},{"type": "Namespace", "link": "app/Http/Controllers/Auth.html", "name": "app\\Http\\Controllers\\Auth", "doc": "Namespace app\\Http\\Controllers\\Auth"},{"type": "Namespace", "link": "app/cmwn.html", "name": "app\\cmwn", "doc": "Namespace app\\cmwn"},{"type": "Namespace", "link": "app/cmwn/Services.html", "name": "app\\cmwn\\Services", "doc": "Namespace app\\cmwn\\Services"},{"type": "Namespace", "link": "app/cmwn/Users.html", "name": "app\\cmwn\\Users", "doc": "Namespace app\\cmwn\\Users"},
-            
+
             {"type": "Class", "fromName": "app", "fromLink": "app.html", "link": "app/AdminTool.html", "name": "app\\AdminTool", "doc": "&quot;\n&quot;"},
-                    
+
             {"type": "Class", "fromName": "app", "fromLink": "app.html", "link": "app/District.html", "name": "app\\District", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\District", "fromLink": "app/District.html", "link": "app/District.html#method_organization", "name": "app\\District::organization", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\District", "fromLink": "app/District.html", "link": "app/District.html#method_users", "name": "app\\District::users", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\District", "fromLink": "app/District.html", "link": "app/District.html#method_role", "name": "app\\District::role", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\District", "fromLink": "app/District.html", "link": "app/District.html#method_updateGroups", "name": "app\\District::updateGroups", "doc": "&quot;\n&quot;"},
-            
+
             {"type": "Class", "fromName": "app", "fromLink": "app.html", "link": "app/Group.html", "name": "app\\Group", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\Group", "fromLink": "app/Group.html", "link": "app/Group.html#method_users", "name": "app\\Group::users", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\Group", "fromLink": "app/Group.html", "link": "app/Group.html#method_students", "name": "app\\Group::students", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\Group", "fromLink": "app/Group.html", "link": "app/Group.html#method_teachers", "name": "app\\Group::teachers", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\Group", "fromLink": "app/Group.html", "link": "app/Group.html#method_organization", "name": "app\\Group::organization", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\Group", "fromLink": "app/Group.html", "link": "app/Group.html#method_updateGroups", "name": "app\\Group::updateGroups", "doc": "&quot;\n&quot;"},
-            
+
             {"type": "Class", "fromName": "app", "fromLink": "app.html", "link": "app/Organization.html", "name": "app\\Organization", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\Organization", "fromLink": "app/Organization.html", "link": "app/Organization.html#method_users", "name": "app\\Organization::users", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\Organization", "fromLink": "app/Organization.html", "link": "app/Organization.html#method_groups", "name": "app\\Organization::groups", "doc": "&quot;\n&quot;"},
@@ -40,18 +40,18 @@
                     {"type": "Method", "fromName": "app\\Organization", "fromLink": "app/Organization.html", "link": "app/Organization.html#method_principals", "name": "app\\Organization::principals", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\Organization", "fromLink": "app/Organization.html", "link": "app/Organization.html#method_teachers", "name": "app\\Organization::teachers", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\Organization", "fromLink": "app/Organization.html", "link": "app/Organization.html#method_updateGroups", "name": "app\\Organization::updateGroups", "doc": "&quot;\n&quot;"},
-            
+
             {"type": "Class", "fromName": "app", "fromLink": "app.html", "link": "app/Permission.html", "name": "app\\Permission", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\Permission", "fromLink": "app/Permission.html", "link": "app/Permission.html#method_permission", "name": "app\\Permission::permission", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\Permission", "fromLink": "app/Permission.html", "link": "app/Permission.html#method_hasPermission", "name": "app\\Permission::hasPermission", "doc": "&quot;\n&quot;"},
-            
+
             {"type": "Class", "fromName": "app", "fromLink": "app.html", "link": "app/Role.html", "name": "app\\Role", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\Role", "fromLink": "app/Role.html", "link": "app/Role.html#method_getRole", "name": "app\\Role::getRole", "doc": "&quot;\n&quot;"},
-            
+
             {"type": "Class", "fromName": "app", "fromLink": "app.html", "link": "app/RolePermission.html", "name": "app\\RolePermission", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\RolePermission", "fromLink": "app/RolePermission.html", "link": "app/RolePermission.html#method_role", "name": "app\\RolePermission::role", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\RolePermission", "fromLink": "app/RolePermission.html", "link": "app/RolePermission.html#method_permission", "name": "app\\RolePermission::permission", "doc": "&quot;\n&quot;"},
-            
+
             {"type": "Class", "fromName": "app", "fromLink": "app.html", "link": "app/User.html", "name": "app\\User", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\User", "fromLink": "app/User.html", "link": "app/User.html#method_role", "name": "app\\User::role", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\User", "fromLink": "app/User.html", "link": "app/User.html#method_districts", "name": "app\\User::districts", "doc": "&quot;\n&quot;"},
@@ -67,42 +67,42 @@
                     {"type": "Method", "fromName": "app\\User", "fromLink": "app/User.html", "link": "app/User.html#method_hasRole", "name": "app\\User::hasRole", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\User", "fromLink": "app/User.html", "link": "app/User.html#method_updateMember", "name": "app\\User::updateMember", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\User", "fromLink": "app/User.html", "link": "app/User.html#method_deleteMember", "name": "app\\User::deleteMember", "doc": "&quot;\n&quot;"},
-            
+
             {"type": "Class", "fromName": "app", "fromLink": "app.html", "link": "app/UserRole.html", "name": "app\\UserRole", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\UserRole", "fromLink": "app/UserRole.html", "link": "app/UserRole.html#method_user", "name": "app\\UserRole::user", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\UserRole", "fromLink": "app/UserRole.html", "link": "app/UserRole.html#method_Role", "name": "app\\UserRole::Role", "doc": "&quot;\n&quot;"},
-            
+
             {"type": "Class", "fromName": "app\\cmwn", "fromLink": "app/cmwn.html", "link": "app/cmwn/Online.html", "name": "app\\cmwn\\Online", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\cmwn\\Online", "fromLink": "app/cmwn/Online.html", "link": "app/cmwn/Online.html#method_scopeGuests", "name": "app\\cmwn\\Online::scopeGuests", "doc": "&quot;Returns all the guest users.&quot;"},
                     {"type": "Method", "fromName": "app\\cmwn\\Online", "fromLink": "app/cmwn/Online.html", "link": "app/cmwn/Online.html#method_scopeRegistered", "name": "app\\cmwn\\Online::scopeRegistered", "doc": "&quot;Returns all the registered users.&quot;"},
                     {"type": "Method", "fromName": "app\\cmwn\\Online", "fromLink": "app/cmwn/Online.html", "link": "app/cmwn/Online.html#method_scopeUpdateCurrent", "name": "app\\cmwn\\Online::scopeUpdateCurrent", "doc": "&quot;Updates the session of the current user.&quot;"},
                     {"type": "Method", "fromName": "app\\cmwn\\Online", "fromLink": "app/cmwn/Online.html", "link": "app/cmwn/Online.html#method_user", "name": "app\\cmwn\\Online::user", "doc": "&quot;Returns the user that belongs to this entry.&quot;"},
-            
+
             {"type": "Class", "fromName": "app\\cmwn", "fromLink": "app/cmwn.html", "link": "app/cmwn/Profile.html", "name": "app\\cmwn\\Profile", "doc": "&quot;\n&quot;"},
-                    
+
             {"type": "Class", "fromName": "app\\cmwn\\Services", "fromLink": "app/cmwn/Services.html", "link": "app/cmwn/Services/BulkImporter.html", "name": "app\\cmwn\\Services\\BulkImporter", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\cmwn\\Services\\BulkImporter", "fromLink": "app/cmwn/Services/BulkImporter.html", "link": "app/cmwn/Services/BulkImporter.html#method_migratecsv", "name": "app\\cmwn\\Services\\BulkImporter::migratecsv", "doc": "&quot;\n&quot;"},
-                    {"type": "Method", "fromName": "app\\cmwn\\Services\\BulkImporter", "fromLink": "app/cmwn/Services/BulkImporter.html", "link": "app/cmwn/Services/BulkImporter.html#method_csv_to_array", "name": "app\\cmwn\\Services\\BulkImporter::csv_to_array", "doc": "&quot;\n&quot;"},
-            
+                    {"type": "Method", "fromName": "app\\cmwn\\Services\\BulkImporter", "fromLink": "app/cmwn/Services/BulkImporter.html", "link": "app/cmwn/Services/BulkImporter.html#method_csvToArray", "name": "app\\cmwn\\Services\\BulkImporter::csvToArray", "doc": "&quot;\n&quot;"},
+
             {"type": "Class", "fromName": "app\\cmwn\\Services", "fromLink": "app/cmwn/Services.html", "link": "app/cmwn/Services/ImageManagement.html", "name": "app\\cmwn\\Services\\ImageManagement", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\cmwn\\Services\\ImageManagement", "fromLink": "app/cmwn/Services/ImageManagement.html", "link": "app/cmwn/Services/ImageManagement.html#method_uploader", "name": "app\\cmwn\\Services\\ImageManagement::uploader", "doc": "&quot;\n&quot;"},
-            
+
             {"type": "Class", "fromName": "app\\cmwn\\Services", "fromLink": "app/cmwn/Services.html", "link": "app/cmwn/Services/MyMail.html", "name": "app\\cmwn\\Services\\MyMail", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\cmwn\\Services\\MyMail", "fromLink": "app/cmwn/Services/MyMail.html", "link": "app/cmwn/Services/MyMail.html#method_send", "name": "app\\cmwn\\Services\\MyMail::send", "doc": "&quot;\n&quot;"},
-            
+
             {"type": "Class", "fromName": "app\\cmwn\\Services", "fromLink": "app/cmwn/Services.html", "link": "app/cmwn/Services/Notifier.html", "name": "app\\cmwn\\Services\\Notifier", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\cmwn\\Services\\Notifier", "fromLink": "app/cmwn/Services/Notifier.html", "link": "app/cmwn/Services/Notifier.html#method_prepData", "name": "app\\cmwn\\Services\\Notifier::prepData", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\cmwn\\Services\\Notifier", "fromLink": "app/cmwn/Services/Notifier.html", "link": "app/cmwn/Services/Notifier.html#method_send", "name": "app\\cmwn\\Services\\Notifier::send", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\cmwn\\Services\\Notifier", "fromLink": "app/cmwn/Services/Notifier.html", "link": "app/cmwn/Services/Notifier.html#method_attachData", "name": "app\\cmwn\\Services\\Notifier::attachData", "doc": "&quot;\n&quot;"},
-            
+
             {"type": "Class", "fromName": "app\\cmwn\\Services", "fromLink": "app/cmwn/Services.html", "link": "app/cmwn/Services/Sms.html", "name": "app\\cmwn\\Services\\Sms", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\cmwn\\Services\\Sms", "fromLink": "app/cmwn/Services/Sms.html", "link": "app/cmwn/Services/Sms.html#method_send", "name": "app\\cmwn\\Services\\Sms::send", "doc": "&quot;\n&quot;"},
-            
+
             {"type": "Class", "fromName": "app\\cmwn\\Users", "fromLink": "app/cmwn/Users.html", "link": "app/cmwn/Users/UserSpecificRepository.html", "name": "app\\cmwn\\Users\\UserSpecificRepository", "doc": "&quot;\n&quot;"},
                                                         {"type": "Method", "fromName": "app\\cmwn\\Users\\UserSpecificRepository", "fromLink": "app/cmwn/Users/UserSpecificRepository.html", "link": "app/cmwn/Users/UserSpecificRepository.html#method___construct", "name": "app\\cmwn\\Users\\UserSpecificRepository::__construct", "doc": "&quot;\n&quot;"},
                     {"type": "Method", "fromName": "app\\cmwn\\Users\\UserSpecificRepository", "fromLink": "app/cmwn/Users/UserSpecificRepository.html", "link": "app/cmwn/Users/UserSpecificRepository.html#method_compose", "name": "app\\cmwn\\Users\\UserSpecificRepository::compose", "doc": "&quot;\n&quot;"},
-            
-            
+
+
                                         // Fix trailing commas in the index
         {}
     ];
@@ -220,7 +220,7 @@ $(function() {
         window.location = $(this).val()
     });
 
-    
+
         // Toggle left-nav divs on click
         $('#api-tree .hd span').click(function() {
             $(this).parent().parent().toggleClass('opened');
@@ -244,8 +244,8 @@ $(function() {
             }
         }
 
-    
-    
+
+
         var form = $('#search-form .typeahead');
         form.typeahead({
             hint: true,
@@ -272,7 +272,7 @@ $(function() {
             }
         });
 
-    
+
 });
 
 
