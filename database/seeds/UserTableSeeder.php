@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use app\User;
-use app\Role;
 use app\Group;
 use app\Organization;
 use app\District;
@@ -14,32 +13,43 @@ class UserTableSeeder extends Seeder
         $faker = Faker\Factory::create();
 
         DB::table('users')->delete();
+        DB::table('district_organization')->delete();
+        DB::table('districts')->delete();
+        DB::table('organizations')->delete();
+        DB::table('groups')->delete();
         DB::table('child_guardian')->delete();
+        DB::table('roleables')->delete();
 
-        for ($i = 1; $i < 5; ++$i) {
-            $districts[] = District::create(array(
-                    'title' => $faker->company,
-                    'description' => 'District:'.$i.$faker->paragraph(1),
+        for ($i = 1; $i <= 5; ++$i) {
+            $districts[$i] = District::create(array(
+                    'title' => 'Scnhool District ' . rand(100, 900),
+                    'description' => 'District: '.$i.$faker->paragraph(1),
                 ));
+
+            $this->command->info('District: "'.$districts[$i]->title.'" created!');
         }
-        for ($i = 1; $i < 20; ++$i) {
+
+        for ($i = 1; $i <= 20; ++$i) {
             $organizations[$i] = Organization::create(array(
-                    'title' => $faker->company,
-                    'description' => 'Group:'.$i.$faker->paragraph(1),
+                    'title' => 'The ' . $faker->company . ' School',
+                    'description' => 'Group: ' . $faker->paragraph(1),
                 ));
+
+            $organizations[$i]->districts()->save($districts[rand(1, 4)]);
+
+            $this->command->info('Organization: '.$organizations[$i]->title.' was created!');
         }
 
-        // DB::table('district_organization')->insert([
-        //         'district_id' => $district->id,
-        //         'organization_id' => $organization->id,
-        //     ]);
+        $group_array = ['Science', 'Math', 'Art', 'Chemistry', 'Music', 'Dance', 'Spanish', 'French', 'English', 'Language Arts', 'Pre-Algebra', 'Geometry', 'Woodshop', 'Drama', 'Grammar', 'Yearbook', 'Painting', 'Sculpture', 'Ceramics', 'Pottery', 'Band', 'Physics', 'Geology', 'Environmental Science', 'Calculus', 'Social Studies', 'US History', 'Sociology', 'Gymnastics'];
 
-        for ($i = 1; $i < 100; ++$i) {
+        for ($i = 1; $i <= 100; ++$i) {
             $groups[$i] = Group::create(array(
                     'organization_id' => $organizations[rand(1, 19)]->id,
-                    'title' => $faker->company,
-                    'description' => 'Class:'.$i.$faker->paragraph(1),
+                    'title' => $group_array[array_rand($group_array)] . ' ' . rand(1, 3) . '0' . rand(1, 9),
+                    'description' => 'Class Description: ' . $faker->paragraph(1),
                 ));
+
+            $this->command->info('Group: "'. $groups[$i]->title .'" created!');
         }
 
         // Create Users
@@ -62,7 +72,38 @@ class UserTableSeeder extends Seeder
                 'student_id' => 'arron.kallenberg@gmail.com',
             ));
 
-        for ($i = 0; $i < 500; ++$i) {
+        $this->command->info('Creating superintendents!');
+        $superintendents = $this->createUsers(20, $faker);
+
+        foreach ($superintendents as $superintendent) {
+            $superintendent->districts()->save($districts[rand(1, 5)], array('role_id' => rand(1, 2)));
+        }
+
+        $this->command->info('Creating principals!');
+        $principals = $this->createUsers(100, $faker);
+
+        foreach ($principals as $principal) {
+            $principal->organizations()->save($organizations[rand(1, 20)], array('role_id' => rand(1, 2)));
+        }
+
+        $this->command->info('Creating teachers!');
+        $teachers = $this->createUsers(100, $faker);
+
+        foreach ($teachers as $teacher) {
+            $teacher->groups()->save($groups[rand(1, 100)], array('role_id' => 1));
+        }
+
+        $this->command->info('Creating kids!');
+        $kids = $this->createUsers(200, $faker);
+
+        foreach ($kids as $kid) {
+            $kid->groups()->save($groups[rand(1, 100)], array('role_id' => 3));
+        }
+    }
+
+    private function createUsers($count, $faker)
+    {
+        for ($i = 1; $i <= $count; ++$i) {
             $frist_name = $faker->firstName;
             $last_name = $faker->lastName;
 
@@ -79,42 +120,9 @@ class UserTableSeeder extends Seeder
                     'student_id' => $faker->uuid,
                 ));
 
-            $users[$i]->groups()->save($groups[rand(1, 99)]);
+            //$this->command->info($frist_name.' '.$last_name.' created!');
         }
 
-        // // Create 5 Guardians
-        // for ($i = 1; $i < 5; ++$i) {
-        //     $guardian = User::create(array(
-        //         'email' => 'jontoshmatov@yahoo.com'.$i,
-        //         'password' => Hash::make('business'),
-        //         'slug' => 'parent_slug'.$i,
-        //         'student_id' => 'guardian_id'.$i,
-        //     ));
-        // }
-
-        // // Create 5 Children
-        // for ($i = 1; $i < 5; ++$i) {
-        //     $child = User::create(array(
-        //         'name' => 'child'.$i,
-        //         'email' => 'child@child.com'.$i,
-        //         'password' => Hash::make('business'),
-        //         'slug' => 'child_slug'.$i,
-        //         'student_id' => 'child_id'.$i,
-        //     ));
-        // }
-
-        //$jon->role()->sync(1);
-        //$arron->role()->sync(1);
-
-
-//        DB::table('friends')->insert([
-//                'user_id' => 1,
-//                'friend_id' => 2,
-//            ]);
-//
-//        DB::table('child_guardian')->insert([
-//                'guardian_id' => $guardian->id,
-//                'child_id' => $child->id,
-//            ]);
+        return $users;
     }
 }
