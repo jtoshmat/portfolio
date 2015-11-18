@@ -91,39 +91,70 @@ class CreateAllTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('organizations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('code');
-            $table->string('title');
-            $table->string('description');
-            $table->timestamps();
-            $table->softDeletes();
-        });
 
-        Schema::create('district_organization', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('district_id')->unsigned();
-            $table->unsignedInteger('organization_id')->unsigned();
-            $table->foreign('district_id')->references('id')->on('districts');
-            $table->timestamps();
-        });
+	    Schema::create('images', function(Blueprint $table)
+	    {
+		    $table->increments('id');
+		    $table->unsignedInteger('imageable_id')->unsigned();
+		    $table->string('imageable_type');
+		    $table->string('url');
+            $table->unsignedInteger('cloudinary_id')->unsigned();
+		    $table->timestamps();
+	    });
 
-        Schema::create('groups', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('organization_id')->unsigned();
-            $table->string('title');
-            $table->unique(array('organization_id', 'title'));
-            $table->string('description');
-            $table->timestamps();
-            $table->softDeletes();
-        });
 
-        Schema::create('child_guardian', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('guardian_id')->unsigned();
-            $table->unsignedInteger('child_id')->unsigned();
-            $table->foreign('child_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('guardian_id')->references('id')->on('users')->onDelete('cascade');
+
+	    Schema::create('districts', function(Blueprint $table)
+	    {
+		    $table->increments('id');
+		    $table->integer('system_id');
+		    $table->string('code');
+		    $table->string('title');
+		    $table->string('description');
+		    $table->timestamps();
+		    $table->softDeletes();
+	    });
+
+	    Schema::create('organizations', function(Blueprint $table)
+	    {
+		    $table->increments('id');
+		    $table->string('code');
+		    $table->string('title');
+		    $table->string('description');
+		    $table->timestamps();
+		    $table->softDeletes();
+	    });
+
+
+	    Schema::create('district_organization', function(Blueprint $table)
+	    {
+		    $table->increments('id');
+		    $table->unsignedInteger('district_id')->unsigned();
+		    $table->unsignedInteger('organization_id')->unsigned();
+		    $table->foreign('district_id')->references('id')->on('districts');
+		    $table->timestamps();
+	    });
+
+	    Schema::create('groups', function(Blueprint $table)
+	    {
+		    $table->increments('id');
+		    $table->unsignedInteger('organization_id')->unsigned();
+		    $table->string('title');
+		    $table->unique(array('organization_id', 'title'));
+		    $table->string('description');
+		    $table->timestamps();
+		    $table->softDeletes();
+	    });
+
+
+	    Schema::create('child_guardian', function(Blueprint $table)
+	    {
+		    $table->increments('id');
+		    $table->unsignedInteger('guardian_id')->unsigned();
+		    $table->unsignedInteger('child_id')->unsigned();
+		    $table->foreign('child_id')->references('id')->on('users')->onDelete('cascade');
+		    $table->foreign('guardian_id')->references('id')->on('users')->onDelete('cascade');
+
             //$table->unique(array('guardian_id', 'child_id'));
             $table->timestamps();
         });

@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use app\cmwn\Image;
 
 class User extends Model implements
     AuthenticatableContract,
@@ -51,9 +52,9 @@ class User extends Model implements
      * Register all the form validation rules here for User
      */
     public static $memberUpdaRules = array(
-        'first_name' => 'required|string|min:2',
-        'middle_name' => 'required|string|min:2',
-        'last_name' => 'required|string|min:2',
+        'first_name' => 'string|min:2',
+        'middle_name' => 'string|min:2',
+        'last_name' => 'string|min:2',
         'email' => 'required|email|min:2',
         //'slug'=>'required|string|unique:users|min:2',
         //'role[]'=>'required',
@@ -218,4 +219,32 @@ class User extends Model implements
     {
         return $query->where('name', $val);
     }
+
+    public function updateImage($user_id, $params){
+        $user = User::find($user_id);
+        $image = new Image();
+
+        if (isset($params['url'])) {
+            $image->url = $params['url'];
+        }
+
+        if (isset($params['cloudinary_id'])) {
+            $image->cloudinary_id = $params['cloudinary_id'];
+        }
+
+        if ($user->images()->save($image)){
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteImage($user_id){
+        $user = User::find($user_id);
+        $image = new Image();
+        if ($user->images()->delete()){
+            return true;
+        }
+        return false;
+    }
+
 }

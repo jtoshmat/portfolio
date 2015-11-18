@@ -2,12 +2,14 @@
 
 namespace app\Http\Controllers\Api;
 
+use app\cmwn\Image;
 use app\Transformer\UserTransformer;
 use app\Transformer\GroupTransformer;
 use app\User;
 use Input;
 use Illuminate\Support\Facades\Auth;
 use app\Transformer\ImageTransformer;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends ApiController
 {
@@ -81,20 +83,40 @@ class UserController extends ApiController
         return csrf_token();
     }
 
-    public function showImage($user_id)
-    {
-        $image = User::find(1)->images;
 
+
+    public function showImage($user_id){
+        $image = User::find($user_id)->images;
         return $this->respondWithCollection($image, new ImageTransformer());
     }
 
-    public function updateImage()
-    {
-        return 'updating image';
+
+    public function updateImage($user_id){
+        $validator = Validator::make(Input::all(), Image::$imageUpdateRules);
+
+        if ($validator->passes()) {
+            $user = new User();
+            if($user->updateImage($user_id, Input::all())){
+                return $this->respondWithArray(array('message' => 'The image has been updated sucessfully.'));
+            }
+                return $this->errorInternalError('The image failed to update');
+        }
+            $messages = print_r($validator->errors()->getMessages(), true);
+            return $this->errorInternalError('Input validation error: '. $messages);
+
     }
 
-    public function deleteImage()
-    {
-        return 'deleting image';
+    public function deleteImage($user_id){
+        $validator = Validator::make(Input::all(), Image::$imageUpdateRules);
+        if ($validator->passes()) {
+            $user = new User();
+            if($user->deleteImage($user_id)){
+                return $this->respondWithArray(array('message' => 'The image has been updated sucessfully.'));
+            }
+                return $this->errorInternalError('The image failed to delete');
+        }
+        $messages = print_r($validator->errors()->getMessages(), true);
+        return $this->errorInternalError('Input validation error: '. $messages);
+
     }
 }
