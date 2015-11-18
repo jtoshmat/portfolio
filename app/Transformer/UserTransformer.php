@@ -32,13 +32,13 @@ class UserTransformer extends TransformerAbstract
     {
         return [
             'id'         => (int) $user->id,
+            'uuid'       => $user->uuid,
             'first_name' => $user->first_name,
             'last_name'  => $user->last_name,
+            'username'   => $user->username,
             'gender'     => $user->gender,
             'birthdate'  => $user->birthdate,
-            'uuid'       => $user->uuid,
             'joined'     => (string) $user->created_at,
-            'role'       =>  isset($user->pivot->role_id)?$user->pivot->role_id:'',
         ];
     }
     /**

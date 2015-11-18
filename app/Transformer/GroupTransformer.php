@@ -23,10 +23,11 @@ class GroupTransformer extends TransformerAbstract
     public function transform(Group $group)
     {
         return [
-            'id'            => (int) $group->id,
-            'title'         => $group->title,
-            'description'   => $group->description,
-            'created_at'    => (string) $group->created_at,
+            'id'              => (int) $group->id,
+            'organization_id' => $group->organization_id,
+            'title'           => $group->title,
+            'description'     => $group->description,
+            'created_at'      => (string) $group->created_at,
         ];
     }
 

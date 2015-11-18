@@ -2,13 +2,19 @@
 
 namespace app\cmwn\Traits;
 
+use app\User;
+
 trait RoleTrait
 {
-    public static function limitToUser($user_id)
+    public static function limitToUser(User $user)
     {
-        return self::whereHas('users', function ($query) use ($user_id) {
-            $query->where('user_id', $user_id);
-        });
+        if ($user->type == 1) {
+            return self::query();
+        } else {
+            return self::whereHas('users', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            });
+        }
     }
 
     public function users()
@@ -37,28 +43,29 @@ trait RoleTrait
         return $this->morphToMany('app\User', 'roleable')->wherePivot('role_id', $role_id);
     }
 
-    public function isUser($user_id)
+    public function isUser($user)
     {
-        return ($this->users()->where('user_id', $user_id)->count() > 0);
+        //TODO replace 1 with type constant!
+        return ($user->type == 1 || $this->users()->where('user_id', $user->id)->count() > 0);
     }
 
-    public function isSuperAdmin($user_id)
+    public function isSuperAdmin($user)
     {
-        return ($this->superAdmins()->where('user_id', $user_id)->count() > 0);
+        return ($user->type == 1 || $this->superAdmins()->where('user_id', $user->id)->count() > 0);
     }
 
-    public function isAdmin($user_id)
+    public function isAdmin($user)
     {
-        return ($this->admin()->where('user_id', $user_id)->count() > 0);
+        return ($user->type == 1 || $this->admin()->where('user_id', $user->id)->count() > 0);
     }
 
-    public function isMember($user_id)
+    public function isMember($user)
     {
-        return ($this->members()->where('user_id', $user_id)->count() > 0);
+        return ($user->type == 1 || $this->members()->where('user_id', $user->id)->count() > 0);
     }
 
-    public function canUpdate($user_id)
+    public function canUpdate($user)
     {
-        return ($this->users()->where('user_id', $user_id)->where('role_id', '>', 1)->count() > 0);
+        return ($user->type == 1 || $this->users()->where('user_id', $user->id)->where('role_id', '>', 1)->count() > 0);
     }
 }
