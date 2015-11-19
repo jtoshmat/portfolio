@@ -2,10 +2,18 @@
 
 namespace app\Http\Controllers\Auth;
 
+use app\Http\Controllers\Api\ApiController;
 use app\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Passwords\PasswordBroker;
 
-class PasswordController extends Controller
+
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+class PasswordController extends ApiController
 {
     /*
     |--------------------------------------------------------------------------
@@ -29,4 +37,22 @@ class PasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    public function reset(Request $request)
+    {
+
+        $this->validate($request, ['email' => 'required|email']);
+        $response = Password::sendResetLink($request->only('email'), function (Message $message) {
+            $message->subject($this->getEmailSubject());
+        });
+
+        switch ($response) {
+            case Password::RESET_LINK_SENT:
+                return $this->respondWithArray(array('message' => trans($response)));
+
+            case Password::INVALID_USER:
+                return $this->errorInternalError('Email validation error: '. trans($response));
+        }
+    }
+
 }

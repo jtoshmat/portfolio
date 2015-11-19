@@ -17,114 +17,110 @@
 //     });
 // }
 
-Route::get('/home', function () {
-    return view('welcome');
-});
-
-// Authentication routes...
-Route::get('auth/login', 'Auth\AuthController@getLogin');
-Route::post('admin/auth/login', 'AuthController@getLogin');
-
-// Admin Routes
-Route::group(['prefix' => 'admin'], function ($router) {
-
+    Route::get('/home', function () {
+        return view('welcome');
+    });
+    // Authentication routes...
+    Route::get('auth/login', 'Auth\AuthController@getLogin');
+    Route::post('admin/auth/login', 'AuthController@getLogin');
+    // Admin Routes
+    Route::group(['prefix' => 'admin'], function ($router) {
     Route::post('auth/login', 'Auth\AuthController@postLogin');
-
     // Authenticated Users Only
     Route::group(['middleware' => 'auth'], function ($router) {
-        Route::group(['middleware' => 'role:admin'], function ($router) {
-            Route::any('admin/uploadcsv', 'AdminToolsController@uploadcsv');
-            Route::any('admin/playground', 'AdminTestController@uploadImage');
+            Route::group(['middleware' => 'role:admin'], function ($router) {
+                Route::any('admin/uploadcsv', 'AdminToolsController@uploadcsv');
+                Route::any('admin/playground', 'AdminTestController@uploadImage');
+            });
+
+            Route::any('users/members', 'UsersController@members');
+            Route::any('users/roles', 'UsersController@roles');
+            Route::any('search', 'MasterController@search');
+
+            Route::any('users/member/{id}/update', 'UsersController@memberUpdate')->where('id', '[0-9]+');
+            Route::any('users/member/{id}/delete', 'UsersController@memberDelete')->where('id', '[0-9]+');
+            Route::any('user/{id}/view', 'UsersController@user')->where('id', '[0-9]+');
+            Route::any('district/{id}/view', 'DistrictsController@district')->where('id', '[0-9]+');
+            Route::any('organizations', 'OrganizationsController@index')->where('id', '[0-9]+');
+            Route::get('organization/{id}/view', 'OrganizationsController@organization');
+            Route::any('groups', 'GroupsController@index');
+            Route::get('group/{id}/view', 'GroupsController@group');
+            Route::any('guardians', 'UsersController@guardian');
+
+            //Composer for sidebars and user specific contents
+            View::composer('partials.sidebar', 'app\cmwn\Users\UserSpecificRepository');
         });
-
-        Route::any('users/members', 'UsersController@members');
-        Route::any('users/roles', 'UsersController@roles');
-        Route::any('search', 'MasterController@search');
-
-        Route::any('users/member/{id}/update', 'UsersController@memberUpdate')->where('id', '[0-9]+');
-        Route::any('users/member/{id}/delete', 'UsersController@memberDelete')->where('id', '[0-9]+');
-        Route::any('user/{id}/view', 'UsersController@user')->where('id', '[0-9]+');
-        Route::any('district/{id}/view', 'DistrictsController@district')->where('id', '[0-9]+');
-        Route::any('organizations', 'OrganizationsController@index')->where('id', '[0-9]+');
-        Route::get('organization/{id}/view', 'OrganizationsController@organization');
-        Route::any('groups', 'GroupsController@index');
-        Route::get('group/{id}/view', 'GroupsController@group');
-        Route::any('guardians', 'UsersController@guardian');
-
-        //Composer for sidebars and user specific contents
-        View::composer('partials.sidebar', 'app\cmwn\Users\UserSpecificRepository');
     });
-});
 
 ##########################################################################
 ############################# API Requests ###############################
 ##########################################################################
 
-Route::get('/csrf_token', 'Api\ApiController@getToken');
-
-Route::get('/parms/{parm_name}', function ($parm_name) {
-    return \Config::get('mycustomvars.'.$parm_name);
-});
-
-Route::post('/auth/login', 'Api\AuthController@authenticate');
-
-Route::group(['middleware' => 'auth'], function ($router) {
-
+    Route::get('/csrf_token', 'Api\ApiController@getToken');
     Route::get('/parms/{parm_name}', function ($parm_name) {
         return \Config::get('mycustomvars.'.$parm_name);
-    })->where('parm_name', '[a-z]+');
+    });
+    Route::post('/auth/login', 'Api\AuthController@authenticate');
+    Route::post('/auth/reset', 'Auth\PasswordController@reset');
+    Route::get('/auth/logout', 'Auth\AuthController@getLogout');
 
-    Route::post('/updateimage', 'Api\MasterController@updateProfileImage');
+    Route::group(['middleware' => 'auth'], function ($router) {
 
-    Route::get('/sidebar', 'Api\MasterController@sidebar');
-    Route::get('/friends', 'Api\MasterController@friends');
+        Route::get('/parms/{parm_name}', function ($parm_name) {
+            return \Config::get('mycustomvars.'.$parm_name);
+        })->where('parm_name', '[a-z]+');
 
-    Route::get('/auth/logout', 'Api\AuthController@logout');
+        Route::post('/updateimage', 'Api\MasterController@updateProfileImage');
 
-    Route::get('/users', 'Api\UserController@index');
-    Route::get('/users/{id}', 'Api\UserController@show');
-    Route::post('/users/{id}', 'Api\UserController@update');
+        Route::get('/sidebar', 'Api\MasterController@sidebar');
+        Route::get('/friends', 'Api\MasterController@friends');
 
-    Route::get('/users/{id}/groups', 'Api\UserController@getGroups');
+        Route::get('/auth/logout', 'Api\AuthController@logout');
 
-    //User Images
-    Route::get('/users/{id}/image', 'Api\UserController@showImage');
-    Route::put('/users/{id}/image', 'Api\UserController@updateImage');
-    Route::delete('/users/{id}/image', 'Api\UserController@deleteImage');
+        Route::get('/users', 'Api\UserController@index');
+        Route::get('/users/{id}', 'Api\UserController@show');
+        Route::post('/users/{id}', 'Api\UserController@update');
 
-    Route::get('/suggestedfriends', 'Api\SuggestedController@show');
+        Route::get('/users/{id}/groups', 'Api\UserController@getGroups');
 
-    Route::get('/users/friendrequest/{id}', 'Api\FriendshipController@show');
-    Route::post('/users/acceptfriendrequest/{id}', 'Api\FriendshipController@accept');
-    Route::post('/users/rejectfriendrequest/{id}', 'Api\FriendshipController@reject');
+        //User Images
+        Route::get('/users/{id}/image', 'Api\UserController@showImage');
+        Route::put('/users/{id}/image', 'Api\UserController@updateImage');
+        Route::delete('/users/{id}/image', 'Api\UserController@deleteImage');
 
-    //Get Groups
-    Route::get('/groups', 'Api\GroupController@index');
-    Route::get('/groups/{id}', 'Api\GroupController@show');
-    Route::get('/groups/{id}/users', 'Api\GroupController@getUsers');
+        Route::get('/suggestedfriends', 'Api\SuggestedController@show');
 
-    //Post Groups
-    Route::post('/groups/{id}', ['uses' => 'Api\GroupController@update']);
+        Route::get('/users/friendrequest/{id}', 'Api\FriendshipController@show');
+        Route::post('/users/acceptfriendrequest/{id}', 'Api\FriendshipController@accept');
+        Route::post('/users/rejectfriendrequest/{id}', 'Api\FriendshipController@reject');
 
-    //Get Districts
-    Route::get('/districts', 'Api\DistrictController@index');
-    Route::get('/districts/{id}', 'Api\DistrictController@show');
-    Route::get('/districts/{id}/organizations', 'Api\DistrictController@getOrganizations');
+        //Get Groups
+        Route::get('/groups', 'Api\GroupController@index');
+        Route::get('/groups/{id}', 'Api\GroupController@show');
+        Route::get('/groups/{id}/users', 'Api\GroupController@getUsers');
 
-    //Put Districts
-    Route::post('/districts/{id}', ['uses' => 'Api\DistrictController@update']);
+        //Post Groups
+        Route::post('/groups/{id}', ['uses' => 'Api\GroupController@update']);
 
-    //Get Organizations
-    Route::get('/organizations', 'Api\OrganizationController@index');
-    Route::get('/organizations/{id}', 'Api\OrganizationController@show');
+        //Get Districts
+        Route::get('/districts', 'Api\DistrictController@index');
+        Route::get('/districts/{id}', 'Api\DistrictController@show');
+        Route::get('/districts/{id}/organizations', 'Api\DistrictController@getOrganizations');
 
-    //Put Organizations
-    Route::post('/organizations/{id}', ['uses' => 'Api\OrganizationController@update']);
+        //Put Districts
+        Route::post('/districts/{id}', ['uses' => 'Api\DistrictController@update']);
 
-    Route::get('/roles', 'Api\RoleController@index');
-    Route::get('/roles/{id}', 'Api\RoleController@show');
+        //Get Organizations
+        Route::get('/organizations', 'Api\OrganizationController@index');
+        Route::get('/organizations/{id}', 'Api\OrganizationController@show');
 
-    //Admin tasks: Import Excel files and update the DB.
-    Route::post('/admin/importexcel', ['uses' => 'Api\MasterController@importExcel']);
+        //Put Organizations
+        Route::post('/organizations/{id}', ['uses' => 'Api\OrganizationController@update']);
 
-});
+        Route::get('/roles', 'Api\RoleController@index');
+        Route::get('/roles/{id}', 'Api\RoleController@show');
+
+        //Admin tasks: Import Excel files and update the DB.
+        Route::post('/admin/importexcel', ['uses' => 'Api\MasterController@importExcel']);
+
+    });
