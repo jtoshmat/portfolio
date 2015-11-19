@@ -103,6 +103,11 @@ class User extends Model implements
         return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id');
     }
 
+    public function students()
+    {
+
+    }
+
     public function acceptedfriends()
     {
         return $this->belongsToMany('app\User', 'friends', 'user_id', 'friend_id')->wherePivot('status', 1);
