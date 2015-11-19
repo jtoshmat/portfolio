@@ -2,6 +2,7 @@
 
 namespace app\Http\Controllers\Api;
 
+use app\cmwn\Users\UsersRelationshipHandler;
 use Illuminate\Http\Request;
 
 use app\Http\Requests;
@@ -37,29 +38,15 @@ class FriendshipController extends ApiController
         return $this->executeRequest($friend_id, -2);
     }
 
-
-    public static function areWeFriends($user_id, $friend_id){
-        return User::whereHas('friends', function ($query) use ($friend_id, $user_id) {
-            $query->where('status', 0)->where('friend_id',$friend_id)->where('user_id',$user_id);
-        });
-    }
-
-    public static function areWeInSameClass($user_id, $friend_id){
-        $groups = User::find($user_id)->groups->lists('id');
-        return User::find($friend_id)->whereHas('groups', function ($query) use ($groups,$friend_id,$user_id) {
-            $query->whereIn('roleable_id', $groups)->whereIn('role_id', array(self::MEMBER_ID))->where('user_id',$friend_id);
-        });
-    }
-
     public function executeRequest($friend_id, $status){
         list(, $caller) = debug_backtrace(false);
         $requestedFunction = $caller['function'];
 
-        $isRequestLegit = self::areWeFriends($this->userID, $friend_id);
+        $isRequestLegit = UsersRelationshipHandler::areWeFriends($this->userID, $friend_id);
         if ($isRequestLegit->count()==0){
             return $this->errorInternalError('No active friend request found.');
         }
-        $areWeInTheSameClass = self::areWeInSameClass($this->userID, $friend_id);
+        $areWeInTheSameClass = UsersRelationshipHandler::areWeInSameClass($this->userID, $friend_id);
         if ($areWeInTheSameClass->count()==0){
             return $this->errorInternalError('Sorry you are not in the same class as a student.');
         }

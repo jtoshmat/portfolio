@@ -3,6 +3,7 @@
 namespace app\Http\Controllers\Api;
 
 use app\cmwn\Image;
+use app\cmwn\Users\UsersRelationshipHandler;
 use app\Transformer\UserTransformer;
 use app\Transformer\GroupTransformer;
 use app\User;
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends ApiController
 {
+
+    protected static $userID;
+
+    public function __construct(){
+        self::$userID = Auth::user()->id;
+    }
+
+
     public function index()
     {
         $query = \Request::get('name') or null;
@@ -43,28 +52,25 @@ class UserController extends ApiController
 
     public function update($userId)
     {
-        if ($userId ==  'me') {
-            $user = Auth::user();
-        } else {
-            $user = User::find($userId);
+        $isTeacherInSameClass = UsersRelationshipHandler::isTeacherAllowed(self::$userID, $userId, 'admin');
+        if (!$isTeacherInSameClass){
+            return $this->errorInternalError('Sorry you are not authorized.');
         }
+        $user = ($userId ==  'me')?Auth::user():User::find($userId);
+        $validator = Validator::make(Input::all(), User::$memberUpdaRules);
+
+        if (!$validator->passes()) {
+            $messages = print_r($validator->errors()->getMessages(), true);
+            return $this->errorInternalError('Input validation error: '. $messages);
+        }
+
+        return "stil working on it: ". __LINE__;
 
         if ($user->updateMember(Input::all())) {
             return $this->respondWithItem($user, new UserTransformer());
         } else {
             return $this->errorInternalError('Could not save user.');
         }
-
-        // $validator = Validator::make(Input::all(), User::$memberUpdaRules);
-        // if ($validator->passes()) {
-        //     if (User::updateMember($request, $id)) {
-        //         return Redirect::to('users/member/'.$id.'/update')->with('message', 'The following errors occurred')->withErrors('Updated successfully')->with('flag', 'success');
-        //     } else {
-        //         return Redirect::to('users/member/'.$id.'/update')->with('message', 'The following errors occurred')->withErrors('Update failed')->with('flag', 'danger');
-        //     }
-        // } else {
-        //     return Redirect::to('users/member/'.$id.'/update')->with('message', 'The following errors occurred')->withErrors($validator)->withInput()->with('flag', 'danger');
-        // }
     }
 
     public function getGroups($userId)
