@@ -8,6 +8,7 @@ use Response;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\Manager;
+use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 {
@@ -21,6 +22,8 @@ class ApiController extends Controller
 
     public function __construct(Manager $fractal)
     {
+        $this->currentUser = Auth::user();
+
         $this->fractal = $fractal;
 
         if (isset($_GET['include'])) {

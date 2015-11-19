@@ -11,11 +11,11 @@
 |
 */
 
-// if (env('APP_ENV') == 'local') {
-//     Event::listen('illuminate.query', function ($query) {
-//     //var_dump($query);
-//     });
-// }
+if (env('APP_ENV') == 'local') {
+    Event::listen('illuminate.query', function ($query) {
+    var_dump($query);
+    });
+}
 
     Route::get('/home', function () {
         return view('welcome');

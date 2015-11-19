@@ -11,6 +11,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use app\cmwn\Image;
+use Auth;
 
 class User extends Model implements
     AuthenticatableContract,
@@ -111,6 +112,27 @@ class User extends Model implements
     public function students()
     {
 
+    }
+
+    public static function findFromInput($input) {
+
+        if ($input ==  'me') {
+            return Auth::user();
+        } else {
+            return self::find($input);
+        }
+    }
+
+    public function entities($entity, ...$role_ids)
+    {
+
+        $result = $this->$entity();
+
+        foreach($role_ids as $role_id) {
+            $result = $result->orWherePivot('role_id', $role_id);
+        }
+
+        return $result->get();
     }
 
     public function acceptedfriends()

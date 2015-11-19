@@ -21,7 +21,7 @@ class Role
      * @return mixed
      */
 	public function handle($request, Closure $next, ...$roles)
-	{				
+	{
 		if (!$this->user->hasRole($roles)) {
 			//return Redirect::intended('/users/members');
 		}

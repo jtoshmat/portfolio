@@ -15,13 +15,6 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends ApiController
 {
 
-    protected static $userID;
-
-    public function __construct(){
-        self::$userID = Auth::user()->id;
-    }
-
-
     public function index()
     {
         $query = \Request::get('name') or null;
@@ -37,11 +30,7 @@ class UserController extends ApiController
 
     public function show($userId)
     {
-        if ($userId ==  'me') {
-            $user = Auth::user();
-        } else {
-            $user = User::find($userId);
-        }
+        $user = User::findFromInput($userId);
 
         if (!$user) {
             return $this->errorNotFound('User not found');
@@ -52,19 +41,31 @@ class UserController extends ApiController
 
     public function update($userId)
     {
-        $isTeacherInSameClass = UsersRelationshipHandler::isTeacherAllowed(self::$userID, $userId, 'admin');
-        if (!$isTeacherInSameClass){
+
+        $user = User::findFromInput($userId);
+
+        UsersRelationshipHandler::isTeacherInSameClass($this->currentUser, $user);
+
+        dd('end');
+
+        $isTeacherInSameClass = UsersRelationshipHandler::isTeacherAllowed($this->currentUser->id, $user->id, 'admin');
+
+        dd($isTeacherInSameClass);
+
+        if (!$isTeacherInSameClass) {
             return $this->errorInternalError('Sorry you are not authorized.');
         }
-        $user = ($userId ==  'me')?Auth::user():User::find($userId);
+
+        $user = ($userId ==  'me') ? Auth::user() : User::find($userId);
         $validator = Validator::make(Input::all(), User::$memberUpdaRules);
 
         if (!$validator->passes()) {
             $messages = print_r($validator->errors()->getMessages(), true);
-            return $this->errorInternalError('Input validation error: '. $messages);
+
+            return $this->errorInternalError('Input validation error: '.$messages);
         }
 
-        return "stil working on it: ". __LINE__;
+        return 'stil working on it: '.__LINE__;
 
         if ($user->updateMember(Input::all())) {
             return $this->respondWithItem($user, new UserTransformer());
@@ -89,40 +90,43 @@ class UserController extends ApiController
         return csrf_token();
     }
 
-
-
-    public function showImage($user_id){
+    public function showImage($user_id)
+    {
         $image = User::find($user_id)->images;
+
         return $this->respondWithCollection($image, new ImageTransformer());
     }
 
-
-    public function updateImage($user_id){
+    public function updateImage($user_id)
+    {
         $validator = Validator::make(Input::all(), Image::$imageUpdateRules);
 
         if ($validator->passes()) {
             $user = new User();
-            if($user->updateImage($user_id, Input::all())){
+            if ($user->updateImage($user_id, Input::all())) {
                 return $this->respondWithArray(array('message' => 'The image has been updated sucessfully.'));
             }
-                return $this->errorInternalError('The image failed to update');
-        }
-            $messages = print_r($validator->errors()->getMessages(), true);
-            return $this->errorInternalError('Input validation error: '. $messages);
 
-    }
-
-    public function deleteImage($user_id){
-        $validator = Validator::make(Input::all(), Image::$imageUpdateRules);
-        if ($validator->passes()) {
-            $user = new User();
-            if($user->deleteImage($user_id)){
-                return $this->respondWithArray(array('message' => 'The image has been updated sucessfully.'));
-            }
-                return $this->errorInternalError('The image failed to delete');
+            return $this->errorInternalError('The image failed to update');
         }
         $messages = print_r($validator->errors()->getMessages(), true);
-        return $this->errorInternalError('Input validation error: '. $messages);
 
+        return $this->errorInternalError('Input validation error: '.$messages);
+    }
+
+    public function deleteImage($user_id)
+    {
+        $validator = Validator::make(Input::all(), Image::$imageUpdateRules);
+        if ($validator->passes()) {
+            $user = new User();
+            if ($user->deleteImage($user_id)) {
+                return $this->respondWithArray(array('message' => 'The image has been updated sucessfully.'));
+            }
+
+            return $this->errorInternalError('The image failed to delete');
+        }
+        $messages = print_r($validator->errors()->getMessages(), true);
+
+        return $this->errorInternalError('Input validation error: '.$messages);
     }
 }
