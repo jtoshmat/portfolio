@@ -53,7 +53,7 @@ class User extends Model implements
     /*
      * Register all the form validation rules here for User
      */
-    public static $memberUpdaRules = array(
+    public static $memberUpdateRules = array(
         'first_name' => 'string|min:2',
         'middle_name' => 'string|min:2',
         'last_name' => 'string|min:2',

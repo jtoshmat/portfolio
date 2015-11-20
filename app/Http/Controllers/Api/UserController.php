@@ -44,7 +44,7 @@ class UserController extends ApiController
             return $this->errorInternalError('You are not authorized.');
         }
 
-        $validator = Validator::make(Input::all(), User::$memberUpdaRules);
+        $validator = Validator::make(Input::all(), User::$memberUpdateRules);
 
         if (!$validator->passes()) {
             return $this->errorWrongArgs($validator->errors()->all());
