@@ -51,7 +51,7 @@ class UserController extends ApiController
         }
 
         if ($this->currentUser->updateMember(Input::all())) {
-            return $this->respondWithItem($this->currentUser, new UserTransformer());
+            return $this->respondWithItem($user, new UserTransformer());
         } else {
             return $this->errorInternalError('Could not save user.');
         }

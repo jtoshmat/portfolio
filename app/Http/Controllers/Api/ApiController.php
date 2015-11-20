@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class ApiController extends Controller
 {
     protected $statusCode = 200;
-
+    //@TODO: Ask Max to come up with User end error codes
     const CODE_WRONG_ARGS = 'GEN-FUBARGS';
     const CODE_NOT_FOUND = 'GEN-LIKETHEWIND';
     const CODE_INTERNAL_ERROR = 'GEN-AAAGGH';

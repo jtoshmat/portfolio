@@ -33,18 +33,17 @@ class AuthController extends ApiController
     }
 
     public function updatePassword(){
-        $curent_user_id = (int) Input::get('current_user_id');
-        if(!$this->currentUser->canUpdate($this->currentUser) && $curent_user_id !== $this->currentUser->id){
+        $user_id = (int) Input::get('user_id');
+        $user = User::findFromInput($user_id);
+
+        if(!$user->canUpdate($this->currentUser)){
             return $this->errorUnauthorized();
         }
+
         $validator = Validator::make($data = Input::all(), User::$passwordUpdateRules);
-        if ($validator->fails())
-        {
-            $messages = print_r($validator->errors()->getMessages(), true);
-            return $this->errorInternalError('Input validation error: '. $messages);
+        if ($validator->fails()) {
+            return $this->errorWrongArgs($validator->errors()->all());
         }
-        $updating_user_id = (int) Input::get('updating_user_id');
-        $user = User::findFromInput($updating_user_id);
 
         if($user->updatePassword($user, $data['password_confirmation'])) {
             return $this->respondWithArray(array('message' => 'The password has been updated successfully.'));
