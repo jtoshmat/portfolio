@@ -47,9 +47,7 @@ class UserController extends ApiController
         $validator = Validator::make(Input::all(), User::$memberUpdaRules);
 
         if (!$validator->passes()) {
-            $messages = print_r($validator->errors()->getMessages(), true);
-
-            return $this->errorInternalError('Input validation error: '.$messages);
+            return $this->errorWrongArgs($validator->errors()->all());
         }
 
         if ($this->currentUser->updateMember(Input::all())) {
