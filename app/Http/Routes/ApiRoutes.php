@@ -16,6 +16,8 @@ Route::get('/auth/logout', 'Auth\AuthController@getLogout');
 
 Route::group(['middleware' => 'auth'], function ($router) {
 
+    Route::post('/auth/password', 'Api\AuthController@updatePassword');
+
     Route::get('/parms/{parm_name}', function ($parm_name) {
         return \Config::get('mycustomvars.'.$parm_name);
     })->where('parm_name', '[a-z]+');

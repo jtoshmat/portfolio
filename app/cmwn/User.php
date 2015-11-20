@@ -12,14 +12,18 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use app\cmwn\Image;
 use Auth;
+
+use app\cmwn\Traits\RoleTrait;
+
 use app\cmwn\Users\UsersRelationshipHandler;
+
 
 class User extends Model implements
     AuthenticatableContract,
     AuthorizableContract,
     CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword, SoftDeletes;
+    use Authenticatable, Authorizable, CanResetPassword, SoftDeletes, RoleTrait;
     protected $dates = ['deleted_at'];
 
     /**
@@ -63,6 +67,14 @@ class User extends Model implements
 
     public static $memberDeleteRules = array(
         //'id'=>'required|regex:/^[0-9]?$/',
+    );
+
+    public static $passwordUpdateRules = array(
+        'current_user_id' => 'required|int',
+        'updating_user_id' => 'required|int',
+        'current_password' => 'required',
+        'password' => 'required|confirmed',
+        'password_confirmation' => 'required',
     );
 
     public function guardianReference()
@@ -296,5 +308,12 @@ class User extends Model implements
         }
 
         return false;
+    }
+
+    public function updatePassword($user, $newPassword)
+    {
+        return $user->fill([
+            'password' => \Hash::make($newPassword)
+        ])->save();
     }
 }
