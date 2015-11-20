@@ -3,7 +3,6 @@
 namespace app\cmwn\Users;
 
 use app\User;
-use app\Group;
 
 class UsersRelationshipHandler
 {
@@ -30,14 +29,12 @@ class UsersRelationshipHandler
         });
     }
 
-    public static function isUserInSameEntity($admin, $member, $entity = 'groups')
+    public static function isUserInSameEntity($admin, $member, $entity)
     {
-        $admin_entities = $admin->entities($entity, self::ADMIN, self::SUPER_ADMIN)->lists('id')->toArray();
-        $member_entites = $member->entities($entity, self::MEMBER)->lists('id')->toArray();
-        $result = array_intersect($admin_entities, $member_entites);
-        if (!empty($result)){
-            return true;
-        }
-        return false;
+        $admin_entities = $admin->entities($entity, self::ADMIN, self::SUPER_ADMIN)->lists('roleable_id')->toArray();
+        $member_entites = $member->entities($entity, self::MEMBER)->lists('roleable_id')->toArray();
+
+        // empty array (result of array_intersect) will evaluate to false when cast to a boolean.
+        return (boolean) array_intersect($admin_entities, $member_entites);
     }
 }

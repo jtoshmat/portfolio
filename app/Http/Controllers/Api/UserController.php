@@ -3,18 +3,15 @@
 namespace app\Http\Controllers\Api;
 
 use app\cmwn\Image;
-use app\cmwn\Users\UsersRelationshipHandler;
 use app\Transformer\UserTransformer;
 use app\Transformer\GroupTransformer;
 use app\User;
 use Input;
-use Illuminate\Support\Facades\Auth;
 use app\Transformer\ImageTransformer;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends ApiController
 {
-
     public function index()
     {
         $query = \Request::get('name') or null;
@@ -41,17 +38,17 @@ class UserController extends ApiController
 
     public function update($userId)
     {
-
         $user = User::findFromInput($userId);
 
-        $isUserAllowed = UsersRelationshipHandler::isUserInSameEntity($this->currentUser, $user);
-        if (!$isUserAllowed){
+        if (!$user->canUpdate($this->currentUser)) {
             return $this->errorInternalError('You are not authorized.');
         }
 
         $validator = Validator::make(Input::all(), User::$memberUpdaRules);
+
         if (!$validator->passes()) {
             $messages = print_r($validator->errors()->getMessages(), true);
+
             return $this->errorInternalError('Input validation error: '.$messages);
         }
 

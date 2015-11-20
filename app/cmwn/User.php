@@ -12,6 +12,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use app\cmwn\Image;
 use Auth;
+use app\cmwn\Users\UsersRelationshipHandler;
 
 class User extends Model implements
     AuthenticatableContract,
@@ -111,11 +112,10 @@ class User extends Model implements
 
     public function students()
     {
-
     }
 
-    public static function findFromInput($input) {
-
+    public static function findFromInput($input)
+    {
         if ($input ==  'me') {
             return Auth::user();
         } else {
@@ -123,16 +123,40 @@ class User extends Model implements
         }
     }
 
+    /**
+     * Determins if one user can update another.
+     *
+     * @return bool
+     */
+    public function canUpdate(User $user)
+    {
+         return (UsersRelationshipHandler::isUserInSameEntity($user, $this, 'districts') ||
+                 UsersRelationshipHandler::isUserInSameEntity($user, $this, 'organizations') ||
+                 UsersRelationshipHandler::isUserInSameEntity($user, $this, 'groups'));
+    }
+
     public function entities($entity, ...$role_ids)
     {
-
         $result = $this->$entity();
 
-        foreach($role_ids as $role_id) {
-            $result = $result->orWherePivot('role_id', $role_id);
-        }
+        $result = $result->where(function ($query) use ($role_ids) {
 
-        return $result->where('user_id',2)->get();//@TODO: get user_id param from the caller instead of hardcoding - JT 11/20
+            $i = 0;
+
+            foreach ($role_ids as $role_id) {
+                if ($i == 0) {
+                    $query = $query->where('role_id', $role_id);
+                } else {
+                    $query = $query->orWhere('role_id', $role_id);
+                }
+
+                ++$i;
+            }
+        });
+
+        return $result;
+
+        //return $result->where('user_id',2)->get();//@TODO: get user_id param from the caller instead of hardcoding - JT 11/20
     }
 
     public function acceptedfriends()
