@@ -44,31 +44,19 @@ class UserController extends ApiController
 
         $user = User::findFromInput($userId);
 
-        UsersRelationshipHandler::isTeacherInSameClass($this->currentUser, $user);
-
-        dd('end');
-
-        $isTeacherInSameClass = UsersRelationshipHandler::isTeacherAllowed($this->currentUser->id, $user->id, 'admin');
-
-        dd($isTeacherInSameClass);
-
-        if (!$isTeacherInSameClass) {
-            return $this->errorInternalError('Sorry you are not authorized.');
+        $isUserAllowed = UsersRelationshipHandler::isUserInSameEntity($this->currentUser, $user);
+        if (!$isUserAllowed){
+            return $this->errorInternalError('You are not authorized.');
         }
 
-        $user = ($userId ==  'me') ? Auth::user() : User::find($userId);
         $validator = Validator::make(Input::all(), User::$memberUpdaRules);
-
         if (!$validator->passes()) {
             $messages = print_r($validator->errors()->getMessages(), true);
-
             return $this->errorInternalError('Input validation error: '.$messages);
         }
 
-        return 'stil working on it: '.__LINE__;
-
-        if ($user->updateMember(Input::all())) {
-            return $this->respondWithItem($user, new UserTransformer());
+        if ($this->currentUser->updateMember(Input::all())) {
+            return $this->respondWithItem($this->currentUser, new UserTransformer());
         } else {
             return $this->errorInternalError('Could not save user.');
         }

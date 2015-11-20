@@ -13,7 +13,7 @@
 
 if (env('APP_ENV') == 'local') {
     Event::listen('illuminate.query', function ($query) {
-    var_dump($query);
+    //var_dump($query);
     });
 }
 

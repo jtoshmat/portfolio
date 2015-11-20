@@ -132,7 +132,7 @@ class User extends Model implements
             $result = $result->orWherePivot('role_id', $role_id);
         }
 
-        return $result->get();
+        return $result->where('user_id',2)->get();//@TODO: get user_id param from the caller instead of hardcoding - JT 11/20
     }
 
     public function acceptedfriends()

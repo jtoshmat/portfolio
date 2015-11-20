@@ -30,74 +30,14 @@ class UsersRelationshipHandler
         });
     }
 
-    public static function isTeacherInSameClass($admin, $member, $entity = 'groups')
+    public static function isUserInSameEntity($admin, $member, $entity = 'groups')
     {
         $admin_entities = $admin->entities($entity, self::ADMIN, self::SUPER_ADMIN)->lists('id')->toArray();
         $member_entites = $member->entities($entity, self::MEMBER)->lists('id')->toArray();
-
-        dd($admin_entities);
-
         $result = array_intersect($admin_entities, $member_entites);
-
-        dd($result);
-
-        $classes = User::find($teacher_id)->whereHas($entity, function ($query) {
-            $query->wherePivot('role_id', 1);
-        })->lists('id');
-
-        //whereIn('role_id', [1, 2])->where('user_id', $teacher_id)->lists('id');
-
-        dd('hi there ' . $classes);
-
-        return User::find($student_id)->whereHas('groups', function ($query) use ($classes, $student_id, $teacher_id) {
-            $query->whereIn('roleable_id', $classes)->where('user_id', $student_id);
-        })->count();
-    }
-
-    public static function getUserRoles($user_id)
-    {
-        $userRoles = User::find($user_id)->role;
-        $roles = array();
-        if (!$userRoles) {
-            return $roles;
+        if (!empty($result)){
+            return true;
         }
-
-        foreach ($userRoles as $role) {
-            $roles[] = $role->title;
-        }
-
-        return $roles;
-    }
-
-    public static function checkUserRole($user_id, $role)
-    {
-        $userRoles = self::getUserRoles($user_id);
-        $userDistricts = User::find($user_id)->districts;
-        $userdistricts = array();
-        foreach ($userDistricts as $district) {
-            $userdistricts[$district->id] = $district->title;
-        }
-
-        $allowed = in_array($role, $userRoles);
-
-        //Super Admins overwites all the roles
-        if (in_array('super_admin', $userRoles)) {
-            $allowed = true;
-        }
-
-        return $allowed;
-    }
-
-    public static function isTeacherAllowed($teacher_id, $student_id, $role)
-    {
-        $inTheSameClass = false;
-
-        if (self::checkUserRole($teacher_id, $role)) {
-            if (self::isTeacherInSameClass($teacher_id, $student_id) >= 1) {
-                $inTheSameClass = true;
-            }
-        }
-
-        return $inTheSameClass;
+        return false;
     }
 }
