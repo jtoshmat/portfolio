@@ -124,13 +124,24 @@ class User extends Model implements
     }
 
     /**
+     * Determins if user is a site admin.
+     *
+     * @return bool
+     */
+    public function isSiteAdmin()
+    {
+        return ($this->type == 1);
+    }
+
+    /**
      * Determins if one user can update another.
      *
      * @return bool
      */
     public function canUpdate(User $user)
     {
-         return (UsersRelationshipHandler::isUserInSameEntity($user, $this, 'districts') ||
+         return ($user->isSiteAdmin() ||
+                 UsersRelationshipHandler::isUserInSameEntity($user, $this, 'districts') ||
                  UsersRelationshipHandler::isUserInSameEntity($user, $this, 'organizations') ||
                  UsersRelationshipHandler::isUserInSameEntity($user, $this, 'groups'));
     }
@@ -140,23 +151,10 @@ class User extends Model implements
         $result = $this->$entity();
 
         $result = $result->where(function ($query) use ($role_ids) {
-
-            $i = 0;
-
-            foreach ($role_ids as $role_id) {
-                if ($i == 0) {
-                    $query = $query->where('role_id', $role_id);
-                } else {
-                    $query = $query->orWhere('role_id', $role_id);
-                }
-
-                ++$i;
-            }
+            $query = $query->whereIn('role_id', $role_ids);
         });
 
         return $result;
-
-        //return $result->where('user_id',2)->get();//@TODO: get user_id param from the caller instead of hardcoding - JT 11/20
     }
 
     public function acceptedfriends()
