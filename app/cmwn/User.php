@@ -152,7 +152,7 @@ class User extends Model implements
      */
     public function canUpdate(User $user)
     {
-         return ($user->isSiteAdmin() ||
+         return ($this->id == $user->id || $user->isSiteAdmin() ||
                  UsersRelationshipHandler::isUserInSameEntity($user, $this, 'districts') ||
                  UsersRelationshipHandler::isUserInSameEntity($user, $this, 'organizations') ||
                  UsersRelationshipHandler::isUserInSameEntity($user, $this, 'groups'));
