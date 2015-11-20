@@ -241,7 +241,7 @@ class User extends Model implements
     public static function deleteMember($id)
     {
         $user = self::find($id);
-        if (!$user->role()->detach()) {
+        if (!$user->role()->detach()) { // TODO move to event listener.
             $user->delete();
         }
 
