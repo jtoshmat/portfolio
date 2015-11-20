@@ -40,8 +40,8 @@
         "Illuminate\\Database\\Eloquent\\SoftDeletes": "Illuminate\\Database\\Eloquent\\SoftDeletes"
     },
     "properties": {
-        "memberUpdaRules": {
-            "name": "memberUpdaRules",
+        "memberUpdateRules": {
+            "name": "memberUpdateRules",
             "line": 57,
             "short_desc": "",
             "long_desc": "",

@@ -12,7 +12,11 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use app\cmwn\Image;
 use Auth;
+
 use app\cmwn\Traits\RoleTrait;
+
+use app\cmwn\Users\UsersRelationshipHandler;
+
 
 class User extends Model implements
     AuthenticatableContract,
@@ -53,7 +57,7 @@ class User extends Model implements
     /*
      * Register all the form validation rules here for User
      */
-    public static $memberUpdaRules = array(
+    public static $memberUpdateRules = array(
         'first_name' => 'string|min:2',
         'middle_name' => 'string|min:2',
         'last_name' => 'string|min:2',
@@ -120,11 +124,10 @@ class User extends Model implements
 
     public function students()
     {
-
     }
 
-    public static function findFromInput($input) {
-
+    public static function findFromInput($input)
+    {
         if ($input ==  'me') {
             return Auth::user();
         } else {
@@ -132,16 +135,38 @@ class User extends Model implements
         }
     }
 
+    /**
+     * Determins if user is a site admin.
+     *
+     * @return bool
+     */
+    public function isSiteAdmin()
+    {
+        return ($this->type == 1);
+    }
+
+    /**
+     * Determins if one user can update another.
+     *
+     * @return bool
+     */
+    public function canUpdate(User $user)
+    {
+         return ($user->isSiteAdmin() ||
+                 UsersRelationshipHandler::isUserInSameEntity($user, $this, 'districts') ||
+                 UsersRelationshipHandler::isUserInSameEntity($user, $this, 'organizations') ||
+                 UsersRelationshipHandler::isUserInSameEntity($user, $this, 'groups'));
+    }
+
     public function entities($entity, ...$role_ids)
     {
-
         $result = $this->$entity();
 
-        foreach($role_ids as $role_id) {
-            $result = $result->orWherePivot('role_id', $role_id);
-        }
+        $result = $result->where(function ($query) use ($role_ids) {
+            $query = $query->whereIn('role_id', $role_ids);
+        });
 
-        return $result->where('user_id',2)->get();//@TODO: get user_id param from the caller instead of hardcoding - JT 11/20
+        return $result;
     }
 
     public function acceptedfriends()
