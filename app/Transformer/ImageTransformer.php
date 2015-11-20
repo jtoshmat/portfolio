@@ -18,10 +18,8 @@ class ImageTransformer extends TransformerAbstract
     {
         return [
             'cloudinary_id'          => $image->cloudinary_id,
-            'url'          => $image->image_url,
-            'created_at'    => (string) $image->created_at,
+            'url'                    => $image->url,
+            'created_at'             => (string) $image->created_at,
         ];
     }
-
-
 }
