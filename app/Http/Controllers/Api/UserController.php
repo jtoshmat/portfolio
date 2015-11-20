@@ -82,6 +82,11 @@ class UserController extends ApiController
 
     public function updateImage($user_id)
     {
+        $user = User::findFromInput($user_id);
+        if (!$user->canUpdate($this->currentUser)) {
+            return $this->errorInternalError('You are not authorized.');
+        }
+
         $validator = Validator::make(Input::all(), Image::$imageUpdateRules);
 
         if ($validator->passes()) {
@@ -99,6 +104,11 @@ class UserController extends ApiController
 
     public function deleteImage($user_id)
     {
+        $user = User::findFromInput($user_id);
+        if (!$user->canUpdate($this->currentUser)) {
+            return $this->errorInternalError('You are not authorized.');
+        }
+
         $validator = Validator::make(Input::all(), Image::$imageUpdateRules);
         if ($validator->passes()) {
             $user = new User();

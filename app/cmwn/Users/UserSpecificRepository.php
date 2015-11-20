@@ -1,11 +1,12 @@
 <?php
 
 namespace app\cmwn\Users;
+use app\Http\Controllers\Api\ApiController;
 use app\Repositories\SideBarItems;
 use app\User;
 use Illuminate\Support\Facades\Auth;
 
-class UserSpecificRepository
+class UserSpecificRepository extends ApiController
 {
 
     public $tag;
@@ -24,9 +25,9 @@ class UserSpecificRepository
 		$pendingfriends = array();
 		$friendrequests = array();
 		if (Auth::check()) {
-			$acceptedfriends = User::find(Auth::user()->id)->acceptedfriends;
-			$pendingfriends = User::find(Auth::user()->id)->pendingfriends;
-			$friendrequests = User::find(Auth::user()->id)->friendrequests;
+			$acceptedfriends = User::find($this->currentUser->id)->acceptedfriends;
+			$pendingfriends = User::find($this->currentUser->id)->pendingfriends;
+			$friendrequests = User::find($this->currentUser->id)->friendrequests;
 		}
 
 
@@ -37,9 +38,9 @@ class UserSpecificRepository
     public function friendsForApi(){
         $friends = array();
         if (Auth::check()) {
-            $friends['acceptedfriends'] = User::find(Auth::user()->id)->acceptedfriends;
-            $friends['pendingfriends'] = User::find(Auth::user()->id)->pendingfriends;
-            $friends['friendrequests'] = User::find(Auth::user()->id)->friendrequests;
+            $friends['acceptedfriends'] = User::find($this->currentUser->id)->acceptedfriends;
+            $friends['pendingfriends'] = User::find($this->currentUser->id)->pendingfriends;
+            $friends['friendrequests'] = User::find($this->currentUser->id)->friendrequests;
         }
 
         return $friends;

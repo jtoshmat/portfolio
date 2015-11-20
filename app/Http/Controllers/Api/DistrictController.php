@@ -12,7 +12,7 @@ class DistrictController extends ApiController
 {
     public function index()
     {
-        $districts = District::limitToUser(Auth::user())->get();
+        $districts = District::limitToUser($this->currentUser)->get();
 
         return $this->respondWithCollection($districts, new DistrictTransformer());
     }
@@ -26,7 +26,7 @@ class DistrictController extends ApiController
         }
 
         // make sure that the user is authorized to view this district.
-        if (!$district->isUser(Auth::user())) {
+        if (!$district->isUser($this->currentUser)) {
             return $this->errorUnauthorized();
         }
 
@@ -42,7 +42,7 @@ class DistrictController extends ApiController
         }
 
         // make sure that the user is authorized to update this district.
-        if (!$district->canUpdate(Auth::user())) {
+        if (!$district->canUpdate($this->currentUser)) {
             return $this->errorUnauthorized();
         }
 

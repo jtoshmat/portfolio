@@ -14,7 +14,7 @@ class GroupController extends ApiController
 {
     public function index()
     {
-        $groups = Group::limitToUser(Auth::user())->get();
+        $groups = Group::limitToUser($this->currentUser)->get();
 
         return $this->respondWithCollection($groups, new GroupTransformer());
     }
@@ -28,7 +28,7 @@ class GroupController extends ApiController
         }
 
         // make sure that the user is authorized to view this group.
-        if (!$group->isUser(Auth::user())) {
+        if (!$group->isUser($this->currentUser)) {
             return $this->errorUnauthorized();
         }
 
@@ -44,7 +44,7 @@ class GroupController extends ApiController
         }
 
         // make sure that the user is authorized to update this group.
-        if (!$group->canUpdate(Auth::user())) {
+        if (!$group->canUpdate($this->currentUser)) {
             return $this->errorUnauthorized();
         }
 

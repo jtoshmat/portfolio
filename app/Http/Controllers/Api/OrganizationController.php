@@ -12,7 +12,7 @@ class OrganizationController extends ApiController
 {
     public function index()
     {
-        $organizations = Organization::limitToUser(Auth::user())->get();
+        $organizations = Organization::limitToUser($this->currentUser)->get();
 
         return $this->respondWithCollection($organizations, new OrganizationTransformer());
     }
@@ -25,7 +25,7 @@ class OrganizationController extends ApiController
             return $this->errorNotFound('Organization not found');
         }
 
-        if ($organization->isUser(Auth::user())) {
+        if ($organization->isUser($this->currentUser)) {
             return $this->respondWithItem($organization, new OrganizationTransformer());
         } else {
             return $this->errorUnauthorized();
@@ -41,7 +41,7 @@ class OrganizationController extends ApiController
         }
 
         // make sure that the user is authorized to update this organization.
-        if (!$organization->canUpdate(Auth::user())) {
+        if (!$organization->canUpdate($this->currentUser)) {
             return $this->errorUnauthorized();
         }
 
