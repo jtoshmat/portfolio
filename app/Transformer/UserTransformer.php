@@ -21,7 +21,8 @@ class UserTransformer extends TransformerAbstract
         'pendingfriends',
         'friendrequests',
         'organizations',
-        'games'
+        'games',
+        'flips'
     ];
 
     /**
@@ -159,7 +160,18 @@ class UserTransformer extends TransformerAbstract
      */
     public function includeGames(User $user)
     {
-        $game = $user->games;
-        return $this->collection($game, new GameTransformer());
+        $games = $user->games;
+        return $this->collection($games, new GameTransformer());
+    }
+
+    /**
+     * Embed Flip.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeFlips(User $user)
+    {
+        $flips = $user->flips;
+        return $this->collection($flips, new FlipTransformer());
     }
 }

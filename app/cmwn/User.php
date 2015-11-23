@@ -130,6 +130,11 @@ class User extends Model implements
         return $this->morphedByMany('app\Game', 'roleable')->withPivot('role_id');
     }
 
+    public function flips()
+    {
+        return $this->morphedByMany('app\Flip', 'roleable')->withPivot('role_id');
+    }
+
     public static function findFromInput($input)
     {
         if ($input ==  'me') {

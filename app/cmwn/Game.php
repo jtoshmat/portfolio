@@ -19,10 +19,7 @@ class Game extends Model
         //'role[]'=>'required|regex:/^[0-9]?$/',
     );
 
-    public function flips()
-    {
-        return $this->morphedByMany('app\Flip', 'roleable')->withPivot('role_id');
-    }
+
 
     public function updateParameters($parameters)
     {
