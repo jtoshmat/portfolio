@@ -15,18 +15,30 @@ class SideBarItems
 				$this->role[] = $rol->title;
 			}
 		}
-	}
+
+        if(Auth::user()->type){
+            array_push($this->role, 'site_admin');
+        }
+    }
 
 	public function getAll()
     {
+	    $tags['site_admin'] = array(
+			    'Members' => '/users/members',
+			    'Roles' => '/users/members',
+			    'Ditricts' => '/districts',
+			    'Organizations' => '/organizations',
+			    'Groups' => '/groups',
+			    'Upload CSV' => '/admin/importfiles',
+			    'Cloudinary Image' => '/admin/playground',
+	    );
+
 	    $tags['super_admin'] = array(
 		    'Members' => '/users/members',
 		    'Roles' => '/users/members',
 		    'Ditricts' => '/districts',
 		    'Organizations' => '/organizations',
 		    'Groups' => '/groups',
-		    'Upload CSV' => '/admin/importfiles',
-		    'Cloudinary Image' => '/admin/playground',
 	    );
 
 	    $tags['admin'] = array(
