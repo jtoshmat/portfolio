@@ -9,7 +9,27 @@ use app\cmwn\Traits\RoleTrait;
 
 class Flip extends Model
 {
-
+    use RoleTrait;
+    use SoftDeletes;
     protected $table = 'flips';
+
+    public static $flipUpdateRules = array(
+        'title' => 'required | string',
+        //'role[]'=>'required',
+        //'role[]'=>'required|regex:/^[0-9]?$/',
+    );
+
+    public function updateParameters($parameters)
+    {
+        if (isset($parameters['title'])) {
+            $this->title = $parameters['title'];
+        }
+
+        if (isset($parameters['description'])) {
+            $this->description = $parameters['description'];
+        }
+
+        return $this->save();
+    }
 
 }

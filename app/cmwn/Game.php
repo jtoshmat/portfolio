@@ -9,7 +9,27 @@ use app\cmwn\Traits\RoleTrait;
 
 class Game extends Model
 {
-
+    use RoleTrait;
+    use SoftDeletes;
     protected $table = 'games';
+
+    public static $gameUpdateRules = array(
+        'title' => 'required | string',
+        //'role[]'=>'required',
+        //'role[]'=>'required|regex:/^[0-9]?$/',
+    );
+
+    public function updateParameters($parameters)
+    {
+        if (isset($parameters['title'])) {
+            $this->title = $parameters['title'];
+        }
+
+        if (isset($parameters['description'])) {
+            $this->description = $parameters['description'];
+        }
+
+        return $this->save();
+    }
 
 }
