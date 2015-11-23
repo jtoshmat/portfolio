@@ -19,7 +19,15 @@ class Game extends Model
         //'role[]'=>'required|regex:/^[0-9]?$/',
     );
 
+    public function flips()
+    {
+        return $this->belongsToMany('app\Game', 'game_flips', 'game_id', 'flip_id');
+    }
 
+    public function users()
+    {
+        return $this->belongsToMany('app\User');
+    }
 
     public function updateParameters($parameters)
     {

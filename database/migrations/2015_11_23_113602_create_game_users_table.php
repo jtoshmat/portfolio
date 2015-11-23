@@ -12,13 +12,13 @@ class CreateGameUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('game_users', function (Blueprint $table) {
+        Schema::create('game_user', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->unsigned();
-            $table->unsignedInteger('flip_id')->unsigned();
+            $table->unsignedInteger('game_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('data');
-            $table->boolean('completed');
+            $table->timestamp('completed');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateGameUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('game_users');
+        Schema::dropIfExists('game_user');
     }
 }

@@ -12,7 +12,7 @@ class CreateFlipUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('flip_users', function (Blueprint $table) {
+        Schema::create('flip_user', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->unsigned();
             $table->unsignedInteger('flip_id')->unsigned();
@@ -28,6 +28,6 @@ class CreateFlipUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('flip_users');
+        Schema::dropIfExists('flip_user');
     }
 }

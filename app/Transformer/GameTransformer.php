@@ -3,12 +3,13 @@
 namespace app\Transformer;
 
 use app\Game;
+use app\User;
 use League\Fractal\TransformerAbstract;
 
 class GameTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        //'users',
+        'users',
 
     ];
 
@@ -25,6 +26,17 @@ class GameTransformer extends TransformerAbstract
             'description'     => $game->description,
             'created_at'      => (string) $game->created_at,
         ];
+    }
+
+    /**
+     * Embed User.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeUsers(Game $game)
+    {
+        $users = $game->users;
+        return $this->collection($users, new UserTransformer());
     }
 
 }

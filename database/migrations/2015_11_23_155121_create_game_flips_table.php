@@ -12,7 +12,7 @@ class CreateGameFlipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('game_flips', function (Blueprint $table) {
+        Schema::create('game_flip', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('game_id')->unsigned();
             $table->unsignedInteger('flip_id')->unsigned();
@@ -29,6 +29,6 @@ class CreateGameFlipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('game_flips');
+        Schema::dropIfExists('game_flip');
     }
 }

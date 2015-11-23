@@ -6,12 +6,16 @@ use app\Transformer\GameTransformer;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use app\User;
 
 class GameController extends ApiController
 {
     public function index(){
-        $games = Game::limitToUser($this->currentUser)->get();
-        return $this->respondWithCollection($games, new GameTransformer());
+        $games = Game::limitToUser($this->currentUser);
+        if (!$games) {
+            return $this->errorNotFound('Game not found');
+        }
+        return $this->respondWithCollection($games->get(), new GameTransformer());
     }
 
     public function show($id){
@@ -23,6 +27,7 @@ class GameController extends ApiController
     }
 
     public function update($id){
+
         $game = Game::find($id);
 
         if (!$game) {

@@ -19,6 +19,16 @@ class Flip extends Model
         //'role[]'=>'required|regex:/^[0-9]?$/',
     );
 
+    public function games()
+    {
+        return $this->belongsToMany('app\Flip', 'game_flips', 'game_id', 'flip_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('app\User');
+    }
+
     public function updateParameters($parameters)
     {
         if (isset($parameters['title'])) {

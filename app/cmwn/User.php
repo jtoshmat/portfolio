@@ -127,7 +127,7 @@ class User extends Model implements
 
     public function games()
     {
-        return $this->morphedByMany('app\Game', 'roleable')->withPivot('role_id');
+        return $this->belongsToMany('app\Game');
     }
 
     public function flips()

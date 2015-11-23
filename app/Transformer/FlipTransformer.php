@@ -8,7 +8,7 @@ use League\Fractal\TransformerAbstract;
 class FlipTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        //'users',
+        'users',
 
     ];
 
@@ -25,6 +25,17 @@ class FlipTransformer extends TransformerAbstract
             'description'     => $flip->description,
             'created_at'      => (string) $flip->created_at,
         ];
+    }
+
+    /**
+     * Embed User.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeUsers(Flip $flip)
+    {
+        $users = $flip->users;
+        return $this->collection($users, new UserTransformer());
     }
 
 }
