@@ -125,6 +125,11 @@ class User extends Model implements
     {
     }
 
+    public function games()
+    {
+        return $this->morphedByMany('app\Game', 'roleable')->withPivot('role_id');
+    }
+
     public static function findFromInput($input)
     {
         if ($input ==  'me') {

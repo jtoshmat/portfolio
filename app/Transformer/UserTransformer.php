@@ -20,7 +20,8 @@ class UserTransformer extends TransformerAbstract
         'blockedfriends',
         'pendingfriends',
         'friendrequests',
-        'organizations'
+        'organizations',
+        'games'
     ];
 
     /**
@@ -149,5 +150,16 @@ class UserTransformer extends TransformerAbstract
     {
         $image = $user->image;
         return $this->item($image, new ImageTransformer());
+    }
+
+    /**
+     * Embed Game.
+     *
+     * @return League\Fractal\Resource\Collection
+     */
+    public function includeGames(User $user)
+    {
+        $game = $user->games;
+        return $this->collection($game, new GameTransformer());
     }
 }
