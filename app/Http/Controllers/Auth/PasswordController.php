@@ -35,12 +35,11 @@ class PasswordController extends ApiController
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        //$this->middleware('guest'); removed this since reset is for nonlogged on users.
     }
 
     public function reset(Request $request)
     {
-
         $this->validate($request, ['email' => 'required|email']);
         $response = Password::sendResetLink($request->only('email'), function (Message $message) {
             $message->subject($this->getEmailSubject());

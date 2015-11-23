@@ -19,6 +19,8 @@ class UserTableSeeder extends Seeder
         DB::table('groups')->delete();
         DB::table('child_guardian')->delete();
         DB::table('roleables')->delete();
+        DB::table('games')->delete();
+        DB::table('flips')->delete();
 
         for ($i = 1; $i <= 5; ++$i) {
             $districts[$i] = District::create(array(

@@ -27,7 +27,7 @@ return [
     */
 
 
-    'url' => 'http://cmwn',
+    'url' => 'http://api.cmwn.localhost',
 
 
     /*

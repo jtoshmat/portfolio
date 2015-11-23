@@ -10,9 +10,11 @@ class UserSpecificRepository extends ApiController
 {
 
     public $tag;
+    protected $currentUser;
 
 	public function __construct(SideBarItems $tag){
 		$this->tag = $tag;
+        $this->currentUser = Auth::user();
 	}
 
 	public function getApiSideBar(){
@@ -20,7 +22,6 @@ class UserSpecificRepository extends ApiController
 	}
 
 	public function compose($view){
-
 		$acceptedfriends = array();
 		$pendingfriends = array();
 		$friendrequests = array();

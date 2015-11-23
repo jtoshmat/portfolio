@@ -264,3 +264,11 @@ git update-index --no-assume-unchanged path/to/file
 public function abc(Type ...$value) {}
 http://php.net/manual/en/functions.arguments.php#functions.variable-arg-list
 
+
+#if php artisan db:seed generates an error
+[ReflectionException]
+  Class GameTableSeeder does not exist
+
+Solution:
+run => composer dump-autoload
+

@@ -157,14 +157,12 @@ class User extends Model implements
                  UsersRelationshipHandler::isUserInSameEntity($user, $this, 'groups'));
     }
 
-    public function entities($entity, ...$role_ids)
+    public function entities($entity, $role_ids) //@TODO fix this bug
     {
         $result = $this->$entity();
-
         $result = $result->where(function ($query) use ($role_ids) {
             $query = $query->whereIn('role_id', $role_ids);
         });
-
         return $result;
     }
 

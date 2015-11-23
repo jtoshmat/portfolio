@@ -70,6 +70,19 @@ Route::group(['middleware' => 'auth'], function ($router) {
     Route::get('/roles', 'Api\RoleController@index');
     Route::get('/roles/{id}', 'Api\RoleController@show');
 
+    //Games
+    Route::get('/games', 'Api\GameController@index');
+    Route::get('/games/{id}', 'Api\GameController@show');
+    Route::post('/games/{id}', 'Api\GameController@update');
+    Route::delete('/games/{id}', 'Api\GameController@delete');
+
+    //Flips
+    Route::get('/flips', 'Api\FlipController@index');
+    Route::get('/flips/{id}', 'Api\FlipController@show');
+    Route::post('/flips/{id}', 'Api\FlipController@update');
+    Route::delete('/flips/{id}', 'Api\FlipController@delete');
+
+
     //Admin tasks: Import Excel files and update the DB.
     Route::post('/admin/importexcel', ['uses' => 'Api\MasterController@importExcel']);
 
