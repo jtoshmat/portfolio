@@ -28,6 +28,10 @@ class GameController extends ApiController
 
     public function update($id){
 
+        if (!$this->currentUser->isSiteAdmin()){
+            return $this->errorUnauthorized();
+        }
+
         $game = Game::find($id);
 
         if (!$game) {

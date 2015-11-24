@@ -23,6 +23,11 @@ class FlipController extends ApiController
     }
 
     public function update($id){
+
+        if (!$this->currentUser->isSiteAdmin()){
+            return $this->errorUnauthorized();
+        }
+
         $flip = Flip::find($id);
 
         if (!$flip) {
