@@ -40,7 +40,7 @@ class UserController extends ApiController
     {
         $user = User::findFromInput($userId);
 
-        if (!$user->canUpdate($this->currentUser)) {
+            if (!$user->canUpdate($this->currentUser)) {
             return $this->errorInternalError('You are not authorized.');
         }
 
