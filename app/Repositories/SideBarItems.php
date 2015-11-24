@@ -15,9 +15,11 @@ class SideBarItems
 				$this->role[] = $rol->title;
 			}
 		}
-
-        if(Auth::user()->type){
-            array_push($this->role, 'site_admin');
+		if (Auth::check()) {
+            if (Auth::user()->type==1) {
+                unset($this->role);
+                $this->role[] = 'site_admin';
+            }
         }
     }
 
