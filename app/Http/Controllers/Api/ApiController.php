@@ -13,11 +13,12 @@ use Illuminate\Support\Facades\Auth;
 class ApiController extends Controller
 {
     protected $statusCode = 200;
-    const CODE_WRONG_ARGS = 'GEN-FUBARGS';
-    const CODE_NOT_FOUND = 'GEN-LIKETHEWIND';
-    const CODE_INTERNAL_ERROR = 'GEN-AAAGGH';
-    const CODE_UNAUTHORIZED = 'GEN-MAYBGTFO';
-    const CODE_FORBIDDEN = 'GEN-GTFO';
+    const CODE_WRONG_ARGS = 'WRONG-ARGS';
+    const CODE_NOT_FOUND = 'NOT-FOUND';
+    const CODE_INTERNAL_ERROR = 'INTERNAL-ERROR';
+    const CODE_UNAUTHORIZED = 'UNAUTHORIZED';
+    const CODE_FORBIDDEN = 'FORBIDDEN';
+
 
     public function __construct(Manager $fractal)
     {

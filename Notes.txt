@@ -272,3 +272,22 @@ http://php.net/manual/en/functions.arguments.php#functions.variable-arg-list
 Solution:
 run => composer dump-autoload
 
+#######################################
+To run locally cmwn-front
+Pull down the code from the repo
+run the nmp install
+then
+gulp
+
+in the directory
+run python -m SimpleHTTPServer 80
+
+
+#Front end
+to change to local env
+export APP_API_URL=http://api.cmwn.localhost/
+
+restart the frontend
+sudo gulp
+
+http://frontend or localhost

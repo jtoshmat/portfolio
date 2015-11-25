@@ -28,7 +28,7 @@ class OrganizationController extends ApiController
         if ($organization->isUser($this->currentUser)) {
             return $this->respondWithItem($organization, new OrganizationTransformer());
         } else {
-            return $this->errorUnauthorized();
+            return $this->errorForbidden();
         }
     }
 
