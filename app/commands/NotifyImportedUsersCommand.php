@@ -25,6 +25,8 @@ class NotifyImportedUsersCommand extends Command {
 	protected $emails_sent = 0;
 
 	protected $emails_skipped = 0;
+
+	protected $batchSize;
 	/**
 	 * Create a new command instance.
 	 *
@@ -44,12 +46,18 @@ class NotifyImportedUsersCommand extends Command {
 	 */
 	public function fire()
 	{
+		$this->batchSize = intval($this->argument('batch-size'));
+		$this->info('Batch size is ' . $this->batchSize);
 		$this->info('looking for users...');
 
-		$usersToNotify = User::where('imported', '=', 1)->get();
+		$usersToNotify = User::where('user.imported', '=', 1)
+			                 ->leftJoin('email_logs', 'email_logs.user_id', '=', 'user.id')
+						     ->whereNull('email_logs.id')
+						     ->get(['user.id', 'user.username', 'user.email', 'user.imported']);
 		$this->info("Found ".$usersToNotify->count(). " users!");
 
-		foreach($usersToNotify as $user) {
+		$batchedUsers = $usersToNotify->take($this->batchSize);
+		foreach($batchedUsers as $user) {
 			try {
 				$log = EmailLog::where('user_id', '=', $user->id)
 					           ->where('type', '=', 'email.import.notification')
@@ -71,12 +79,12 @@ class NotifyImportedUsersCommand extends Command {
 	 *
 	 * @return array
 	 */
-//	protected function getArguments()
-//	{
-//		return array(
-//			array('example', InputArgument::REQUIRED, 'An example argument.'),
-//		);
-//	}
+	protected function getArguments()
+	{
+		return array(
+			array('batch-size', InputArgument::OPTIONAL, 'The batch size of emails to send.', 50),
+		);
+	}
 //
 //	/**
 //	 * Get the console command options.
