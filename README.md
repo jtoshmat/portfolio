@@ -12,7 +12,7 @@ My sample works, click on - View all of README.md
 <br />
 Company: <strong> Ginasink. Inc.</strong> <br />
 Project:  Educational portal for kids (Facebook like).<br />
-Technical details: LAMP, PHP 5x, MySQL, Laravel, Vagrant, Homestead, Javascript, CSS3, Jquery, Curl, API and more<br />
+Technical details: LAMP, PHP 5x, MySQL, Laravel 5, Vagrant, Homestead, Javascript, CSS3, Jquery, Curl, API and more<br />
 Sample code URL: https://github.com/jtoshmat/portfolio/tree/laravel <br />
 Username: jontoshmatov Password: business
 Visibility: Public<br />
@@ -24,7 +24,7 @@ Role: Lead Backend Platform Engineer<br />
 <br />
 Company: <strong> Blue State Digital.</strong> <br />
 Project:  Packers Everywhere by NFL Green Packers team.<br />
-Technical details: LAMP, PHP 5x, MySQL, Laravel, Vagrant, Homestead, Javascript, CSS3, Jquery, Curl, API and more<br />
+Technical details: LAMP, PHP 5x, MySQL, Laravel 4, Vagrant, Homestead, Javascript, CSS3, Jquery, Curl, API and more<br />
 URL: http://bars.packerseverywhere.com <br />
 Sample code URL: https://github.com/jtoshmat/portfolio/tree/greenbaypackers <br />
 Username: jontoshmatov Password: business
