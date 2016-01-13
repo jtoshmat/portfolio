@@ -7,7 +7,6 @@ Zend Certified profile - http://www.zend.com/en/yellow-pages/ZEND019221
 <br />
 My sample works, click on - View all of README.md 
 <br />
-
 *******
 <br />
 Company: <strong> Ginasink. Inc.</strong> <br />
@@ -18,8 +17,6 @@ Username: jontoshmatov Password: business
 Visibility: Public<br />
 Role: Lead Backend Platform Engineer<br />
 <br />
-*******
-
 *******
 <br />
 Company: <strong> Blue State Digital.</strong> <br />
@@ -34,9 +31,6 @@ Visibility: Public<br />
 Role: Lead Developer<br />
 <br />
 *******
-
-
-*******
 <br />
 Company: <strong> American Family Insurance</strong> <br />
 Project: Quote Request Form<br />
@@ -49,7 +43,6 @@ Visibility: Public<br />
 Role: Lead Developer<br />
 <br />
 *******
-
 Company: <strong>Hangit</strong><br />
 Project: The HangIt™ Platform enables app publishers and marketers to electronically “hang” messages and marketing
 anywhere and have their target customers notified on their smartphones when they get there. HangIt was founded on the principle that mobile location on smartphones changes everything.<br />
