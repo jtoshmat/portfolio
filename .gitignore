@@ -5,3 +5,11 @@ node_modules
 .idea
 bootstrap/compiled.php
 /app/config/local/
+tmp/*
+[Cc]onfig/core.php
+[Cc]onfig/database.php
+app/tmp/*
+app/[Cc]onfig/core.php
+app/[Cc]onfig/database.php
+!empty
+

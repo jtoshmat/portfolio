@@ -1,0 +1,19 @@
+
+
+CD "C:\yourfolder"
+
+ECHO Copying all files from C:\yourfolder TO C:\anotherfolder\backup >> backup/log.txt
+
+ECHO You are as good as your last backup - Jon Toshmatov >> backup/log.txt
+
+echo On %date:~-10,2%/%date:~-7,2%/%date:~-4,4% at %time:~0,2%:%time:~3,2%:%time:~6,2% >> backup/log.txt
+
+XCOPY "MYPICFOLDER" backup\ /c /d /e /h /i /k /q /r /s /x /y >> backup/log.txt
+
+ECHO By %USERNAME% on %COMPUTERNAME% >> backup/log.txt
+
+ECHO -------------------------------------------------------------------------------------------  >> backup/log.txt
+
+EXIT
+
+CMD /K
