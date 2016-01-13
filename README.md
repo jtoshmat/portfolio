@@ -26,6 +26,7 @@ Company: <strong> Blue State Digital.</strong> <br />
 Project:  Packers Everywhere by NFL Green Packers team.<br />
 Technical details: LAMP, PHP 5x, MySQL, Laravel, Vagrant, Homestead, Javascript, CSS3, Jquery, Curl, API and more<br />
 URL: http://bars.packerseverywhere.com <br />
+Sample code URL: https://github.com/jtoshmat/portfolio/tree/greenbaypackers <br />
 Username: jontoshmatov Password: business
 URL for Javascript: PackersEverywhere branch <br />
 URL for CSS: PackersEverywhere branch<br />
