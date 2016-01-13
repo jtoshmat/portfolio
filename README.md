@@ -39,6 +39,7 @@ URL: https://qrf.amfam.com/<br />
 URL: http://jontoshmatov.com/portfolio/amfam/intro<br />
 URL for Javascript: https://qrf.amfam.com/js/main.js<br />
 URL for CSS: https://qrf.amfam.com/css/main.css<br />
+URL for slides: https://github.com/jtoshmat/portfolio/tree/amfam/Slides/AmericanFamilyInsurance <br />
 Visibility: Public<br />
 Role: Lead Developer<br />
 <br />
