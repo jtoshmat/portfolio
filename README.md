@@ -8,6 +8,17 @@ Zend Certified profile - http://www.zend.com/en/yellow-pages/ZEND019221
 My sample works, click on - View all of README.md 
 <br />
 
+*******
+<br />
+Company: <strong> Ginasink. Inc.</strong> <br />
+Project:  Educational portal for kids (Facebook like).<br />
+Technical details: LAMP, PHP 5x, MySQL, Laravel, Vagrant, Homestead, Javascript, CSS3, Jquery, Curl, API and more<br />
+Sample code URL: https://github.com/jtoshmat/portfolio/tree/laravel <br />
+Username: jontoshmatov Password: business
+Visibility: Public<br />
+Role: Lead Backend Platform Engineer<br />
+<br />
+*******
 
 *******
 <br />
