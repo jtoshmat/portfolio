@@ -20,7 +20,7 @@ Role: Lead Backend Platform Engineer<br />
 *******
 <br />
 Company: <strong> Blue State Digital.</strong> <br />
-Project:  Packers Everywhere by NFL Green Packers team.<br />
+Project:  Packers Everywhere by NFL Green Bay Packers team.<br />
 Technical details: LAMP, PHP 5x, MySQL, Laravel 4, Vagrant, Homestead, Javascript, CSS3, Jquery, Curl, API and more<br />
 URL: http://bars.packerseverywhere.com <br />
 Sample code URL: https://github.com/jtoshmat/portfolio/tree/greenbaypackers <br />
