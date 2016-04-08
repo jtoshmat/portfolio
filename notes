@@ -1,0 +1,3 @@
+   $query = DB::getQueryLog();
+                    $lastQuery = end($query);
+                    AdapterLog::log($lastQuery);
